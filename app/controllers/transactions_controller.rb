@@ -52,7 +52,7 @@ day = params[:day] || @current_time.day #9
 #      aasdasd
 #    end
     
-   @transactions = Transaction.where(:date => @start_date..@end_date).order('date ASC')
+   @transactions = Transaction.where(:date => @start_date..@end_date).order('date ASC ,created_at ASC')
 
     # if params[:page] == 1
 #        prev_month = params[:page].to_i

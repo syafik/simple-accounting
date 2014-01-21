@@ -1,6 +1,4 @@
 SimpleAccounting::Application.routes.draw do
-  resources :tests
-
   devise_for :users
  
 
