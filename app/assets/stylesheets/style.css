@@ -1,0 +1,159 @@
+/* 
+    Document   : style
+    Created on : Jan 2, 2014, 3:01:36 PM
+    Author     : usman
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    padding-top: 60px;
+}
+.red {
+    color:  red;
+
+}
+.blue {
+    color: blue;
+}
+
+
+
+
+ .navbar-inverse .navbar-inner {
+    background-color: #1B1B1B ;
+    background-image: linear-gradient(to bottom, #222222, #111111);
+    background-repeat: repeat-x  ;
+    border-color: #252525;
+}
+
+
+.navbar-harvest .navbar-inner .nav {
+float: right;
+}	
+
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.bro{
+    
+    margin: 0 0 0 25% !important;
+}
+
+.btn-geckoboard {
+background: #222222;
+background-image: none;
+border:none;
+color: #fff;
+letter-spacing: 1px;
+font-weight: 600;
+text-decoration: none ! important;
+text-shadow: none;
+text-transform: uppercase;
+transition: all 0.3s ease-in-out 0s;
+-webkit-transition: all 0.3s ease-in-out 0s;
+}
+
+.btn-geckoboard1 {
+background: #0044CC;
+background-image: #FFFFFF;
+border:none;
+color: #fff;
+letter-spacing: 1px;
+font-weight: 600;
+text-decoration: none ! important;
+text-shadow: none;
+text-transform: uppercase;
+transition: all 0.3s ease-in-out 0s;
+-webkit-transition: all 0.3s ease-in-out 0s;
+}
+
+table tbody tr td.right{
+    text-align: right;
+}
+
+html, body {
+  font: 14px/20px Helvetica, Arial, Verdana, sans-serif;
+}
+
+#myChart {
+  table: border;
+  width: 800px;
+  height: 400px;
+}
+
+.xchart .axis text {
+  fill: #333333;
+  font-size: 12px;
+}
+.xchart .axis .domain {
+  fill: none;
+}
+.xchart .axis .tick {
+  stroke: #333333;
+  stroke-width: 1px;
+}
+.xchart .axisZero line {
+  stroke: #333333;
+  stroke-width: 2px;
+}
+
+.xchart .line {
+  fill: #333333;
+}
+
+.xchart .color1 .line {
+  stroke: #333333;
+}
+.xchart .color1 rect {
+  fill: #4da944;
+}
+.xchart .color1 .fill {
+  fill: rgba(77, 169, 68, 0.1);
+}
+.xchart .color1 circle {
+  fill: #4da944;
+}
+.xchart .color1.comp .line {
+  stroke: #9dd597;
+}
+.xchart .color1.comp rect {
+  fill: #9dd597;
+}
+.xchart .color1.comp .fill {
+  display: none;
+}
+.xchart .color1.comp circle {
+  fill: #9dd597;
+}
+.xchart .color0 .line {
+  stroke: #3880aa;
+}
+.xchart .color0 rect {
+  fill: #3880aa;
+}
+.xchart .color0 .fill {
+  fill: rgba(56, 128, 170, 0.1);
+}
+.xchart .color0 circle {
+  fill: #3880aa;
+}
+.xchart .color0.comp .line {
+  stroke: #89bbd8;
+}
+.xchart .color0.comp rect {
+  fill: #89bbd8;
+}
+.xchart .color0.comp .fill {
+  display: none;
+}
+.xchart .color0.comp circle {
+  fill: #89bbd8;
+}

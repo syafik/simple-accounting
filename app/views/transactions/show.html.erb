@@ -1,0 +1,16 @@
+<p>
+  <strong>date:</strong>
+  <%= @transaction.date %>
+</p>
+
+<p>
+  <strong>description:</strong>
+  <%= @transaction.description %>
+</p>
+
+<p>
+  <strong>value:</strong>
+  <%= @transaction.value %>
+</p>
+
+<%= link_to 'Back', transactions_path, :class => "icon-arrow-left"  %>

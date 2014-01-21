@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: simple_accounting_development
+  pool: 5
+  host: localhost
+  username: usman
+  password: usman
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: simple_accounting_test
+  pool: 5
+  host: localhost
+  username: usman
+  password: usman
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: simple_accounting_production
+  pool: 5
+  host: localhost
+  username: usman
+  password: usman

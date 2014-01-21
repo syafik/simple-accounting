@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 
+  description: MyString
+  value: 1
+  is_debit: false
+
+two:
+  date: 
+  description: MyString
+  value: 1
+  is_debit: false

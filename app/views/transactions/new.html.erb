@@ -1,0 +1,35 @@
+<h2> Debit </h2>
+<%= form_for @debit, url: transactions_path do |f| %>
+  <% @debit.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+  <p>
+    <%= f.label :date %>
+    <%= f.text_field :date %>
+  </p>
+
+  <p>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.label :value %>
+    <%= f.text_field :value %>
+  </p>
+
+  <p>
+    <%= f.submit value="Debit" %>
+  </p>
+<% end %>
+
+
+<script>
+  $(document).ready(function(){
+    $('#transaction_date').datepicker({
+      format: 'dd/MM/yyyy'
+    });
+  });
+</script>
+
+<%= link_to 'Back', transactions_path, :class => "icon-arrow-left"  %>

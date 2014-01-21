@@ -1,0 +1,84 @@
+<script type="text/javascript" src="/assets/xcharts.js"></script>
+<script type="text/javascript" src="/assets/d3.min.js"></script>
+<script type="text/javascript" src="/assets/jquery.formatCurrency-1.4.0.min.js"></script>
+
+<%= form_tag reporting_reports_path, method: :get do %>
+
+  <p>Pilih bulan: <%= select_month(Date.today)%>  </p>
+
+  <p>Pilih tahun: <%= select_year(Date.today, :start_year => Time.now.year, :end_year => Time.now.year - 2, :field_name => 'grad_year') %></p>
+
+
+  <p>
+    <%= submit_tag "Submit", :class => "btn btn-primary" %>
+  </p>
+
+<% end %>
+
+<% if @is_report %>
+  <h5> Report: <%= @date %> - <%=  params[:date][:grad_year] %> </h5>
+  <figure id="myChart"></figure>
+
+  <script>
+    var data = {
+      "main": [
+        {
+                           
+          "label": "Foo",
+          "data": [ {
+              "x": "pendapatan",
+              "y": <%= @transactions.debits.sum(:value) %>
+            },
+            {
+              "x": "Pengeularan",
+              "y": <%= @transactions.credits.sum(:value) %>
+            }
+          ],
+          "className": ".foo"
+        }
+      ],
+      "xScale": "ordinal",
+      "yScale": "linear"
+    },
+    chart = new xChart('bar', data, '#myChart');
+  </script>
+
+  <style>
+    .xchart .color0 rect:first-child{
+      fill: red !important
+    }
+  </style>
+
+  <table>
+    <h5> KESIMPULAN : </h5>
+    <p> <%  if @transactions.debits.sum(:value) >= @transactions.credits.sum(:value) %>
+      Mendapat keuntungan: <span class="blue"><%=  number_to_currency(@profit, unit: "Rp. ")%></span>
+      <%  else %>
+      Mendapat kerugian:<span class="red"> <%=  number_to_currency(@profit, unit: "Rp. ") %> </span> </p> <%  end %>
+    <p> Total Pendapatan:  <span class="blue"><%= number_to_currency(@transactions.debits.sum(:value), unit: "Rp. ") %></span> </p>
+    <p> Total Pengeluaran:    <span class="red"><%= number_to_currency(@transactions.credits.sum(:value), unit: "Rp. ") %></span> </p>
+
+
+    <script>
+      $(document).ready(function(){
+  <% if params[:date] and params[:date][:month] %>
+        $("#date_month").val("<%=  params[:date][:month] %>")
+  <% end %>
+    })
+    </script>
+
+    <script>
+      $(document).ready(function(){
+  <% if params[:date] and params[:date][:grad_year] %>
+        $("#date_grad_year").val("<%=  params[:date][:grad_year] %>")
+        $(".axisY .tick.major text").each(function( index ) {
+          $(this).formatCurrency({ symbol: "Rp." });
+        });
+        $("g[transform='translate(60,0)']").attr("transform", "translate(100,0)")
+  <% end %>
+    })
+    </script>
+  </table>
+<%  end %>
+
+    
