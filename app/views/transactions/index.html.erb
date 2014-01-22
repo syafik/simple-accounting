@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/assets/jquery.nyroModalcustom.js"></script>
+
 <script type="text/javascript" src="/assets/jquery.nyroModal.custom.min.js"></script>
 
 <h2 style="text-align: center">REKAP TRANSAKSI </h2>
@@ -12,7 +12,7 @@
 
 <tr></tr>
 
-<table class="table table-bordered">
+<table class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
     <th >NO</th>
     <th style="text-align: center" >Date</th>
@@ -62,3 +62,23 @@ $(function() {
   $('.nyroModal').nyroModal();
 });
 </script>
+
+<script>
+  $(document).ready(function(){
+    $("table:first").tablesorter({
+    theme : 'blue',
+    // initialize zebra striping and resizable widgets on the table
+    widgets: [ "zebra", "resizable" ],
+    widgetOptions: {
+      resizable_addLastColumn : true
+    }
+  });
+
+  $("table:last").tablesorter({
+    theme : 'blue',
+    // initialize zebra striping and resizable widgets on the table
+    widgets: [ "zebra", "resizable" ]
+  });
+
+});
+  </script>
