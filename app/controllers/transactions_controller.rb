@@ -114,6 +114,7 @@ day = params[:day] || @current_time.day #9
   
   def credit
     @new_credit = Transaction.new(params[:transaction])
+#Transaction.new({:value => 1, :date => date}) sama dengan params yang diatas
     respond_to do |format|
       if @new_credit.save
         # save! rise error menampilkan error di aplikasi (hanyak untuk development)
@@ -140,13 +141,13 @@ day = params[:day] || @current_time.day #9
 
   respond_to do |format|
       if @transaction.update_attributes(params[:transaction])
-        format.html { redirect_to @transaction, notice: 'Test was successfully updated.' }
+        format.html { redirect_to  transactions_path, notice: 'successfully updated.' }
       else
         format.html { render action: "edit" }
+        
       end
     end
 end
-
 
 def reporting
   Transaction.where("extract(year  from date) = ? AND extract(month from date) = ?", "%Y", "%B")

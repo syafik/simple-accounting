@@ -1,6 +1,7 @@
 class Transaction < ActiveRecord::Base
   attr_accessible :date, :description, :is_debit, :value
-  validates  :date, :description,  :value, presence: true
+  validates  :date, :description,   presence: true
+  validates  :value, presence: true, :numericality => true
 
   scope :debits, where(:is_debit => true)
   scope :credits, where(:is_debit => false)
