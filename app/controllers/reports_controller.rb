@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+
   def index
     @current_time = Date.today
     year = params[:year] || @current_time.year
