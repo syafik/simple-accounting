@@ -20,6 +20,7 @@ class TransactionsController < ApplicationController
     @debit = Transaction.new
     @credit = Transaction.new
     @current_time = Transaction.new
+    render layout: "clean"
   end
 
   def create
@@ -65,10 +66,12 @@ class TransactionsController < ApplicationController
 
   def new_credit
     @new_credit = Transaction.new(params[:transaction])
+    render layout: "clean"
   end
 
   def edit
     @transaction = Transaction.find(params[:id])
+    render layout: "clean"
   end
 
  def update

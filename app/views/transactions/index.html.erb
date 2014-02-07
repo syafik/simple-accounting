@@ -35,10 +35,10 @@
 	<td class="right"><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
 	<td class="right"><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
 	<td>
-		<span class="pull-right">
-		  <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_transaction_path(transaction), :class => "nyroModal btn btn-success" %>
-		  <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, transaction, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-		</span>
+	  <span class="pull-right">
+		<%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_transaction_path(transaction), :class => "nyroModal btn btn-success" %>
+		<%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, transaction, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+	  </span>
 	</td>
 	<% counter += 1 # *counter = counter + 1%>
 	</tr>

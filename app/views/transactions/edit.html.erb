@@ -19,7 +19,8 @@
   </p>
 
   <p>
-    <%= f.submit value="Submit" %>
+    <%= f.submit value="Submit", :class => "btn btn-primary" %>
+	<%= link_to 'Back', transactions_path, :class => "btn"  %>
   </p>
 <% end %>
 
@@ -31,5 +32,3 @@
     });
   });
 </script>
-
-<%= link_to 'Back', transactions_path, :class => "icon-arrow-left"  %>

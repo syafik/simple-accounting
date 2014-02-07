@@ -85,8 +85,8 @@ html, body {
 
 #myChart {
   table: border;
-  width: 800px;
-  height: 400px;
+  height: 600px;
+  margin: auto;
 }
 
 .xchart .axis text {
@@ -156,4 +156,10 @@ html, body {
 }
 .xchart .color0.comp circle {
   fill: #89bbd8;
+}
+#footer{height: 60px;}
+.ml0{margin-left:0px !important;}
+
+.xchart .color0 rect:first-child{
+    fill: red !important
 }
