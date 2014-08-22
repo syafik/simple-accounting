@@ -1,0 +1,71 @@
+<%= form_for(@allowance) do |f| %>
+  <% if @allowance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@allowance.errors.count, "error") %> prohibited this allowance from being saved:</h2>
+
+      <ul>
+      <% @allowance.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <table>
+      <tr>
+        <td>
+          Karyawan
+        </td>
+        <td>
+          <%= f.select :user_id, options_for_select(@users) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Kategori
+        </td>
+        <td>
+           <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories), :id=>'allowance_categories') %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Kategori
+        </td>
+        <td>
+          <%= f.select :allowance_sub_category_id, options_for_select(@allowance_sub_categories)%>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Maksimum Hari
+        </td>
+        <td>
+          <%= f.number_field :max_day%>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Besar Dana
+        </td>
+        <td>
+          <%= f.number_field :value %>
+        </td>
+      </tr>
+    </table>
+    <%= f.submit nil, :class=>'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('#allowance_categories').change(function(){
+    $.ajax({
+    url: "/allowances/find_sub_categories.js",
+    data: {id: $(this).val()}
+    });
+  });
+
+  $('#allowance_categories').change();
+</script>
+

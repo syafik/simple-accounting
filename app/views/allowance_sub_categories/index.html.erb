@@ -1,0 +1,42 @@
+<h2 class="text-center">NAHLO</h2>
+
+<table class="table tablesorter">
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" > Nama Tunjangan </th>
+    <th style="text-align: center" > Nama Kategori </th>
+    <th style="text-align: center" > Aksi </th>
+
+  </tr>
+  <% name = "a" %>
+  <% @allowance_sub_categories.each do |allowance_sub_category| %>
+  <tr>
+    <%
+      
+      if name != allowance_sub_category.try(:allowance_category).try(:name)
+        name = allowance_sub_category.try(:allowance_category).try(:name)
+        %>
+          <td style="text-align: center"> <%= name %> </td>  
+        <%
+        
+      else
+        %>
+          <td style="text-align: center">  </td>
+        <%
+      end
+    %>
+    
+
+    <td style="text-align: center"> <%= allowance_sub_category.name %> </td>
+
+    <td style="text-align: center"><%= link_to 'Lihat', allowance_sub_category %> | <%= link_to 'Ubah', edit_allowance_sub_category_path(allowance_sub_category) %> | <%= link_to 'Hapus', allowance_sub_category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr> 
+<% end %>
+
+
+</table>
+
+<br />
+<%= link_to 'Buat Kategori', new_allowance_sub_category_path %>
+
+
+

@@ -11,7 +11,56 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106070100) do
+ActiveRecord::Schema.define(:version => 20140822062208) do
+
+  create_table "absents", :force => true do |t|
+    t.date     "date"
+    t.integer  "user_id"
+    t.integer  "categories"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "allowance_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "allowance_sub_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "allowance_category_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "allowance_sub_categories", ["allowance_category_id"], :name => "index_allowance_sub_categories_on_allowance_category_id"
+
+  create_table "allowances", :force => true do |t|
+    t.float    "value"
+    t.integer  "max_day"
+    t.integer  "user_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "allowance_sub_category_id"
+  end
+
+  add_index "allowances", ["allowance_sub_category_id"], :name => "index_allowances_on_allowance_sub_category_id"
+  add_index "allowances", ["user_id"], :name => "index_allowances_on_user_id"
+
+  create_table "claim_transactions", :force => true do |t|
+    t.date     "date_submission"
+    t.date     "approval_date"
+    t.string   "upload"
+    t.boolean  "status"
+    t.text     "description"
+    t.integer  "allowance_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "claim_transactions", ["allowance_id"], :name => "index_claim_transactions_on_allowance_id"
 
   create_table "transactions", :force => true do |t|
     t.datetime "date"

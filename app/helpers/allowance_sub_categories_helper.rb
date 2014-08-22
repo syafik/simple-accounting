@@ -1,0 +1,2 @@
+module AllowanceSubCategoriesHelper
+end

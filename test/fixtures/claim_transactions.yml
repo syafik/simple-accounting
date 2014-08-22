@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_submission: 2014-08-21
+  approval_date: 2014-08-21
+  status: false
+  description: MyText
+  allowance: 
+
+two:
+  date_submission: 2014-08-21
+  approval_date: 2014-08-21
+  status: false
+  description: MyText
+  allowance: 

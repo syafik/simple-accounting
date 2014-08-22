@@ -1,0 +1,20 @@
+<h2 class="text-center">KATEGORI TUNJANGAN</h2>
+<table class="table tablesorter">
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" > Nama Kategori </th>
+    <th style="text-align: center" ></th>
+    
+  </tr>
+
+<% @allowance_categories.each do |allowance_category| %>
+  <tr>
+    <td tyle="text-align: center"> <%= allowance_category.name %></td>
+    
+    <td tyle="text-align: center"><%= link_to 'Lihat', allowance_category, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_allowance_category_path(allowance_category), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance_category, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Buat Kategori Tunjangan', new_allowance_category_path, :class=>'btn btn-primary' %>

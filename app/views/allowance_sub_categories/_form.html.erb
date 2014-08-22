@@ -1,0 +1,36 @@
+<%= form_for(@allowance_sub_category) do |f| %>
+  <% if @allowance_sub_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@allowance_sub_category.errors.count, "error") %> prohibited this allowance_category from being saved:</h2>
+
+      <ul>
+      <% @allowance_sub_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <table>
+      <tr>
+        <td>
+          Tunjangan
+        </td>
+        <td>
+          <%= f.select :allowance_category_id, options_for_select(@allowance_categories)%>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :name %>
+        </td>
+        <td>
+          <%= f.text_field :name , :placeholder=> 'Nama Tunjangan', :class=> 'form-control'%>
+        </td>
+      </tr>
+    </table>
+    <%= f.submit %>
+  </div>
+<% end %>

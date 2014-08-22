@@ -1,0 +1,9 @@
+<h2 class="text-center">KATEGORI TUNJANGAN</h2>
+
+<p>
+  <strong>Nama Kategori:</strong>
+  <%= @allowance_category.name %>
+</p>
+
+<%= link_to 'Ubah', edit_allowance_category_path(@allowance_category), :class=>'btn btn-primary' %> 
+<%= link_to 'Kembali', allowance_categories_path, :class=>'btn btn-primary' %>

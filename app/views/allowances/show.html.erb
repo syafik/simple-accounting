@@ -1,0 +1,31 @@
+<h2 class="text-center">TUNJANGAN</h2>
+
+<table>
+	<tr>
+		<td>Nama Karyawan</td>
+		<td>:</td>
+		<td><%= @user.email %></td>
+	</tr>
+
+	<tr>
+		<td>Jenis Tunjangan</td>
+		<td>:</td>
+		<td><%= @allowance_sub_category.name %></td>
+	</tr>
+
+	<tr>
+		<td>Besar Dana</td>
+		<td>:</td>
+		<td><%= @allowance.value %></td>
+	</tr>
+
+	<tr>
+		<td>Masa Berlaku</td>
+		<td>:</td>
+		<td><%= @allowance.max_day %> (hari)</td>
+	</tr>
+
+
+</table>
+<%= link_to 'Edit', edit_allowance_path(@allowance), :class=>'btn btn-primary' %> |
+<%= link_to 'Back', allowances_path, :class=>'btn btn-primary' %>
