@@ -1,4 +1,8 @@
 SimpleAccounting::Application.routes.draw do
+  resources :overtimes
+
+  resources :salaries
+
   get "allowance_sub_categories/index"
 
   get "allowances/index"

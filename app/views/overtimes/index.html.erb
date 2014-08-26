@@ -1,0 +1,30 @@
+<h2 class="text-center">LEMBUR</h2>
+
+<table class="table tablesorter">
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" > Tanggal </th>
+    <th style="text-align: center" >  User ID </th>
+    <th style="text-align: center" > Lama Lembur </th>
+    <th style="text-align: center" > Keterangan </th>
+    <th style="text-align: center" > Aksi </th>
+  </tr>
+
+<% @overtimes.each do |overtime| %>
+  <tr>
+    <td><%= overtime.date %></td>
+    <td><%= overtime.user_id %></td>
+    <td><%= overtime.long_overtime %></td>
+    <td><%= overtime.description %></td>
+    <td>
+    <span class="pull-right">
+    <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_overtime_path(overtime), :class => "nyroModal btn btn-success" %>
+    <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, overtime, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+    </span>
+  </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Overtime', new_overtime_path, :class=>'btn btn-primary' %>

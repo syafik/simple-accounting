@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @salary.date %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @salary.user_id %>
+</p>
+
+<p>
+  <b>Attendance:</b>
+  <%= @salary.attendance %>
+</p>
+
+<p>
+  <b>Number of absences:</b>
+  <%= @salary.number_of_absences %>
+</p>
+
+<p>
+  <b>Amount of overtime:</b>
+  <%= @salary.amount_of_overtime %>
+</p>
+
+<p>
+  <b>Salary:</b>
+  <%= @salary.salary %>
+</p>
+
+<p>
+  <b>Overtime pay:</b>
+  <%= @salary.overtime_pay %>
+</p>
+
+<%= link_to 'Edit', edit_salary_path(@salary) %> |
+<%= link_to 'Back', salaries_path %>

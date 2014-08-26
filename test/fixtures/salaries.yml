@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2014-08-24
+  user_id: 1
+  attendance: 1
+  number_of_absences: 1
+  amount_of_overtime: 1
+
+two:
+  date: 2014-08-24
+  user_id: 1
+  attendance: 1
+  number_of_absences: 1
+  amount_of_overtime: 1
