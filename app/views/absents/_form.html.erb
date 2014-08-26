@@ -1,0 +1,34 @@
+<%= form_for(@absent) do |f| %>
+  <% if @absent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@absent.errors.count, "error") %> prohibited this absent from being saved:</h2>
+
+      <ul>
+      <% @absent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id, :value => current_user.id %>
+  </div>
+  <div class="field">
+    <%= f.label :categories %><br />
+    <%= f.select :categories, options_for_select([['Alfa',1], ['Masuk',2], ['Izin',3], ['Sakit',4]])%>
+    
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 SimpleAccounting::Application.routes.draw do
+  resources :absents
+
   get "allowance_sub_categories/index"
 
   get "allowances/index"

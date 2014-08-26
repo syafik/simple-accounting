@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @absent.date %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @absent.user_id %>
+</p>
+
+<p>
+  <b>Categories:</b>
+  <%= @absent.categories %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @absent.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_absent_path(@absent) %> |
+<%= link_to 'Back', absents_path %>
