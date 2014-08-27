@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2014-08-24
+  user_id: 1
+  long_overtime: 1
+  description: MyString
+
+two:
+  date: 2014-08-24
+  user_id: 1
+  long_overtime: 1
+  description: MyString

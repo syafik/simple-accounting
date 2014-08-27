@@ -1,0 +1,41 @@
+<h2 class="text-center">GAJI</h2>
+
+<table class="table tablesorter">
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" > Tanggal </th>
+    <th style="text-align: center" >  User ID </th>
+    <th style="text-align: center" > Jumlah Hadir</th>
+    <th style="text-align: center" > Jumlah Absen</th>
+    <th style="text-align: center" > Jumlah Jam Lembur</th>
+    <th style="text-align: center" > Gaji Pokok </th>
+    <th style="text-align: center" > Uang Lembur </th>
+    <th style="text-align: center" > Total Uang Lembur </th>
+    <th style="text-align: center" > Total Gaji </th>
+    <th style="text-align: center" > Aksi </th>
+    
+  </tr>
+
+<% @salaries.each do |salary| %>
+  <tr>
+    <td><%= salary.date %></td>
+    <td><%= salary.user_id %></td>
+    <td><%= salary.attendance %></td>
+    <td><%= salary.number_of_absences %></td>
+    <td><%= salary.amount_of_overtime %></td>
+    <td><%= salary.salary %></td>
+    <td><%= salary.overtime_pay %></td>
+    <td><%= salary.amount_of_overtime * salary.overtime_pay %></td>
+    <td><%= salary.salary + (salary.overtime_pay * salary.amount_of_overtime) %></td>
+    <td>
+      <span class="pull-right">
+        <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
+        <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+      </span>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Buat Gaji', new_salary_path , :class=>'btn btn-primary'%>

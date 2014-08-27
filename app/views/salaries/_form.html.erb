@@ -1,0 +1,48 @@
+<%= form_for(@salary) do |f| %>
+  <% if @salary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@salary.errors.count, "error") %> prohibited this salary from being saved:</h2>
+
+      <ul>
+      <% @salary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id, :value =>current_user.id %>
+  </div>
+  <div class="field">
+    <%= f.label :attendance %><br />
+    <%= f.number_field :attendance %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_absences %><br />
+    <%= f.number_field :number_of_absences %>
+  </div>
+  <div class="field">
+    <%= f.label :amount_of_overtime %><br />
+    <%= f.number_field :amount_of_overtime %>
+  </div>
+  <div class="field">
+    <%= f.label :salary %><br />
+    <%= f.number_field :salary %>
+  </div>
+  <div class="field">
+    <%= f.label :overtime_pay %><br />
+    <%= f.number_field :overtime_pay %>
+  </div>
+
+  
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

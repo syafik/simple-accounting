@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	has_many :allowance
   has_many :absent
   
+  has_many :overtime , dependent: :destroy
+  has_many :salary , dependent: :destroy
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
