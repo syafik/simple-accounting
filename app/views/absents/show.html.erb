@@ -7,7 +7,7 @@
 
 <p>
   <b>User:</b>
-  <%= @absent.user_id %>
+  <%= @absent.try(:user).try(:email)%>
 </p>
 
 <p>

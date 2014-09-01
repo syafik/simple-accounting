@@ -3,11 +3,16 @@ class AbsentsController < ApplicationController
   # GET /absents
   # GET /absents.json
   def index
-    @absents = Absent.all
+    if params[:search]
+      @absents =  Absent.where(categories: params[:search])
+    else 
+      @absents = Absent.order("date desc")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @absents }
+      format.js
     end
   end
 

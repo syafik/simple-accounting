@@ -1,0 +1,35 @@
+
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" >Date</th>
+    <th style="text-align: center" >User</th>
+    <th style="text-align: center" >Categories</th>
+    <th style="text-align: center" >Description</th>
+    <th style="text-align: center" >Action</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% absents.each do |absent| %>
+  <tr class="list-index">
+    <td style="text-align: center" ><%= absent.date %></td>
+    <td style="text-align: center" ><%= absent.try(:user).try(:email) %></td>
+    
+    <% if absent.categories == 1 %>
+     <td style="text-align: center">Masuk</td>
+    <% elsif absent.categories == 2 %>
+      <td style="text-align: center">Alfa</td>
+    <% elsif absent.categories == 3 %>
+      <td style="text-align: center">Izin</td>
+    <% elsif absent.categories == 4 %>
+      <td style="text-align: center">Sakit</td>
+    <%end%>
+    
+    <td style="text-align: center" ><%= absent.description %></td>
+    
+    <td style="text-align: center">
+    <%= link_to 'Show', absent, :class=>'btn btn-info' %>
+    <%= link_to 'Edit', edit_absent_path(absent), :class=>'btn btn-warning' %>
+    <%= link_to 'Destroy', absent, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+    </td>
+  </tr>
+<% end %>

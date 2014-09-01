@@ -15,7 +15,7 @@ SimpleAccounting::Application.routes.draw do
     end
   end
   resources :allowance_sub_categories
-  devise_for :users
+  devise_for :users, controllers: {sessions: :sessions}
 
   resources :transactions, :reports do
     collection do

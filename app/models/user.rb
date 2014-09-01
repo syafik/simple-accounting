@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :allowance_category
 	has_many :allowance
-  has_many :absent
+  has_many :absents
   
   has_many :overtime , dependent: :destroy
   has_many :salary , dependent: :destroy
