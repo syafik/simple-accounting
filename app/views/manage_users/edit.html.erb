@@ -1,0 +1,6 @@
+<h1>Editing user</h1>
+<%= form_for(@manage_user, :url => {action: "update", controllers: "manage_users"}) do |f| %>
+<%= render partial: 'form', locals: {f: f} %>
+<% end %>
+<%= link_to 'Show', manage_user_path(@manage_user) %> |
+<%= link_to 'Back', manage_users_path %>

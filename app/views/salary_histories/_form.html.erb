@@ -1,0 +1,32 @@
+<%= form_for(@salary_history) do |f| %>
+  <% if @salary_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@salary_history.errors.count, "error") %> prohibited this salary from being saved:</h2>
+
+      <ul>
+      <% @salary_history.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id, :value =>current_user.id %>
+  </div>
+  <div class="field">
+    <%= f.label :payment %><br />
+    <%= f.number_field :payment %>
+  </div>
+ 
+  
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

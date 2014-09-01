@@ -1,0 +1,30 @@
+<h2 class="text-center">REKAP GAJI</h2>
+
+<table class="table tablesorter">
+  <tr style="background-color: #222222; color:#fff">
+    <th style="text-align: center" > Tanggal </th>
+    <th style="text-align: center" >  User ID </th>
+    <th style="text-align: center" > Jumlah Pembayaran</th>
+    <th style="text-align: center" > Aksi </th>
+   
+  </tr>
+
+<% @salary_histories.each do |salary_history| %>
+  <tr>
+    <td><%= salary_history.date %></td>
+    <td><%= salary_history.user_id %></td>
+    <td><%= salary_history.payment %></td>
+   
+    <td>
+      <span class="pull-right">
+        <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_history_path(salary_history), :class => "nyroModal btn btn-success" %>
+        <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+      </span>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Buat Rekap Gaji', new_salary_history_path , :class=>'btn btn-primary'%>

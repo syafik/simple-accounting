@@ -1,0 +1,50 @@
+  <% if @manage_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manage_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @manage_user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end if @manage_user %>
+
+<div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :telephone %><br />
+    <%= f.number_field :telephone %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.number_field :address %>
+  </div>
+  
+  <br>
+  <div class="field">
+    <%= f.label :salary %><br />
+    <%= f.number_field :salary %>
+  </div>
+  <div class="field">
+    <%= f.label :overtime_pay %><br />
+    <%= f.number_field :overtime_pay %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :role %><br />
+    <%= f.number_field :role %>
+  </div>
+
+  
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>

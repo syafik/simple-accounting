@@ -29,7 +29,7 @@ class SalariesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @salary }
+      format.json { render json: @salary.build }
     end
   end
 
@@ -69,6 +69,9 @@ class SalariesController < ApplicationController
       end
     end
   end
+
+  # <div class="wrapeer-salary" id="nested-salary">
+  #  <%= f.fields_for :salary do |builder| %> <%= render "salary_fields", :f => builder %> <% end %> </div>
 
   # DELETE /salaries/1
   # DELETE /salaries/1.json

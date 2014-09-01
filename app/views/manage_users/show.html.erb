@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Email:</b>
+  <%= @manage_user.email %>
+</p>
+<p>
+  <b>Password:</b>
+  <%= @manage_user.password %>
+</p>
+<p>
+  <b>Name:</b>
+  <%= @manage_user.name %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @manage_user.telephone %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @manage_user.address %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @manage_user.gender %>
+</p>
+
+<p>
+  <b>Salary:</b>
+  <%= @manage_user.salary %>
+</p>
+
+<p>
+  <b>Overtime Pay:</b>
+  <%= @manage_user.overtime_pay %>
+</p>
+
+<p>
+  <b>Role:</b>
+  <%= @manage_user.role %>
+</p>
+
+<%= link_to 'Edit', edit_manage_user_path(@manage_user) %> |
+<%= link_to 'Back', manage_users_path %>

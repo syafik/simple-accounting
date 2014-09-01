@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
 	has_many :allowances, dependent: :destroy
   has_many :absents
   
-  has_many :overtime , dependent: :destroy
-  has_many :salary , dependent: :destroy
+  has_many :salary_histories
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -11,7 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :telephone, :address, :gender, :salary, :overtime_pay, :role
   # attr_accessible :title, :body
 
   def get_all_sub_category
