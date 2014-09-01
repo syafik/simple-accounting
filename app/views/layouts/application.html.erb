@@ -33,7 +33,8 @@
 				   <% if user_signed_in?  %>
 					 <li><%= link_to "<i class=\"icon-home\"></i> Home".html_safe, transactions_path  %></li>
 					 <li><%= link_to "<i class=\"icon-list-alt\"></i> Report".html_safe, reports_path %></li>
-					 <li>
+					 <li><%= link_to "<i class=\"icon-list-alt\"></i> Absent".html_safe, absents_path %></li>
+
 					 <!-- Allowance Navigation-->
 					 	<ul class="nav pull-right">
 							 <li class="dropdown">

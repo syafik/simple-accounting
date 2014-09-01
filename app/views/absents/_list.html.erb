@@ -4,7 +4,11 @@
     <th style="text-align: center" >User</th>
     <th style="text-align: center" >Categories</th>
     <th style="text-align: center" >Description</th>
-    <th style="text-align: center" >Action</th>
+
+    <% if current_user.role == "admin" %> 
+      <th style="text-align: center" >Action</th>
+    <% end %>
+    
     <th></th>
     <th></th>
   </tr>
@@ -26,10 +30,12 @@
     
     <td style="text-align: center" ><%= absent.description %></td>
     
+  <% if current_user.role == "admin" %>
     <td style="text-align: center">
-    <%= link_to 'Show', absent, :class=>'btn btn-info' %>
-    <%= link_to 'Edit', edit_absent_path(absent), :class=>'btn btn-warning' %>
-    <%= link_to 'Destroy', absent, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+      <%= link_to 'Show', absent, :class=>'btn btn-info' %>
+      <%= link_to 'Edit', edit_absent_path(absent), :class=>'btn btn-warning' %>
+      <%= link_to 'Destroy', absent, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
     </td>
+   <% end %>
   </tr>
 <% end %>

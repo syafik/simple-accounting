@@ -3,11 +3,17 @@ class AbsentsController < ApplicationController
   # GET /absents
   # GET /absents.json
   def index
-    if params[:search]
-      @absents =  Absent.where(categories: params[:search])
-    else 
-      @absents = Absent.order("date desc")
+    if current_user.role == "user"
+      @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc")
+    else
+      if params[:search]
+        @absents =  Absent.where(user_id: params[:search])
+      else 
+
+        @absents = Absent.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc")
+      end
     end
+
 
     respond_to do |format|
       format.html # index.html.erb
