@@ -21,7 +21,18 @@
           <%= f.text_field :name , :placeholder=> 'Nama Tunjangan', :class=> 'form-control'%>
         </td>
       </tr>
-    </table>
-    <%= f.submit nil, :class=>'btn btn-primary' %>
+  </table>
+    
   </div>
+
+  <div class="wrapeer-sub-category" id="nested-sub-category">
+    <%= f.fields_for :allowance_sub_categories do |builder| %>
+      <%= render "allowance_sub_category_fields", :f => builder %>
+    <% end %>
+  </div>
+<p>
+  <%= link_to_function "Add", "add_fields2()" %>
+</p>
+<%= f.submit nil, :class=>'btn btn-default' %>
 <% end %>
+

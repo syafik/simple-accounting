@@ -15,46 +15,50 @@
     <table>
       <tr>
         <td>
-          Karyawan
+          Pegawai
         </td>
         <td>
-          <%= f.select :user_id, options_for_select(@users) %>
+          <%= f.select :user_id, options_for_select(@users)%>
         </td>
       </tr>
+
+
       <tr>
         <td>
           Kategori
         </td>
         <td>
-           <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories), :id=>'allowance_categories') %>
+           <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), :id=>'allowance_categories') %>
         </td>
       </tr>
+
       <tr>
         <td>
-          Kategori
+          Sub Kategori
         </td>
         <td>
-          <%= f.select :allowance_sub_category_id, options_for_select(@allowance_sub_categories)%>
+          <%= f.select :allowance_sub_category_id, options_for_select(@allowance_sub_categories, @allowance.allowance_sub_category_id)%>
         </td>
       </tr>
-      <tr>
-        <td>
-          Maksimum Hari
-        </td>
-        <td>
-          <%= f.number_field :max_day%>
-        </td>
-      </tr>
+      
       <tr>
         <td>
           Besar Dana
         </td>
         <td>
-          <%= f.number_field :value %>
+           <%= f.number_field :value , :placeholder=> 'Nama Tunjangan', :class=> 'form-control'%>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        </td>
+        <td align="right">
+          <%= f.submit nil, :class=>'btn btn-default' %>
         </td>
       </tr>
     </table>
-    <%= f.submit nil, :class=>'btn btn-primary' %>
+    
   </div>
 <% end %>
 

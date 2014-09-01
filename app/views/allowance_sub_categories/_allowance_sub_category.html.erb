@@ -1,0 +1,10 @@
+<tr id="com-<%= allowance_sub_category.id %>">
+	<td style="text-align: center"> <%= allowance_sub_category.name %> </td>
+    <td style="text-align: center"> <%= allowance_sub_category.max_day %> </td>
+    <td style="text-align: center"><%= link_to 'Hapus', [allowance_sub_category.allowance_category, allowance_sub_category],
+               method: :delete,
+               data: { confirm: 'Are you sure?', remote: true }%></td>
+</tr> 
+
+
+

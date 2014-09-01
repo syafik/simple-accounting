@@ -6,17 +6,17 @@ class AllowanceSubCategoriesController < ApplicationController
   end
 
   def create
-  	@allowance_sub_category = AllowanceSubCategory.new(params[:allowance_sub_category])
-
-  	if @allowance_sub_category.save
-			redirect_to @allowance_sub_category
-		else
-      render 'new'
-		end
+    @allowance_category = AllowanceCategory.find(params[:allowance_category_id])
+    @allowance_sub_category = @allowance_category.allowance_sub_categories.create(params[:allowance_sub_category])
+    redirect_to allowance_category_path(@allowance_category)
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def edit
     @allowance_sub_category = AllowanceSubCategory.find(params[:id])
+    #@allowance_category.allowance_sub_category.map { |allowance_category| allowance_category.id  }
   end
 
   def update
@@ -39,15 +39,27 @@ class AllowanceSubCategoriesController < ApplicationController
   end
 
   def destroy
-    @allowance_sub_category = AllowanceSubCategory.find(params[:id])
+    @allowance_category = AllowanceCategory.find(params[:allowance_category_id])
+    @allowance_sub_category =  @allowance_category.allowance_sub_categories.find(params[:id])
     @allowance_sub_category.destroy
-    redirect_to allowance_sub_categories_path
+    #redirect_to allowance_categories_path(@allowance_category)
+
+    #@allowance_sub_category = AllowanceSubCategory.find(params[:id])
+    #@allowance_sub_category.destroy
+    #redirect_to allowance_sub_categories_path
+
+    # article = Article.find(params[:article_id])
+    # @comment = article.comments.find(params[:id])
+    # @comment.destroy
   end
 
   private
     def get_allowance_categories
       @allowance_categories = AllowanceCategory.all.map { |allowance_category| [allowance_category.name, allowance_category.id] }
+      
     end
+
+    
 
 
 end

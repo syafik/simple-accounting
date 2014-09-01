@@ -51,7 +51,7 @@ class AllowancesController < ApplicationController
 
   def find_sub_categories
     @allowance_category = AllowanceCategory.find(params[:id])
-    @allowance_sub_category = @allowance_category.allowance_sub_category.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id] }
+    @allowance_sub_category = @allowance_category.allowance_sub_categories.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id] }
     respond_to do |format|
       format.js 
     end

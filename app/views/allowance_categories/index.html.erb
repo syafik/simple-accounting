@@ -10,7 +10,10 @@
   <tr>
     <td tyle="text-align: center"> <%= allowance_category.name %></td>
     
-    <td tyle="text-align: center"><%= link_to 'Lihat', allowance_category, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_allowance_category_path(allowance_category), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance_category, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
+    <td tyle="text-align: center"><%= link_to 'Lihat', allowance_category, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_allowance_category_path(allowance_category), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance_category, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+    
+    </td>
+    </td>
   </tr>
 <% end %>
 </table>

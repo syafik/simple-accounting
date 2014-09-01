@@ -1,4 +1,3 @@
-
 class AllowanceCategoriesController < ApplicationController
   # GET /allowance_categories
   # GET /allowance_categories.json
@@ -28,6 +27,8 @@ class AllowanceCategoriesController < ApplicationController
   # GET /allowance_categories/new.json
   def new
     @allowance_category = AllowanceCategory.new
+    @allowance_category.allowance_sub_categories.build
+   
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,18 +44,21 @@ class AllowanceCategoriesController < ApplicationController
   # POST /allowance_categories
   # POST /allowance_categories.json
   def create
+ 
     @allowance_category = AllowanceCategory.new(params[:allowance_category])
+   
+      respond_to do |format|
+        if @allowance_category.save
 
-    respond_to do |format|
-      if @allowance_category.save
-        format.html { redirect_to @allowance_category, notice: 'Allowance category was successfully created.' }
-        format.json { render json: @allowance_category, status: :created, location: @allowance_category }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @allowance_category.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+         format.html { redirect_to @allowance_category}
+       else
+         format.html { render :new }
+
+
+       end
+     end
+
+   end
 
   # PUT /allowance_categories/1
   # PUT /allowance_categories/1.json

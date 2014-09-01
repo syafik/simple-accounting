@@ -33,6 +33,21 @@
 				   <% if user_signed_in?  %>
 					 <li><%= link_to "<i class=\"icon-home\"></i> Home".html_safe, transactions_path  %></li>
 					 <li><%= link_to "<i class=\"icon-list-alt\"></i> Report".html_safe, reports_path %></li>
+					 <li>
+					 <!-- Allowance Navigation-->
+					 	<ul class="nav pull-right">
+							 <li class="dropdown">
+							   <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user icon-white"></i> Transaction <b class="caret"></b></a>
+							   <ul class="dropdown-menu">
+								 <li><%= link_to "Kategori Tunjangan", allowance_categories_path %></li>
+								 <li><%= link_to "Data Tunjangan", allowances_path %></li>
+								 <li><%= link_to "Data Transaksi Tunjangan", allowance_claim_transactions_path %></li>
+							   </ul>
+							 </li>
+						   </ul>
+				   <!-- End Allowance Navigation-->
+					 </li>
+					 <li><%= link_to "Transaksi Tunjangan", new_allowance_claim_transaction_path %></li>
 				   <% end %>
 				 </ul>
 

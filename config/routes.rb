@@ -7,8 +7,15 @@ SimpleAccounting::Application.routes.draw do
 
   get "allowances/index"
 
-  resources :allowance_categories
-  resources :claim_transactions
+  resources :allowance_categories do
+    resources :allowance_sub_categories
+  end
+
+  resources :allowance_claim_transactions do
+    collection do
+      get :set_approval
+    end
+  end
   resources :allowances do 
     collection do
       get :find_sub_categories
@@ -25,7 +32,7 @@ SimpleAccounting::Application.routes.draw do
       get :reporting
     end
   end
-   resources :claim_transactions
+   #resources :claim_transactions
  root :to => 'transactions#index'
 
  #resources :users do

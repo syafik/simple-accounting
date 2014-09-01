@@ -1,0 +1,59 @@
+<h2 class="text-center">DETIL TRANSAKSI TUNJANGAN</h2>
+
+<table>
+	<tr>
+		<td>Tanggal Pengajuan</td>
+		<td>:</td>
+		<td><%= @allowance_claim_transaction.submission_date %></td>
+	</tr>
+
+	<tr>
+		<td>Bukti Transaksi</td>
+		<td>:</td>
+		<td>Kosong</td>
+	</tr>
+
+	<tr>
+		<td>Jenis Tunjangan</td>
+		<td>:</td>
+		<td><%= @allowance_claim_transaction.try(:allowance).try(:allowance_sub_category).try(:name) %></td>
+	</tr>
+
+	<tr>
+		<td> Tanggal Persetujuan</td>
+		<td>:</td>
+		<td><%= @allowance_claim_transaction.approval_date %></td>
+	</tr>
+
+	<tr>
+		<td>Status</td>
+		<td>:</td>
+		<% if @allowance_claim_transaction.status == nil %>
+	    	<td tyle="text-align: center"> Menunggu Persetujuan </td>
+	    <% elsif @allowance_claim_transaction.status == false %>
+	    	<td tyle="text-align: center"> Tidak Disetujui</td>
+	    <% else %>
+	    	<td tyle="text-align: center"> Telah Disetujui</td>
+	    <% end %>
+		
+	</tr>
+	<tr>
+		<td> Deskripsi </td>
+		<td>:</td>
+		<td><%= @allowance_claim_transaction.description %></td>
+	</tr>
+</table>
+
+
+
+<%= link_to 'Kembali', allowance_claim_transactions_path, :class=>'btn btn-primary' %>
+<% if @allowance_claim_transaction.status == nil %>
+<%= link_to 'Setuju', approve_request_allowance_claim_transaction_path(@allowance_claim_transaction), :class=>'btn btn-warning', confirm: 'Apa Anda Yakin?' %>
+
+<% end %>
+
+
+		
+	
+
+

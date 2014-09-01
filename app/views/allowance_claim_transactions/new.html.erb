@@ -1,0 +1,147 @@
+<h2 class="text-center">TRANSAKSI</h2>
+
+<ul class="nav nav-tabs" id="transactionTab">
+  <li class="active"><a href="#approved">Daftar Transaksi Tersetujui</a></li>
+  <li><a href="#rejected">Daftar Transaksi Tertolak</a></li>
+  <li><a href="#pending">Daftar Transaksi Tertunda</a></li>
+  <li><a href="#revisi">Daftar Transaksi Revisi</a></li>
+  
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane active" id="approved">
+  <!-- approved transaction list -->
+    <table class="table tablesorter">
+      <tr style="background-color: #222222; color:#fff">
+        <th style="text-align: center" > Tanggal </th>
+        <th style="text-align: center" > Tunjangan </th>
+        <th style="text-align: center" > Besar Dana </th>
+        
+      </tr>
+       
+    <% nominal = 0 %>
+
+    <% @allowance_claim_transaction_approved.each do |allowance_claim_transaction_approved| %>
+      <tr>
+        <td style="text-align: center"> <%= allowance_claim_transaction_approved.submission_date %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_approved.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_approved.nominal %> </td> 
+      </tr>
+
+      <% nominal = nominal +  allowance_claim_transaction_approved.nominal %>
+    <% end %>
+      <tr>
+        <td colspan="2" style="text-align: center">Total </td>
+        <td style="text-align: center" id="nominal"><%= nominal %></td>
+      </tr>
+    </table>
+  <!-- approved transaction list -->
+  </div>
+  <div class="tab-pane" id="rejected">
+  <!-- rejected transaction list -->
+  <table class="table tablesorter">
+      <tr style="background-color: #222222; color:#fff">
+        <th style="text-align: center" > Tanggal </th>
+        <th style="text-align: center" > Tunjangan </th>
+        <th style="text-align: center" > Besar Dana </th>
+      </tr>
+    <% @allowance_claim_transaction_rejected.each do |allowance_claim_transaction_rejected| %>
+      <tr>
+        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.submission_date %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.nominal %> </td> 
+      </tr>
+    <% end %>
+    </table>
+  <!-- rejected transaction list -->
+
+  </div>
+  <div class="tab-pane" id="pending">
+    <!-- pendding transaction list -->
+    <table class="table tablesorter">
+      <tr style="background-color: #222222; color:#fff">
+        <th style="text-align: center" > Tanggal </th>
+        <th style="text-align: center" > Tunjangan </th>
+        <th style="text-align: center" >  Besar Dana </th>
+      </tr>
+    <% @allowance_claim_transaction_pending.each do |allowance_claim_transaction_pending| %>
+      <tr>
+        <td style="text-align: center"> <%= allowance_claim_transaction_pending.submission_date %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_pending.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_pending.nominal %> </td> 
+      </tr>
+    <% end %>
+    </table>
+    <!-- pendding transaction list -->
+  </div>
+
+  <div class="tab-pane" id="revisi">
+    <!-- revisi transaction list -->
+    <table class="table tablesorter">
+      <tr style="background-color: #222222; color:#fff">
+        <th style="text-align: center" > Tanggal </th>
+        <th style="text-align: center" > Tunjangan </th>
+        <th style="text-align: center" > Besar Dana </th>
+        <th style="text-align: center"> Keterangan </th>
+        <th style="text-align: center"> Aksi </th>
+      </tr>
+    <% @allowance_claim_transaction_revisi.each do |allowance_claim_transaction_revisi| %>
+      <tr>
+        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.submission_date %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.nominal %> </td> 
+        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.description %> </td> 
+        <td style="text-align: center"> 
+        <%= link_to 'Ubah', edit_allowance_claim_transaction_path(allowance_claim_transaction_revisi,nominal: nominal), :class=>'btn btn-warning', remote: true  %> 
+        </td> 
+        
+      </tr>
+    <% end %>
+    </table>
+    <!-- revisi transaction list -->
+  </div>
+  
+</div>
+     
+    
+
+
+
+
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Ajukan Tunjangan</a> <%= link_to 'Kembali', allowance_claim_transactions_path, :class=>'btn btn-primary' %>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Masukan Data</h3>
+  </div>
+
+  <div class="modal-body">
+    <%= render partial: 'form', locals: {nominal: nominal} %>
+  </div>
+
+  
+</div>
+
+<div id="myModalDua" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#myModalDua').hide();">×</button>
+    <h3 id="myModalLabel">Ubah Data</h3>
+  </div>
+
+  <div class="modal-body">
+    
+  </div>
+
+  
+</div>
+
+
+
+
+<script>
+   $('#transactionTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+</script>

@@ -19,13 +19,9 @@
 		<td><%= @allowance.value %></td>
 	</tr>
 
-	<tr>
-		<td>Masa Berlaku</td>
-		<td>:</td>
-		<td><%= @allowance.max_day %> (hari)</td>
-	</tr>
+	
 
 
 </table>
-<%= link_to 'Edit', edit_allowance_path(@allowance), :class=>'btn btn-primary' %> |
-<%= link_to 'Back', allowances_path, :class=>'btn btn-primary' %>
+<%= link_to 'Ubah', edit_allowance_path(@allowance), :class=>'btn btn-primary' %> 
+<%= link_to 'Kembali', allowances_path, :class=>'btn btn-primary' %>

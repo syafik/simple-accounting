@@ -1,13 +1,29 @@
 
 <h2 class="text-center">TUNJANGAN</h2>
 
+
+
+<%= form_tag allowances_path, :method => 'get' do %>
+  <p>
+    
+    
+    <%= text_field_tag :search, params[:search] %>
+
+
+    <%= select_tag(:city_id, options_for_select([['Tunjangan', 1], ['Kategori', 2], ['Nama Karyawan', 3]]), :id=>'searching_categories') %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+
+
 <table class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
     <th style="text-align: center" > Nama Karyawan </th>
     <th style="text-align: center" >  Tunjangan </th>
     <th style="text-align: center" > Kategori</th>
     <th style="text-align: center" > Besar Dana</th>
-    <th style="text-align: center" > Masa Berlaku</th>
+    
     <th style="text-align: center" > Aksi </th>
   </tr>
 
@@ -16,8 +32,8 @@
     <td style="text-align: center"> <%= allowance.try(:user).try(:email) %> </td>
     <td style="text-align: center" > <%= allowance.try(:allowance_sub_category).try(:allowance_category).try(:name) %></td>
     <td style="text-align: center"> <%= allowance.try(:allowance_sub_category).try(:name) %> </td>
-    <td style="text-align: center"> <%= allowance.value %> </td>
-    <td style="text-align: center"> <%= allowance.max_day %> </td>
+    <td style="text-align: center"> <%= number_to_currency(allowance.value, :unit => "Rp ") %> </td>
+    
 
     <td style="text-align: center"><%= link_to 'Lihat', allowance, :class=>'btn btn-info' %>  <%= link_to 'Ubah', edit_allowance_path(allowance), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
   </tr> 
@@ -28,3 +44,13 @@
 
 <%= link_to 'Buat Tunjangan', new_allowance_path, :class=>'btn btn-primary' %>
 
+<script type="text/javascript">
+  $('#searching_categories').change(function(){
+    $.ajax({
+    url: "/allowances/find_sub_categories.js",
+    data: {id: $(this).val()}
+    });
+  });
+
+  $('#searching_categories').change();
+</script>

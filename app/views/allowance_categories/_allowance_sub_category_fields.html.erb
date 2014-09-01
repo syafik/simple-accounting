@@ -1,10 +1,5 @@
-<%= form_for([@allowance_category, @allowance_category.allowance_sub_categories.build]) do |f| %>
-  
-
-  <div class="actions">
+  <div>
     <table>
-     
-
       <tr>
         <td>
           Nama
@@ -23,14 +18,7 @@
         </td>
       </tr>
 
-      <tr>
-        <td>
-        </td>
-        <td>
-          <%= f.submit nil, :class=>'btn btn-default' %>
-        </td>
-      </tr>
+      
     </table>
-    
+    <%= link_to_function "remove", "remove_fields(this)" %>
   </div>
-<% end %>

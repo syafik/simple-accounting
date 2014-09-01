@@ -18,3 +18,17 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
+
+
+function remove_fields(link) {
+	// console.log("test : ", $(link))
+ //  $(link).previous("input[type=hidden]").value = "1";
+ //  $(link).up(".fields").hide();
+ $(link).parent().remove()
+}
+
+
+function add_fields2() {
+  x =$("#nested-sub-category table").size()
+  $(".wrapeer-sub-category").append("<div><table><tbody><tr><td>Nama</td><td><input type='text' size='30' placeholder='Nama Tunjangan' name='allowance_category[allowance_sub_categories_attributes]["+ x +"][name]' id='allowance_category_allowance_sub_categories_attributes_"+ x +"_name'></td></tr><tr><td>Masa Berlaku</td><td><input type='number' placeholder='Masa Berlaku' name='allowance_category[allowance_sub_categories_attributes]["+ x +"][max_day]' id='allowance_category_allowance_sub_categories_attributes_"+ x +"_max_day'></td></tr></tbody></table><a onclick='remove_fields(this); return false;' href='#''>remove</a></div>");
+}

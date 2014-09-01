@@ -1,0 +1,262 @@
+<style>
+  #myTab li a:hover, #myTab li a:active, #myTab li a:focus { color:black; }
+
+</style>
+<h2 class="text-center">TRANSAKSI TUNJANGAN</h2>
+
+
+
+<ul class="nav nav-tabs" id="myTab">
+<li class="active"><a href="#pending">Daftar Transaksi Tertunda</a></li>
+<li><a href="#approved">Daftar Transaksi Tersetujui</a></li>
+<li><a href="#rejected">Daftar Transaksi Tertolak</a></li>
+<li><a href="#revisi">Daftar Transaksi Revisi</a></li>
+</ul>
+ 
+<div class="tab-content">
+    <div class="tab-pane active" id="pending">
+    <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_pendings, :params => {is_active: true} %> </div>
+    <!-- pendding transaction list -->
+        <table class="table tablesorter">
+          <tr style="background-color: #222222; color:#fff">
+            <th style="text-align: center" > ID </th>
+            <th style="text-align: center" > Nama Pegawai </th>
+            <th style="text-align: center" > Tanggal Pengajuan </th>
+            <th style="text-align: center" > Bukti Transaksi </th>
+            <th style="text-align: center" > Jenis Tunjangan </th>
+            <th style="text-align: center" > Nominal </th>
+            <th style="text-align: center" > Status </th>
+            <th style="text-align: center" > Aksi </th>
+            
+            
+            
+          </tr>
+
+        <% @allowance_claim_transaction_pendings.each do |allowance_claim_transaction_pending| %>
+          <tr>
+            <td style="text-align: center"> <%= allowance_claim_transaction_pending.id %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_pending.try(:allowance).try(:user).try(:email) %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_pending.submission_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_pending.upload %> Kosong </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_pending.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+            <td style="text-align: center"> <%= number_to_currency(allowance_claim_transaction_pending.nominal, :unit => "Rp ") %> </td>
+            <% if allowance_claim_transaction_pending.status == nil %>
+                <td style="text-align: center"> Menunggu Persetujuan </td>
+            <% elsif allowance_claim_transaction_pending.status == false %>
+                <td style="text-align: center"> Tidak Disetujui</td>
+            <% else %>
+                <td style="text-align: center"> Telah Disetujui</td>
+            <% end %>
+
+            <td style="text-align: center"> 
+            <%= link_to 'Lihat', allowance_claim_transaction_pending, :class=>'btn btn-info' %>
+            <a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal" id="approve_btn">Setuju</a>
+            <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn">Tidak Setuju</a>
+            </td>
+          </tr>
+
+
+          <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Deskripsi</h3>
+          </div>
+
+          <div class="modal-body">
+            <%= form_tag(set_approval_allowance_claim_transactions_path(allowance_claim_transaction_pending), method: "get") do %>
+              <%= label_tag(:description, "Deskripsi:") %>
+              <%= text_area_tag(:description,"", size: "24x6") %><br />
+              <%= hidden_field_tag :decision, "approved" %>
+              <%= hidden_field_tag :allowance_id, allowance_claim_transaction_pending.allowance_id %>
+              <%= hidden_field_tag :nominal, allowance_claim_transaction_pending.nominal %>
+              <%= submit_tag("Kirim") %>
+            <% end %>
+          </div>
+
+          
+        </div>
+        <% end %>
+        </table>
+
+
+        
+    <!-- pendding transaction list -->
+    </div>
+
+    <div class="tab-pane" id="approved">
+    <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_approveds, :params => {is_active: true} %> </div>
+    <!-- approved transaction list -->
+        <table class="table tablesorter">
+          <tr style="background-color: #222222; color:#fff">
+            
+            <th style="text-align: center" > Nama Pegawai </th>
+            <th style="text-align: center" > Tanggal Pengajuan </th>
+            <th style="text-align: center" > Tanggal Penyetujuan </th>
+            <th style="text-align: center" > Bukti Transaksi </th>
+            <th style="text-align: center" > Jenis Tunjangan </th>
+            <th style="text-align: center" > Nominal </th>
+            <th style="text-align: center" > Status </th>
+            <th style="text-align: center" > Ket </th>
+            <th style="text-align: center" > Aksi </th>
+            
+            
+            
+          </tr>
+
+        <% @allowance_claim_transaction_approveds.each do |allowance_claim_transaction_approved| %>
+
+          <tr>
+            
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.try(:allowance).try(:user).try(:email) %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.submission_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.approval_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.upload %> Kosong </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+            <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_approved.nominal, :unit => "Rp ") %></td>
+            <% if allowance_claim_transaction_approved.status == nil %>
+                <td style="text-align: center"> Menunggu Persetujuan </td>
+            <% elsif allowance_claim_transaction_approved.status == false %>
+                <td style="text-align: center"> Tidak Disetujui</td>
+            <% else %>
+                <td style="text-align: center"> Telah Disetujui</td>
+            <% end %>
+
+            <td style="text-align: center"> <%= allowance_claim_transaction_approved.description %> </td>
+            <td style="text-align: center"> 
+            <%= link_to 'Lihat', allowance_claim_transaction_approved, :class=>'btn btn-info' %>
+            
+            </td>
+          </tr>
+        <% end %>
+        </table>
+    <!-- approved transaction list -->
+    </div>
+<div class="tab-pane" id="rejected">
+<div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_rejecteds, :params => {is_active: true} %> </div>
+    <!-- rejected transaction list -->
+        <table class="table tablesorter">
+          <tr style="background-color: #222222; color:#fff">
+            
+            <th style="text-align: center" > Nama Pegawai </th>
+            <th style="text-align: center" > Tanggal Pengajuan </th>
+            <th style="text-align: center" > Bukti Transaksi </th>
+            <th style="text-align: center" > Jenis Tunjangan </th>
+            <th style="text-align: center" > Nominal </th>
+            <th style="text-align: center" > Status </th>
+            <th style="text-align: center" > Ket </th>
+            <th style="text-align: center" > Aksi </th>
+            
+            
+            
+          </tr>
+
+        <% @allowance_claim_transaction_rejecteds.each do |allowance_claim_transaction_rejected| %>
+          <tr>
+            
+            <td style="text-align: center"> <%= allowance_claim_transaction_rejected.try(:allowance).try(:user).try(:email) %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_rejected.submission_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_rejected.upload %> Kosong </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_rejected.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+            <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_rejected.nominal, :unit => "Rp ") %></td>
+            
+            <% if allowance_claim_transaction_rejected.status == nil %>
+                <td style="text-align: center"> Menunggu Persetujuan </td>
+            <% elsif allowance_claim_transaction_rejected.status == false %>
+                <td style="text-align: center"> Tidak Disetujui</td>
+            <% else %>
+                <td style="text-align: center"> Telah Disetujui</td>
+            <% end %>
+            <td style="text-align: center"> <%= allowance_claim_transaction_rejected.description %> </td>
+            <td style="text-align: center"> 
+            <%= link_to 'Lihat', allowance_claim_transaction_rejected, :class=>'btn btn-info' %>
+            
+            </td>
+          </tr>
+        <% end %>
+        </table>
+    <!-- rejected transaction list -->
+</div>
+
+<div class="tab-pane" id="revisi">
+<div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_revisi, :params => {is_active: true} %> </div>
+    <!-- revisi transaction list -->
+        <table class="table tablesorter">
+          <tr style="background-color: #222222; color:#fff">
+            
+            <th style="text-align: center" > Nama Pegawai </th>
+            <th style="text-align: center" > Tanggal Pengajuan </th>
+            <th style="text-align: center" > Bukti Transaksi </th>
+            <th style="text-align: center" > Jenis Tunjangan </th>
+            <th style="text-align: center" > Nominal </th>
+            <th style="text-align: center" > Status </th>
+            <th style="text-align: center" > Ket </th>
+            <th style="text-align: center" > Aksi </th>
+            
+            
+            
+          </tr>
+
+        <% @allowance_claim_transaction_revisi.each do |allowance_claim_transaction_revisi| %>
+          <tr>
+            
+            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:user).try(:email) %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.submission_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.upload %> Kosong </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+            <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_revisi.nominal, :unit => "Rp ") %></td>
+            
+            <% if allowance_claim_transaction_revisi.status == nil %>
+                <td style="text-align: center"> Menunggu Persetujuan </td>
+            <% elsif allowance_claim_transaction_revisi.status == false %>
+                <td style="text-align: center"> Tidak Disetujui</td>
+            <% else %>
+                <td style="text-align: center"> Telah Disetujui</td>
+            <% end %>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.description %> </td>
+            <td style="text-align: center"> 
+            <%= link_to 'Lihat', allowance_claim_transaction_revisi, :class=>'btn btn-info' %>
+            
+            </td>
+          </tr>
+        <% end %>
+        </table>
+    <!-- revisi transaction list -->
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<br />
+
+
+<script>
+       $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    })
+</script>
+
+<script type="text/javascript">
+    $('#will_paginate_id').bind('click', function(event){
+      window.scrollTo(0,0);
+      // Some code to show loader on screen
+      $('#loading').html('<div class="ui active dimmer"><div class="ui large text loader">Loading</div></div>');
+    });
+</script>
+
+
+<script type="text/javascript">
+    $("#reject_btn").click(function(){
+      $("#decision").val("rejected");
+    });
+
+    $("#approve_btn").click(function(){
+      $("#decision").val("approved");
+    });
+</script>

@@ -1,9 +1,15 @@
 class Allowance < ActiveRecord::Base
-  #has_many :claim_transaction
   belongs_to :allowance_sub_category
   belongs_to :user
+  has_many :allowance_claim_transactions
+  
+  
 
-  attr_accessible :max_day, :value, :user_id, :allowance_sub_category_id
-  validates :max_day, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 365 }
+  attr_accessible :value, :user_id, :allowance_sub_category_id
+  validates :value, presence: true
+  validates :user_id, presence: true
+  validates :allowance_sub_category_id, presence: true
+  
+  
    
 end
