@@ -18,7 +18,7 @@ class Allowance < ActiveRecord::Base
 
 
 def self.search(search,search_by)
-  search = search.strip
+  search = search.strip rescue nil
   if search_by == "3"
     where(:allowance_sub_category_id => search)
   elsif search_by == "1"
