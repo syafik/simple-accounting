@@ -3,16 +3,14 @@
 
 
 
+  <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), style: "display:none;") %>
+  <%= select_tag(:allowance_sub_category_id, options_for_select(@allowance_sub_categories), style: "display:none;") %>
+
 <%= form_tag allowances_path, :method => 'get' do %>
-  <p>
-    
-    
-    <%= text_field_tag :search, params[:search] %>
-
-
-    <%= select_tag(:city_id, options_for_select([['Tunjangan', 1], ['Kategori', 2], ['Nama Karyawan', 3]]), :id=>'searching_categories') %>
+    <%= text_field_tag :search%>
+    <%= select_tag(:search_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1], ['Kategori Tunjangan', 2],['Sub Kategori', 3]]), :id=>'search_categories') %>
     <%= submit_tag "Search", :name => nil %>
-  </p>
+  
 <% end %>
 
 
@@ -20,8 +18,8 @@
 <table class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
     <th style="text-align: center" > Nama Karyawan </th>
-    <th style="text-align: center" >  Tunjangan </th>
-    <th style="text-align: center" > Kategori</th>
+    <th style="text-align: center" > Kategori Tunjangan </th>
+    <th style="text-align: center" > Sub Kategori</th>
     <th style="text-align: center" > Besar Dana</th>
     
     <th style="text-align: center" > Aksi </th>
@@ -45,12 +43,34 @@
 <%= link_to 'Buat Tunjangan', new_allowance_path, :class=>'btn btn-primary' %>
 
 <script type="text/javascript">
-  $('#searching_categories').change(function(){
-    $.ajax({
-    url: "/allowances/find_sub_categories.js",
-    data: {id: $(this).val()}
-    });
+  $('#search_categories').change(function(){
+    if($(this).val() == 1){
+      $("#search").val("");
+      $("#search").show();
+      $("#allowance_sub_category_id").hide();
+    }else if( $(this).val() == 3){
+      $("#search").val("");
+      $("#search").hide();
+      $("#allowance_category_id").hide();
+      $("#allowance_sub_category_id").show();
+      $("#allowance_sub_category_id").change();
+
+    }else if( $(this).val() == 2){
+      $("#search").val("");
+      $("#search").hide();
+      $("#allowance_sub_category_id").hide();
+      $("#allowance_category_id").show();
+      $("#allowance_category_id").change();
+    }
   });
 
-  $('#searching_categories').change();
+  $('#search_categories').change();
+
+  $("#allowance_sub_category_id").change(function(){
+    $("#search").val($(this).val());
+  });
+
+  $("#allowance_category_id").change(function(){
+    $("#search").val($(this).val());
+  });
 </script>

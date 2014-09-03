@@ -9,6 +9,8 @@ SimpleAccounting::Application.routes.draw do
 
   get "allowances/index"
 
+
+
   resources :allowance_categories do
     resources :allowance_sub_categories
   end
@@ -18,11 +20,17 @@ SimpleAccounting::Application.routes.draw do
       get :set_approval
     end
   end
+
   resources :allowances do 
     collection do
       get :find_sub_categories
+      get :find_available_category
     end
   end
+
+  
+
+
   resources :allowance_sub_categories
   devise_for :users, controllers: {sessions: :sessions}
 
