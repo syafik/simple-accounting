@@ -9,7 +9,7 @@
 <%= form_tag allowances_path, :method => 'get' do %>
     <%= text_field_tag :search%>
     <%= select_tag(:search_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1], ['Kategori Tunjangan', 2],['Sub Kategori', 3]]), :id=>'search_categories') %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= submit_tag "Cari", :name => nil %>
   
 <% end %>
 

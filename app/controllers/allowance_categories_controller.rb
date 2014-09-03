@@ -3,7 +3,7 @@ class AllowanceCategoriesController < ApplicationController
   # GET /allowance_categories.json
   def index
 
-    @allowance_categories = AllowanceCategory.all
+    @allowance_categories = AllowanceCategory.search(params[:search])
     
 
     respond_to do |format|

@@ -5,4 +5,12 @@ class AllowanceCategory < ActiveRecord::Base
 	
 	validates :name, uniqueness: true
 	validates :name, presence: true
+
+	def self.search(search)
+		if search
+			where(:name => search)
+		else
+			all
+		end
+	end
 end

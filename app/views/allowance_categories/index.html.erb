@@ -1,4 +1,10 @@
 <h2 class="text-center">KATEGORI TUNJANGAN</h2>
+
+<%= form_tag allowance_categories_path, :method => 'get' do %>
+  <%= text_field_tag :search  %>
+  <%= submit_tag "Cari", :name =>  nil%>
+<% end %>
+
 <table class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
     <th style="text-align: center" > Nama Kategori </th>
