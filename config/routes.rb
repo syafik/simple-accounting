@@ -23,7 +23,6 @@ SimpleAccounting::Application.routes.draw do
 
   resources :allowances do 
     collection do
-      get :find_sub_categories
       get :find_available_category
     end
   end

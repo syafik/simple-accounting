@@ -32,22 +32,7 @@ class AllowancesController < ApplicationController
   end
 
   def index
-     #@allowance = Allowance.search(params[:search])
-
   	@allowances = Allowance.search(params[:search],params[:search_by])
-    p "-------------"
-    p @allowances
-    #@allowance_categories = AllowanceCategory.all.map { |allowance_category| [allowance_category.name, allowance_category.id] }
-    # if params[:search] == nil
-    #   @allowances = Allowance.all
-    # else
-    #   @allowance_sub_category = AllowanceSubCategory.find_by_name(params[:search])
-    #   @allowance = @allowance_sub_category.allowances
-
-    #   p "==========="
-
-    #   p @allowance
-    # end
     
   end
 
@@ -68,23 +53,6 @@ class AllowancesController < ApplicationController
     @allowance_sub_category = @allowance_category.allowance_sub_categories.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id] }
     respond_to do |format|
       format.js 
-    end
-  end
-
-  def find_available_category
-    p params
-    if params[:id].to_i == 2
-      @allowance_sub_category = AllowanceSubCategory.all
-    elsif params[:id].to_i == 1
-      
-    else 
-      p "eloooo"
-    end
-
-
-     # @allowance_category = AllowanceCategory.find(params[:id])
-    respond_to do |format|
-      format.js
     end
   end
 

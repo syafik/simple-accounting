@@ -1,7 +1,7 @@
 
 class AllowanceClaimTransactionsController < ApplicationController
-	before_filter :get_allowance_detil,  :except => [:index] 
-  before_filter :get_history,  :onliy => [:new, :create] 
+	before_filter :get_allowance_detil
+  before_filter :get_history,  :only => [:new, :create] 
 
   def index
     @allowance_claim_transaction_approveds = AllowanceClaimTransaction.where(:status => 1 ).order("updated_at desc").paginate(:page => params[:page], :per_page => 5)
@@ -13,6 +13,7 @@ class AllowanceClaimTransactionsController < ApplicationController
   def new
   	@allowance_claim_transaction = AllowanceClaimTransaction.new
     
+    @allowance_sub_category = AllowanceSubCategory.all.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id]}
   end
 
   def create
@@ -54,7 +55,10 @@ class AllowanceClaimTransactionsController < ApplicationController
     if decision == "rejected"
       @allowance_claim_transaction.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
       redirect_to allowance_claim_transactions_path
-      p "masuk"
+      
+    elsif decision == "revision"
+      @allowance_claim_transaction.update_attributes(:status=>3, :description=> params[:description], :approval_date => Date.today)
+      redirect_to allowance_claim_transactions_path  
     else
       #looking for total nominal by allowance_id
       #AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date => "#{Time.now.year}-01-01".."#{Time.now.year}-12-31")
@@ -97,9 +101,14 @@ class AllowanceClaimTransactionsController < ApplicationController
     end
 
     def get_history
-      @allowance_claim_transaction_approved = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
-      @allowance_claim_transaction_rejected = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 2 ).order("submission_date desc")
-      @allowance_claim_transaction_pending = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 0 ).order("submission_date desc")
-      @allowance_claim_transaction_revisi = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 3 ).order("submission_date desc")
+
+
+        #@allowance_claim_transaction_approved = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
+        @allowance_claim_transaction_approved = AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user)
+        @allowance_claim_transaction_rejected = AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user)
+        @allowance_claim_transaction_pending = AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user)
+        @allowance_claim_transaction_revisi = AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user)
+      
+      
     end
 end

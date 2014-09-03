@@ -1,5 +1,7 @@
 <h2 class="text-center">TRANSAKSI</h2>
 
+
+
 <ul class="nav nav-tabs" id="transactionTab">
   <li class="active"><a href="#approved">Daftar Transaksi Tersetujui</a></li>
   <li><a href="#rejected">Daftar Transaksi Tertolak</a></li>
@@ -11,6 +13,17 @@
 <div class="tab-content">
   <div class="tab-pane active" id="approved">
   <!-- approved transaction list -->
+
+
+    <%= select_tag(:allowance_sub_category_approved, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
+        <%= text_field_tag :search_approved%>
+        <%= select_tag(:search_approved_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_approved') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
     <table class="table tablesorter">
       <tr style="background-color: #222222; color:#fff">
         <th style="text-align: center" > Tanggal </th>
@@ -39,6 +52,16 @@
   </div>
   <div class="tab-pane" id="rejected">
   <!-- rejected transaction list -->
+  <%= select_tag(:allowance_sub_category_rejected, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
+        <%= text_field_tag :search_rejected%>
+        <%= select_tag(:search_rejected_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_rejected') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
+
   <table class="table tablesorter">
       <tr style="background-color: #222222; color:#fff">
         <th style="text-align: center" > Tanggal </th>
@@ -57,7 +80,18 @@
 
   </div>
   <div class="tab-pane" id="pending">
-    <!-- pendding transaction list -->
+    <!-- pending transaction list -->
+
+    <%= select_tag(:allowance_sub_category_pending, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
+        <%= text_field_tag :search_pending %>
+        <%= select_tag(:search_pending_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_pending') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
+
     <table class="table tablesorter">
       <tr style="background-color: #222222; color:#fff">
         <th style="text-align: center" > Tanggal </th>
@@ -72,11 +106,22 @@
       </tr>
     <% end %>
     </table>
-    <!-- pendding transaction list -->
+    <!-- pending transaction list -->
   </div>
 
   <div class="tab-pane" id="revisi">
-    <!-- revisi transaction list -->
+    <!-- revision transaction list -->
+    <%= select_tag(:allowance_sub_category_revision, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
+        <%= text_field_tag :search_revision %>
+        <%= select_tag(:search_revision_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_revision') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
+
+
     <table class="table tablesorter">
       <tr style="background-color: #222222; color:#fff">
         <th style="text-align: center" > Tanggal </th>
@@ -137,11 +182,102 @@
 </div>
 
 
+<script type="text/javascript">
+// approved jquery for searching
+  $("#search_categories_approved").change(function(){
+    if ($(this).val() == 0){
+      $("#search_approved").val("");
+      $("#search_approved").show();
+      $("#allowance_sub_category_approved").hide();
+    }else if($(this).val() == 1){
+      $("#search_approved").val("");
+      $("#search_approved").hide();
+      $("#allowance_sub_category_approved").show();
+      $("#allowance_sub_category_approved").change();
+    }
+  });
 
+  $("#search_categories_approved").change();
+
+  $("#allowance_sub_category_approved").change(function(){
+    $("#search_approved").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// rejected jquery for searching
+  $("#search_categories_rejected").change(function(){
+    if ($(this).val() == 0){
+      $("#search_rejected").val("");
+      $("#search_rejected").show();
+      $("#allowance_sub_category_rejected").hide();
+    }else if($(this).val() == 1){
+      $("#search_rejected").val("");
+      $("#search_rejected").hide();
+      $("#allowance_sub_category_rejected").show();
+      $("#allowance_sub_category_rejected").change();
+    }
+  });
+
+  $("#search_categories_rejected").change();
+
+  $("#allowance_sub_category_rejected").change(function(){
+    $("#search_rejected").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// pending jquery for searching
+  $("#search_categories_pending").change(function(){
+    if ($(this).val() == 0){
+      $("#search_pending").val("");
+      $("#search_pending").show();
+      $("#allowance_sub_category_pending").hide();
+    }else if($(this).val() == 1){
+      $("#search_pending").val("");
+      $("#search_pending").hide();
+      $("#allowance_sub_category_pending").show();
+      $("#allowance_sub_category_pending").change();
+    }
+  });
+
+  $("#search_categories_pending").change();
+
+  $("#allowance_sub_category_pending").change(function(){
+    $("#search_pending").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// revision jquery for searching
+  $("#search_categories_revision").change(function(){
+    if ($(this).val() == 0){
+      $("#search_revision").val("");
+      $("#search_revision").show();
+      $("#allowance_sub_category_revision").hide();
+    }else if($(this).val() == 1){
+      $("#search_revision").val("");
+      $("#search_revision").hide();
+      $("#allowance_sub_category_revision").show();
+      $("#allowance_sub_category_revision").change();
+    }
+  });
+
+  $("#search_categories_revision").change();
+
+  $("#allowance_sub_category_revision").change(function(){
+    $("#search_revision").val($(this).val());
+  });
+
+</script>
 
 <script>
-   $('#transactionTab a').click(function (e) {
+   $("#transactionTab a").click(function (e) {
       e.preventDefault();
-      $(this).tab('show');
+      $(this).tab("show");
     })
 </script>
+

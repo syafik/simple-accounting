@@ -52,6 +52,7 @@
             <%= link_to 'Lihat', allowance_claim_transaction_pending, :class=>'btn btn-info' %>
             <a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal" id="approve_btn">Setuju</a>
             <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn">Tidak Setuju</a>
+            <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="revision_btn">Revisi</a>
             </td>
           </tr>
 
@@ -258,5 +259,9 @@
 
     $("#approve_btn").click(function(){
       $("#decision").val("approved");
+    });
+
+    $("#revision_btn").click(function(){
+      $("#decision").val("revision");
     });
 </script>
