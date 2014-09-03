@@ -17,6 +17,17 @@
     <div class="tab-pane active" id="pending">
     <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_pendings, :params => {is_active: true} %> </div>
     <!-- pendding transaction list -->
+
+    <%= select_tag(:allowance_sub_category_pending, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+        <%= text_field_tag :search_pending %>
+        <%= select_tag(:search_pending_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal', 3]]), :id=>'search_categories_pending') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
+
         <table class="table tablesorter">
           <tr style="background-color: #222222; color:#fff">
             <th style="text-align: center" > ID </th>
@@ -25,7 +36,6 @@
             <th style="text-align: center" > Bukti Transaksi </th>
             <th style="text-align: center" > Jenis Tunjangan </th>
             <th style="text-align: center" > Nominal </th>
-            <th style="text-align: center" > Status </th>
             <th style="text-align: center" > Aksi </th>
             
             
@@ -40,13 +50,7 @@
             <td style="text-align: center"> <%= allowance_claim_transaction_pending.upload %> Kosong </td>
             <td style="text-align: center"> <%= allowance_claim_transaction_pending.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
             <td style="text-align: center"> <%= number_to_currency(allowance_claim_transaction_pending.nominal, :unit => "Rp ") %> </td>
-            <% if allowance_claim_transaction_pending.status == nil %>
-                <td style="text-align: center"> Menunggu Persetujuan </td>
-            <% elsif allowance_claim_transaction_pending.status == false %>
-                <td style="text-align: center"> Tidak Disetujui</td>
-            <% else %>
-                <td style="text-align: center"> Telah Disetujui</td>
-            <% end %>
+            
 
             <td style="text-align: center"> 
             <%= link_to 'Lihat', allowance_claim_transaction_pending, :class=>'btn btn-info' %>
@@ -87,6 +91,17 @@
     <div class="tab-pane" id="approved">
     <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_approveds, :params => {is_active: true} %> </div>
     <!-- approved transaction list -->
+
+    <%= select_tag(:allowance_sub_category_approved, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+        <%= text_field_tag :search_approved %>
+        <%= select_tag(:search_approved_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal', 3]]), :id=>'search_categories_approved') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
+
         <table class="table tablesorter">
           <tr style="background-color: #222222; color:#fff">
             
@@ -96,7 +111,6 @@
             <th style="text-align: center" > Bukti Transaksi </th>
             <th style="text-align: center" > Jenis Tunjangan </th>
             <th style="text-align: center" > Nominal </th>
-            <th style="text-align: center" > Status </th>
             <th style="text-align: center" > Ket </th>
             <th style="text-align: center" > Aksi </th>
             
@@ -114,13 +128,6 @@
             <td style="text-align: center"> <%= allowance_claim_transaction_approved.upload %> Kosong </td>
             <td style="text-align: center"> <%= allowance_claim_transaction_approved.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
             <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_approved.nominal, :unit => "Rp ") %></td>
-            <% if allowance_claim_transaction_approved.status == nil %>
-                <td style="text-align: center"> Menunggu Persetujuan </td>
-            <% elsif allowance_claim_transaction_approved.status == false %>
-                <td style="text-align: center"> Tidak Disetujui</td>
-            <% else %>
-                <td style="text-align: center"> Telah Disetujui</td>
-            <% end %>
 
             <td style="text-align: center"> <%= allowance_claim_transaction_approved.description %> </td>
             <td style="text-align: center"> 
@@ -135,6 +142,15 @@
 <div class="tab-pane" id="rejected">
 <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_rejecteds, :params => {is_active: true} %> </div>
     <!-- rejected transaction list -->
+    <%= select_tag(:allowance_sub_category_rejected, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+        <%= text_field_tag :search_rejected %>
+        <%= select_tag(:search_rejected_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal', 3]]), :id=>'search_categories_rejected') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
         <table class="table tablesorter">
           <tr style="background-color: #222222; color:#fff">
             
@@ -143,7 +159,6 @@
             <th style="text-align: center" > Bukti Transaksi </th>
             <th style="text-align: center" > Jenis Tunjangan </th>
             <th style="text-align: center" > Nominal </th>
-            <th style="text-align: center" > Status </th>
             <th style="text-align: center" > Ket </th>
             <th style="text-align: center" > Aksi </th>
             
@@ -160,13 +175,7 @@
             <td style="text-align: center"> <%= allowance_claim_transaction_rejected.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
             <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_rejected.nominal, :unit => "Rp ") %></td>
             
-            <% if allowance_claim_transaction_rejected.status == nil %>
-                <td style="text-align: center"> Menunggu Persetujuan </td>
-            <% elsif allowance_claim_transaction_rejected.status == false %>
-                <td style="text-align: center"> Tidak Disetujui</td>
-            <% else %>
-                <td style="text-align: center"> Telah Disetujui</td>
-            <% end %>
+            
             <td style="text-align: center"> <%= allowance_claim_transaction_rejected.description %> </td>
             <td style="text-align: center"> 
             <%= link_to 'Lihat', allowance_claim_transaction_rejected, :class=>'btn btn-info' %>
@@ -179,8 +188,17 @@
 </div>
 
 <div class="tab-pane" id="revisi">
-<div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_revisi, :params => {is_active: true} %> </div>
-    <!-- revisi transaction list -->
+<div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction_revisions, :params => {is_active: true} %> </div>
+    <!-- revision transaction list -->
+    <%= select_tag(:allowance_sub_category_revision, options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+        <%= text_field_tag :search_revision %>
+        <%= select_tag(:search_revision_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal', 3]]), :id=>'search_categories_revision') %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>
         <table class="table tablesorter">
           <tr style="background-color: #222222; color:#fff">
             
@@ -189,7 +207,6 @@
             <th style="text-align: center" > Bukti Transaksi </th>
             <th style="text-align: center" > Jenis Tunjangan </th>
             <th style="text-align: center" > Nominal </th>
-            <th style="text-align: center" > Status </th>
             <th style="text-align: center" > Ket </th>
             <th style="text-align: center" > Aksi </th>
             
@@ -197,31 +214,25 @@
             
           </tr>
 
-        <% @allowance_claim_transaction_revisi.each do |allowance_claim_transaction_revisi| %>
+        <% @allowance_claim_transaction_revisions.each do |allowance_claim_transaction_revision| %>
           <tr>
             
-            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:user).try(:email) %> </td>
-            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.submission_date %> </td>
-            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.upload %> Kosong </td>
-            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-            <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_revisi.nominal, :unit => "Rp ") %></td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revision.try(:allowance).try(:user).try(:email) %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revision.submission_date %> </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revision.upload %> Kosong </td>
+            <td style="text-align: center"> <%= allowance_claim_transaction_revision.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+            <td style="text-align: center"><%= number_to_currency( allowance_claim_transaction_revision.nominal, :unit => "Rp ") %></td>
             
-            <% if allowance_claim_transaction_revisi.status == nil %>
-                <td style="text-align: center"> Menunggu Persetujuan </td>
-            <% elsif allowance_claim_transaction_revisi.status == false %>
-                <td style="text-align: center"> Tidak Disetujui</td>
-            <% else %>
-                <td style="text-align: center"> Telah Disetujui</td>
-            <% end %>
-            <td style="text-align: center"> <%= allowance_claim_transaction_revisi.description %> </td>
+
+            <td style="text-align: center"> <%= allowance_claim_transaction_revision.description %> </td>
             <td style="text-align: center"> 
-            <%= link_to 'Lihat', allowance_claim_transaction_revisi, :class=>'btn btn-info' %>
+            <%= link_to 'Lihat', allowance_claim_transaction_revision, :class=>'btn btn-info' %>
             
             </td>
           </tr>
         <% end %>
         </table>
-    <!-- revisi transaction list -->
+    <!-- revision transaction list -->
 </div>
 
 </div>
@@ -264,4 +275,104 @@
     $("#revision_btn").click(function(){
       $("#decision").val("revision");
     });
+</script>
+
+<script type="text/javascript">
+// pending jquery for searching
+  $("#search_categories_pending").change(function(){
+    if ($(this).val() == 1){
+        
+      $("#search_pending").val("");
+      $("#search_pending").show();
+      $("#allowance_sub_category_pending").hide();
+    }else if($(this).val() == 2){
+        
+      $("#search_pending").val("");
+      $("#search_pending").hide();
+      $("#allowance_sub_category_pending").show();
+      $("#allowance_sub_category_pending").change();
+    }
+  });
+
+  $("#search_categories_pending").change();
+
+  $("#allowance_sub_category_pending").change(function(){
+    $("#search_pending").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// approved jquery for searching
+  $("#search_categories_approved").change(function(){
+    if ($(this).val() == 1){
+        
+      $("#search_approved").val("");
+      $("#search_approved").show();
+      $("#allowance_sub_category_approved").hide();
+    }else if($(this).val() == 2){
+        
+      $("#search_approved").val("");
+      $("#search_approved").hide();
+      $("#allowance_sub_category_approved").show();
+      $("#allowance_sub_category_approved").change();
+    }
+  });
+
+  $("#search_categories_approved").change();
+
+  $("#allowance_sub_category_approved").change(function(){
+    $("#search_approved").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// rejected jquery for searching
+  $("#search_categories_rejected").change(function(){
+    if ($(this).val() == 1){
+        
+      $("#search_rejected").val("");
+      $("#search_rejected").show();
+      $("#allowance_sub_category_rejected").hide();
+    }else if($(this).val() == 2){
+        
+      $("#search_rejected").val("");
+      $("#search_rejected").hide();
+      $("#allowance_sub_category_rejected").show();
+      $("#allowance_sub_category_rejected").change();
+    }
+  });
+
+  $("#search_categories_rejected").change();
+
+  $("#allowance_sub_category_rejected").change(function(){
+    $("#search_rejected").val($(this).val());
+  });
+
+</script>
+
+<script type="text/javascript">
+// revision jquery for searching
+  $("#search_categories_revision").change(function(){
+    if ($(this).val() == 1){
+        
+      $("#search_revision").val("");
+      $("#search_revision").show();
+      $("#allowance_sub_category_revision").hide();
+    }else if($(this).val() == 2){
+        
+      $("#search_revision").val("");
+      $("#search_revision").hide();
+      $("#allowance_sub_category_revision").show();
+      $("#allowance_sub_category_revision").change();
+    }
+  });
+
+  $("#search_categories_revision").change();
+
+  $("#allowance_sub_category_revision").change(function(){
+    $("#search_revision").val($(this).val());
+  });
+
 </script>

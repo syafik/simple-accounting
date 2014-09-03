@@ -2,18 +2,19 @@
 class AllowanceClaimTransactionsController < ApplicationController
 	before_filter :get_allowance_detil
   before_filter :get_history,  :only => [:new, :create] 
+  before_filter :get_sub_category, :only => [:index, :new]
 
   def index
-    @allowance_claim_transaction_approveds = AllowanceClaimTransaction.where(:status => 1 ).order("updated_at desc").paginate(:page => params[:page], :per_page => 5)
-    @allowance_claim_transaction_rejecteds = AllowanceClaimTransaction.where(:status => 2 ).order("submission_date desc").paginate(:page => params[:page], :per_page => 5)
-    @allowance_claim_transaction_pendings = AllowanceClaimTransaction.where(:status => 0 ).order("submission_date desc").paginate(:page => params[:page], :per_page => 5)
-    @allowance_claim_transaction_revisi = AllowanceClaimTransaction.where(:status => 3 ).order("submission_date desc").paginate(:page => params[:page], :per_page => 5)
+    @allowance_claim_transaction_approveds = AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index").paginate(:page => params[:page], :per_page => 5)
+    @allowance_claim_transaction_rejecteds = AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index").paginate(:page => params[:page], :per_page => 5)
+    @allowance_claim_transaction_pendings = AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index").paginate(:page => params[:page], :per_page => 5)
+    @allowance_claim_transaction_revisions = AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index").paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
   	@allowance_claim_transaction = AllowanceClaimTransaction.new
     
-    @allowance_sub_category = AllowanceSubCategory.all.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id]}
+    
   end
 
   def create
@@ -104,11 +105,15 @@ class AllowanceClaimTransactionsController < ApplicationController
 
 
         #@allowance_claim_transaction_approved = AllowanceClaimTransaction.where(:allowance_id => current_user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
-        @allowance_claim_transaction_approved = AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user)
-        @allowance_claim_transaction_rejected = AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user)
-        @allowance_claim_transaction_pending = AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user)
-        @allowance_claim_transaction_revisi = AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user)
+        @allowance_claim_transaction_approved = AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "new")
+        @allowance_claim_transaction_rejected = AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "new")
+        @allowance_claim_transaction_pending = AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "new")
+        @allowance_claim_transaction_revisi = AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "new")
       
       
+    end
+
+    def get_sub_category
+      @allowance_sub_category = AllowanceSubCategory.all.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id]}
     end
 end
