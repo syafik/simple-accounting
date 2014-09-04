@@ -1,17 +1,24 @@
-
-    <div id='will_paginate_id'> <%= will_paginate @allowance_claim_transaction["#{tab_cat}s".to_sym], :params => {is_active: true} %> 
-    </div>
+<div id='will_paginate_id'> 
+	<%= will_paginate @allowance_claim_transaction["#{tab_cat}s".to_sym], :params => {is_active: true} %> 
+</div>
 
 <%= select_tag("allowance_sub_category_#{tab_cat}", options_for_select(@allowance_sub_category), style: "display:none;") %>
-	<label for="from">From</label>
-	<%= text_field_tag "from_#{tab_cat}", nil ,:id => "from" %>
-	<label for="to">to</label>
-	<%= text_field_tag "to_#{tab_cat}", nil ,:id => "to" %>
 
 
-	<%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+
+<%= form_tag allowance_claim_transactions_path, :method => 'get' do %>
+	
+	<%= text_field_tag "from_#{tab_cat}", nil, :placeholder=> "Dari" , class: "from-date" %>
+	
+	<%= text_field_tag "to_#{tab_cat}", nil, :placeholder=> "Sampai" , class: "to-date", style: "display:none;" %>
+
+
 	<%= text_field_tag "search_#{tab_cat}" %>
-	<%= select_tag("search_#{tab_cat}_by", options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal', 3]]), :id=>'search_categories_#{tab_cat}') %>
-	<%= submit_tag "Cari", :name => nil %>
 
+	<% if tab_cat == "pending" %>
+	<%= select_tag("search_#{tab_cat}_by", options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal Pengajuan', 3]]), :id=>"search_categories_#{tab_cat}") %>
+	<% else %>
+	<%= select_tag("search_#{tab_cat}_by", options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1],['Kategori Tunjangan', 2], ['Tanggal Pengajuan', 3], ['Tanggal Persetujuan',4]]), :id=>"search_categories_#{tab_cat}") %>
+	<% end %>
+	<%= submit_tag "Cari", :name => nil %>
 <% end %>

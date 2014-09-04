@@ -12,7 +12,9 @@ class AllowanceClaimTransaction < ActiveRecord::Base
   validates :allowance_id, presence: true
   validates :nominal, presence: true
 
-  def self.search_approved (search, search_by, user, from_page)
+  def self.search_approved (search, search_by, user, from_page, from_date, to_date)
+    p search_by
+    p from_page
     if from_page == "new"
       if search_by == "0"
         where(:allowance_id => user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
@@ -28,13 +30,17 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       if search_by == "0"
         where(:status => 1 ).order("updated_at desc")
       elsif search_by == "1"
-        p "masuk"
         user = User.find_by_email(search)
         allowance = Allowance.where(:user_id => user)
         where(:status => 1, :allowance_id => allowance ).order("updated_at desc")
       elsif search_by == "2"
         allowance = Allowance.where(:allowance_sub_category_id => search)
         where(:status => 1, :allowance_id => allowance ).order("updated_at desc")
+      elsif search_by == "3"
+          where(:status => 1, :submission_date=> from_date..to_date ).order("updated_at desc")
+      elsif search_by == "4"
+          p from_date
+          where(:status => 1, :approval_date=> from_date..to_date ).order("updated_at desc")
       else
         where(:status => 1 ).order("updated_at desc")
       end
@@ -44,7 +50,7 @@ class AllowanceClaimTransaction < ActiveRecord::Base
 
   end
 
-  def self.search_rejected(search, search_by, user, from_page)
+  def self.search_rejected(search, search_by, user, from_page, from_date, to_date)
     if from_page == "new"
       if search_by == "0"
         where(:allowance_id => user.allowances, :status => 2 ).order("submission_date desc")
@@ -67,6 +73,10 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       elsif search_by == "2"
         allowance = Allowance.where(:allowance_sub_category_id => search)
         where(:status => 2, :allowance_id => allowance ).order("updated_at desc")
+      elsif search_by == "3"
+          where(:status => 2, :submission_date=> from_date..to_date ).order("updated_at desc")
+      elsif search_by == "4"
+          where(:status => 2, :approval_date=> from_date..to_date ).order("updated_at desc")
       else
         where(:status => 2 ).order("updated_at desc")
       end
@@ -75,7 +85,7 @@ class AllowanceClaimTransaction < ActiveRecord::Base
   			
   end
 
-  def self.search_pending(search, search_by, user, from_page)
+  def self.search_pending(search, search_by, user, from_page, from_date, to_date)
     if from_page == "new"
       if search_by == "0"
         where(:allowance_id => user.allowances, :status => 0 ).order("submission_date desc")
@@ -96,6 +106,8 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       elsif search_by == "2"
         allowance = Allowance.where(:allowance_sub_category_id => search)
         where(:status => 0, :allowance_id => allowance ).order("updated_at desc")
+      elsif search_by == "3"
+          where(:status => 0, :submission_date=> from_date..to_date ).order("updated_at desc")
       else
         where(:status => 0 ).order("updated_at desc")
       end
@@ -105,7 +117,7 @@ class AllowanceClaimTransaction < ActiveRecord::Base
         
   end
 
-  def self.search_revision(search, search_by, user, from_page)
+  def self.search_revision(search, search_by, user, from_page, from_date, to_date)
     if from_page == "new"
       if search_by == "0"
         where(:allowance_id => user, :status => 3 ).order("submission_date desc")  

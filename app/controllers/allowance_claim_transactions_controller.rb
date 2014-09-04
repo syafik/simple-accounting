@@ -6,10 +6,10 @@ class AllowanceClaimTransactionsController < ApplicationController
 
   def index
     @allowance_claim_transaction = {
-      approveds: AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index").paginate(:page => params[:page], :per_page => 5),
-      rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index").paginate(:page => params[:page], :per_page => 5),
-      pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index").paginate(:page => params[:page], :per_page => 5),
-      revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index").paginate(:page => params[:page], :per_page => 5)}
+      approveds: AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index",params[:from_approved],params[:to_approved]).paginate(:page => params[:page], :per_page => 5),
+      rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index",params[:from_rejected],params[:to_rejected]).paginate(:page => params[:page], :per_page => 5),
+      pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index",params[:from_pending],params[:to_pending]).paginate(:page => params[:page], :per_page => 5),
+      revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index",params[:from_revision],params[:to_revision]).paginate(:page => params[:page], :per_page => 5)}
     end
 
     def new
