@@ -1,3 +1,7 @@
+<% content_for :bottom_js do  %>
+<%= javascript_include_tag "new_claim_trans"%>
+<% end %>
+
 <h2 class="text-center">TRANSAKSI</h2>
 
 
@@ -6,278 +10,48 @@
   <li class="active"><a href="#approved">Daftar Transaksi Tersetujui</a></li>
   <li><a href="#rejected">Daftar Transaksi Tertolak</a></li>
   <li><a href="#pending">Daftar Transaksi Tertunda</a></li>
-  <li><a href="#revisi">Daftar Transaksi Revisi</a></li>
+  <li><a href="#revision">Daftar Transaksi Revisi</a></li>
   
 </ul>
- 
+
 <div class="tab-content">
   <div class="tab-pane active" id="approved">
-  <!-- approved transaction list -->
-
-
-    <%= select_tag(:allowance_sub_category_approved, options_for_select(@allowance_sub_category), style: "display:none;") %>
-    
-
-    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
-        <%= text_field_tag :search_approved%>
-        <%= select_tag(:search_approved_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_approved') %>
-        <%= submit_tag "Cari", :name => nil %>
-      
-    <% end %>
-    <table class="table tablesorter">
-      <tr style="background-color: #222222; color:#fff">
-        <th style="text-align: center" > Tanggal </th>
-        <th style="text-align: center" > Tunjangan </th>
-        <th style="text-align: center" > Besar Dana </th>
-        
-      </tr>
-       
-    <% nominal = 0 %>
-
-    <% @allowance_claim_transaction_approved.each do |allowance_claim_transaction_approved| %>
-      <tr>
-        <td style="text-align: center"> <%= allowance_claim_transaction_approved.submission_date %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_approved.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_approved.nominal %> </td> 
-      </tr>
-
-      <% nominal = nominal +  allowance_claim_transaction_approved.nominal %>
-    <% end %>
-      <tr>
-        <td colspan="2" style="text-align: center">Total </td>
-        <td style="text-align: center" id="nominal"><%= nominal %></td>
-      </tr>
-    </table>
-  <!-- approved transaction list -->
+    <!-- approved transaction list -->
+    <%= render partial: "search_claim_history_list", locals: { tab_cat: "approved"} %>
+    <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:approveds]} %>
+    <!-- approved transaction list -->
   </div>
+
   <div class="tab-pane" id="rejected">
-  <!-- rejected transaction list -->
-  <%= select_tag(:allowance_sub_category_rejected, options_for_select(@allowance_sub_category), style: "display:none;") %>
-    
-
-    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
-        <%= text_field_tag :search_rejected%>
-        <%= select_tag(:search_rejected_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_rejected') %>
-        <%= submit_tag "Cari", :name => nil %>
-      
-    <% end %>
-
-  <table class="table tablesorter">
-      <tr style="background-color: #222222; color:#fff">
-        <th style="text-align: center" > Tanggal </th>
-        <th style="text-align: center" > Tunjangan </th>
-        <th style="text-align: center" > Besar Dana </th>
-      </tr>
-    <% @allowance_claim_transaction_rejected.each do |allowance_claim_transaction_rejected| %>
-      <tr>
-        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.submission_date %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_rejected.nominal %> </td> 
-      </tr>
-    <% end %>
-    </table>
-  <!-- rejected transaction list -->
-
+    <!-- rejected transaction list -->
+    <%= render partial: "search_claim_history_list", locals: { tab_cat: "rejected"} %>
+    <%= render partial: "claim_transaction_history_list", locals: {get_allowance_claim_transaction: @get_allowance_claim_transaction[:rejecteds]} %>
+    <!-- rejected transaction list -->
   </div>
+
   <div class="tab-pane" id="pending">
     <!-- pending transaction list -->
-
-    <%= select_tag(:allowance_sub_category_pending, options_for_select(@allowance_sub_category), style: "display:none;") %>
-    
-
-    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
-        <%= text_field_tag :search_pending %>
-        <%= select_tag(:search_pending_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_pending') %>
-        <%= submit_tag "Cari", :name => nil %>
-      
-    <% end %>
-
-    <table class="table tablesorter">
-      <tr style="background-color: #222222; color:#fff">
-        <th style="text-align: center" > Tanggal </th>
-        <th style="text-align: center" > Tunjangan </th>
-        <th style="text-align: center" >  Besar Dana </th>
-      </tr>
-    <% @allowance_claim_transaction_pending.each do |allowance_claim_transaction_pending| %>
-      <tr>
-        <td style="text-align: center"> <%= allowance_claim_transaction_pending.submission_date %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_pending.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_pending.nominal %> </td> 
-      </tr>
-    <% end %>
-    </table>
+    <%= render partial: "search_claim_history_list", locals: { tab_cat: "pending"} %>
+    <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:pendings]} %>
     <!-- pending transaction list -->
   </div>
 
-  <div class="tab-pane" id="revisi">
+  <div class="tab-pane" id="revision">
     <!-- revision transaction list -->
-    <%= select_tag(:allowance_sub_category_revision, options_for_select(@allowance_sub_category), style: "display:none;") %>
-    
-
-    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
-        <%= text_field_tag :search_revision %>
-        <%= select_tag(:search_revision_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>'search_categories_revision') %>
-        <%= submit_tag "Cari", :name => nil %>
-      
-    <% end %>
-
-
-    <table class="table tablesorter">
-      <tr style="background-color: #222222; color:#fff">
-        <th style="text-align: center" > Tanggal </th>
-        <th style="text-align: center" > Tunjangan </th>
-        <th style="text-align: center" > Besar Dana </th>
-        <th style="text-align: center"> Keterangan </th>
-        <th style="text-align: center"> Aksi </th>
-      </tr>
-    <% @allowance_claim_transaction_revisi.each do |allowance_claim_transaction_revisi| %>
-      <tr>
-        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.submission_date %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.nominal %> </td> 
-        <td style="text-align: center"> <%= allowance_claim_transaction_revisi.description %> </td> 
-        <td style="text-align: center"> 
-        <%= link_to 'Ubah', edit_allowance_claim_transaction_path(allowance_claim_transaction_revisi,nominal: nominal), :class=>'btn btn-warning', remote: true  %> 
-        </td> 
-        
-      </tr>
-    <% end %>
-    </table>
+    <%= render partial: "search_claim_history_list", locals: { tab_cat: "revision"} %>
+    <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:revisions]} %>
     <!-- revisi transaction list -->
   </div>
   
 </div>
-     
-    
 
 
 
 
-<a href="#myModal" role="button" class="btn" data-toggle="modal">Ajukan Tunjangan</a> <%= link_to 'Kembali', allowance_claim_transactions_path, :class=>'btn btn-primary' %>
-
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Masukan Data</h3>
-  </div>
-
-  <div class="modal-body">
-    <%= render partial: 'form', locals: {nominal: nominal} %>
-  </div>
-
-  
-</div>
-
-<div id="myModalDua" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#myModalDua').hide();">×</button>
-    <h3 id="myModalLabel">Ubah Data</h3>
-  </div>
-
-  <div class="modal-body">
-    
-  </div>
-
-  
-</div>
 
 
-<script type="text/javascript">
-// approved jquery for searching
-  $("#search_categories_approved").change(function(){
-    if ($(this).val() == 0){
-      $("#search_approved").val("");
-      $("#search_approved").show();
-      $("#allowance_sub_category_approved").hide();
-    }else if($(this).val() == 1){
-      $("#search_approved").val("");
-      $("#search_approved").hide();
-      $("#allowance_sub_category_approved").show();
-      $("#allowance_sub_category_approved").change();
-    }
-  });
 
-  $("#search_categories_approved").change();
 
-  $("#allowance_sub_category_approved").change(function(){
-    $("#search_approved").val($(this).val());
-  });
 
-</script>
 
-<script type="text/javascript">
-// rejected jquery for searching
-  $("#search_categories_rejected").change(function(){
-    if ($(this).val() == 0){
-      $("#search_rejected").val("");
-      $("#search_rejected").show();
-      $("#allowance_sub_category_rejected").hide();
-    }else if($(this).val() == 1){
-      $("#search_rejected").val("");
-      $("#search_rejected").hide();
-      $("#allowance_sub_category_rejected").show();
-      $("#allowance_sub_category_rejected").change();
-    }
-  });
-
-  $("#search_categories_rejected").change();
-
-  $("#allowance_sub_category_rejected").change(function(){
-    $("#search_rejected").val($(this).val());
-  });
-
-</script>
-
-<script type="text/javascript">
-// pending jquery for searching
-  $("#search_categories_pending").change(function(){
-    if ($(this).val() == 0){
-      $("#search_pending").val("");
-      $("#search_pending").show();
-      $("#allowance_sub_category_pending").hide();
-    }else if($(this).val() == 1){
-      $("#search_pending").val("");
-      $("#search_pending").hide();
-      $("#allowance_sub_category_pending").show();
-      $("#allowance_sub_category_pending").change();
-    }
-  });
-
-  $("#search_categories_pending").change();
-
-  $("#allowance_sub_category_pending").change(function(){
-    $("#search_pending").val($(this).val());
-  });
-
-</script>
-
-<script type="text/javascript">
-// revision jquery for searching
-  $("#search_categories_revision").change(function(){
-    if ($(this).val() == 0){
-      $("#search_revision").val("");
-      $("#search_revision").show();
-      $("#allowance_sub_category_revision").hide();
-    }else if($(this).val() == 1){
-      $("#search_revision").val("");
-      $("#search_revision").hide();
-      $("#allowance_sub_category_revision").show();
-      $("#allowance_sub_category_revision").change();
-    }
-  });
-
-  $("#search_categories_revision").change();
-
-  $("#allowance_sub_category_revision").change(function(){
-    $("#search_revision").val($(this).val());
-  });
-
-</script>
-
-<script>
-   $("#transactionTab a").click(function (e) {
-      e.preventDefault();
-      $(this).tab("show");
-    })
-</script>
 
