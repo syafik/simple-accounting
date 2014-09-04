@@ -1,0 +1,9 @@
+<%= select_tag("allowance_sub_category_#{tab_cat}", options_for_select(@allowance_sub_category), style: "display:none;") %>
+    
+
+    <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
+        <%= text_field_tag "search_#{tab_cat}" %>
+        <%= select_tag(:search_approved_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>"search_categories_#{tab_cat}") %>
+        <%= submit_tag "Cari", :name => nil %>
+      
+    <% end %>

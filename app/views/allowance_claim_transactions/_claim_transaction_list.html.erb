@@ -1,0 +1,71 @@
+<table class="table tablesorter">
+	<tr style="background-color: #222222; color:#fff">
+
+		<th style="text-align: center" > Nama Pegawai </th>
+		<th style="text-align: center" > Tanggal Pengajuan </th>
+		<th style="text-align: center" > Tanggal Penyetujuan </th>
+		<th style="text-align: center" > Bukti Transaksi </th>
+		<th style="text-align: center" > Jenis Tunjangan </th>
+		<th style="text-align: center" > Nominal </th>
+		<th style="text-align: center" > Ket </th>
+		<th style="text-align: center" > Aksi </th>
+
+	</tr>
+
+	<% allowance_claim_transaction.each do |claim| %>
+	<tr>
+
+		<td style="text-align: center"> <%= claim.try(:allowance).try(:user).try(:email) %> </td>
+		<td style="text-align: center"> <%= claim.submission_date %> </td>
+
+		<% if claim.status == 0 %>
+		<td style="text-align: center">  </td>
+		<% else %>
+		<td style="text-align: center"> <%= claim.approval_date %> </td>
+		<% end %>
+
+		<td style="text-align: center"> <%= claim.upload %> Kosong </td>
+		<td style="text-align: center"> <%= claim.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+		<td style="text-align: center"><%= number_to_currency( claim.nominal, :unit => "Rp ") %></td>
+
+		<% if claim.status == 0 %>
+		<td style="text-align: center">  </td>
+		<% else %>
+		<td style="text-align: center"> <%= claim.description %> </td>
+		<% end %>
+
+		<% if claim.status == 0 %>
+		<td style="text-align: center"> 
+			<%= link_to 'Lihat', claim, :class=>'btn btn-info' %>
+			<a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal" id="approve_btn">Setuju</a>
+			<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn">Tidak Setuju</a>
+			<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="revision_btn">Revisi</a>
+		</td>
+		<% else %>
+		<td style="text-align: center">  <%= link_to 'Lihat', claim, :class=>'btn btn-info' %> </td>
+		<% end %>
+		
+		
+
+	</tr>
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Deskripsi</h3>
+		</div>
+
+		<div class="modal-body">
+			<%= form_tag(set_approval_allowance_claim_transactions_path(claim), method: "get") do %>
+			<%= label_tag(:description, "Deskripsi:") %>
+			<%= text_area_tag(:description,"", size: "24x6") %><br />
+			<%= hidden_field_tag :decision, "approved" %>
+			<%= hidden_field_tag :allowance_id, claim.allowance_id %>
+			<%= hidden_field_tag :nominal, claim.nominal %>
+			<%= submit_tag("Kirim") %>
+			<% end %>
+		</div>
+
+
+	</div>
+	<% end %>
+</table>
