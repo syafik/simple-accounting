@@ -2,8 +2,18 @@
     
 
     <%= form_tag new_allowance_claim_transaction_path, :method => 'get' do %>
-        <%= text_field_tag "search_#{tab_cat}" %>
-        <%= select_tag(:search_approved_by, options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal', 2]]), :id=>"search_categories_#{tab_cat}") %>
+
+    	<%= text_field_tag "search[from_#{tab_cat}]", nil, :placeholder=> "Dari" , class: "from-date" %>
+	<%= text_field_tag "search[to_#{tab_cat}]", nil, :placeholder=> "Sampai" , class: "to-date"%>
+
+
+	<%= text_field_tag "search[#{tab_cat}]" %>
+	<%= hidden_field_tag "search[status]", "#{tab_cat}" %>
+       <% if tab_cat == "pending" %>
+		<%= select_tag("search[by_#{tab_cat}]", options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal Pengajuan', 2]]), :id=>"search_categories_#{tab_cat}") %>
+	<% else %>
+		<%= select_tag("search[by_#{tab_cat}]", options_for_select([['Tampilkan Semua', 0],['Kategori Tunjangan', 1], ['Tanggal Pengajuan', 2], ['Tanggal Persetujuan',3]]), :id=>"search_categories_#{tab_cat}") %>
+	<% end %>
         <%= submit_tag "Cari", :name => nil %>
       
     <% end %>

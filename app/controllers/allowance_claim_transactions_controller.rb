@@ -5,11 +5,17 @@ class AllowanceClaimTransactionsController < ApplicationController
   before_filter :get_sub_category, :only => [:index, :new]
 
   def index
-    @allowance_claim_transaction = {
-      approveds: AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index",params[:from_approved],params[:to_approved]).paginate(:page => params[:page], :per_page => 5),
-      rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index",params[:from_rejected],params[:to_rejected]).paginate(:page => params[:page], :per_page => 5),
-      pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index",params[:from_pending],params[:to_pending]).paginate(:page => params[:page], :per_page => 5),
-      revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index",params[:from_revision],params[:to_revision]).paginate(:page => params[:page], :per_page => 5)}
+    
+  # p params[:search]
+  #   @allowance_claim_transaction = {
+  #     approveds: AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index",params[:from_approved],params[:to_approved]).paginate(:page => params[:page], :per_page => 5),
+  #     rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index",params[:from_rejected],params[:to_rejected]).paginate(:page => params[:page], :per_page => 5),
+  #     pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index",params[:from_pending],params[:to_pending]).paginate(:page => params[:page], :per_page => 1),
+  #     revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index",params[:from_revision],params[:to_revision]).paginate(:page => params[:page], :per_page => 5)}
+    
+      if current_user.role == "Admin"
+        @allowance_claim_transactions = AllowanceClaimTransaction.admin_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
+      end
     end
 
     def new
@@ -53,7 +59,7 @@ class AllowanceClaimTransactionsController < ApplicationController
     @allowance_claim_transaction = AllowanceClaimTransaction.find(params[:format])
     #cek status
     decision = params[:decision]
-    p decision
+    
     if decision == "rejected"
       @allowance_claim_transaction.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
       redirect_to allowance_claim_transactions_path
@@ -103,12 +109,14 @@ class AllowanceClaimTransactionsController < ApplicationController
  end
 
  def get_history
-  @get_allowance_claim_transaction= {
-    approveds:  AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "new"),
-    rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "new"),
-    pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "new"),
-    revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "new")
-  }
+  @get_allowance_claim_transaction = AllowanceClaimTransaction.user_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
+  
+  # @get_allowance_claim_transaction= {
+  #   approveds:  AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "new"),
+  #   rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "new"),
+  #   pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "q` "),
+  #   revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "new")
+  # }
 
 
 

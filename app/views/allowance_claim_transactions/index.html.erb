@@ -19,28 +19,28 @@
 	<div class="tab-pane active" id="pending">
 		<!-- pendding transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "pending"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transaction[:pendings] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:pendings] } %>
 		<!-- pendding transaction list -->
 	</div>
 
 	<div class="tab-pane" id="approved">
 		<!-- approved transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "approved"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transaction[:approveds] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:approveds] } %>
 		<!-- approved transaction list -->
 	</div>
 	
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "rejected"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transaction[:rejecteds] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:rejecteds] } %>
 		<!-- rejected transaction list -->
 	</div>
 
 	<div class="tab-pane" id="revision">
 		<!-- revision transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "revision"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transaction[:revisions] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:revisions] } %>
 		<!-- revision transaction list -->
 	</div>
 </div>

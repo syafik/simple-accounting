@@ -9,46 +9,46 @@ var searchingCategories = function(){
 			$("#search_categories_"+ category).change(function(){
 			if($(this).val() == 0){
 				$("#search_"+ category).val("");
-				$("#from_"+ category).val("");
-				$("#to_"+ category).val("");
+				$("#search_from_"+ category).val("");
+				$("#search_to_"+ category).val("");
 				$("#search_"+ category).hide();
-				$("#from_"+ category).hide();
-				$("#to_"+ category).hide();
+				$("#search_from_"+ category).hide();
+				$("#search_to_"+ category).hide();
 				$("#allowance_sub_category_"+ category).hide();
 			}else if ($(this).val() == 1){
 				$("#search_"+ category).val("");
 				$("#search_"+ category).show();
-				$("#from_"+ category).val("");
-				$("#to_"+ category).val("");
+				$("#search_from_"+ category).val("");
+				$("#search_to_"+ category).val("");
 				$("#allowance_sub_category_"+ category).hide();
-				$("#from_"+ category).hide();
-				$("#to_"+ category).hide();
+				$("#search_from_"+ category).hide();
+				$("#search_to_"+ category).hide();
 			}else if($(this).val() == 2){
 				$("#search_"+ category).val("");
 				$("#search_"+ category).hide();
 				$("#allowance_sub_category_"+ category).show();
 				$("#allowance_sub_category_"+ category).change();
-				$("#from_"+ category).val("");
-				$("#to_"+ category).val("");
-				$("#from_"+ category).hide();
-				$("#to_"+ category).hide();
+				$("#search_from_"+ category).val("");
+				$("#search_to_"+ category).val("");
+				$("#search_from_"+ category).hide();
+				$("#search_to_"+ category).hide();
 			}else if($(this).val() == 3){
 				$("#allowance_sub_category_"+ category).hide();
 				$("#search_"+ category).hide();
 				$("#search_"+ category).val("");
-				$("#from_"+ category).val("");
-				$("#to_"+ category).val("");
-				$("#from_"+ category).show();
-				$("#to_"+ category).show();
+				$("#search_from_"+ category).val("");
+				$("#search_to_"+ category).val("");
+				$("#search_from_"+ category).show();
+				$("#search_to_"+ category).show();
 				$("#allowance_sub_category_"+ category).hide();
 			}else if($(this).val() == 4){
 				$("#allowance_sub_category_"+ category).hide();
 				$("#search_"+ category).hide();
 				$("#search_"+ category).val("");
-				$("#from_"+ category).val("");
-				$("#to_"+ category).val("");
-				$("#from_"+ category).show();
-				$("#to_"+ category).show();
+				$("#search_from_"+ category).val("");
+				$("#search_to_"+ category).val("");
+				$("#search_from_"+ category).show();
+				$("#search_to_"+ category).show();
 				$("#allowance_sub_category_"+ category).hide();
 			}
 		});

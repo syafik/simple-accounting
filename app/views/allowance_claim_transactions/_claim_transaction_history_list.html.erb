@@ -2,15 +2,24 @@
 <% approved_nominal = 0 %>
 <table class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Tanggal </th>
+    <th style="text-align: center" > Tanggal Pengajuan</th>
+    <th style="text-align: center" > Tanggal Penyetujuan</th>
     <th style="text-align: center" > Tunjangan </th>
     <th style="text-align: center" > Besar Dana </th>
     <th style="text-align: center"> Keterangan </th>
     <th style="text-align: center"> Aksi </th>
   </tr>
-  <% get_allowance_claim_transaction.each do |claim| %>
+
+  <% get_allowance_claim_transaction.each  do |claim| %>
   <tr>
     <td style="text-align: center"> <%= claim.submission_date %> </td>
+    <% if claim.status == 0 %>
+        <td style="text-align: center">  </td>
+    <% else %>
+        <td style="text-align: center"> <%= claim.approval_date %> </td>
+    <% end %>
+    
+
     <td style="text-align: center"> <%= claim.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
     <td style="text-align: center"> <%= claim.nominal %> </td> 
     <td style="text-align: center"> <%= claim.description %> </td> 
