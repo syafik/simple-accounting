@@ -1,6 +1,9 @@
 
+  <table id="replace-table" class="table tablesorter">
   <tr style="background-color: #222222; color:#fff">
     <th style="text-align: center" >Date</th>
+    <th style="text-align: center" >Time In</th>
+    <th style="text-align: center" >Time Out</th>
     <th style="text-align: center" >User</th>
     <th style="text-align: center" >Categories</th>
     <th style="text-align: center" >Description</th>
@@ -16,6 +19,8 @@
 <% absents.each do |absent| %>
   <tr class="list-index">
     <td style="text-align: center" ><%= absent.date %></td>
+    <td style="text-align: center" ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
+    <td style="text-align: center" ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
     <td style="text-align: center" ><%= absent.try(:user).try(:email) %></td>
     
     <% if absent.categories == 1 %>
@@ -39,3 +44,6 @@
    <% end %>
   </tr>
 <% end %>
+</table>
+
+<div id='wil_paginate_id'> <%= will_paginate @absents, :params => {is_active: true} %> </div>

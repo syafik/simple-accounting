@@ -11,24 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id, :value => current_user.id %>
-  </div>
-  <div class="field">
-    <%= f.label :categories %><br />
-    <%= f.select :categories, options_for_select([['Masuk',1], ['Alfa',2], ['Izin',3], ['Sakit',4]])%>
-    
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+<table>
+    <tr>
+     <td><%= f.label :date %></td>
+     <td><%= f.date_select :date %></td>
+    </tr>
+    <tr>
+     <td><%= f.label :user_id %></td>
+     <td><%= f.number_field :user_id, :value => current_user.id %></td>
+    </tr>
+    <tr>  
+     <td><%= f.label :categories %></td>
+     <td><%= f.select :categories, options_for_select([['Masuk',1], ['Alfa',2], ['Izin',3], ['Sakit',4]])%></td>
+    </tr>
+    <tr>  
+     <td><%= f.label :description %></td>
+     <td><%= f.text_area :description, :cols => "30", :rows => "10" %></td>
+    </tr> 
+    <tr>
+     <td><%= f.submit nil, :class=>'btn btn-default' %></td>
+    </tr>
   </div>
+</table>
 <% end %>

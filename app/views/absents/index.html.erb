@@ -1,3 +1,4 @@
+
 <h2 class="text-center">ABSENSI KARYAWAN</h2>
 
 
@@ -10,13 +11,17 @@
 </div>
   <% end %>
 
-<div>
-<%= link_to 'Laporan Bulanan', absents_path,:params => 3,:class=>'btn btn-primary' %>
+<div class="text-center">
+  <%= link_to '<< PREV', absents_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard" %>
+  <%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
+  <%= link_to 'NEXT >>', absents_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard" %>
 </div>
 
-<table id="replace-table" class="table tablesorter">
+<br />
+
  <%= render partial: "list", locals: {absents: @absents} %>
-</table>
+
 <br />
 
 <%= link_to 'New Absent', new_absent_path, :class=>'btn btn-primary' %>
+

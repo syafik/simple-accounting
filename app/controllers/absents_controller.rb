@@ -4,13 +4,20 @@ class AbsentsController < ApplicationController
   # GET /absents.json
   def index
     if current_user.role == "user"
-      @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc")
+      @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
     else
       if params[:search]
         @absents =  Absent.where(user_id: params[:search])
       else 
-
-        @absents = Absent.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc")
+        @date = Date.today
+        year = params[:year] || @date.year
+        month = params[:month] || @date.month
+        @date = DateTime.new(year.to_i,month.to_i, 1)
+        @next = @date + 1.month
+        @prev = @date - 1.month
+        @start_date = @date.beginning_of_month
+        @end_date = @date.end_of_month
+        @absents = Absent.where("extract(year from date) = #{year} AND extract(month from date) = #{month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
       end
     end
 
