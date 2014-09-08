@@ -1,9 +1,20 @@
 
 class AbsentsController < ApplicationController
+  before_filter :get_user, :only => [:new, :create, :edit, :update]
+
   # GET /absents
   # GET /absents.json
   def index
     if current_user.role == "user"
+      @date = Date.today
+      year = params[:year] || @date.year
+      month = params[:month] || @date.month
+      @date = DateTime.new(year.to_i,month.to_i, 1)
+      @next = @date + 1.month
+      @prev = @date - 1.month
+      @start_date = @date.beginning_of_month
+      @end_date = @date.end_of_month
+      # didnt work yet
       @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
     else
       if params[:search]
@@ -44,6 +55,7 @@ class AbsentsController < ApplicationController
   # GET /absents/new.json
   def new
     @absent = Absent.new
+    
     #@absent_categories = AbsentCategory.all.map { |absent_category| [absent_category.category_name, absent_category.id] }
     respond_to do |format|
       format.html # new.html.erb
@@ -98,5 +110,11 @@ class AbsentsController < ApplicationController
       format.html { redirect_to absents_url }
       format.json { head :no_content }
     end
+  end
+
+
+  private
+  def get_user
+    @users = User.all.map {|user| [user.email, user.id]}
   end
 end

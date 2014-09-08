@@ -22,7 +22,7 @@
 
 
 function remove_fields(link) {
-	// console.log("test : ", $(link))
+// console.log("test : ", $(link))
  //  $(link).previous("input[type=hidden]").value = "1";
  //  $(link).up(".fields").hide();
  $(link).parent().remove()

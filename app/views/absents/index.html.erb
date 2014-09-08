@@ -12,11 +12,11 @@
   <% end %>
 
 <div class="text-center">
-  <%= link_to '<< PREV', absents_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard" %>
+
+  <%= link_to '<< PREV',absents_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard" %>
   <%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
   <%= link_to 'NEXT >>', absents_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard" %>
 </div>
-
 <br />
 
  <%= render partial: "list", locals: {absents: @absents} %>
