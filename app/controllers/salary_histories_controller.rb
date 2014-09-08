@@ -1,6 +1,7 @@
 class SalaryHistoriesController < ApplicationController
-
-	 def index
+  before_filter :get_user, :only => [:new, :create, :edit, :update]
+  
+  def index
     @salary_histories = SalaryHistory.all
 
     respond_to do |format|
@@ -27,7 +28,7 @@ class SalaryHistoriesController < ApplicationController
     end
   end
 
-   def edit
+  def edit
     @salary_history = SalaryHistory.find(params[:id])
   end
 
@@ -59,7 +60,7 @@ class SalaryHistoriesController < ApplicationController
     end
   end
 
-   def destroy
+  def destroy
     @salary_history = SalaryHistory.find(params[:id])
     @salary_history.destroy
 
@@ -67,5 +68,10 @@ class SalaryHistoriesController < ApplicationController
       format.html { redirect_to salary_histories_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def get_user
+    @users = User.all.map {|user| [user.email, user.id]}
   end
 end
