@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tanggal :</b>
+  <%= @salary_history.date %>
+</p>
+
+<p>
+  <b>Nama Pegawai:</b>
+  <%= @salary_history.try(:user).try(:email)%>
+</p>
+
+<p>
+  <b>Besar Dana:</b>
+  <%=number_to_currency( @salary_history.payment, :unit => "Rp ")  %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_salary_history_path(@salary_history) %> |
+<%= link_to 'Back', salary_histories_path %>

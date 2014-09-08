@@ -1,0 +1,27 @@
+<h1>New salary_history</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', salary_histories_path %>
+
+
+<script type="text/javascript">
+	 $(function() {
+    $( ".from-date" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        onClose: function( selectedDate ) {
+            $( "#to" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+    $( ".to-date" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        onClose: function( selectedDate ) {
+            $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+        }
+    });
+});
+</script>
