@@ -11,15 +11,15 @@
 
 <% @salary_histories.each do |salary_history| %>
   <tr>
-    <td><%= salary_history.date %></td>
-    <td><%= salary_history.user_id %></td>
-    <td><%= salary_history.payment %></td>
+    <td style="text-align: center"><%= salary_history.date %></td>
+    <td style="text-align: center"><%= salary_history.user_id %></td>
+    <td style="text-align: center"><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
    
-    <td>
-      <span class="pull-right">
+    <td style="text-align: center">
+        <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
         <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_history_path(salary_history), :class => "nyroModal btn btn-success" %>
         <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-      </span>
+      
     </td>
   </tr>
 <% end %>

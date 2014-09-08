@@ -27,6 +27,7 @@ class OvertimesController < ApplicationController
   def new
     @overtime = Overtime.new
 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @overtime }
@@ -43,8 +44,14 @@ class OvertimesController < ApplicationController
   def create
     @overtime = Overtime.new(params[:overtime])
 
+
+    # count long overtime
+    overtime_history = Overtime.where(:user_id =>  current_user.id).sum(:long_overtime)
+
+    total_long_overtime = overtime_history.to_i + params[:overtime][:long_overtime].to_i
+    
     respond_to do |format|
-      if @overtime.save
+      if total_long_overtime <= 8  &&@overtime.save
         format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
         format.json { render json: @overtime, status: :created, location: @overtime }
       else

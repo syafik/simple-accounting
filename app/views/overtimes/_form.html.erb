@@ -13,15 +13,12 @@
 
   <div class="field">
     <%= f.label :date %><br />
-    <%= f.date_select :date %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id, :value =>current_user.id %>
+    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "from-date" %>
   </div>
   <div class="field">
     <%= f.label :long_overtime %><br />
     <%= f.number_field :long_overtime %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
   <div class="field">
     <%= f.label :description %><br />

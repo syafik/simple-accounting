@@ -33,8 +33,11 @@
   						<ul class="nav">
   							<% if user_signed_in?  %>
   							<li><%= link_to "<i class=\"icon-home\"></i> Home".html_safe, transactions_path  %></li>
-  							<li><%= link_to "<i class=\"icon-list-alt\"></i> Report".html_safe, reports_path %></li>
-  							<li><%= link_to "<i class=\"icon-list-alt\"></i> Absent".html_safe, absents_path %></li>
+  							<li><%= link_to "<i class=\"icon-list-alt\"></i> Laporan".html_safe, reports_path %></li>
+  							<li><%= link_to "<i class=\"icon-list-alt\"></i> Absen".html_safe, absents_path %></li>
+                                          <li><%= link_to "<i class=\"icon-list-alt\"></i> Salary".html_safe, salaries_path %></li>
+                                          <li><%= link_to "<i class=\"icon-list-alt\"></i> Salary Histories".html_safe, salary_histories_path %></li>
+                                          <li><%= link_to "<i class=\"icon-list-alt\"></i> Overtimes".html_safe, overtimes_path %></li>
 
   							<!-- Allowance Navigation-->
   							<ul class="nav pull-right">
@@ -65,7 +68,7 @@
   					<% end %>
 
   					<div class="text-center">
-  						<span><%= image_tag("/assets/pushjaw.png") %></span>
+  						
   					</div>
 
   				</div>

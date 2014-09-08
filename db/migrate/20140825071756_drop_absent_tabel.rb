@@ -1,5 +1,5 @@
 class DropAbsentTabel < ActiveRecord::Migration
   def change
-  	drop_table :absents
+  	#drop_table :absents
   end
 end
