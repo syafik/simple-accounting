@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :absents
   
   has_many :salary_histories
+  has_many :overtimes
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

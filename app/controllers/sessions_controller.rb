@@ -10,12 +10,14 @@ class SessionsController < Devise::SessionsController
 			current_user.absents.create({categories: 1, date: Date.today, time_in: Time.now.strftime("%I:%M:%S") })
 		end
 		respond_with resource, :location => after_sign_in_path_for(resource)
+		
 	end
 
 	def destroy
 		redirect_path = after_sign_out_path_for(resource_name)
 
 		check_absent = current_user.absents.where({categories: 1, date: Date.today})
+		p check_absent.select("id")
 		absents = Absent.find(check_absent.select("id"))
 
 

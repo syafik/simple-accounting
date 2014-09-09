@@ -18,14 +18,8 @@
 <% @salaries.each do |salary| %>
   <tr>
     <td><%= salary.date %></td>
-    <td><%= salary.user_id %></td>
-    <td><%= salary.attendance %></td>
-    <td><%= salary.number_of_absences %></td>
-    <td><%= salary.amount_of_overtime %></td>
-    <td><%= salary.salary %></td>
-    <td><%= salary.overtime_pay %></td>
-    <td><%= salary.amount_of_overtime * salary.overtime_pay %></td>
-    <td><%= salary.salary + (salary.overtime_pay * salary.amount_of_overtime) %></td>
+   <td><%= salary.try(:salary_history).try(:user).try(:id) %></td>
+   <td><%= salary.date %></td>
     <td>
       <span class="pull-right">
         <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
@@ -38,4 +32,12 @@
 
 <br />
 
+
+<%= form_for :salary, url: salaries_path do |f| %>
+  
+
+  <div class="actions">
+    <%= f.submit "Generate"%>
+  </div>
+<% end %>
 <%= link_to 'Buat Gaji', new_salary_path , :class=>'btn btn-primary'%>

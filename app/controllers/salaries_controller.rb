@@ -41,17 +41,45 @@ class SalariesController < ApplicationController
   # POST /salaries
   # POST /salaries.json
   def create
-    @salary = Salary.new(params[:salary])
+    # @salary = Salary.new(params[:salary])
 
-    respond_to do |format|
-      if @salary.save
-        format.html { redirect_to @salary, notice: 'Salary was successfully created.' }
-        format.json { render json: @salary, status: :created, location: @salary }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @salary.errors, status: :unprocessable_entity }
+    #get last salary
+    last_salary = Salary.last
+
+    if last_salary == nil
+      # get curren date
+      date = Date.today.at_beginning_of_week.strftime("%y-%m-2")
+      user = User.all
+
+      user.each do | u |
+        total_attendance = Absent.where(:user_id => u, :categories => 1).count
+        total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
+        total_overtime_hours = u.overtimes.sum(:long_overtime)
+        total_overtime_payment  = total_overtime_hours * u.overtime_pay
+        salary_history_id = SalaryHistory.where(:user_id => u, :activate => true)
+        @salary = Salary.new({date: date,total_attendance: total_attendance, total_absence: total_absence, total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, salary_history_id: salary_history_id})
+        @salary.save!
+        
+        
+
+
       end
     end
+
+    
+
+
+
+
+    # respond_to do |format|
+    #   if @salary.save
+    #     format.html { redirect_to @salary, notice: 'Salary was successfully created.' }
+    #     format.json { render json: @salary, status: :created, location: @salary }
+    #   else
+    #     format.html { render action: "new" }
+    #     format.json { render json: @salary.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /salaries/1

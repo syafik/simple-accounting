@@ -3,7 +3,7 @@ class OvertimesController < ApplicationController
   # GET /overtimes
   # GET /overtimes.json
   def index
-    @overtimes = Overtime.all
+    @overtimes = Overtime.where(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
