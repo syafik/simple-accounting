@@ -7,7 +7,7 @@ gem 'rails', '3.2.5'
 
 gem 'pg'
 gem 'devise'
-gem 'debugger'
+
 
 
 
@@ -27,6 +27,10 @@ gem 'jquery-rails'
 
 # Adding will-peginate for pagination
 gem 'will_paginate'
+
+group :development do
+	gem 'debugger'
+end
 
 
 
