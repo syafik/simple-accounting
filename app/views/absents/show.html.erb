@@ -1,25 +1,56 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Kehadiran
+<% end%>
 
-<p>
-  <b>Date:</b>
-  <%= @absent.date %>
-</p>
+<% content_for :content_sub_title do %>
+Detail Kehadiran
+<% end%>
 
-<p>
-  <b>User:</b>
-  <%= @absent.try(:user).try(:email)%>
-</p>
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td> <b> Tanggal </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.date %></td>
+		</tr>
+		<tr>
+			<td> <b>Nama Karyawan </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.try(:user).try(:name)%> </td>
+		</tr>
+		<tr>
+			<td> <b> Kategori </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.categories %></td>
+		</tr>
 
-<p>
-  <b>Categories:</b>
-  <%= @absent.categories %>
-</p>
+		<tr>
+			<td> <b> Keterangan </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.description %></td>
+		</tr>
+	</table>
+</div>
+<% end%>
 
-<p>
-  <b>Description:</b>
-  <%= @absent.description %>
-</p>
+<% content_for :content_nav do %>
+<%= link_to 'Edit', edit_absent_path(@absent), :class=>'btn btn-primary' %>
+<%= link_to 'Back', absents_path, :class=>'btn btn-primary' %>
+<% end%>
 
 
-<%= link_to 'Edit', edit_absent_path(@absent) %> |
-<%= link_to 'Back', absents_path %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

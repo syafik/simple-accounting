@@ -110,6 +110,7 @@ class AllowanceClaimTransactionsController < ApplicationController
 
  def get_history
   @get_allowance_claim_transaction = AllowanceClaimTransaction.user_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
+  p @get_allowance_claim_transaction
   
   # @get_allowance_claim_transaction= {
   #   approveds:  AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "new"),

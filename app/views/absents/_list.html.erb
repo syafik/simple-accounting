@@ -1,46 +1,58 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Tanggal </th>
+      <th>Jam Masuk</th>
+      <th>Jam Keluar</th>
+      <th>Nama Karyawan</th>
+      <th>Kategori</th>
+      
+      <% if current_user.role == "admin" %> 
+      <th>
+        Action
+      </th>
+      <% end %>
 
-  <table id="replace-table" class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" >Date</th>
-    <th style="text-align: center" >Time In</th>
-    <th style="text-align: center" >Time Out</th>
-    <th style="text-align: center" >User</th>
-    <th style="text-align: center" >Categories</th>
-    <th style="text-align: center" >Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% absents.each do |absent| %>
+    <tr>
+      <td ><%= absent.date %></td>
+      <td ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
+      <td ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
+      <td ><%= absent.try(:user).try(:email) %></td>
 
-    <% if current_user.role == "admin" %> 
-      <th style="text-align: center" >Action</th>
+      <% if absent.categories == 1 %>
+      <td >Masuk</td>
+      <% elsif absent.categories == 2 %>
+      <td >Alfa</td>
+      <% elsif absent.categories == 3 %>
+      <td >Izin</td>
+      <% elsif absent.categories == 4 %>
+      <td >Sakit</td>
+      <%end%>
+
+      
+
+      <% if current_user.role == "admin" %>
+      <td >
+        <%= link_to 'Lihat', absent, :class=>'btn btn-info' %>
+        <%= link_to 'Ubah', edit_absent_path(absent), :class=>'btn btn-warning' %>
+        <%= link_to 'Hapus', absent, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+      </td>
+      <% end %>
+    </tr>
+
     <% end %>
-  </tr>
-
-<% absents.each do |absent| %>
-  <tr class="list-index">
-    <td style="text-align: center" ><%= absent.date %></td>
-    <td style="text-align: center" ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
-    <td style="text-align: center" ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
-    <td style="text-align: center" ><%= absent.try(:user).try(:email) %></td>
-    
-    <% if absent.categories == 1 %>
-     <td style="text-align: center">Masuk</td>
-    <% elsif absent.categories == 2 %>
-      <td style="text-align: center">Alfa</td>
-    <% elsif absent.categories == 3 %>
-      <td style="text-align: center">Izin</td>
-    <% elsif absent.categories == 4 %>
-      <td style="text-align: center">Sakit</td>
-    <%end%>
-    
-    <td style="text-align: center" ><%= absent.description %></td>
-    
-  <% if current_user.role == "admin" %>
-    <td style="text-align: center">
-      <%= link_to 'Show', absent, :class=>'btn btn-info' %>
-      <%= link_to 'Edit', edit_absent_path(absent), :class=>'btn btn-warning' %>
-      <%= link_to 'Destroy', absent, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
-    </td>
-   <% end %>
-  </tr>
-<% end %>
+  </tbody>
 </table>
+
+
 
 <div id='wil_paginate_id'> <%= will_paginate @absents, :params => {is_active: true} %> </div>

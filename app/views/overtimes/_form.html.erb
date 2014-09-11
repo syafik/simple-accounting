@@ -1,30 +1,43 @@
-<%= form_for(@overtime) do |f| %>
-  <% if @overtime.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@overtime.errors.count, "error") %> prohibited this overtime from being saved:</h2>
+<%= form_for(@overtime,:html => { style: "text-align: left;"}) do |f| %>
+<% if @overtime.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@overtime.errors.count, "error") %> prohibited this overtime from being saved:</h2>
 
-      <ul>
-      <% @overtime.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <ul>
+    <% @overtime.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+
+<div class="form-group" style="width: 50%">
+  <label>Tanggal:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
     </div>
-  <% end %>
+    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
+  </div>
+</div>
+<div class="form-group" style="width: 50%">
+  <label>Lama Lembur:</label>
+  <%= f.number_field :long_overtime, class: "form-control" %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+</div>
+<div class="form-group" style="width: 50%">
+  <label>Deskripsi:</label>
+  <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
+</div>
 
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "from-date" %>
-  </div>
-  <div class="field">
-    <%= f.label :long_overtime %><br />
-    <%= f.number_field :long_overtime %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= f.submit nil, :class=>'btn btn-default' %>
+
+
+
+
+
+
+
+
 <% end %>

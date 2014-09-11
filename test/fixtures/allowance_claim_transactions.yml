@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_submission: 2014-08-25
+  category: MyString
+  approval_date: 2014-08-25
+  upload: MyString
+  status: false
+  description: MyText
+  allowance_sub_category: 
+
+two:
+  date_submission: 2014-08-25
+  category: MyString
+  approval_date: 2014-08-25
+  upload: MyString
+  status: false
+  description: MyText
+  allowance_sub_category: 

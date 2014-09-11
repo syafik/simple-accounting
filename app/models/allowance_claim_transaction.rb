@@ -98,6 +98,9 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       else
         allowance_list
       end
+
+      p "== model =="
+      p allowance_list
       return allowance_list
   end
 

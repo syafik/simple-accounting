@@ -1,0 +1,26 @@
+<li class="treeview">
+	<a href="#">
+		<i class="fa fa-plus"></i>
+		<span>Tunjangan</span>
+		<i class="fa fa-angle-left pull-right"></i>
+	</a>
+	<ul class="treeview-menu">
+		<li> 
+			<%= link_to allowance_categories_path do %>
+			<i class="fa fa-angle-double-right"></i> Kategori Tunjangan
+			<% end %>
+		</li>
+		<li> 
+			<%= link_to allowances_path do %>
+			<i class="fa fa-angle-double-right"></i> Data Tunjangan
+			<% end %>
+		</li>
+		<li> 
+			<%= link_to allowance_claim_transactions_path do %>
+			<i class="fa fa-angle-double-right"></i> Data Transaksi Tunjangan
+			<% end %>
+		</li>
+
+
+	</ul>
+</li>

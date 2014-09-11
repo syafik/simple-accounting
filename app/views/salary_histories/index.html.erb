@@ -1,30 +1,50 @@
-<h2 class="text-center">REKAP GAJI</h2>
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Tanggal </th>
-    <th style="text-align: center" >  User ID </th>
-    <th style="text-align: center" > Jumlah Pembayaran</th>
-    <th style="text-align: center" > Aksi </th>
-   
-  </tr>
+<% content_for :content_title do %>
+Gaji
+<% end%>
 
-<% @salary_histories.each do |salary_history| %>
+<% content_for :content_sub_title do %>
+Data Riwayat Penggajian
+<% end%>
+
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+<thead>
   <tr>
-    <td style="text-align: center"><%= salary_history.date %></td>
-    <td style="text-align: center"><%= salary_history.user_id %></td>
-    <td style="text-align: center"><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
-   
-    <td style="text-align: center">
-        <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
-        <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_history_path(salary_history), :class => "nyroModal btn btn-success" %>
-        <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+    <th > Tanggal </th>
+    <th >  User ID </th>
+    <th > Jumlah Pembayaran</th>
+    <th > Aksi </th>
+  </tr>
+</thead>
+  
+  <tbody>
+  <% @salary_histories.each do |salary_history| %>
+  <tr>
+    <td><%= salary_history.date %></td>
+    <td><%= salary_history.user_id %></td>
+    <td><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
+
+    <td>
+      <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
+      <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_history_path(salary_history), :class => "btn btn-warning" %>
+      <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
       
     </td>
   </tr>
-<% end %>
+  <% end %>
+  </tbody>
 </table>
+<% end %>
 
-<br />
-
+<% content_for :content_nav do %>
 <%= link_to 'Buat Rekap Gaji', new_salary_history_path , :class=>'btn btn-primary'%>
+<% end%>
+
+
+

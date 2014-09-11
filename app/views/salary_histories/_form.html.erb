@@ -1,32 +1,39 @@
-<%= form_for(@salary_history) do |f| %>
-  <% if @salary_history.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@salary_history.errors.count, "error") %> prohibited this salary from being saved:</h2>
+<%= form_for(@salary_history,:html => { style: "text-align: left;"}) do |f| %>
+<% if @salary_history.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@salary_history.errors.count, "error") %> prohibited this salary from being saved:</h2>
 
-      <ul>
-      <% @salary_history.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <ul>
+    <% @salary_history.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group" style="width: 50%">
+  <label>Tanggal:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
     </div>
-  <% end %>
+    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
+  </div>
+</div>
+<div class="form-group" style="width: 50%">
+  <label>Karyawan:</label>
+  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control"} %>
+</div>
 
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "from-date" %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-   <%= f.select :user_id, options_for_select(@users) %>
-  </div>
-  <div class="field">
-    <%= f.label :payment %><br />
-    <%= f.number_field :payment %>
-  </div>
- 
-  
-   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="form-group" style="width: 50%">
+  <label>Besar Dana:</label>
+  <%= f.number_field :payment, class: "form-control pull-right date_custom"%>
+</div>
+
+
+<%= f.submit nil, :class=>'btn btn-default' %>
+
+
+
+
 <% end %>

@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140822062208) do
+ActiveRecord::Schema.define(:version => 20140908063158) do
 
   create_table "absents", :force => true do |t|
     t.date     "date"
     t.integer  "user_id"
     t.integer  "categories"
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.time     "time_in"
+    t.time     "time_out"
   end
 
   create_table "allowance_categories", :force => true do |t|
@@ -28,18 +30,32 @@ ActiveRecord::Schema.define(:version => 20140822062208) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "allowance_claim_transactions", :force => true do |t|
+    t.date     "submission_date"
+    t.date     "approval_date"
+    t.string   "upload"
+    t.integer  "status"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "allowance_id"
+    t.float    "nominal"
+  end
+
+  add_index "allowance_claim_transactions", ["allowance_id"], :name => "index_allowance_claim_transactions_on_allowance_id"
+
   create_table "allowance_sub_categories", :force => true do |t|
     t.string   "name"
     t.integer  "allowance_category_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "max_day"
   end
 
   add_index "allowance_sub_categories", ["allowance_category_id"], :name => "index_allowance_sub_categories_on_allowance_category_id"
 
   create_table "allowances", :force => true do |t|
     t.float    "value"
-    t.integer  "max_day"
     t.integer  "user_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
@@ -49,18 +65,34 @@ ActiveRecord::Schema.define(:version => 20140822062208) do
   add_index "allowances", ["allowance_sub_category_id"], :name => "index_allowances_on_allowance_sub_category_id"
   add_index "allowances", ["user_id"], :name => "index_allowances_on_user_id"
 
-  create_table "claim_transactions", :force => true do |t|
-    t.date     "date_submission"
-    t.date     "approval_date"
-    t.string   "upload"
-    t.boolean  "status"
-    t.text     "description"
-    t.integer  "allowance_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "overtimes", :force => true do |t|
+    t.date     "date"
+    t.integer  "user_id"
+    t.integer  "long_overtime"
+    t.string   "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
-  add_index "claim_transactions", ["allowance_id"], :name => "index_claim_transactions_on_allowance_id"
+  create_table "salaries", :force => true do |t|
+    t.date     "date"
+    t.integer  "total_attendance"
+    t.integer  "total_absence"
+    t.integer  "total_overtime_hours"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.float    "total_overtime_payment"
+    t.integer  "salary_history_id"
+  end
+
+  create_table "salary_histories", :force => true do |t|
+    t.integer  "user_id"
+    t.float    "payment"
+    t.date     "date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "activate"
+  end
 
   create_table "transactions", :force => true do |t|
     t.datetime "date"
@@ -84,6 +116,18 @@ ActiveRecord::Schema.define(:version => 20140822062208) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "name"
+    t.date     "date_birth"
+    t.string   "telephone"
+    t.string   "address"
+    t.date     "date_entry"
+    t.boolean  "gender"
+    t.string   "religion"
+    t.boolean  "status"
+    t.integer  "number_of_children"
+    t.float    "salary"
+    t.float    "overtime_pay"
+    t.string   "role"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,20 +1,29 @@
-<h2 class="text-center">TUNJANGAN</h2>
+<% content_for :content_title do %>
+Kehadiran
+<% end%>
 
-<table>
+<% content_for :content_sub_title do %>
+Detail Kehadiran
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+	
+	<table>
 	<tr>
-		<td>Nama Karyawan</td>
+		<td><b> Nama Karyawan </b></td>
 		<td>:</td>
 		<td><%= @user.email %></td>
 	</tr>
 
 	<tr>
-		<td>Jenis Tunjangan</td>
+		<td><b>Jenis Tunjangan</b></td>
 		<td>:</td>
 		<td><%= @allowance_sub_category.name %></td>
 	</tr>
 
 	<tr>
-		<td>Besar Dana</td>
+		<td><b>Besar Dana</b></td>
 		<td>:</td>
 		<td><%= @allowance.value %></td>
 	</tr>
@@ -23,5 +32,12 @@
 
 
 </table>
+</div>
+<% end%>
+
+<% content_for :content_nav do %>
 <%= link_to 'Ubah', edit_allowance_path(@allowance), :class=>'btn btn-primary' %> 
 <%= link_to 'Kembali', allowances_path, :class=>'btn btn-primary' %>
+<% end%>
+
+

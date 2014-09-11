@@ -1,26 +1,28 @@
-<script type="text/javascript">
-	 $(function() {
-    $( ".from-date" ).datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 3,
-        onClose: function( selectedDate ) {
-            $( "#to" ).datepicker( "option", "minDate", selectedDate );
-        }
-    });
-    $( ".to-date" ).datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 3,
-        onClose: function( selectedDate ) {
-            $( "#from" ).datepicker( "option", "maxDate", selectedDate );
-        }
-    });
-});
-</script>
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask" %>
+    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+    <%= javascript_include_tag "jquery.inputmask.extensions" %>
+    <%= javascript_include_tag "call_datepicker" %>
+<% end%>
 
-<h2 class="text-center">ABSEN BARU</h2>
+<% content_for :content_title do %>
+Kehadiran
+<% end%>
 
+<% content_for :content_sub_title do %>
+Buat Daftar Kehadiran
+<% end%>
+
+<% content_for :content_body do %>
 <%= render 'form' %>
+<% end%>
 
-<%= link_to 'Back', absents_path, :class=>'btn btn-primary' %>
+<% content_for :content_nav do %>
+<%= link_to 'Back', absents_path, :class=>'btn btn-primary' %>  
+<% end%>
+
+
+
+
+
+

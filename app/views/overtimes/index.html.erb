@@ -1,30 +1,49 @@
-<h2 class="text-center">LEMBUR</h2>
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Tanggal </th>
-    <th style="text-align: center" >  User ID </th>
-    <th style="text-align: center" > Lama Lembur </th>
-    <th style="text-align: center" > Keterangan </th>
-    <th style="text-align: center" > Aksi </th>
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Riwayat Penggajian
+<% end%>
+
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+<thead>
+  <tr>
+    <th> Tanggal </th>
+    <th>  User ID </th>
+    <th> Lama Lembur </th>
+    
+    <th> Aksi </th>
   </tr>
-
-<% @overtimes.each do |overtime| %>
+</thead>
+<tbody>
+  <% @overtimes.each do |overtime| %>
   <tr>
     <td><%= overtime.date %></td>
     <td><%= overtime.user_id %></td>
     <td><%= overtime.long_overtime %></td>
-    <td><%= overtime.description %></td>
     <td>
-    <span class="pull-right">
-    <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_overtime_path(overtime), :class => "nyroModal btn btn-success" %>
-    <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, overtime, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-    </span>
-  </td>
+      <span class="pull-right">
+        <%= link_to 'Lihat', overtime, :class=>'btn btn-info' %> 
+        <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_overtime_path(overtime), :class => "btn btn-warning" %>
+        <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, overtime, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+      </span>
+    </td>
   </tr>
-<% end %>
+  <% end %>
+  </tbody>
 </table>
+<% end %>
 
-<br />
+<% content_for :content_nav do %>
+<%= link_to 'Buat Data Lembur', new_overtime_path, :class=>'btn btn-primary' %>
+<% end%>
 
-<%= link_to 'New Overtime', new_overtime_path, :class=>'btn btn-primary' %>
+

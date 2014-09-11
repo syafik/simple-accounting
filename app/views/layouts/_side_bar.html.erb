@@ -1,0 +1,20 @@
+<ul class="sidebar-menu">
+	<li class="active">
+		<a href="index.html">
+			<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+		</a>
+	</li>
+	<li>
+		<a href="pages/widgets.html">
+			<i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
+		</a>
+	</li>
+	<%= render partial: "layouts/absent_menus" %>
+	<%= render partial: "layouts/salary_menus" %>
+	<%= render partial: "layouts/allowance_menus" %>
+	<li> 
+		<%= link_to new_allowance_claim_transaction_path do %>
+		<i class="fa  fa-credit-card"></i> Transaksi Tunjangan
+		<% end %>
+	</li>
+</ul>

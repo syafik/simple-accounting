@@ -1,21 +1,35 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Gaji
+<% end%>
 
-<p>
-  <b>Tanggal :</b>
-  <%= @salary_history.date %>
-</p>
+<% content_for :content_sub_title do %>
+Detail Data Riwayat Penggajian
+<% end%>
 
-<p>
-  <b>Nama Pegawai:</b>
-  <%= @salary_history.try(:user).try(:email)%>
-</p>
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td> <b> Tanggal </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @salary_history.date %></td>
+		</tr>
+		<tr>
+			<td> <b> Nama Karyawan </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @salary_history.try(:user).try(:name)%> </td>
+		</tr>
+		<tr>
+			<td> <b> Besar Dana </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= number_to_currency( @salary_history.payment, :unit => "Rp ") %></td>
+		</tr>
+	</table>
+</div>
 
-<p>
-  <b>Besar Dana:</b>
-  <%=number_to_currency( @salary_history.payment, :unit => "Rp ")  %>
-</p>
+<% end%>
 
-
-
-<%= link_to 'Edit', edit_salary_history_path(@salary_history) %> |
-<%= link_to 'Back', salary_histories_path %>
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_salary_history_path(@salary_history),:class=>'btn btn-primary' %>
+<%= link_to 'Kembali', salary_histories_path, :class=>'btn btn-primary' %>
+<% end%>

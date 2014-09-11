@@ -1,0 +1,1 @@
+$( ".date_custom" ).datepicker();

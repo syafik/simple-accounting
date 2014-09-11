@@ -10,14 +10,24 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require jquery.min
+//= require jquery-ui-1.10.3.min
 //= require jquery_ujs
-//= require jquery.formatCurrency-1.4.0.min
-//= require twitter/bootstrap
+//= require bootstrap.min
+//= require raphael-min
+//= require morris.min
+//= require jquery.sparkline
+//= require jquery-jvectormap-1.2.2.min
+//= require jquery-jvectormap-world-mill-en
+//= require jquery.knob
+//= require daterangepicker
 //= require bootstrap-datepicker
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
+//= require bootstrap3-wysihtml5.all.min
+//= require icheck.min
+//= require AdminLTE/app
+//= require AdminLTE/dashboard
+//= require AdminLTE/demo
+
 
 
 

@@ -1,75 +1,42 @@
-<h2 class="text-center">TUNJANGAN</h2>
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask" %>
+    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+    <%= javascript_include_tag "jquery.inputmask.extensions" %>
+    <%= javascript_include_tag "call_datepicker" %>
+    <%= javascript_include_tag "index_allowance" %>
+<% end%>
 
 
+<% content_for :content_title do %>
+Tunjangan
+<% end%>
 
-  <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), style: "display:none;") %>
-  <%= select_tag(:allowance_sub_category_id, options_for_select(@allowance_sub_categories), style: "display:none;") %>
+<% content_for :content_sub_title do %>
+Data Tunjangan
+<% end%>
 
-<%= form_tag allowances_path, :method => 'get' do %>
-    <%= text_field_tag :search%>
-    <%= select_tag(:search_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1], ['Kategori Tunjangan', 2],['Sub Kategori', 3]]), :id=>'search_categories') %>
-    <%= submit_tag "Cari", :name => nil %>
-  
-<% end %>
+<% content_for :content_body do %>
+<div class="span5" style="float:left;padding-left: 20px;">
+
+</div>
+<div class="span4" style="float:right;padding-right: 20px;">
+ <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), style: "display:none;") %>
+ <%= select_tag(:allowance_sub_category_id, options_for_select(@allowance_sub_categories), style: "display:none;") %>
+
+ <%= form_tag allowances_path, :method => 'get' do %>
+ <%= text_field_tag :search, nil ,class: "form-control"%>
+ <%= select_tag(:search_by, options_for_select([['Tampilkan Semua', 0],['Nama Karyawan', 1], ['Kategori Tunjangan', 2],['Sub Kategori', 3]]), :id=>'search_categories',class: "form-control") %>
+ <%= submit_tag "Cari", :name => nil, class: "btn btn-default" %>
+
+ <% end %>
+</div>
 
 
+<%= render partial: "list" %>
+<% end%>
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Nama Karyawan </th>
-    <th style="text-align: center" > Kategori Tunjangan </th>
-    <th style="text-align: center" > Sub Kategori</th>
-    <th style="text-align: center" > Besar Dana</th>
-    
-    <th style="text-align: center" > Aksi </th>
-  </tr>
-
-<% @allowances.each do |allowance| %>
-  <tr>
-    <td style="text-align: center"> <%= allowance.try(:user).try(:email) %> </td>
-    <td style="text-align: center" > <%= allowance.try(:allowance_sub_category).try(:allowance_category).try(:name) %></td>
-    <td style="text-align: center"> <%= allowance.try(:allowance_sub_category).try(:name) %> </td>
-    <td style="text-align: center"> <%= number_to_currency(allowance.value, :unit => "Rp ") %> </td>
-    
-
-    <td style="text-align: center"><%= link_to 'Lihat', allowance, :class=>'btn btn-info' %>  <%= link_to 'Ubah', edit_allowance_path(allowance), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
-  </tr> 
-<% end %>
-</table>
-
-<br />
-
+<% content_for :content_nav do %>
 <%= link_to 'Buat Tunjangan', new_allowance_path, :class=>'btn btn-primary' %>
+<% end%>
 
-<script type="text/javascript">
-  $('#search_categories').change(function(){
-    if($(this).val() == 1){
-      $("#search").val("");
-      $("#search").show();
-      $("#allowance_sub_category_id").hide();
-    }else if( $(this).val() == 3){
-      $("#search").val("");
-      $("#search").hide();
-      $("#allowance_category_id").hide();
-      $("#allowance_sub_category_id").show();
-      $("#allowance_sub_category_id").change();
 
-    }else if( $(this).val() == 2){
-      $("#search").val("");
-      $("#search").hide();
-      $("#allowance_sub_category_id").hide();
-      $("#allowance_category_id").show();
-      $("#allowance_category_id").change();
-    }
-  });
-
-  $('#search_categories').change();
-
-  $("#allowance_sub_category_id").change(function(){
-    $("#search").val($(this).val());
-  });
-
-  $("#allowance_category_id").change(function(){
-    $("#search").val($(this).val());
-  });
-</script>

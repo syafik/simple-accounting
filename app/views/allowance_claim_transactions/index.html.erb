@@ -1,13 +1,21 @@
-<% content_for :bottom_js do %>
-	<%= javascript_include_tag "index_claim_trans" %>
-<% end%>
-
 <style>
 	#myTab li a:hover, #myTab li a:active, #myTab li a:focus { color:black; }
 
 </style>
-<h2 class="text-center">TRANSAKSI TUNJANGAN</h2>
 
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "index_claim_trans" %>
+<% end%>
+
+<% content_for :content_title do %>
+Tunjangan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Transaksi Tunjangan
+<% end%>
+
+<% content_for :content_body do %>
 <ul class="nav nav-tabs" id="myTab">
 	<li class="active"><a href="#pending">Daftar Transaksi Tertunda</a></li>
 	<li><a href="#approved">Daftar Transaksi Tersetujui</a></li>
@@ -19,29 +27,33 @@
 	<div class="tab-pane active" id="pending">
 		<!-- pendding transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "pending"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:pendings] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:pendings] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- pendding transaction list -->
 	</div>
 
 	<div class="tab-pane" id="approved">
 		<!-- approved transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "approved"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:approveds] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:approveds] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- approved transaction list -->
 	</div>
 	
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "rejected"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:rejecteds] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:rejecteds] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- rejected transaction list -->
 	</div>
 
 	<div class="tab-pane" id="revision">
 		<!-- revision transaction list -->
 		<%= render partial: "search_list", locals: { tab_cat: "revision"} %>
-		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:revisions] } %>
+		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:revisions] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- revision transaction list -->
 	</div>
 </div>
-<br />
+<% end%>
+
+<% content_for :content_nav do %>
+
+<% end%>

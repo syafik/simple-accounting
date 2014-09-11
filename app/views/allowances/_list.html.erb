@@ -1,0 +1,37 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
+
+<table id="example2" class="table table-bordered table-hover">
+<thead>
+  <tr>
+    <th> Nama Karyawan </th>
+    <th> Kategori Tunjangan </th>
+    <th> Sub Kategori</th>
+    <th> Besar Dana</th>
+    
+    <th> Aksi </th>
+  </tr>
+</thead>
+<tbody>
+  <% @allowances.each do |allowance| %>
+  <tr>
+    <td> <%= allowance.try(:user).try(:email) %> </td>
+    <td> <%= allowance.try(:allowance_sub_category).try(:allowance_category).try(:name) %></td>
+    <td> <%= allowance.try(:allowance_sub_category).try(:name) %> </td>
+    <td> <%= number_to_currency(allowance.value, :unit => "Rp ") %> </td>
+    
+
+    <td><%= link_to 'Lihat', allowance, :class=>'btn btn-info' %>  <%= link_to 'Ubah', edit_allowance_path(allowance), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
+  </tr> 
+  <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+

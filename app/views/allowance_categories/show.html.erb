@@ -1,38 +1,76 @@
-<h2 class="text-center">KATEGORI TUNJANGAN</h2>
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
 
+<% content_for :content_title do %>
+Tunjangan
+<% end%>
 
+<% content_for :content_sub_title do %>
+<%= @allowance_category.name %>
+<% end%>
 
-<h2><%= @allowance_category.name %></h2>
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    
-    <th style="text-align: center" > Nama Sub Kategori </th>
-    <th style="text-align: center" > Masa Berlaku </th>
-    <th style="text-align: center" > Aksi </th>
-
-  </tr>
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th> Nama Sub Kategori </th>
+      <th> Masa Berlaku </th>
+      <th> Aksi </th>
+    </tr>
+  </thead>
   <tr id='headeradd'>
   </tr>
-	<%= render @allowance_category.allowance_sub_categories %>
-  </table>
+  <%= render @allowance_category.allowance_sub_categories %>
+</table>
+<% end%>
 
- <a href="#myModal" role="button" class="btn" data-toggle="modal">Tambah Sub Kategori</a>
-
- <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Masukan Data</h3>
-  </div>
-
-  <div class="modal-body">
-    <%= render "allowance_sub_categories/form" %>
-  </div>
-
-  
-</div>
-
+<% content_for :content_nav do %>
+<!-- Button trigger modal -->
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Tambah Sub Kaetgori
+</button>
 
 
 
 <%= link_to 'Ubah', edit_allowance_category_path(@allowance_category), :class=>'btn btn-primary' %> 
 <%= link_to 'Kembali', allowance_categories_path, :class=>'btn btn-primary' %>
+<% end%>
+
+<br />
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <%= render "allowance_sub_categories/form" %>
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

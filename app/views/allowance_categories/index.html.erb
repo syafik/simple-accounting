@@ -1,29 +1,54 @@
-<h2 class="text-center">KATEGORI TUNJANGAN</h2>
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
 
-<%= form_tag allowance_categories_path, :method => 'get' do %>
+<% content_for :content_title do %>
+Tunjangan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Kategori Tunjangan
+<% end%>
+
+<% content_for :content_body do %>
+
+<div class="span4" style="float:right;padding-right: 20px;">
+  <%= form_tag allowance_categories_path, :method => 'get' do %>
   <%= text_field_tag :search  %>
   <%= submit_tag "Cari", :name =>  nil%>
-<% end %>
+  <% end %>
+</div>
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Nama Kategori </th>
-    <th style="text-align: center" ></th>
-    
-  </tr>
 
-<% @allowance_categories.each do |allowance_category| %>
-  <tr>
-    <td tyle="text-align: center"> <%= allowance_category.name %></td>
-    
-    <td tyle="text-align: center"><%= link_to 'Lihat', allowance_category, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_allowance_category_path(allowance_category), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance_category, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
-    
-    </td>
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th > Nama Kategori </th>
+      <th ></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @allowance_categories.each do |allowance_category| %>
+    <tr>
+      <td tyle="text-align: center"> <%= allowance_category.name %></td>
+
+      <td tyle="text-align: center"><%= link_to 'Lihat', allowance_category, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_allowance_category_path(allowance_category), :class=>'btn btn-warning' %>  <%= link_to 'Hapus', allowance_category, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+
+      </td>
     </td>
   </tr>
-<% end %>
+  <% end %>
+</tbody>
 </table>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Buat Kategori Tunjangan', new_allowance_category_path, :class=>'btn btn-primary' %>
+<% end%>
 
 <br />
 
-<%= link_to 'Buat Kategori Tunjangan', new_allowance_category_path, :class=>'btn btn-primary' %>
+

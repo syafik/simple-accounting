@@ -1,6 +1,23 @@
-<h1>Editing overtime</h1>
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask" %>
+    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+    <%= javascript_include_tag "jquery.inputmask.extensions" %>
+    <%= javascript_include_tag "call_datepicker" %>
+<% end%>
 
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Ubah Data Lembur
+<% end%>
+
+<% content_for :content_body do %>
 <%= render 'form' %>
+<% end%>
 
-<%= link_to 'Show', @overtime %> |
-<%= link_to 'Back', overtimes_path %>
+<% content_for :content_nav do %>
+<%= link_to 'Lihat', @overtime  , :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', overtimes_path  , :class=>'btn btn-primary' %>
+<% end%>

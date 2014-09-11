@@ -1,11 +1,21 @@
+<style>
+  #myTab li a:hover, #myTab li a:active, #myTab li a:focus { color:black; }
+
+</style>
+
 <% content_for :bottom_js do  %>
 <%= javascript_include_tag "new_claim_trans"%>
 <% end %>
 
-<h2 class="text-center">TRANSAKSI</h2>
+<% content_for :content_title do %>
+Tunjangan
+<% end%>
 
+<% content_for :content_sub_title do %>
+Transaksi Tunjangan
+<% end%>
 
-
+<% content_for :content_body do %>
 <ul class="nav nav-tabs" id="transactionTab">
   <li class="active"><a href="#approved">Daftar Transaksi Tersetujui</a></li>
   <li><a href="#rejected">Daftar Transaksi Tertolak</a></li>
@@ -44,6 +54,30 @@
   </div>
   
 </div>
+<% end%>
+
+<% content_for :content_nav do %>
+
+<% end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

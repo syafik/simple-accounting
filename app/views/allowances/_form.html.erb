@@ -1,75 +1,54 @@
-<%= form_for(@allowance) do |f| %>
-  <% if @allowance.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@allowance.errors.count, "error") %> prohibited this allowance from being saved:</h2>
+<%= form_for(@allowance,:html => { style: "text-align: left;"} ) do |f| %>
+<% if @allowance.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@allowance.errors.count, "error") %> prohibited this allowance from being saved:</h2>
 
-      <ul>
-      <% @allowance.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <table>
-      <tr>
-        <td>
-          Pegawai
-        </td>
-        <td>
-          <%= f.select :user_id, options_for_select(@users)%>
-        </td>
-      </tr>
-
-
-      <tr>
-        <td>
-          Kategori
-        </td>
-        <td>
-           <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), :id=>'allowance_categories') %>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          Sub Kategori
-        </td>
-        <td>
-          <%= f.select :allowance_sub_category_id, options_for_select(@allowance_sub_categories, @allowance.allowance_sub_category_id)%>
-        </td>
-      </tr>
-      
-      <tr>
-        <td>
-          Besar Dana
-        </td>
-        <td>
-           <%= f.number_field :value , :placeholder=> 'Nama Tunjangan', :class=> 'form-control'%>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-        </td>
-        <td align="right">
-          <%= f.submit nil, :class=>'btn btn-default' %>
-        </td>
-      </tr>
-    </table>
-    
-  </div>
+  <ul>
+    <% @allowance.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
 <% end %>
+
+
+
+<div class="form-group" style="width: 50%">
+  <label>Karyawan:</label>
+  <%= f.select :user_id, options_for_select(@users),{},class: "form-control"%>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Kategori:</label>
+  <%= select_tag(:allowance_category_id, options_for_select(@allowance_categories, @allowance.try(:allowance_sub_category).try(:allowance_category_id)), :id=>'allowance_categories', class: "form-control") %>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Kategori:</label>
+  <%= f.select :allowance_sub_category_id, options_for_select(@allowance_sub_categories, @allowance.allowance_sub_category_id), {}, {class: "form-control"}%>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Besar Dana:</label>
+  <%= f.number_field :value , :placeholder=> 'Nama Tunjangan', :class=> 'form-control'%>
+</div>
+<%= f.submit nil, :class=>'btn btn-default' %>
+<% end %>
+
+<% content_for :bottom_js do %>
 
 <script type="text/javascript">
   $('#allowance_categories').change(function(){
     $.ajax({
-    url: "/allowances/find_sub_categories.js",
-    data: {id: $(this).val()}
+      url: "/allowances/find_sub_categories.js",
+      data: {id: $(this).val()}
     });
   });
 
   $('#allowance_categories').change();
 </script>
+<% end%>
+
+
+
 
