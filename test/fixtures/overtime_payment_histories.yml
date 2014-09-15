@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2014-09-15
+  day_payment: 1.5
+  night_payment: 1.5
+  date: 2014-09-15
+  activate: false
+  user: 
+
+two:
+  date: 2014-09-15
+  day_payment: 1.5
+  night_payment: 1.5
+  date: 2014-09-15
+  activate: false
+  user: 

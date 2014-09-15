@@ -1,13 +1,17 @@
 SimpleAccounting::Application.routes.draw do
+
+
   resources :absents
   resources :overtimes
   resources :salaries
   resources :manage_users
-  resources :salary_histories
+  
 
-  get "allowance_sub_categories/index"
 
-  get "allowances/index"
+
+  # get "allowance_sub_categories/index"
+
+  # get "allowances/index"
 
 
 
@@ -27,8 +31,11 @@ SimpleAccounting::Application.routes.draw do
     end
   end
 
-  
-
+resources :salary_histories do
+  member do
+    get :set_activation
+    end
+end
 
   resources :allowance_sub_categories
   devise_for :users, controllers: {sessions: :sessions}
@@ -41,7 +48,7 @@ SimpleAccounting::Application.routes.draw do
       get :reporting
     end
   end
-   #resources :claim_transactions
+  #resources :claim_transactions
  root :to => 'transactions#index'
 
  #resources :users do

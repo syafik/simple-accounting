@@ -18,12 +18,12 @@ Data Penggajian
     <tr>
       <th> Tanggal </th>
       <th>  User ID </th>
-      <th> Jumlah Hadir</th>
+      <!-- <th> Jumlah Hadir</th>
       <th> Jumlah Absen</th>
       <th> Jumlah Jam Lembur</th>
       <th> Gaji Pokok </th>
       <th> Uang Lembur </th>
-      <th> Total Uang Lembur </th>
+      <th> Total Uang Lembur </th> -->
       <th> Total Gaji </th>
       <th> Aksi </th>
     </tr>
@@ -32,13 +32,13 @@ Data Penggajian
     <% @salaries.each do |salary| %>
     <tr>
       <td><%= salary.date %></td>
-      <td><%= salary.try(:salary_history).try(:user).try(:id) %></td>   
-      <td><%= salary.total_attendance %></td>
+      <td><%= salary.try(:salary_history).try(:user).try(:name) %></td>   
+      <!-- <td><%= salary.total_attendance %></td>
       <td><%= salary.total_absence %></td>
       <td><%= salary.total_overtime_hours %></td>
       <td><%= salary.try(:salary_history).try(:payment) %></td>
       <td><%= salary.try(:salary_history).try(:user).try(:overtime_pay) %></td>
-      <td><%= salary.total_overtime_payment %></td>
+      <td><%= salary.total_overtime_payment %></td> -->
       <% total_payment = salary.try(:salary_history).try(:payment) + salary.try(:salary_history).try(:user).try(:overtime_pay) + salary.try(:salary_history).try(:user).try(:overtime_pay) rescue 0 %>
 
       <td><%= total_payment %></td>
@@ -46,21 +46,17 @@ Data Penggajian
 
       <td>
         <span class="pull-right">
-          <%= link_to "<i class=\"icon-fire\"></i> Edit".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
-          <%= link_to "<i class=\"icon-fire\"></i> Destroy".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+        <%= link_to 'Lihat', salary, :class=>'btn btn-info' %>
+          <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
+          <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
         </span>
       </td>
     </tr>
     <% end %>
   </tbody>
 </table>
-<%= form_for :salary, url: salaries_path do |f| %>
 
 
-<div class="actions">
-  <%= f.submit "Generate"%>
-</div>
-<% end %>
 <% end%>
 
 
@@ -68,7 +64,12 @@ Data Penggajian
 
 
 <% content_for :content_nav do %>
-<%= link_to 'Buat Gaji', new_salary_path , :class=>'btn btn-primary'%>
+
+
+<%= form_for :salary, url: salaries_path do |f| %>
+  <%= f.submit "Generate", :class=>'btn btn-primary'%>
+<% end %>
+
 <% end%>
 
 

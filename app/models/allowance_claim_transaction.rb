@@ -55,6 +55,8 @@ class AllowanceClaimTransaction < ActiveRecord::Base
         end
       else
         allowance_list
+        p "==========="
+        p allowance_list
       end
     end
     
@@ -63,7 +65,8 @@ class AllowanceClaimTransaction < ActiveRecord::Base
 
   def self.user_search(search, user)
     allowance_list ={
-      approveds: where(:status => 1, :allowance_id => user.allowances , :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc").order("updated_at desc"),
+      # approveds: where(:status => 1, :allowance_id => user.allowances , :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc").order("updated_at desc"),
+      approveds: where(:status => 1, :allowance_id => user.allowances ).order("submission_date desc").order("updated_at desc"),
       rejecteds:  where(:status => 2, :allowance_id => user.allowances ).order("updated_at desc"),
       pendings: where(:status => 0, :allowance_id => user.allowances ).order("updated_at desc"),
       revisions: where(:status => 3, :allowance_id => user.allowances ).order("updated_at desc")
@@ -102,160 +105,56 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       p "== model =="
       p allowance_list
       return allowance_list
-  end
-
-
-
-
-
-  def self.search_approved (search, search_by, user, from_page, from_date, to_date)
-    if from_page == "new"
-      if search_by == "0"
-        where(:allowance_id => user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
-      elsif search_by == "1"
-        allowance = Allowance.where(:user_id =>user, :allowance_sub_category_id => search)
-        where(:allowance_id => allowance, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
-      else
-        where(:allowance_id => user.allowances, :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" ).order("submission_date desc")
-      end
-    elsif from_page == "index"
-
-      search = search.strip rescue nil
-      if search_by == "0"
-        where(:status => 1 ).order("updated_at desc")
-      elsif search_by == "1"
-        user = User.find_by_email(search)
-        allowance = Allowance.where(:user_id => user)
-        where(:status => 1, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "2"
-        allowance = Allowance.where(:allowance_sub_category_id => search)
-        where(:status => 1, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "3"
-        where(:status => 1, :submission_date=> from_date..to_date ).order("updated_at desc")
-      elsif search_by == "4"
-        p from_date
-        where(:status => 1, :approval_date=> from_date..to_date ).order("updated_at desc")
-      else
-        where(:status => 1 ).order("updated_at desc")
-      end
     end
 
 
 
-  end
 
-  def self.search_rejected(search, search_by, user, from_page, from_date, to_date)
-    if from_page == "new"
-      if search_by == "0"
-        where(:allowance_id => user.allowances, :status => 2 ).order("submission_date desc")
-      elsif search_by == "1"
-        allowance = Allowance.where(:user_id =>user, :allowance_sub_category_id => search)
-        where(:allowance_id => allowance, :status => 2 ).order("submission_date desc")
-      else
-        where(:allowance_id => user.allowances, :status => 2 ).order("submission_date desc")
-      end
-    elsif from_page == "index"
 
-      search = search.strip rescue nil
-      if search_by == "0"
-        where(:status => 2 ).order("updated_at desc")
-      elsif search_by == "1"
-        p "masuk"
-        user = User.find_by_email(search)
-        allowance = Allowance.where(:user_id => user)
-        where(:status => 2, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "2"
-        allowance = Allowance.where(:allowance_sub_category_id => search)
-        where(:status => 2, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "3"
-        where(:status => 2, :submission_date=> from_date..to_date ).order("updated_at desc")
-      elsif search_by == "4"
-        where(:status => 2, :approval_date=> from_date..to_date ).order("updated_at desc")
-      else
-        where(:status => 2 ).order("updated_at desc")
-      end
-    end
 
-  #   query_allowance = ""
-  #   query_allowance = "user_id = #{User.find_by_email(search).id}" if search_by.eql?("1")
-  #   query_allowance = "allowance_sub_category_id = #{allowance}" if search_by.eql?("2")
+def self.approval
+  @allowance_claim_transaction = AllowanceClaimTransaction.find(params[:format])
+    #cek status
+    decision = params[:decision]
     
-  #   unless query_allowance.blank?
-  #     allowance_list = Allowance.where(query_allowance)
-  #   end
-    
-  #   conditions = []
+    if decision == "rejected"
+      @allowance_claim_transaction.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
+      redirect_to allowance_claim_transactions_path
+      
+    elsif decision == "revision"
+      @allowance_claim_transaction.update_attributes(:status=>3, :description=> params[:description], :approval_date => Date.today)
+      redirect_to allowance_claim_transactions_path  
+    else
+      #looking for total nominal by allowance_id
+      #AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date => "#{Time.now.year}-01-01".."#{Time.now.year}-12-31")
 
-  #   conditions  << "status = 2"
-  #   conditions  << "allowance_id IN (#{allowance_list.map(&:id)})" unless query_allowance.blank?
-  #   conditions  << "submission_date = (#{allowance_list.map(&:id)})" if  search_by.eql?("3")
-  #   conditions = conditions.join(" AND ")
-  # where(conditions)
+      allowance_claim_transaction = AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" )
+      totalnominal = 0
+      allowance_claim_transaction.each do |allowance_claim_transaction|
+        totalnominal = totalnominal + allowance_claim_transaction.nominal
 
-
-  end
-
-  def self.search_pending(search, search_by, user, from_page, from_date, to_date)
-    if from_page == "new"
-      if search_by == "0"
-        where(:allowance_id => user.allowances, :status => 0 ).order("submission_date desc")
-      elsif search_by == "1"
-        allowance = Allowance.where(:user_id =>user, :allowance_sub_category_id => search)
-        where(:allowance_id => allowance, :status => 0 ).order("submission_date desc")
-      else
-        where(:allowance_id => user.allowances, :status => 0 ).order("submission_date desc")
       end
-    elsif from_page == "index"
-      search = search.strip rescue nil
-      if search_by == "0"
-        where(:status => 0 ).order("updated_at desc")
-      elsif search_by == "1"
-        user = User.find_by_email(search)
-        allowance = Allowance.where(:user_id => user)
-        where(:status => 0, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "2"
-        allowance = Allowance.where(:allowance_sub_category_id => search)
-        where(:status => 0, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "3"
-        where(:status => 0, :submission_date=> from_date..to_date ).order("updated_at desc")
-      else
-        where(:status => 0 ).order("updated_at desc")
-      end
-    end
-    
-    
+      #get nominal
+      nominal = params[:nominal]
+      p totalnominal
+      
 
-  end
+      #totalnominal + nominal;
+      finalnominal = totalnominal.to_f + nominal.to_f
+      #------------------------
+      
+      #finding user value
+      val = Allowance.find(params[:allowance_id]).value
 
-  def self.search_revision(search, search_by, user, from_page, from_date, to_date)
-    if from_page == "new"
-      if search_by == "0"
-        where(:allowance_id => user, :status => 3 ).order("submission_date desc")  
-      elsif search_by == "1"
-        allowance = Allowance.where(:user_id =>user, :allowance_sub_category_id => search)
-        where(:allowance_id => allowance, :status => 3 ).order("submission_date desc")  
+      
+      
+      if finalnominal < val
+        @allowance_claim_transaction.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today)
+        redirect_to allowance_claim_transactions_path
       else
-        where(:allowance_id => user, :status => 3 ).order("submission_date desc")  
+        redirect_to allowance_claim_transactions_path
       end
-    elsif from_page == "index"
-
-      search = search.strip rescue nil
-      if search_by == "0"
-        where(:status => 3 ).order("updated_at desc")
-      elsif search_by == "1"
-        p "masuk"
-        user = User.find_by_email(search)
-        allowance = Allowance.where(:user_id => user)
-        where(:status => 3, :allowance_id => allowance ).order("updated_at desc")
-      elsif search_by == "2"
-        allowance = Allowance.where(:allowance_sub_category_id => search)
-        where(:status => 3, :allowance_id => allowance ).order("updated_at desc")
-      else
-        where(:status => 3 ).order("updated_at desc")
-      end
-    end
-    
-    
+    end   
 
   end
 

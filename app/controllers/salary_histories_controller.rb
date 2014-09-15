@@ -2,7 +2,7 @@ class SalaryHistoriesController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   
   def index
-    @salary_histories = SalaryHistory.all
+    @salary_histories = SalaryHistory.order("id asc")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -68,6 +68,19 @@ class SalaryHistoriesController < ApplicationController
       format.html { redirect_to salary_histories_url }
       format.json { head :no_content }
     end
+  end
+
+# method for activation salary
+def set_activation
+ @salary_history = SalaryHistory.find(params[:id])
+ @salary_history.update_attributes(:activate => true)
+ p "====="
+ p params
+ 
+
+ #  how to update collect on rails
+ # SalaryHistory.where("id <> ?", params[:format]).update_all(activate: false)
+ SalaryHistory.update_all("activate = false", "id <> #{ params[:id] } AND user_id = #{@salary_history.user_id}" )
   end
 
   private

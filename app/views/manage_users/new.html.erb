@@ -1,8 +1,37 @@
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask"%>
+    <%= javascript_include_tag "jquery.inputmask.extensions"%>
+    <%= javascript_include_tag "call_datepicker" %>
+<% end%>
 
-<h1>New user</h1>
+
+<% content_for :content_title do %>
+Karyawan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Buat Data Karyawan
+<% end%>
+
+<% content_for :content_body do %>
 <%= form_for(@manage_user ? @manage_user : :manage_user, :url => manage_users_path) do |f| %>
 
 <%= render partial: 'form', locals: {f: f} %>
 <% end %>
+<% end%>
+
+
+
+<% content_for :content_nav do %>
 <%= link_to 'Back', manage_users_path %>
+<% end%>
+
+
+
+
+
+
+
+
+
 

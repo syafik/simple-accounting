@@ -1,6 +1,29 @@
-<h1>Editing user</h1>
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask"%>
+    <%= javascript_include_tag "jquery.inputmask.extensions"%>
+    <%= javascript_include_tag "call_datepicker" %>
+<% end%>
+
+
+<% content_for :content_title do %>
+Karyawan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Edit Data Karyawan
+<% end%>
+
+<% content_for :content_body do %>
 <%= form_for(@manage_user, :url => {action: "update", controllers: "manage_users"}) do |f| %>
 <%= render partial: 'form', locals: {f: f} %>
 <% end %>
+<% end%>
+
+
+
+<% content_for :content_nav do %>
 <%= link_to 'Show', manage_user_path(@manage_user) %> |
 <%= link_to 'Back', manage_users_path %>
+<% end%>
+
+

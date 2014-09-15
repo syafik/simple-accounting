@@ -5,16 +5,17 @@ class AllowanceClaimTransactionsController < ApplicationController
   before_filter :get_sub_category, :only => [:index, :new]
 
   def index
-    
   # p params[:search]
   #   @allowance_claim_transaction = {
   #     approveds: AllowanceClaimTransaction.search_approved(params[:search_approved], params[:search_approved_by], current_user, "index",params[:from_approved],params[:to_approved]).paginate(:page => params[:page], :per_page => 5),
   #     rejecteds: AllowanceClaimTransaction.search_rejected(params[:search_rejected], params[:search_rejected_by], current_user, "index",params[:from_rejected],params[:to_rejected]).paginate(:page => params[:page], :per_page => 5),
   #     pendings: AllowanceClaimTransaction.search_pending(params[:search_pending], params[:search_pending_by], current_user, "index",params[:from_pending],params[:to_pending]).paginate(:page => params[:page], :per_page => 1),
   #     revisions: AllowanceClaimTransaction.search_revision(params[:search_revision], params[:search_revision_by], current_user, "index",params[:from_revision],params[:to_revision]).paginate(:page => params[:page], :per_page => 5)}
-    
-      if current_user.role == "Admin"
+
+  if current_user.role == "admin"
         @allowance_claim_transactions = AllowanceClaimTransaction.admin_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
+        p "controller"
+        p @allowance_claim_transactions
       end
     end
 
@@ -55,49 +56,7 @@ class AllowanceClaimTransactionsController < ApplicationController
   def set_approval
     #note
     #Time.now.year -> the way to get year
-
-    @allowance_claim_transaction = AllowanceClaimTransaction.find(params[:format])
-    #cek status
-    decision = params[:decision]
-    
-    if decision == "rejected"
-      @allowance_claim_transaction.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
-      redirect_to allowance_claim_transactions_path
-      
-    elsif decision == "revision"
-      @allowance_claim_transaction.update_attributes(:status=>3, :description=> params[:description], :approval_date => Date.today)
-      redirect_to allowance_claim_transactions_path  
-    else
-      #looking for total nominal by allowance_id
-      #AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date => "#{Time.now.year}-01-01".."#{Time.now.year}-12-31")
-
-      allowance_claim_transaction = AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" )
-      totalnominal = 0
-      allowance_claim_transaction.each do |allowance_claim_transaction|
-        totalnominal = totalnominal + allowance_claim_transaction.nominal
-
-      end
-      #get nominal
-      nominal = params[:nominal]
-      p totalnominal
-      
-
-      #totalnominal + nominal;
-      finalnominal = totalnominal.to_f + nominal.to_f
-      #------------------------
-      
-      #finding user value
-      val = Allowance.find(params[:allowance_id]).value
-
-      
-      
-      if finalnominal < val
-        @allowance_claim_transaction.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today)
-        redirect_to allowance_claim_transactions_path
-      else
-        redirect_to allowance_claim_transactions_path
-      end
-    end   
+    AllowanceClaimTransaction.approval
   end
 
   private

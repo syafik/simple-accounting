@@ -1,8 +1,13 @@
 
-$(document).ready(function(){
+$(document).on("ready", function(){
   searchingCategories();
+  $("#approve_btn").click(function(){
+    $("#reject_btn").val("");
+    $("#reject_btn").val("rejected");
+  });
         // btnCategories();
       });
+
 
 var searchingCategories = function(){
 
@@ -55,6 +60,8 @@ $("#allowance_sub_category_"+category).change(function(){
 
 });
 }
+
+
 
 // // approved jquery for searching
 //   $("#search_categories_approved").change(function(){
@@ -145,21 +152,21 @@ $("#transactionTab a").click(function (e) {
   $(this).tab("show");
 });
 
-$(function() {
-  $( ".from-date" ).datepicker({
-    defaultDate: "+1w",
-    changeMonth: true,
-    numberOfMonths: 3,
-    onClose: function( selectedDate ) {
-      $( "#to" ).datepicker( "option", "minDate", selectedDate );
-    }
-  });
-  $( ".to-date" ).datepicker({
-    defaultDate: "+1w",
-    changeMonth: true,
-    numberOfMonths: 3,
-    onClose: function( selectedDate ) {
-      $( "#from" ).datepicker( "option", "maxDate", selectedDate );
-    }
-  });
-});
+// $(function() {
+//   $( ".from-date" ).datepicker({
+//     defaultDate: "+1w",
+//     changeMonth: true,
+//     numberOfMonths: 3,
+//     onClose: function( selectedDate ) {
+//       $( "#to" ).datepicker( "option", "minDate", selectedDate );
+//     }
+//   });
+//   $( ".to-date" ).datepicker({
+//     defaultDate: "+1w",
+//     changeMonth: true,
+//     numberOfMonths: 3,
+//     onClose: function( selectedDate ) {
+//       $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+//     }
+//   });
+// });

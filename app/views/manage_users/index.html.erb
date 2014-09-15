@@ -1,31 +1,50 @@
-<h2 class="text-center">USERS</h2>
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-    <th style="text-align: center" > Nama </th>
-    <th style="text-align: center" > no. telepon </th>
-    <th style="text-align: center" > Alamat </th>
-    <th style="text-align: center" > Jabatan </th>
-    <th style="text-align: center" > Aksi </th>
+<% content_for :content_title do %>
+Karyawan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Daftar Karyawan
+<% end%>
+
+<% content_for :content_body do %>
+
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th> Nama </th>
+    <th> No. telepon </th>
+    <th> Email </th>
+    <th> Peran </th>
+    <th> Aksi </th>
     
   </tr>
 
-<% @manage_users.each do |manage_user| %>
+  <% @manage_users.each do |manage_user| %>
   <tr>
-    <td><%= manage_user.name %></td>
+    <td><%= "#{manage_user.first_name} #{manage_user.mid_name} #{manage_user.last_name} "%></td>
     <td><%= manage_user.telephone %></td>
-    <td><%= manage_user.address %></td>
+    <td><%= manage_user.email %></td>
     <td><%= manage_user.role %></td>
     
-      <td style="text-align: center"><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  
-        <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  
-        <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
-      </td>
+    <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  
+      <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  
+      <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+    </td>
     
   </tr>
-<% end %>
+  <% end %>
 </table>
+<% end%>
 
-<br />
 
+
+<% content_for :content_nav do %>
 <%= link_to 'Buat User', new_manage_user_path, :class=>'btn btn-primary'%>
+<% end%>
+
+

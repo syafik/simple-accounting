@@ -52,7 +52,7 @@
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
+                                                    <img src="/assets/avatar3.png" class="img-circle" alt="User Image"/>
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -64,7 +64,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/avatar2.png" class="img-circle" alt="user image"/>
+                                                    <img src="/assets/avatar2.png" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     AdminLTE Design Team
@@ -76,7 +76,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/avatar.png" class="img-circle" alt="user image"/>
+                                                    <img src="/assets/avatar.png" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Developers
@@ -88,7 +88,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/avatar2.png" class="img-circle" alt="user image"/>
+                                                    <img src="/assets/avatar2.png" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Sales Department
@@ -100,7 +100,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/avatar.png" class="img-circle" alt="user image"/>
+                                                    <img src="/assets/avatar.png" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Reviewers
@@ -233,14 +233,14 @@
                             <% if user_signed_in? %>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span><%= current_user.name %> <i class="caret"></i></span>
+                                <span><%= current_user.first_name %> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="/assets/avatar3.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        <%= current_user.name %>
+                                        <%= current_user.first_name %>
                                         <!-- <small>Member since Nov. 2012</small> -->
                                     </p>
                                 </li>
@@ -331,6 +331,8 @@
 
 <%= javascript_include_tag "application" %>
 
+<div class="no-print" style="position: fixed; top: 150px; right: 0px; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.698); border-radius: 5px 0px 0px 5px; padding: 10px 15px; font-size: 16px; z-index: 999999; cursor: pointer; color: rgb(221, 221, 221);">
+<div class="no-print" style="padding: 10px; position: fixed; top: 130px; right: -200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 3px solid rgba(0, 0, 0, 0.698); width: 200px; z-index: 999999;">
 
 <%= yield :bottom_js%>
 </body>

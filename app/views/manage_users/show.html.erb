@@ -1,48 +1,75 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Karyawan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Karyawan
+<% end%>
+
+<% content_for :content_body do %>
+
+<div align="left">
+  <table>
+    <tr>
+      <td> <b> Email </b> </td>
+      <td> <b> :</b> </td>
+      <td><%= @manage_user.email %> </td>
+    </tr>
+    <tr>
+      <td> <b>Nama Karyawan </b> </td>
+      <td> <b> :</b> </td>
+      <td><%= "#{@manage_user.first_name} #{@manage_user.mid_name} #{@manage_user.last_name} "%> </td>
+    </tr>
+    <tr>
+      <td> <b> Tanggal Lahir </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.birth_date %></td>
+    </tr>
+
+    <tr>
+      <td> <b> Telephone </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.telephone %></td>
+    </tr>
+
+    <tr>
+      <td> <b> Alamat </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.address %></td>
+    </tr>
 
 
-<p>
-  <b>Email:</b>
-  <%= @manage_user.email %>
-</p>
-<p>
-  <b>Password:</b>
-  <%= @manage_user.password %>
-</p>
-<p>
-  <b>Name:</b>
-  <%= @manage_user.name %>
-</p>
+    <tr>
+      <td> <b> Gaji </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= number_to_currency( @manage_user.salary_histories.where(:activate => true).first.payment, :unit => "Rp ")   %></td>
+    </tr>
 
-<p>
-  <b>Telephone:</b>
-  <%= @manage_user.telephone %>
-</p>
+    <tr>
+      <td> <b> Harga Lembur Siang  </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= number_to_currency( @manage_user.overtime_payment_histories.where(:activate => true).first.day_payment, :unit => "Rp ")   %></td>
+    </tr>
 
-<p>
-  <b>Address:</b>
-  <%= @manage_user.address %>
-</p>
+    <tr>
+      <td> <b> Harga Lembur Siang  </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= number_to_currency( @manage_user.overtime_payment_histories.where(:activate => true).first.night_payment, :unit => "Rp ")   %></td>
+    </tr>
 
-<p>
-  <b>Gender:</b>
-  <%= @manage_user.gender %>
-</p>
+  </table>
+</div>
+<% end%>
 
-<p>
-  <b>Salary:</b>
-  <%= @manage_user.salary %>
-</p>
 
-<p>
-  <b>Overtime Pay:</b>
-  <%= @manage_user.overtime_pay %>
-</p>
 
-<p>
-  <b>Role:</b>
-  <%= @manage_user.role %>
-</p>
-
+<% content_for :content_nav do %>
 <%= link_to 'Edit', edit_manage_user_path(@manage_user) %> |
 <%= link_to 'Back', manage_users_path %>
+<% end%>
+
+
+
+
+
+

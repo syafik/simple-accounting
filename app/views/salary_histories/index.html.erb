@@ -14,30 +14,45 @@ Data Riwayat Penggajian
 
 <% content_for :content_body do %>
 <table id="example2" class="table table-bordered table-hover">
-<thead>
-  <tr>
-    <th > Tanggal </th>
-    <th >  User ID </th>
-    <th > Jumlah Pembayaran</th>
-    <th > Aksi </th>
-  </tr>
-</thead>
+  <thead>
+    <tr>
+      <th > Tanggal </th>
+      <th >  User ID </th>
+      <th > Jumlah Pembayaran</th>
+      <th > Status </th>
+      <th > Aksi </th>
+    </tr>
+  </thead>
   
   <tbody>
-  <% @salary_histories.each do |salary_history| %>
-  <tr>
-    <td><%= salary_history.date %></td>
-    <td><%= salary_history.user_id %></td>
-    <td><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
+    <% @salary_histories.each do |salary_history| %>
+    <tr>
+      <td><%= salary_history.date %></td>
+      <td><%= salary_history.user_id %></td>
+      <td><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
 
-    <td>
-      <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
-      <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_history_path(salary_history), :class => "btn btn-warning" %>
-      <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-      
-    </td>
-  </tr>
-  <% end %>
+      <% stat = nil %>
+      <% if salary_history.activate == true  %>
+      <% stat = "Aktif" %>
+      <% else %>
+      <% stat = "Tidak Aktif" %>
+      <% end %>
+
+      <td><%= stat  %></td>
+
+      <td>
+        <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
+        <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_history_path(salary_history), :class => "btn btn-warning" %>
+        <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
+        <% if salary_history.activate == false  %>
+        <%= link_to 'Aktifkan', set_activation_salary_history_path(salary_history), :class=>'btn btn-primary'%>
+        <% end %>
+
+        
+        
+      </td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 <% end %>

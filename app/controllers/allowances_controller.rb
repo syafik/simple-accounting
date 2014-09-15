@@ -33,7 +33,6 @@ class AllowancesController < ApplicationController
 
   def index
   	@allowances = Allowance.search(params[:search],params[:search_by])
-    
   end
 
   def show

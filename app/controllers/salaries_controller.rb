@@ -41,56 +41,33 @@ class SalariesController < ApplicationController
   # POST /salaries
   # POST /salaries.json
   def create
-    # @salary = Salary.new(params[:salary])
-
-    #get last salary
-    last_salary = Salary.last
-
-    if last_salary == nil
-      # get curren date
-      salaries = []
-      date = Date.today.at_beginning_of_week.strftime("%y-%m-2")
-      user = User.all
-
-      user.each do | u |
-        if u.salary_histories
-        total_attendance = Absent.where(:user_id => u, :categories => 1).count
-        total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
-        total_overtime_hours = u.overtimes.sum(:long_overtime)
-        total_overtime_payment  = total_overtime_hours * u.overtime_pay
-        salary_history_id = u.salary_histories.where(activate: true).select("id").first.id
-        
-        # ccc = salary_history_id.select("id")
-        # p ccc
-        p "====="
-        p @salary
-        p "================"
-        
-        # @salary.save!
-
-        salaries << {date: date, total_attendance: total_attendance, total_absence: total_absence, 
-          total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, 
-          salary_history_id: salary_history_id }
-        
-        end
-        @salaries = Salary.new(salaries)
-# @salaries .save
-
-      end
-    end
-
+    Salary.generate_salary
     
 
+    # #get last salary
+    # last_salary = Salary.last
 
+    # if last_salary == nil
+    #   # get curren date
+    #   salaries = []
+    #   date = Date.today.at_beginning_of_week.strftime("%y-%m-2")
+    #   user = User.all
 
+    #   user.each do | u |
+    #     if u.salary_histories
+    #     total_attendance = Absent.where(:user_id => u, :categories => 1).count
+    #     total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
+    #     total_overtime_hours = u.overtimes.sum(:long_overtime)
+    #     total_overtime_payment  = total_overtime_hours * u.overtime_pay
+    #     salary_history_id = u.salary_histories.where(activate: true).select("id").first#.id
 
-    # respond_to do |format|
-    #   if @salary.save
-    #     format.html { redirect_to @salary, notice: 'Salary was successfully created.' }
-    #     format.json { render json: @salary, status: :created, location: @salary }
-    #   else
-    #     format.html { render action: "new" }
-    #     format.json { render json: @salary.errors, status: :unprocessable_entity }
+    #     salaries << {date: date, total_attendance: total_attendance, total_absence: total_absence,  total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, salary_history_id: salary_history_id }
+    #     p "==========="
+    #     p salaries
+    #     end
+    #     @salaries = Salary.new(salaries[0])
+    #     @salaries .save
+
     #   end
     # end
   end

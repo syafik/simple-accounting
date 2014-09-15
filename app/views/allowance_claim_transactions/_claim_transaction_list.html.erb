@@ -23,58 +23,83 @@
 		<% allowance_claim_transaction.each do |claim| %>
 		<tr>
 
-			<td <%= claim.try(:allowance).try(:user).try(:email) %> </td>
-			<td <%= claim.submission_date %> </td>
+			<td> <%= claim.try(:allowance).try(:user).try(:email) %> </td>
+			<td> <%= claim.submission_date %> </td>
 
 			<% if claim.status == 0 %>
-			<td  </td>
-				<% else %>
-				<td <%= claim.approval_date %> </td>
-				<% end %>
-
-				<td <%= claim.upload %> Kosong </td>
-				<td <%= claim.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
-				<td<%= number_to_currency( claim.nominal, :unit => "Rp ") %></td>
-
-				<% if claim.status == 0 %>
-				<td  </td>
-					<% else %>
-					<td <%= claim.description %> </td>
-					<% end %>
-
-					<% if claim.status == 0 %>
-					<td 
-					<%= link_to 'Lihat', claim, :class=>'btn btn-info' %>
-					<a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal" id="approve_btn">Setuju</a>
-					<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn">Tidak Setuju</a>
-					<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="revision_btn">Revisi</a>
-				</td>
-				<% else %>
-				<td  <%= link_to 'Lihat', claim, :class=>'btn btn-info' %> </td>
-				<% end %>
-
-
-
-			</tr>
-			<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h3 id="myModalLabel">Deskripsi</h3>
-				</div>
-
-				<div class="modal-body">
-					<%= form_tag(set_approval_allowance_claim_transactions_path(claim), method: "get") do %>
-					<%= label_tag(:description, "Deskripsi:") %>
-					<%= text_area_tag(:description,"", size: "24x6") %><br />
-					<%= hidden_field_tag :decision, "approved" %>
-					<%= hidden_field_tag :allowance_id, claim.allowance_id %>
-					<%= hidden_field_tag :nominal, claim.nominal %>
-					<%= submit_tag("Kirim") %>
-					<% end %>
-				</div>
-
-
-			</div>
+			<td>  </td>
+			<% else %>
+			<td> <%= claim.approval_date %> </td>
 			<% end %>
-		</tbody>
-	</table>
+
+			<td> <%= claim.upload %> Kosong </td>
+			<td> <%= claim.try(:allowance).try(:allowance_sub_category).try(:name) %> </td>
+			<td><%= number_to_currency( claim.nominal, :unit => "Rp ") %></td>
+
+			<% if claim.status == 0 %>
+			<td> </td>
+			<% else %>
+			<td> <%= claim.description %> </td>
+			<% end %>
+
+			<% if claim.status == 0 %>
+			<td> 
+				<%= link_to 'Lihat', claim, :class=>'btn btn-info' %>
+				<a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal" id="approve_btn">Setuju</a>
+				<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn">Tidak Setuju</a>
+				<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal" id="revision_btn">Revisi</a>
+			</td>
+			<% else %>
+			<td>  <%= link_to 'Lihat', claim, :class=>'btn btn-info' %> </td>
+			<% end %>
+
+
+
+		</tr>
+		<!-- <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Deskripsi</h3>
+			</div>
+
+			<div class="modal-body">
+				
+			</div>
+
+
+		</div> -->
+
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			Tambah Sub Kaetgori
+		</button>
+		<%= link_to 'Kembali', allowance_claim_transactions_path, :class=>'btn btn-primary' %>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<%= form_tag(set_approval_allowance_claim_transactions_path(claim), method: "get") do %>
+						<%= label_tag(:description, "Deskripsi:") %>
+						<%= text_area_tag(:description,"", size: "24x6") %><br />
+						<%= hidden_field_tag :decision, "approved" %>
+						<%= hidden_field_tag :allowance_id, claim.allowance_id %>
+						<%= hidden_field_tag :nominal, claim.nominal %>
+						<%= submit_tag("Kirim") %>
+						<% end %>
+					</div>
+
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+
+
+		<% end %>
+	</tbody>
+</table>

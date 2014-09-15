@@ -25,7 +25,7 @@
 //= require bootstrap3-wysihtml5.all.min
 //= require icheck.min
 //= require AdminLTE/app
-//= require AdminLTE/dashboard
+
 //= require AdminLTE/demo
 
 
