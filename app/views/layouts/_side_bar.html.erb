@@ -4,15 +4,16 @@
 			<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		</a>
 	</li>
-	<li>
-		<a href="pages/widgets.html">
-			<i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
-		</a>
+	<li> 
+		<%= link_to roles_path do %>
+		<i class="fa   fa-question"></i> Peran
+		<% end %>
 	</li>
 	<%= render partial: "layouts/manage_user_menus" %>
 	<%= render partial: "layouts/absent_menus" %>
 	<%= render partial: "layouts/salary_menus" %>
 	<%= render partial: "layouts/allowance_menus" %>
+	<%= render partial: "layouts/submission_menus" %>
 
 	<li> 
 		<%= link_to new_allowance_claim_transaction_path do %>

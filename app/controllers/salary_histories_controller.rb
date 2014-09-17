@@ -34,7 +34,6 @@ class SalaryHistoriesController < ApplicationController
 
   def create
     @salary_history = SalaryHistory.new(params[:salary_history])
-
     respond_to do |format|
       if @salary_history.save
         format.html { redirect_to @salary_history, notice: 'Salary history was successfully created.' }

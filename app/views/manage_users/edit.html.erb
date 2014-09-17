@@ -22,8 +22,8 @@ Edit Data Karyawan
 
 
 <% content_for :content_nav do %>
-<%= link_to 'Show', manage_user_path(@manage_user) %> |
-<%= link_to 'Back', manage_users_path %>
+<%= link_to 'Lihat', manage_user_path(@manage_user), :class=>'btn btn-primary'%> 
+<%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
 <% end%>
 
 

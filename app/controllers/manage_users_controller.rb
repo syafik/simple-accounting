@@ -1,18 +1,20 @@
 
 class ManageUsersController < ApplicationController
 
-  def new
- @manage_user = User.new
- @manage_user.salary_histories.build
- @manage_user.overtime_payment_histories.build
-  end
+  before_filter :get_roles,  :only => [:new, :create, :update, :edit] 
 
-  def create
-    @manage_user = User.new(params[:user])
-    
-    @manage_user.password = "12345678"
-    respond_to do |format|
-      if @manage_user.save(validated: false)
+  def new
+   @manage_user = User.new
+   @manage_user.salary_histories.build
+   @manage_user.overtime_payment_histories.build
+ end
+
+ def create
+  @manage_user = User.new(params[:user])
+
+  @manage_user.password = "12345678"
+  respond_to do |format|
+    if @manage_user.save(validated: false)
 
         # @manage_user.salary_histories.create(:payment => params[:salary], :date => Date.today, :activate=>true)
         # UserMailer.send_accsess_new_user(@manage_user).deliver
@@ -81,6 +83,10 @@ class ManageUsersController < ApplicationController
       format.html { redirect_to manage_users_url }
       format.json { head :no_content }
     end
+  end
+
+  def get_roles
+    @roles = Role.all.map { |role| [role.name, role.id]}
   end
 
 end

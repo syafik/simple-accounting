@@ -15,10 +15,6 @@
 			<i class="fa fa-angle-double-right"></i> Penggajihan
 			<% end %>
 		</li>
-		<li> 
-			<%= link_to overtimes_path do %>
-			<i class="fa fa-angle-double-right"></i> Lembur
-			<% end %>
-		</li>
+		<%= render partial: "layouts/overtime_payment_history_menus" %>
 	</ul>
 </li>

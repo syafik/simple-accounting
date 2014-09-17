@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
+  acts_as_paranoid
   has_many :allowances, dependent: :destroy
   has_many :absents
+  has_many :absent_permissions
+  belongs_to :role
   
   has_many :salary_histories
   has_many :overtimes
@@ -17,7 +20,7 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :telephone, :address, :gender, :role, :first_name, :mid_name, :last_name, :birth_date, :salary_histories_attributes, :overtime_payment_histories_attributes, :religion
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :telephone, :address, :gender, :role_id, :first_name, :mid_name, :last_name, :birth_date, :salary_histories_attributes, :overtime_payment_histories_attributes, :religion
   # attr_accessible :title, :body
 
 
@@ -25,10 +28,10 @@ class User < ActiveRecord::Base
   validates :telephone, presence: true
   validates :address, presence: true
   # validates :gender, presence: true
-  validates :role, presence: true
+  validates :role_id, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :birth_date, presence: true
+  # validates :birth_date, presence: true
 
 
   def get_all_sub_category

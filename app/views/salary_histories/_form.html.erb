@@ -27,7 +27,8 @@
 
 <div class="form-group" style="width: 50%">
   <label>Besar Dana:</label>
-  <%= f.number_field :payment, class: "form-control pull-right date_custom"%>
+  <%= f.number_field :payment, class: "form-control pull-right"%>
+  <%= f.hidden_field :activate, class: "form-control pull-right ", value: false %>
 </div>
 
 

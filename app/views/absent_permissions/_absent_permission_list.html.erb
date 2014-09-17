@@ -1,0 +1,58 @@
+<style type="text/css">
+    th {
+        text-align: center;
+    }
+</style>
+
+
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Kategori</th>
+        <th>Tanggal Pengajuan</th>
+        <th>Tanggal Persetujuan</th>
+
+        <th>Lama</th>
+        <th>Pesan</th>
+        <th>Nama Karyawan</th>
+        <th> Aksi</th>
+
+    </tr>
+</thead>
+<tbody>
+    <% absent_permissions.each do |absent_permission| %>
+    <tr>
+        <td>
+
+            <%if absent_permission.category == 1 %>
+            <%= "Izin "%>
+            <%elsif absent_permission.category == 2 %>
+            <%= "Cuti "%>
+            <%end%>
+        </td>
+        <td><%= absent_permission.submission_date %></td>
+        <td><%= absent_permission.approval_date %></td>
+
+        <td><%= absent_permission.long %> Hari</td>
+        <td><%= absent_permission.message %></td>
+        <td><%= "#{absent_permission.user.first_name} #{absent_permission.user.mid_name} #{absent_permission.user.last_name}"%></td>
+        <td>
+            <%= link_to 'Lihat', absent_permission %> 
+            <!-- Set Approved -->
+            <%= link_to 'Setuju', set_approval_absent_permission_path(absent_permission),   class: "btn btn-warning"%> 
+            <%= link_to 'Tolak', edit_absent_permission_path(absent_permission), :class=>'btn btn-warning' %>
+        </td>
+    </tr>
+    <!-- Modal -->
+
+
+    <% end %>
+</tbody>
+</table>
+
+
+
+
+
+
+

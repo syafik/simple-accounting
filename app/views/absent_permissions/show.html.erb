@@ -1,0 +1,68 @@
+<% content_for :content_title do %>
+Pengajuan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Pengajuan Izin dan Cuti
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+  <table>
+    <tr>
+      <td> <b> Kategory </b> </td>
+      <td> <b> :</b> </td>
+      <td> 
+        <% if @absent_permission.category == 1 %>
+        <%= "Izin" %>
+        <% elsif @absent_permission.category == 2 %>
+        <%= "Cuti" %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td> <b>Tanggal Pengajuan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.submission_date %> </td>
+    </tr>
+    <tr>
+      <td> <b>Nama Karyawan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.user.first_name %> </td>
+    </tr>
+    <tr>
+      <td> <b>Untuk Tanggal </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.start_date %> </td>
+    </tr>
+
+    <tr>
+      <td> <b>Sampai Tanggal </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.end_date %> </td>
+    </tr>
+
+    <tr>
+      <td> <b>Pesan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.message %> </td>
+    </tr>
+
+    <tr>
+      <td> <b>Deskripsi </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @absent_permission.description %> </td>
+    </tr>
+
+  </table>
+</div>
+<% end%>
+
+<% content_for :content_nav do %>
+<% if current_user.role_id == 2 %>
+<%= link_to 'Kembali', absent_permissions_path, :class=>'btn btn-primary' %>
+<% else %>
+<%= link_to 'Kembali', new_absent_permission_path, :class=>'btn btn-primary' %>
+<% end %>
+
+<% end%>

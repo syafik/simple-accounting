@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140915074056) do
+ActiveRecord::Schema.define(:version => 20140917023016) do
+
+  create_table "absent_permissions", :force => true do |t|
+    t.integer  "category"
+    t.date     "submission_date"
+    t.date     "approval_date"
+    t.integer  "long"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "message"
+    t.integer  "status"
+  end
+
+  add_index "absent_permissions", ["user_id"], :name => "index_absent_permissions_on_user_id"
 
   create_table "absents", :force => true do |t|
     t.date     "date"
@@ -86,6 +103,12 @@ ActiveRecord::Schema.define(:version => 20140915074056) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "salaries", :force => true do |t|
     t.date     "date"
     t.integer  "total_attendance"
@@ -133,13 +156,15 @@ ActiveRecord::Schema.define(:version => 20140915074056) do
     t.date     "date_entry"
     t.boolean  "gender"
     t.string   "religion"
-    t.string   "role"
     t.string   "first_name"
     t.string   "mid_name"
     t.string   "last_name"
     t.date     "birth_date"
+    t.integer  "role_id"
+    t.datetime "deleted_at"
   end
 
+  add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

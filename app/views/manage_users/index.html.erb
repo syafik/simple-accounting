@@ -29,7 +29,7 @@ Daftar Karyawan
     <td><%= "#{manage_user.first_name} #{manage_user.mid_name} #{manage_user.last_name} "%></td>
     <td><%= manage_user.telephone %></td>
     <td><%= manage_user.email %></td>
-    <td><%= manage_user.role %></td>
+    <td><%= manage_user.role.name rescue nil %></td>
     
     <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  
       <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  

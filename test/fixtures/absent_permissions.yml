@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  category: 1
+  date_submission: 2014-09-16
+  approval_date: 2014-09-16
+  status: false
+  long: 1
+  description: MyText
+  user: 
+
+two:
+  category: 1
+  date_submission: 2014-09-16
+  approval_date: 2014-09-16
+  status: false
+  long: 1
+  description: MyText
+  user: 

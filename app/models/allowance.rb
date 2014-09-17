@@ -36,8 +36,7 @@ class Allowance < ActiveRecord::Base
 
   end
 
-  def self.search
-  end
+  
 
 
   

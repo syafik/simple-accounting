@@ -1,0 +1,21 @@
+<% content_for :bottom_js do %>
+    <%= javascript_include_tag "jquery.inputmask" %>
+    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+    <%= javascript_include_tag "jquery.inputmask.extensions" %>
+<% end%>
+
+<% content_for :content_title do %>
+Peran
+<% end%>
+
+<% content_for :content_sub_title do %>
+Buat Peran
+<% end%>
+
+<% content_for :content_body do %>
+<%= render 'form' %>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Kembali', roles_path, :class=>'btn btn-primary' %>  
+<% end%>

@@ -1,0 +1,104 @@
+<style>
+	#myTab li a:hover, #myTab li a:active, #myTab li a:focus { color:black; }
+</style>
+
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "jquery.inputmask" %>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "new_absent_permission" %>
+<%= javascript_include_tag "form_absent_permission" %>
+<%= javascript_include_tag "call_datepicker" %>
+
+<% end%>
+
+<% content_for :content_title do %>
+Pengajuan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Pengajuan Ijin dan Cuti
+<% end%>
+
+<% content_for :content_body do %>
+<ul class="nav nav-tabs" id="transactionTab">
+	<li class="active"><a href="#approved">Daftar Pengajuan Tersetujui</a></li>
+	<li><a href="#rejected">Daftar Pengajuan Tertolak</a></li>
+	<li><a href="#pending">Daftar Pengajuan Tertunda</a></li>
+	<li><a href="#taken">Daftar Pengajuan Terambil</a></li>
+	<li><a href="#decline">Daftar Pengajuan Batal</a></li>
+
+
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="approved">
+		<!-- approved transaction list -->
+
+		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:approveds]} %>
+		<!-- approved transaction list -->
+	</div>
+
+	<div class="tab-pane" id="rejected">
+		<!-- rejected transaction list -->
+
+		<%= render partial: "absent_permission_history_list", locals: {get_absent_permissions: @get_absent_permissions[:rejecteds]} %>
+		<!-- rejected transaction list -->
+	</div>
+
+	<div class="tab-pane" id="pending">
+		<!-- pending transaction list -->
+
+		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:pendings]} %>
+		<!-- pending transaction list -->
+	</div>
+
+	<div class="tab-pane" id="taken">
+		<!-- pending transaction list -->
+
+		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:takens]} %>
+		<!-- pending transaction list -->
+	</div>
+	<div class="tab-pane" id="decline">
+		<!-- pending transaction list -->
+
+		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:declines]} %>
+		<!-- pending transaction list -->
+	</div>
+</div>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="tab-content">
+						<%= render 'form' %>
+					</div>
+				</div>
+				
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- ========================================= -->
+
+
+
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Kembali', absent_permissions_path, :class=>'btn btn-primary' %>
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	Buat Pengajuan
+</button>
+<% end%>

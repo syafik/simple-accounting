@@ -4,8 +4,8 @@ class SalaryHistory < ActiveRecord::Base
   attr_accessible :date, :payment, :user_id, :activate
 
    validates :payment, presence: true
-   validates :date, presence: true
-   validates :activate, presence: true
+   # validates :date, presence: true
+   # validates :activate, presence: true
 
 
 end

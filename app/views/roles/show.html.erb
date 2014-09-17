@@ -1,0 +1,24 @@
+<% content_for :content_title do %>
+Kehadiran
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Kehadiran
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td> <b> Nama Peran </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @role.name %> </td>
+		</tr>
+	</table>
+</div>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_role_path(@role), :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', roles_path, :class=>'btn btn-primary' %>
+<% end%>

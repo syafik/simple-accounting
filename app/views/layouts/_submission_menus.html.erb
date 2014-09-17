@@ -1,0 +1,23 @@
+<li class="treeview">
+	<a href="#">
+		<i class="fa fa-external-link"></i>
+		<span>Pengajuan</span>
+		<i class="fa fa-angle-left pull-right"></i>
+	</a>
+	<ul class="treeview-menu">
+		<% if current_user.role_id == 2%>
+		<li> 
+			<%= link_to absent_permissions_path do %>
+			<i class="fa fa-angle-double-right"></i> Daftar Pengajuan Ijin dan Cuti
+			<% end %>
+		</li>
+		<% else %>
+		<li> 
+			<%= link_to new_absent_permission_path do %>
+			<i class="fa fa-angle-double-right"></i> Form Pengajuan Ijin dan Cuti
+			<% end %>
+		</li>
+
+		<% end %>
+	</ul>
+</li>

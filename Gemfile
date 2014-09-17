@@ -28,6 +28,13 @@ gem 'jquery-rails'
 # Adding will-peginate for pagination
 gem 'will_paginate'
 
+# Adding cancan for role
+gem "cancan"
+
+# Adding paranoia for deletion
+gem "paranoia", "~> 1.0"
+
+
 group :development do
 	gem 'debugger'
 end

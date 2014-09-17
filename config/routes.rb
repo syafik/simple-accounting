@@ -1,10 +1,16 @@
 SimpleAccounting::Application.routes.draw do
 
 
+  
+
+  resources :roles
+
   resources :absents
   resources :overtimes
   resources :salaries
   resources :manage_users
+
+  resources :overtime_payment_histories
   
 
 
@@ -35,6 +41,14 @@ resources :salary_histories do
   member do
     get :set_activation
     end
+end
+
+resources :absent_permissions do
+  member do
+    get :set_approval
+    get :set_taken
+    get :set_decline
+  end
 end
 
   resources :allowance_sub_categories

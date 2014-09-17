@@ -6,9 +6,6 @@
     <%= csrf_meta_tags %>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-
-    
-
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= yield :header %>
 
@@ -322,6 +319,8 @@
                 </div>
             </section>
         </section>
+    
+        
         <%= yield %>
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
