@@ -7,8 +7,7 @@
 <table id="example2" class="table table-bordered table-hover">
   <tr>
     <th > Tanggal Pengajuan</th>
-    <th > Tanggal Penyetujuan</th>
-    <th > Dari Tanggal </th>
+    <th > Kategori</th>
     <th > Lama </th>
     <th > Pesan </th>
     <th> Keterangan </th>
@@ -19,13 +18,11 @@
   <% get_absent_permissions.each  do |ap| %>
   <tr>
     <td> <%= ap.submission_date %> </td>
-    <% if ap.status == true %>
-    <td>  </td>
-    <% else %>
-    <td> <%= ap.approval_date %> </td>
+    <% if  ap.category == 1 %>
+    <td> Izin </td>
+    <% elsif ap.category == 2 %>
+    <td> Cuti </td>
     <% end %>
-    
-    <td> <%= ap.start_date %> </td>
     <td> <%= ap.long %> </td>
     <td> <%= ap.message %> </td> 
     <td> <%= ap.description %> </td> 

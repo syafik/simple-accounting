@@ -1,10 +1,10 @@
-<%= form_for(@absent_permission,:html => { style: "text-align: left;"}) do |f| %>
-<% if @absent_permission.errors.any? %>
+<%= form_for(@loan_permission,:html => { style: "text-align: left;"}) do |f| %>
+<% if @loan_permission.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@absent_permission.errors.count, "error") %> prohibited this absent_permission from being saved:</h2>
+  <h2><%= pluralize(@loan_permission.errors.count, "error") %> prohibited this loan_permission from being saved:</h2>
 
   <ul>
-    <% @absent_permission.errors.full_messages.each do |msg| %>
+    <% @loan_permission.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
     <% end %>
   </ul>
@@ -26,35 +26,12 @@
   <%= f.hidden_field :approval_date, class: "form-control", value: Date.today %>
   <%else%>
   <%= f.hidden_field :submission_date, class: "form-control", value: Date.today %>
-  <% end %>
-  
-</div>
-
-
-
-<div class="form-group" style="width: 50%">
-  <label>Kategori:</label>
-  <%= f.select :category, options_for_select([['Izin',1], ['Cuti',2]]),{}, class: "form-control"%>
+  <% end %>  
 </div>
 
 <div class="form-group" style="width: 50%">
-  <label >Untuk Tanggal:</label>
-  <div class="input-group">
-    <div class="input-group-addon">
-      <i class="fa fa-calendar"></i>
-    </div>
-    <%= f.text_field :start_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom" %>
-  </div>
-</div>
-
-<div class="form-group" style="width: 50%" id="end-date-space">
-  <label>Sampai Tanggal:</label>
-  <div class="input-group">
-    <div class="input-group-addon">
-      <i class="fa fa-calendar"></i>
-    </div>
-    <%= f.text_field :end_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom" %>
-  </div>
+  <label>Besar Dana:</label>
+  <%= f.number_field :total_loan, class: "form-control" %>
 </div>
 
 <% status = nil%>
@@ -73,10 +50,8 @@
 <% end %>
 
 <%= f.hidden_field :status, value: status %>
-<%= f.hidden_field :long %>
 
 <div class="actions">
   <%= f.submit %>
 </div>
 <% end %>
-

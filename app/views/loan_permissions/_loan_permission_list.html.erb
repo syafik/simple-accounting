@@ -1,0 +1,51 @@
+<style type="text/css">
+    th {
+        text-align: center;
+    }
+</style>
+
+
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        
+        <th>Tanggal Pengajuan</th>
+        <th>Tanggal Persetujuan</th>
+
+        <th>Lama</th>
+        <th>Pesan</th>
+        <th>Nama Karyawan</th>
+        <th> Aksi</th>
+
+    </tr>
+</thead>
+<tbody>
+    <% loan_permissions.each do |loan_permission| %>
+    <tr>
+        
+        <td><%= loan_permission.submission_date %></td>
+        <td><%= loan_permission.approval_date %></td>
+
+        
+        <td><%= loan_permission.message %></td>
+        <td><%= "#{loan_permission.user.first_name} #{loan_permission.user.mid_name} #{loan_permission.user.last_name}"%></td>
+        <td>
+            <%= link_to 'Lihat', loan_permission %> 
+            <!-- Set Approved -->
+            <%= link_to 'Setuju', set_approval_loan_permission_path(loan_permission, decision: "approved"),   class: "btn btn-warning"%> 
+            <%= link_to 'Tolak', edit_loan_permission_path(loan_permission), :class=>'btn btn-warning' %>
+        </td>
+    </tr>
+    <!-- Modal -->
+
+
+    <% end %>
+</tbody>
+</table>
+
+
+
+
+
+
+

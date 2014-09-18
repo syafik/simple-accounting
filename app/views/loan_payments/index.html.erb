@@ -1,0 +1,43 @@
+<style type="text/css">
+  th {
+    text-align: center;
+}
+</style>
+
+<% content_for :content_title do %>
+Pinjaman
+<% end%>
+
+<% content_for :content_sub_title do %>
+Daftar Hutang
+<% end%>
+
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Total Loan</th>
+        <th>Message</th>
+        <th>Description</th>
+        <th>Sisa</th>
+        <th>Aksi</th>
+    </tr>
+</thead>
+<tbody>
+    <% @loan_permissions.each do |loan_permissions| %>
+    <tr>
+        <td><%= loan_permissions.total_loan %></td>
+        <td><%= loan_permissions.message %></td>
+        <td><%= loan_permissions.description %></td>
+        <td><%= loan_permissions.loan_payments.get_residue(loan_permissions.id) %></td>
+        <td><%= link_to 'Ajukan Pembayaran', new_loan_payments_path(loan_permissions.id ), :class=>'btn btn-primary' %></td>
+
+    </tr>
+    <% end %>
+</tbody>
+</table>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Ajukan Pembayaran', new_loan_payment_path, :class=>'btn btn-primary' %>
+<% end%>

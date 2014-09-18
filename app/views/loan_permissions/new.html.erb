@@ -8,7 +8,6 @@
 <%= javascript_include_tag "jquery.inputmask.extensions" %>
 <%= javascript_include_tag "jquery.inputmask.extensions" %>
 <%= javascript_include_tag "tab" %>
-<%= javascript_include_tag "form_absent_permission" %>
 <%= javascript_include_tag "call_datepicker" %>
 
 <% end%>
@@ -36,34 +35,34 @@ Pengajuan Ijin dan Cuti
 	<div class="tab-pane active" id="approved">
 		<!-- approved transaction list -->
 
-		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:approveds]} %>
+		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:approveds]} %>
 		<!-- approved transaction list -->
 	</div>
 
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
 
-		<%= render partial: "absent_permission_history_list", locals: {get_absent_permissions: @get_absent_permissions[:rejecteds]} %>
+		<%= render partial: "loan_permission_history_list", locals: {get_laon_permissions: @get_laon_permissions[:rejecteds]} %>
 		<!-- rejected transaction list -->
 	</div>
 
 	<div class="tab-pane" id="pending">
 		<!-- pending transaction list -->
 
-		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:pendings]} %>
+		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:pendings]} %>
 		<!-- pending transaction list -->
 	</div>
 
 	<div class="tab-pane" id="taken">
 		<!-- pending transaction list -->
 
-		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:takens]} %>
+		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:takens]} %>
 		<!-- pending transaction list -->
 	</div>
 	<div class="tab-pane" id="decline">
 		<!-- pending transaction list -->
 
-		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:declines]} %>
+		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:declines]} %>
 		<!-- pending transaction list -->
 	</div>
 </div>
@@ -97,8 +96,9 @@ Pengajuan Ijin dan Cuti
 <% end%>
 
 <% content_for :content_nav do %>
-<%= link_to 'Kembali', absent_permissions_path, :class=>'btn btn-primary' %>
+
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 	Buat Pengajuan
 </button>
 <% end%>
+

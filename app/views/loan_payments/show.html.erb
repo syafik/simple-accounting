@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Submission date:</b>
+  <%= @loan_payment.submission_date %>
+</p>
+
+<p>
+  <b>Approval date:</b>
+  <%= @loan_payment.approval_date %>
+</p>
+
+<p>
+  <b>Total payment:</b>
+  <%= @loan_payment.total_payment %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @loan_payment.message %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @loan_payment.description %>
+</p>
+
+<p>
+  <b>Loanpermission:</b>
+  <%= @loan_payment.LoanPermission %>
+</p>
+
+
+<%= link_to 'Edit', edit_loan_payment_path(@loan_payment) %> |
+<%= link_to 'Back', loan_payments_path %>

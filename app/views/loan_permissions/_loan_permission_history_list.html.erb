@@ -1,0 +1,38 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
+
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th > Tanggal Pengajuan</th>
+    <th > Besar dana</th>
+    <th > Pesan </th>
+    <th> Keterangan </th>
+    <th> Aksi </th>
+    
+  </tr>
+
+  <% get_laon_permissions.each  do |lp| %>
+  <tr>
+    <td> <%= lp.submission_date %> </td>
+    <td> <%= lp.total_loan %> </td>
+    <td> <%= lp.message %> </td> 
+    <td> <%= lp.description %> </td> 
+    <% if lp.status == 1%>
+    <td> 
+      <%= link_to 'Ambil', set_taken_loan_permission_path(lp), :class=>'btn btn-primary' %>
+      <%= link_to 'Tolak', set_decline_loan_permission_path(lp), :class=>'btn btn-primary' %>
+    </td>
+    <%elsif lp.status == 2%>
+    <td>
+      <%= link_to 'Ubah', edit_loan_permission_path(lp), :class=>'btn btn-warning' %>
+    </td>
+    <% end %>
+    
+  </tr>
+  
+  <% end %>
+  
+</table>

@@ -15,6 +15,9 @@ class ManageUsersController < ApplicationController
   @manage_user.password = "12345678"
   respond_to do |format|
     if @manage_user.save(validated: false)
+      p '======'
+      p @manage_user.password
+      xxxx
 
         # @manage_user.salary_histories.create(:payment => params[:salary], :date => Date.today, :activate=>true)
         # UserMailer.send_accsess_new_user(@manage_user).deliver

@@ -1,19 +1,20 @@
-class AbsentPermission < ActiveRecord::Base
-	belongs_to :user
-	attr_accessible :approval_date, :category, :date_submission, :description, :long, :status, :user_id, :submission_date, :start_date, :message, :end_date
+class LoanPermission < ActiveRecord::Base
+  belongs_to :user
+  has_many :loan_payments
+  attr_accessible :approval_date, :description, :message, :submission_date, :total_loan, :user_id, :status
 
 
-	def self.user_search(search, user)
-		ap_list ={
+  def self.user_search(search, user)
+	lp_list ={
 
-              approveds: where(:status => 1, :user_id => user ).order("submission_date desc").order("updated_at desc"),
-              rejecteds:  where(:status => 2, :user_id => user ).order("updated_at desc"),
-              pendings: where(:status => 0, :user_id => user ).order("updated_at desc"),
-              takens: where(:status => 3, :user_id => user ).order("updated_at desc"),
-              declines: where(:status => 4, :user_id => user ).order("updated_at desc")
-            }
+	          approveds: where(:status => 1, :user_id => user ).order("submission_date desc").order("updated_at desc"),
+	          rejecteds:  where(:status => 2, :user_id => user ).order("updated_at desc"),
+	          pendings: where(:status => 0, :user_id => user ).order("updated_at desc"),
+	          takens: where(:status => 3, :user_id => user ).order("updated_at desc"),
+	          declines: where(:status => 4, :user_id => user ).order("updated_at desc")
+	        }
 
-    if search
+    	if search
 
         # lookin search category
         status = nil
@@ -39,14 +40,15 @@ class AbsentPermission < ActiveRecord::Base
         	
         end
       else
-      	ap_list
+      	lp_list
       end
 
-      return ap_list
+      return lp_list
     end
 
-    def self.admin_search(search, user)
-      ap_list ={
+
+     def self.admin_search(search, user)
+      lp_list ={
         approveds: where(:status => 1 ).order("updated_at desc"),
         rejecteds:  where(:status => 2 ).order("updated_at desc"),
         pendings: where(:status => 0 ).order("updated_at desc"),
@@ -86,22 +88,12 @@ class AbsentPermission < ActiveRecord::Base
           
         end
       else
-        ap_list
+        lp_list
         p "==========="
-        p ap_list
+        p lp_list
       end
     end
     
-    return ap_list
-  end
-
-  def self.have_been_taken(user)
-    # get total have been taken
-    hbt = AbsentPermission.where("user_id = ? AND status = ? AND extract(year  from approval_date) = ?", user.id, 3, 2014).sum(:long)
-
-    return hbt
-
-
-    
+    return lp_list
   end
 end

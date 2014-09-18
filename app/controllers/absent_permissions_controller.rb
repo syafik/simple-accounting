@@ -49,19 +49,33 @@ class AbsentPermissionsController < ApplicationController
   # POST /absent_permissions.json
   def create
     params[:absent_permission][:status] = 0
-    @absent_permission = AbsentPermission.new(params[:absent_permission])
-    
 
-    respond_to do |format|
-      if @absent_permission.save
-        format.html { redirect_to @absent_permission, notice: 'Absent permission was successfully created.' }
-        format.json { render json: @absent_permission, status: :created, location: @absent_permission }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @absent_permission.errors, status: :unprocessable_entity }
-      end
+    hbt = AbsentPermission.have_been_taken(current_user)
+
+    start_date = DateTime.parse(params[:absent_permission][:start_date])
+    end_date = nil
+
+    if params[:absent_permission][:category] == "1"
+      params[:absent_permission][:long] = 1
+      params[:absent_permission][:end_date] =  params[:absent_permission][:start_date]
+    else
+      end_date = DateTime.parse(params[:absent_permission][:end_date])
+      params[:absent_permission][:long] = (end_date -start_date).to_i
     end
-  end
+    @absent_permission = AbsentPermission.new(params[:absent_permission])
+      
+
+      respond_to do |format|
+        if hbt  < current_user.max_furlough && params[:absent_permission][:long]  < current_user.max_furlough && @absent_permission.save
+          format.html { redirect_to @absent_permission, notice: 'Absent permission was successfully created.' }
+          format.json { render json: @absent_permission, status: :created, location: @absent_permission }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @absent_permission.errors, status: :unprocessable_entity }
+        end
+      end
+
+   end
 
   # PUT /absent_permissions/1
   # PUT /absent_permissions/1.json
@@ -72,12 +86,8 @@ class AbsentPermissionsController < ApplicationController
       params[:absent_permission][:status] = 0
     end
     
-    
-    
     @absent_permission = AbsentPermission.find(params[:id])
     
-    
-
     respond_to do |format|
       if @absent_permission.update_attributes(params[:absent_permission])
         format.html { redirect_to @absent_permission, notice: 'Absent permission was successfully updated.' }
@@ -124,6 +134,7 @@ class AbsentPermissionsController < ApplicationController
   end
 
   def set_taken
+
     @absent_permission = AbsentPermission.find(params[:id])
     @absent_permission.update_attributes(:status=>3)
   end

@@ -1,7 +1,11 @@
 SimpleAccounting::Application.routes.draw do
 
 
-  
+
+
+
+
+  resources :loan_payments
 
   resources :roles
 
@@ -19,7 +23,7 @@ SimpleAccounting::Application.routes.draw do
 
   # get "allowances/index"
 
-
+match "/loan_payments/:id/new" => "loan_payments#new",   :as => "new_loan_payments",  :via => :get
 
   resources :allowance_categories do
     resources :allowance_sub_categories
@@ -37,19 +41,27 @@ SimpleAccounting::Application.routes.draw do
     end
   end
 
-resources :salary_histories do
-  member do
-    get :set_activation
+  resources :salary_histories do
+    member do
+      get :set_activation
     end
-end
-
-resources :absent_permissions do
-  member do
-    get :set_approval
-    get :set_taken
-    get :set_decline
   end
-end
+
+  resources :absent_permissions do
+    member do
+      get :set_approval
+      get :set_taken
+      get :set_decline
+    end
+  end
+
+  resources :loan_permissions do
+    member do
+      get :set_approval
+      get :set_taken
+      get :set_decline
+    end
+  end
 
   resources :allowance_sub_categories
   devise_for :users, controllers: {sessions: :sessions}
@@ -63,13 +75,13 @@ end
     end
   end
   #resources :claim_transactions
- root :to => 'transactions#index'
+  root :to => 'transactions#index'
 
  #resources :users do
  # resources :claim_transactions
  #end
-	
 
 
-  
+
+
 end

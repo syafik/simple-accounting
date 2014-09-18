@@ -11,13 +11,29 @@
 			<i class="fa fa-angle-double-right"></i> Daftar Pengajuan Ijin dan Cuti
 			<% end %>
 		</li>
+		<li> 
+			<%= link_to loan_permissions_path do %>
+			<i class="fa fa-angle-double-right"></i> Daftar Pengajuan Pinjaman Uang
+			<% end %>
+		</li>
 		<% else %>
 		<li> 
 			<%= link_to new_absent_permission_path do %>
 			<i class="fa fa-angle-double-right"></i> Form Pengajuan Ijin dan Cuti
 			<% end %>
 		</li>
+		<li> 
+			<%= link_to new_loan_permission_path do %>
+			<i class="fa fa-angle-double-right"></i> Form Pengajuan Pinjaman Uang
+			<% end %>
+		</li>
+		
 
 		<% end %>
+		<li> 
+			<%= link_to loan_payments_path do %>
+			<i class="fa fa-angle-double-right"></i> Pengajuan Bayar Hutang
+			<% end %>
+		</li>
 	</ul>
 </li>

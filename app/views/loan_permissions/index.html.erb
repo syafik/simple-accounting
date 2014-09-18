@@ -1,0 +1,98 @@
+<style>
+    #myTab li a:hover, #myTab li a:active, #myTab li a:focus { color:black; }
+
+</style>
+
+<% content_for :bottom_js do %>
+<script type="text/javascript">
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
+</script>
+<% end%>
+
+<% content_for :content_title do %>
+Pengajuan
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Pengajuan Pinjaman Uang
+<% end%>
+
+<% content_for :content_body do %>
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#pending">Daftar Pengajuan Tertunda</a></li>
+    <li><a href="#approved">Daftar Pengajuan Tersetujui</a></li>
+    <li><a href="#rejected">Daftar Pengajuan Tertolak</a></li>
+    <li><a href="#taken">Daftar Pengajuan Terambil</a></li>
+    <li><a href="#decline">Daftar Pengajuan Batal</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="pending">
+        <!-- pendding transaction list -->
+
+
+        <% if  @loan_permissions[:pendings] .blank? %>
+        Data Masih Belum Terisi Atau Kosong
+        <% else %>
+        <%= render partial: "loan_permission_list", locals: { loan_permissions:  @loan_permissions[:pendings] }  %>
+
+        <%end%>
+
+        
+        
+        <!-- pendding transaction list -->
+    </div>
+
+    <div class="tab-pane" id="approved">
+        <!-- approved transaction list -->
+        <% if  @loan_permissions[:pendings] .blank? %>
+        Data Masih Belum Terisi Atau Kosong
+        <% else %>
+        <%= render partial: "loan_permission_list", locals: { loan_permissions:  @loan_permissions[:approveds] }  %>
+        <%end%>
+
+        
+        <!-- approved transaction list -->
+    </div>
+    
+    <div class="tab-pane" id="rejected">
+        <!-- rejected transaction list -->
+        <% if  @loan_permissions[:rejecteds] .blank? %>
+        Data Masih Belum Terisi Atau Kosong ----
+        <% else %>
+        <%= render partial: "loan_permission_list", locals: { loan_permissions:  @loan_permissions[:rejecteds] }  %>
+        <%end%>
+
+
+        <!-- rejected transaction list -->
+    </div>
+    <div class="tab-pane" id="taken">
+        <!-- rejected transaction list -->
+        <% if  @loan_permissions[:takens] .blank? %>
+        Data Masih Belum Terisi Atau Kosong
+        <% else %>
+        <%= render partial: "loan_permission_list", locals: { loan_permissions:  @loan_permissions[:takens] }  %>
+        <%end%>
+
+        
+        <!-- rejected transaction list -->
+    </div>
+    <div class="tab-pane" id="decline">
+        <!-- rejected transaction list -->
+        <% if  @loan_permissions[:declines] .blank? %>
+        Data Masih Belum Terisi Atau Kosong
+        <% else %>
+        <%= render partial: "loan_permission_list", locals: { loan_permissions:  @loan_permissions[:declines] }  %>
+        <%end%>
+
+
+        <!-- rejected transaction list -->
+    </div>
+</div>
+<% end%>
+
+
+

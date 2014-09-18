@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :allowances, dependent: :destroy
   has_many :absents
   has_many :absent_permissions
+  has_many :loan_permissions
   belongs_to :role
   
   has_many :salary_histories

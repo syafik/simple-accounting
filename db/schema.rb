@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140917023016) do
+ActiveRecord::Schema.define(:version => 20140918083216) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -81,6 +81,34 @@ ActiveRecord::Schema.define(:version => 20140917023016) do
 
   add_index "allowances", ["allowance_sub_category_id"], :name => "index_allowances_on_allowance_sub_category_id"
   add_index "allowances", ["user_id"], :name => "index_allowances_on_user_id"
+
+  create_table "loan_payments", :force => true do |t|
+    t.date     "submission_date"
+    t.date     "approval_date"
+    t.float    "total_payment"
+    t.text     "message"
+    t.text     "description"
+    t.integer  "loan_permission_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "status"
+  end
+
+  add_index "loan_payments", ["loan_permission_id"], :name => "index_loan_payments_on_LoanPermission_id"
+
+  create_table "loan_permissions", :force => true do |t|
+    t.date     "submission_date"
+    t.date     "approval_date"
+    t.float    "total_loan"
+    t.text     "message"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "status"
+  end
+
+  add_index "loan_permissions", ["user_id"], :name => "index_loan_permissions_on_users_id"
 
   create_table "overtime_payment_histories", :force => true do |t|
     t.date     "date"
@@ -162,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20140917023016) do
     t.date     "birth_date"
     t.integer  "role_id"
     t.datetime "deleted_at"
+    t.integer  "max_furlough"
   end
 
   add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
