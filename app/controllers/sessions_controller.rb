@@ -14,6 +14,8 @@ class SessionsController < Devise::SessionsController
 	end
 
 	def destroy
+		p "====== dalem"
+		p current_user.id
 		redirect_path = after_sign_out_path_for(resource_name)
 
 		check_absent = current_user.absents.where({categories: 1, date: Date.today})

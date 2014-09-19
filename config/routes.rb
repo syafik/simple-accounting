@@ -1,12 +1,5 @@
 SimpleAccounting::Application.routes.draw do
 
-
-
-
-
-
-  resources :loan_payments
-
   resources :roles
 
   resources :absents
@@ -24,6 +17,7 @@ SimpleAccounting::Application.routes.draw do
   # get "allowances/index"
 
 match "/loan_payments/:id/new" => "loan_payments#new",   :as => "new_loan_payments",  :via => :get
+match "/loan_payments/:id/edit" => "loan_payments#edit",   :as => "edit_loan_payments",  :via => :get
 
   resources :allowance_categories do
     resources :allowance_sub_categories
@@ -60,6 +54,12 @@ match "/loan_payments/:id/new" => "loan_payments#new",   :as => "new_loan_paymen
       get :set_approval
       get :set_taken
       get :set_decline
+    end
+  end
+
+  resources :loan_payments do
+    member do
+      get :set_approval
     end
   end
 

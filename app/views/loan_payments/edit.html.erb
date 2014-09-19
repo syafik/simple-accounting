@@ -1,6 +1,29 @@
-<h1>Editing loan_payment</h1>
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "jquery.inputmask" %>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "call_datepicker" %>
+<% end%>
 
-<%= render 'form' %>
+<% content_for :content_title do %>
+Pinjaman
+<% end%>
 
-<%= link_to 'Show', @loan_payment %> |
+<% content_for :content_sub_title do %>
+Form Pembayaran Hutang
+<% end%>
+
+<% content_for :content_body do %>
+<%= render partial: "loan_payment_history", locals: { loan_payment_history: @loan_payment_history} %>
+
+<% end%>
+
+
+<% content_for :content_nav do %>
+<%= link_to 'Show', @loan_payment %> 
 <%= link_to 'Back', loan_payments_path %>
+<% end%>
+
+
+
+

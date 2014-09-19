@@ -30,8 +30,7 @@ class Salary < ActiveRecord::Base
               salaries << {date: date, total_attendance: total_attendance, total_absence: total_absence,  total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, salary_history_id: salary_history_id }
 
             end
-            @salaries = Salary.new(salaries[0])
-            @salaries .save
+            @salaries = Salary.create(salaries)
           end
         else
           if last_salary.date.at_beginning_of_week.strftime("%m") != this_mounth ||  last_salary.date.at_beginning_of_week.strftime("%Y")

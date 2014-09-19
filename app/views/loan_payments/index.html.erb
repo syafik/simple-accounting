@@ -30,8 +30,14 @@ Daftar Hutang
         <td><%= loan_permissions.message %></td>
         <td><%= loan_permissions.description %></td>
         <td><%= loan_permissions.loan_payments.get_residue(loan_permissions.id) %></td>
-        <td><%= link_to 'Ajukan Pembayaran', new_loan_payments_path(loan_permissions.id ), :class=>'btn btn-primary' %></td>
-
+        <td>
+            <% if current_user.role_id == 2%>
+            <%= link_to 'Daftar Pembayaran', edit_loan_payments_path(loan_permissions.id ), :class=>'btn btn-primary' %>
+            <% else %>
+            <%= link_to 'Ajukan Pembayaran', new_loan_payments_path(loan_permissions.id ), :class=>'btn btn-primary' %>
+            <% end %>
+        </td>
+        
     </tr>
     <% end %>
 </tbody>

@@ -6,12 +6,12 @@ class AbsentPermission < ActiveRecord::Base
 	def self.user_search(search, user)
 		ap_list ={
 
-              approveds: where(:status => 1, :user_id => user ).order("submission_date desc").order("updated_at desc"),
-              rejecteds:  where(:status => 2, :user_id => user ).order("updated_at desc"),
-              pendings: where(:status => 0, :user_id => user ).order("updated_at desc"),
-              takens: where(:status => 3, :user_id => user ).order("updated_at desc"),
-              declines: where(:status => 4, :user_id => user ).order("updated_at desc")
-            }
+      approveds: where(:status => 1, :user_id => user ).order("submission_date desc").order("updated_at desc"),
+      rejecteds:  where(:status => 2, :user_id => user ).order("updated_at desc"),
+      pendings: where(:status => 0, :user_id => user ).order("updated_at desc"),
+      takens: where(:status => 3, :user_id => user ).order("updated_at desc"),
+      declines: where(:status => 4, :user_id => user ).order("updated_at desc")
+    }
 
     if search
 
@@ -75,15 +75,15 @@ class AbsentPermission < ActiveRecord::Base
 
         search[category] = search[category].strip rescue nil
         if search["by_"+category] == "0"
-          
+
         elsif search["by_"+category] == "1"
-         
+
         elsif search["by_"+category] == "2"
-          
+
         elsif search["by_"+category] == "3" && search["to_"+category] == "" && search["from_"+category] != ""
-          
+
         elsif search["by_"+category] == "4" && search["to_"+category] == "" && search["from_"+category] != ""
-          
+
         end
       else
         ap_list
@@ -100,8 +100,32 @@ class AbsentPermission < ActiveRecord::Base
     hbt = AbsentPermission.where("user_id = ? AND status = ? AND extract(year  from approval_date) = ?", user.id, 3, 2014).sum(:long)
 
     return hbt
+  end
 
+  def save_to_absent
 
+    tamp_start_date = start_date
+    tamp_end_date = end_date
+    tamp_long = long
+    one = 1
+
+    tamp_category = nil
+
+    if category == 1
+      tamp_category = 3
+    else
+      tamp_category = 5
+    end
+
+    absent = []
     
+    0.upto(tamp_long) do |i|
+      puts tamp_start_date.class
+      absent << {user_id:  user_id, categories:  tamp_category, date:  tamp_start_date.to_s}
+      tamp_start_date+=1
+    end
+
+    @absents = Absent.create(absent)
+
   end
 end

@@ -1,35 +1,62 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Pengajuan
+<% end%>
 
-<p>
-  <b>Submission date:</b>
-  <%= @loan_payment.submission_date %>
-</p>
+<% content_for :content_sub_title do %>
+Detail Pembayaran
+<% end%>
 
-<p>
-  <b>Approval date:</b>
-  <%= @loan_payment.approval_date %>
-</p>
+<% content_for :content_body do %>
+<div align="left">
+  <table>
+    <tr>
+      <td> <b>Tanggal Pengajuan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.submission_date %> </td>
+    </tr>
+    <tr>
+      <td> <b>Tanggal Persetujuan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.approval_date %> </td>
+    </tr>
+    <tr>
+      <td> <b>Tanggal Pembayaran </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.payment_date %> </td>
+    </tr>
+    <tr>
+      <td> <b>Nama Karyawan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.try(:loan_permission).try(:user).try(:first_name) %> </td>
+    </tr>
+    <tr>
+      <td> <b>Besar Dana </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.total_payment%> </td>
+    </tr>
+    <tr>
+      <td> <b>Pesan </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.message %> </td>
+    </tr>
 
-<p>
-  <b>Total payment:</b>
-  <%= @loan_payment.total_payment %>
-</p>
+    <tr>
+      <td> <b>Deskripsi </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @loan_payment.description %> </td>
+    </tr>
 
-<p>
-  <b>Message:</b>
-  <%= @loan_payment.message %>
-</p>
+  </table>
+</div>
+<% end%>
 
-<p>
-  <b>Description:</b>
-  <%= @loan_payment.description %>
-</p>
+<% content_for :content_nav do %>
 
-<p>
-  <b>Loanpermission:</b>
-  <%= @loan_payment.LoanPermission %>
-</p>
+<%= link_to 'Kembali', loan_payments_path, :class=>'btn btn-primary' %>
 
 
-<%= link_to 'Edit', edit_loan_payment_path(@loan_payment) %> |
-<%= link_to 'Back', loan_payments_path %>
+<% end%>
+
+
+
+

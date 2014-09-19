@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140918083216) do
+ActiveRecord::Schema.define(:version => 20140919053149) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20140918083216) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "status"
+    t.date     "payment_date"
   end
 
   add_index "loan_payments", ["loan_permission_id"], :name => "index_loan_payments_on_LoanPermission_id"

@@ -39,7 +39,7 @@
         <td>
             <%= link_to 'Lihat', absent_permission %> 
             <!-- Set Approved -->
-            <%= link_to 'Setuju', set_approval_absent_permission_path(absent_permission),   class: "btn btn-warning"%> 
+            <%= link_to 'Setuju', set_approval_absent_permission_path(absent_permission, decision: "approved"),   class: "btn btn-warning"%> 
             <%= link_to 'Tolak', edit_absent_permission_path(absent_permission), :class=>'btn btn-warning' %>
         </td>
     </tr>

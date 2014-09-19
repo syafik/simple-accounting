@@ -12,7 +12,7 @@
 <% end %>
 
 <div class="form-group" style="width: 50%">
-<label>Total Hutang:</label>
+  <label>Total Hutang:</label>
   <%= number_to_currency( @loan_permission.total_loan, :unit => "Rp ")  %>
 </div>
 <div class="form-group" style="width: 50%">
@@ -23,6 +23,15 @@
   <%else%>
   <%= f.hidden_field :submission_date, class: "form-control", value: Date.today %>
   <% end %>  
+</div>
+<div class="form-group" style="width: 50%">
+  <label>Tanggal:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :payment_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
+  </div>
 </div>
 <div class="form-group" style="width: 50%">
   <label>Besar Dana:</label>

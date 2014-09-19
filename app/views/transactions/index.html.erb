@@ -1,69 +1,87 @@
-
+<% content_for :bottom_js do %>
 <script type="text/javascript" src="/assets/jquery.nyroModal.custom.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.nyroModal').nyroModal();
+	});
+</script>
+<% end%>
 
-<h2 class="text-center"> REKAP TRANSAKSI</h2>
-<br>
+<% content_for :content_title do %>
+Tranasaksi
+<% end%>
+
+<% content_for :content_sub_title do %>
+Rekap Transaksi
+<% end%>
+
+<% content_for :content_body do %>
 
 
 <div class="text-center">
-  <%= link_to '<< PREV', transactions_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard" %>
-  <%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
-  <%= link_to 'NEXT >>', transactions_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard" %>
+	<%= link_to '<< PREV', transactions_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard btn btn-primary" %>
+	<%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
+	<%= link_to 'NEXT >>', transactions_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard btn btn-primary" %>
 </div>
 
 <br />
 
-<table class="table tablesorter">
-  <tr style="background-color: #222222; color:#fff">
-	<th >NO</th>
-	<th style="text-align: center" >Date</th>
-	<th style="text-align: center" width="300px">Description</th>
-	<th style="text-align: center">Debit</th>
-	<th style="text-align: center">Credit</th>
-	<th><span class="pull-right">Action</span></th>
-  </tr>
-  <%  counter= 1 %>
+<table id="example2" class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th >NO</th>
+			<th  >Date</th>
+			<th  width="300px">Description</th>
+			<th >Debit</th>
+			<th >Credit</th>
+			<th><span class="pull-right">Action</span></th>
+		</tr>
+	</thead>
+	<%  counter= 1 %>
 
-
-  <% @transactions.each do |transaction| %>
+	<tbody>
+	<% @transactions.each do |transaction| %>
 	<% if transaction.is_debit %>
-	  <tr class="success">
-	<%  else %>
-	  <tr class="error">
+	<tr class="success">
+		<%  else %>
+		<tr class="error">
+			<% end %>
+			<td><%= counter %></td>
+			<td><%= transaction.date.strftime("%d  %B %Y") %></td>
+			<td width="300px"><%= transaction.description %></td>
+			<td class="right"><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
+			<td class="right"><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
+			<td>
+				<span class="pull-right">
+					<%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_transaction_path(transaction), :class => "nyroModal btn btn-success" %>
+					<%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, transaction, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+				</span>
+			</td>
+			<% counter += 1 # *counter = counter + 1%>
+		</tr>
+	</tr>
+
 	<% end %>
-	<td><%= counter %></td>
-	<td><%= transaction.date.strftime("%d  %B %Y") %></td>
-	<td width="300px"><%= transaction.description %></td>
-	<td class="right"><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
-	<td class="right"><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
-	<td>
-	  <span class="pull-right">
-		<%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_transaction_path(transaction), :class => "nyroModal btn btn-success" %>
-		<%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, transaction, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-	  </span>
-	</td>
-	<% counter += 1 # *counter = counter + 1%>
-	</tr>
-	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<th  width="300px">Total : </th>
+		<td class="right"><span class="blue"><%= number_to_currency(@total_debit, unit: "Rp. ")%></span></td>
+		<td class="right"><span class="red"><%= number_to_currency(@total_credit, unit: "Rp. ") %></span></td>
+		<td colspan="2"></td>
 
-  <% end %>
-  <tr>
-	<td></td>
-	<td></td>
-	<th style="text-align: center" width="300px">Total : </th>
-	<td class="right"><span class="blue"><%= number_to_currency(@total_debit, unit: "Rp. ")%></span></td>
-	<td class="right"><span class="red"><%= number_to_currency(@total_credit, unit: "Rp. ") %></span></td>
-	<td colspan="2"></td>
-
-  </tr>
+	</tr>
+	</tbody>
 </table>
 
-<%= link_to "Debit", new_transaction_path, :class => "nyroModal btn btn-geckoboard1" %>
-<%= link_to 'CREDIT', new_credit_transactions_path, :class => "nyroModal btn btn-geckoboard1" %>
+<%= link_to "Debit", new_transaction_path, :class => "nyroModal btn btn-geckoboard1 btn btn-primary" %>
+<%= link_to 'CREDIT', new_credit_transactions_path, :class => "nyroModal btn btn-geckoboard1 btn btn-primary" %>
 
-<script type="text/javascript">
-  $(function() {
-	$('.nyroModal').nyroModal();
-  });
-</script>
+<% end%>
+
+<% content_for :content_nav do %>
+
+<% end%>
+
+
 

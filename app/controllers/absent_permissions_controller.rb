@@ -112,6 +112,8 @@ class AbsentPermissionsController < ApplicationController
   end
 
   def set_approval
+    p "masuk approval"
+    p params
     @absent_permission = AbsentPermission.find(params[:id])
     #cek status
     decision = params[:decision]
@@ -125,7 +127,8 @@ class AbsentPermissionsController < ApplicationController
       else
         end_date = @absent_permission.start_date + @absent_permission.long.days rescue nil
       end
-      
+      p "======"
+      p "masuk"
       @absent_permission.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today, :end_date => end_date )
     end
 
@@ -134,9 +137,13 @@ class AbsentPermissionsController < ApplicationController
   end
 
   def set_taken
-
+    p "======="
+    p params
     @absent_permission = AbsentPermission.find(params[:id])
+    p "======="
+    p @absent_permission
     @absent_permission.update_attributes(:status=>3)
+    @absent_permission.save_to_absent
   end
 
   def set_decline

@@ -1,0 +1,61 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
+
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th > Tanggal Pengajuan</th>
+    <th > Tanggal Persetujuan</th>
+    <th > Total Pembayaran </th>
+    <th > Pesan </th>
+    <th> Keterangan </th>
+    <% if current_user.role_id == 2 %>
+    <th> Aksi </th>
+    <% end %>
+    
+    
+  </tr>
+
+  <% loan_payment_history.each  do |lph| %>
+  <tr>
+    <td> <%= lph.submission_date %> </td>
+    <td> <%= lph.approval_date %> </td>
+    <td> <%= lph.total_payment %> </td>
+    <td> <%= lph.message %> </td> 
+    <td> <%= lph.description %> </td> 
+    <% if current_user.role_id == 2 %>
+    <th> 
+      <%= link_to 'Setuju', set_approval_loan_payment_path(lph, decision: "approved"),   class: "btn btn-warning"%> 
+      <a href="#myModal-<%= lph.id%>" data-attribute = "<%= lph.id%>" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn-<%= lph.id%>">Tidak Setuju</a>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal-<%= lph.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <%= form_tag(set_approval_loan_payment_path(lph), method: "get") do %>
+              <%= label_tag(:description, "Deskripsi:") %>
+              <%= text_area_tag(:description,"", size: "24x6") %><br />
+              <%= hidden_field_tag :decision, "rejected" %>
+              <%= hidden_field_tag :id, value: lph.id %>
+              <%= submit_tag("Kirim") %>
+              <% end %>
+            </div>
+
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </th>
+    <% end %>
+    
+  </tr>
+  <% end %>
+</table>
+
