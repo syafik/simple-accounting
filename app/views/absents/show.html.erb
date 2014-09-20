@@ -17,7 +17,7 @@ Detail Kehadiran
 		<tr>
 			<td> <b>Nama Karyawan </b> </td>
 			<td> <b> :</b> </td>
-			<td> <%= @absent.try(:user).try(:name)%> </td>
+			<td> <%= "#{@absent.try(:user).try(:first_name)} #{@absent.try(:user).try(:mid_name)} #{@absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
 		</tr>
 		<tr>
 			<td> <b> Kategori </b> </td>

@@ -5,39 +5,35 @@ class AbsentsController < ApplicationController
   # GET /absents
   # GET /absents.json
   def index
-    if current_user.role == "user"
-      @date = Date.today
-      year = params[:year] || @date.year
-      month = params[:month] || @date.month
-      @date = DateTime.new(year.to_i,month.to_i, 1)
-      @next = @date + 1.month
-      @prev = @date - 1.month
-      @start_date = @date.beginning_of_month
-      @end_date = @date.end_of_month
-      # didnt work yet
-      @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
-    else
-      if params[:search]
-        @absents =  Absent.where(user_id: params[:search])
-      else 
-        @date = Date.today
-        year = params[:year] || @date.year
-        month = params[:month] || @date.month
-        @date = DateTime.new(year.to_i,month.to_i, 1)
-        @next = @date + 1.month
-        @prev = @date - 1.month
-        @start_date = @date.beginning_of_month
-        @end_date = @date.end_of_month
-        @absents = Absent.where("extract(year from date) = #{year} AND extract(month from date) = #{month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
-      end
-    end
+    @absents= Absent.order("date desc").paginate(:page => params[:page], :per_page => 10)
+
+    @date = Date.today
+    year = params[:year] || @date.year
+    month = params[:month] || @date.month
+    @date = DateTime.new(year.to_i,month.to_i, 1)
+    @next = @date + 1.month
+    @prev = @date - 1.month
+    @start_date = @date.beginning_of_month
+    @end_date = @date.end_of_month
 
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @absents }
-      format.js
-    end
+    # if current_user.role != 2
+    #   # didnt work yet
+    #   @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
+    # else
+    #   if params[:search]
+    #     @absents =  Absent.where(user_id: params[:search])
+    #   else 
+    #     @absents = Absent.where("extract(year from date) = #{year} AND extract(month from date) = #{month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
+    #   end
+    # end
+
+
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @absents }
+    #   format.js
+    # end
   end
 
   # GET /absents/1

@@ -23,19 +23,19 @@
 
 <div class="form-group" style="width: 50%">
   <label>Karyawan:</label>
-  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control"} %>
+  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control", required: true}%>
 </div>
 
 <div class="form-group" style="width: 50%">
   <label>Kategori:</label>
-  <%= f.select :categories, options_for_select([['Masuk',1], ['Alfa',2], ['Izin',3], ['Sakit',4]], @absent.try(:categories)),{}, class: "form-control"%>
+  <%= f.select :categories, options_for_select([['Masuk',1], ['Alfa',2], ['Izin',3], ['Sakit',4]], @absent.try(:categories)),{}, class: "form-control", required: true%>
 </div>
 
 <div class="form-group" style="width: 50%">
   <label>Deskripsi:</label>
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
 </div>
-<%= f.submit nil, :class=>'btn btn-default' %>
+<%= f.submit btn_title, :class=>'btn btn-default' %>
 
 
 
