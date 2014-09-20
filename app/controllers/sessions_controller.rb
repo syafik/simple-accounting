@@ -14,16 +14,14 @@ class SessionsController < Devise::SessionsController
 	end
 
 	def destroy
-		p "====== dalem"
-		p current_user.id
 		redirect_path = after_sign_out_path_for(resource_name)
 
-		check_absent = current_user.absents.where({categories: 1, date: Date.today})
-		p check_absent.select("id")
-		absents = Absent.find(check_absent.select("id"))
+		check_absent = current_user.absents.where({categories: 1, date: Date.today}).first
+		# p check_absent.select("id")
+		# absents = Absent.find(check_absent.select("id"))
 
 
-		absents.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
+		check_absent.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
 
 
 		signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))

@@ -22,7 +22,7 @@ Daftar Peran
   <% @roles.each do |role| %>
   <tr>
     <td><%= i+1 %></td>
-    <td><%= role.name %></td>
+    <td><%= role.name.downcase.titleize %></td>
     <td><%= link_to 'Lihat', role, :class=>'btn btn-info' %> <%= link_to 'Ubah', edit_role_path(role) , :class=>'btn btn-warning' %> <%= link_to 'Hapus', role, :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %></td>
   </tr>
   <% end %>

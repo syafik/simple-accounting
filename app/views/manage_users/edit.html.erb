@@ -15,7 +15,7 @@ Edit Data Karyawan
 
 <% content_for :content_body do %>
 <%= form_for(@manage_user, :url => {action: "update", controllers: "manage_users"}) do |f| %>
-<%= render partial: 'form', locals: {f: f} %>
+<%= render partial: 'form', locals: {f: f,  btn_title: "Ubah Data"} %>
 <% end %>
 <% end%>
 
