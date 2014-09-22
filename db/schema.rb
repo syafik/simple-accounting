@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140919053149) do
+ActiveRecord::Schema.define(:version => 20140922022324) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -136,7 +136,10 @@ ActiveRecord::Schema.define(:version => 20140919053149) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
+
+  add_index "roles", ["deleted_at"], :name => "index_roles_on_deleted_at"
 
   create_table "salaries", :force => true do |t|
     t.date     "date"
