@@ -11,6 +11,7 @@
 </div>
 <% end %>
 
+<% if current_user.role_id == 2%>
 <div class="form-group" style="width: 50%">
   <label>Tanggal:</label>
   <div class="input-group">
@@ -35,6 +36,28 @@
   <label>Deskripsi:</label>
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
 </div>
+
+<% else %>
+
+<div class="form-group" style="width: 50%">
+  <label>Tanggal:</label>
+  <div class="input-group">
+    <%= f.hidden_field :date, value: Date.today, class: "form-control pull-right date_custom" %>
+    <%= Date.today%>
+  </div>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Jam:</label>
+  <div class="input-group">
+    <%= f.hidden_field :time_in, value: "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}", class: "form-control pull-right date_custom" %>
+    <%= "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"%>
+  </div>
+</div>
+
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :categories, value: 1 %>
+<% end %>
 <%= f.submit btn_title, :class=>'btn btn-default' %>
 
 

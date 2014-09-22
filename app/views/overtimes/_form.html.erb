@@ -21,15 +21,26 @@
     <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
   </div>
 </div>
-<div class="form-group" style="width: 50%">
-  <label>Lama Lembur:</label>
-  <%= f.number_field :long_overtime, class: "form-control" %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+
+<div class="bootstrap-timepicker" style="width: 50%">
+  <div class="form-group">
+    <label>Time picker:</label>
+    <div class="input-group">
+      <%= f.text_field :start_time, class: "form-control timepicker test" %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
 </div>
+
 <div class="form-group" style="width: 50%">
   <label>Deskripsi:</label>
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
 </div>
+
+<%= f.hidden_field :user_id, :value => current_user.id %>
 
 <%= f.submit nil, :class=>'btn btn-default' %>
 

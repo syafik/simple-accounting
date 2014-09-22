@@ -1,8 +1,8 @@
 <% content_for :bottom_js do %>
-    <%= javascript_include_tag "jquery.inputmask" %>
-    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
-    <%= javascript_include_tag "jquery.inputmask.extensions" %>
-    <%= javascript_include_tag "call_datepicker" %>
+<%= javascript_include_tag "jquery.inputmask" %>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "call_datepicker" %>
 <% end%>
 
 <% content_for :content_title do %>
@@ -15,10 +15,16 @@ Buat Daftar Kehadiran
 
 <% content_for :content_body do %>
 <%= render 'form',  btn_title: "Buat Data" %>
+<% end %>
+
+
+
 <% end%>
 
 <% content_for :content_nav do %>
+<% if current_user.role_id == 2 %>
 <%= link_to 'Back', absents_path, :class=>'btn btn-primary' %>  
+<% end%>
 <% end%>
 
 

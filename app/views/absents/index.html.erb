@@ -7,22 +7,73 @@ Daftar Hadir Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-<div class="span5" style="float:left;padding-left: 20px;">
-  <%= link_to '<< PREV',absents_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard" %>
-  <%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
-  <%= link_to 'NEXT >>', absents_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard" %>
-</div>
-<div class="span4" style="float:right;padding-right: 20px;">
-  <%= form_tag(absents_path, :method => "get", class: "navbar-form", id: "search-form", remote: true) do %>
-  <div class="input-append">
-   <%= text_field_tag :search, params[:search], class: "span2", placeholder: "Search User" %>
-   <button class="btn" type="submit"><i class="icon-search"></i></button>
- </div>
- <% end %>
-</div>
+
+<% if current_user.role_id == 2 %>
 <%= render partial: "list", locals: {absents: @absents} %>
-<% end%>
+<% else %>
+
+<% if @check_absent.blank? %>
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	Buat Data Masuk
+</button>
+
+
+
+<% else %>
+<p>
+	Tanggal
+</p>
+<p>
+	<%= @check_absent.date %>
+</p>
+<p>
+	Pukul
+</p>
+<p>
+	<%= @check_absent.time_in.strftime("%H:%M %p %Z") %>
+</p>
+
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	Buat Data Keluar
+</button>
+<% end %>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3>Buat Absent</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="tab-content">
+						<p>
+							Tanggal
+						</p>
+						<p>
+							<%= Date.today%>
+						</p>
+						<p>
+							Pukul
+						</p>
+						<p>
+							<%= "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"%>
+						</p>
+						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary' %>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<% end %>
+<% end %>
 
 <% content_for :content_nav do %>
 <%= link_to 'Buat Data', new_absent_path, :class=>'btn btn-primary' %>
 <% end%>
+
+

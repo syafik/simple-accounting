@@ -1,6 +1,7 @@
 
 class AbsentsController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
+  before_filter :get_absent, :only => [:index, :set_attend]
 
   # GET /absents
   # GET /absents.json
@@ -108,9 +109,39 @@ class AbsentsController < ApplicationController
     end
   end
 
+  def set_attend
+    if @check_absent.blank?
+      absent =Absent.new(user_id: current_user.id, time_in: DateTime.now, date: Date.today, categories: 1)
+      if absent.save!
+        redirect_to absents_path
+      end
+    else
+      p "masuk"
+      if @check_absent.update_attributes(time_out: Time.now)
+        redirect_to absents_path
+      end
+    end
+    
+
+    # respond_to do |format|
+    #   if absent.save
+    #     format.html { redirect_to absent, notice: 'Absent was successfully created.' }
+    #     format.json { render json: absent, status: :created, location: absent }
+    #   else
+    #     format.html { render action: "new",:flash => { :error => "Insufficient rights!" } }
+    #     format.json { render json: absent.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+  end
+
 
   private
   def get_user
     @users = User.all.map {|user| [user.email, user.id]}
+  end
+
+  def get_absent
+    @check_absent = current_user.absents.where({categories: 1, date: Date.today}).first
   end
 end

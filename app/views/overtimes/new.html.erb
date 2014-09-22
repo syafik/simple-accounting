@@ -1,8 +1,14 @@
+<% content_for :header do %>
+    
+<% end%>
+
 <% content_for :bottom_js do %>
     <%= javascript_include_tag "jquery.inputmask" %>
     <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
     <%= javascript_include_tag "jquery.inputmask.extensions" %>
     <%= javascript_include_tag "call_datepicker" %>
+    <%= javascript_include_tag "bootstrap-timepicker.min" %>
+    <%= javascript_include_tag "call_timepicker" %>
 <% end%>
 
 <% content_for :content_title do %>
