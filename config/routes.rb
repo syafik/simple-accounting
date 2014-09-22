@@ -83,7 +83,7 @@ SimpleAccounting::Application.routes.draw do
     end
   end
   #resources :claim_transactions
-  root :to => 'transactions#index'
+  root :to => 'absents#index'
 
  #resources :users do
  # resources :claim_transactions

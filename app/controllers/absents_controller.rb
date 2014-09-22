@@ -111,13 +111,13 @@ class AbsentsController < ApplicationController
 
   def set_attend
     if @check_absent.blank?
-      absent =Absent.new(user_id: current_user.id, time_in: DateTime.now, date: Date.today, categories: 1)
+      absent =Absent.new(user_id: current_user.id, time_in: Time.now.strftime("%I:%M:%S"), date: Date.today, categories: 1)
       if absent.save!
         redirect_to absents_path
       end
     else
       p "masuk"
-      if @check_absent.update_attributes(time_out: Time.now)
+      if @check_absent.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
         redirect_to absents_path
       end
     end

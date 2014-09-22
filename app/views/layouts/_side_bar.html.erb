@@ -4,16 +4,20 @@
 			<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		</a>
 	</li>
+	<% if current_user.role_id == 2%>
 	<li> 
 		<%= link_to roles_path do %>
 		<i class="fa   fa-question"></i> Peran
 		<% end %>
 	</li>
 	<%= render partial: "layouts/manage_user_menus" %>
+	<% end %>
 	<%= render partial: "layouts/absent_menus" %>
 	<%= render partial: "layouts/salary_menus" %>
 	<%= render partial: "layouts/allowance_menus" %>
 	<%= render partial: "layouts/submission_menus" %>
+	
+	
 
 	<li> 
 		<%= link_to new_allowance_claim_transaction_path do %>
