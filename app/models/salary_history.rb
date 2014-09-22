@@ -1,11 +1,12 @@
 class SalaryHistory < ActiveRecord::Base
-  belongs_to :user
-  has_many :salaries
-  attr_accessible :date, :payment, :user_id, :activate
+	acts_as_paranoid
+	belongs_to :user
+	has_many :salaries
+	attr_accessible :applicable_date, :payment, :user_id, :activate
 
-   validates :payment, presence: true
-   # validates :date, presence: true
+	validates :payment, presence: true
+	validates :applicable_date, presence: true
    # validates :activate, presence: true
 
 
-end
+ end

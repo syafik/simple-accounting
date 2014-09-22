@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140922022324) do
+ActiveRecord::Schema.define(:version => 20140922040649) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -112,13 +112,13 @@ ActiveRecord::Schema.define(:version => 20140922022324) do
   add_index "loan_permissions", ["user_id"], :name => "index_loan_permissions_on_users_id"
 
   create_table "overtime_payment_histories", :force => true do |t|
-    t.date     "date"
+    t.date     "applicable_date"
     t.float    "day_payment"
     t.float    "night_payment"
     t.boolean  "activate"
     t.integer  "user_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "overtime_payment_histories", ["user_id"], :name => "index_overtime_payment_histories_on_user_id"
@@ -155,11 +155,14 @@ ActiveRecord::Schema.define(:version => 20140922022324) do
   create_table "salary_histories", :force => true do |t|
     t.integer  "user_id"
     t.float    "payment"
-    t.date     "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.date     "applicable_date"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.boolean  "activate"
+    t.datetime "deleted_at"
   end
+
+  add_index "salary_histories", ["deleted_at"], :name => "index_salary_histories_on_deleted_at"
 
   create_table "transactions", :force => true do |t|
     t.datetime "date"

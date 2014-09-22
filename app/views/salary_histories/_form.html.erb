@@ -17,24 +17,62 @@
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
-    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
+    <%= f.text_field :applicable_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true %>
   </div>
 </div>
+
 <div class="form-group" style="width: 50%">
   <label>Karyawan:</label>
-  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control"} %>
+  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control", required: true} %>
 </div>
 
 <div class="form-group" style="width: 50%">
   <label>Besar Dana:</label>
-  <%= f.number_field :payment, class: "form-control pull-right"%>
+  <%= f.number_field :payment, class: "form-control pull-right", required: true%>
   <%= f.hidden_field :activate, class: "form-control pull-right ", value: false %>
 </div>
 
+<div class="form-group" style="width: 50%">
+  <label>Biaya Lembur Siang:</label>
+  <%= number_field_tag(:overtime_day_payment, :payment, class: "form-control pull-right", required: true) %>
+</div>
 
-<%= f.submit nil, :class=>'btn btn-default' %>
+<div class="form-group" style="width: 50%">
+  <label>Biaya Lembur Malam:</label>
+  <%= number_field_tag(:overtime_night_payment, :payment, class: "form-control pull-right", required: true) %>
+</div>
+
+<div class="actions">
+  <%= f.submit btn_title, :class=>'btn btn-default' %>
+</div>
+
 
 
 
 
 <% end %>
+
+
+<% content_for :bottom_js do %>
+ <script type="text/javascript">
+
+ $('#salary_history_payment').keyup(function(){
+    $day_overtime = Math.round(parseInt($(this).val())/140);
+    $night_overtime = $day_overtime * 2;
+    $('#overtime_day_payment').val($day_overtime);
+    $('#overtime_night_payment').val($night_overtime);
+ });
+
+ $('#overtime_day_payment').keyup(function(){
+  $night_overtime = parseInt($(this).val()) * 2;
+  $('#overtime_night_payment').val($night_overtime);
+ });
+  
+
+  // $("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
+  //   $hasil = parseInt($(this).val()) * 2;
+  //   $("#user_overtime_payment_histories_attributes_0_night_payment").val($hasil);
+  // });
+ </script>
+
+ <% end%>

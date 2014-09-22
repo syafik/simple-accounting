@@ -1,7 +1,7 @@
  <div class="form-group" style="width: 50%; text-align: left;" >
  	<label>Gaji </label>
  	<%= f.number_field :payment, :placeholder=> "Gaji",  class: "form-control", required: true  %>
- 	<%= f.hidden_field :date, :placeholder=> "Gaji",  value: Date.today ,class: "form-control"  %>
+ 	<%= f.hidden_field :applicable_date, :placeholder=> "Gaji",  value: Date.today ,class: "form-control"  %>
  	<%= f.hidden_field :activate, :placeholder=> "Gaji",  value: true ,class: "form-control"  %>
 
  </div>

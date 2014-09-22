@@ -33,9 +33,14 @@ class SalaryHistoriesController < ApplicationController
   end
 
   def create
+    params[:salary_history][:applicable_date] = DateTime.strptime(params[:salary_history][:applicable_date], "%m/%d/%Y").to_date
     @salary_history = SalaryHistory.new(params[:salary_history])
+    
+    # save to overtime payment hitsory
+    overtime_payment_history = {applicable_date:  params[:salary_history][:applicable_date], day_payment: params[:overtime_day_payment], night_payment: params[:overtime_night_payment], user_id: current_user.id, activate: true}
+ 
     respond_to do |format|
-      if @salary_history.save
+      if @salary_history.save && OvertimePaymentHistory.create(overtime_payment_history)
         format.html { redirect_to @salary_history, notice: 'Salary history was successfully created.' }
         format.json { render json: @salary_history, status: :created, location: @salary_history }
       else

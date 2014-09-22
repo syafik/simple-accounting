@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   # validates :gender, presence: true
   validates :role_id, presence: true
   validates :first_name, presence: true
-  validates :last_name, presence: true
+  # validates :last_name, presence: true
   validates :birth_date, presence: true
 
 
