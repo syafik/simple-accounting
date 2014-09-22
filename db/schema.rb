@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140922040649) do
+ActiveRecord::Schema.define(:version => 20140922054637) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -119,8 +119,10 @@ ActiveRecord::Schema.define(:version => 20140922040649) do
     t.integer  "user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.datetime "deleted_at"
   end
 
+  add_index "overtime_payment_histories", ["deleted_at"], :name => "index_overtime_payment_histories_on_deleted_at"
   add_index "overtime_payment_histories", ["user_id"], :name => "index_overtime_payment_histories_on_user_id"
 
   create_table "overtimes", :force => true do |t|
