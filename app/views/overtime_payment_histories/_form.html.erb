@@ -1,0 +1,58 @@
+<%= form_for(@oph,:html => { style: "text-align: left;"}) do |f| %>
+<% if @oph.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@oph.errors.count, "error") %> prohibited this salary from being saved:</h2>
+
+  <ul>
+    <% @oph.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group" style="width: 50%">
+  <label>Tanggal:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :applicable_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true %>
+  </div>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Karyawan:</label>
+  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control", required: true} %>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Biaya Lembur Malam:</label>
+  <%= f.number_field :day_payment, class: "form-control pull-right", required: true%>
+</div>
+
+<div class="form-group" style="width: 50%">
+  <label>Biaya Lembur Malam:</label>
+  <%= f.number_field :night_payment, class: "form-control pull-right", required: true%>
+</div>
+
+
+<%= f.hidden_field :activate, class: "form-control pull-right ", value: false %>
+<div class="actions">
+  <%= f.submit btn_title, :class=>'btn btn-default' %>
+</div>
+<% end %>
+
+
+
+<% content_for :bottom_js do %>
+ <script type="text/javascript">
+
+ $('#overtime_payment_history_day_payment').keyup(function(){
+  $night_overtime = parseInt($(this).val()) * 2;
+  $('#overtime_payment_history_night_payment').val($night_overtime);
+ });
+ </script>
+
+ <% end%>
+

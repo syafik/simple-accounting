@@ -29,7 +29,7 @@ Data Riwayat Harga Lembur
   <tbody>
     <% @oph.each do |oph| %>
     <tr>
-      <td><%= oph.date %></td>
+      <td><%= oph.applicable_date %></td>
       <td><%= "#{oph.try(:user).try(:first_name)} #{oph.try(:user).try(:mid_name)} #{oph.try(:user).try(:last_name)}" %></td>
       <td><%= number_to_currency( oph.day_payment, :unit => "Rp ") %></td>
       <td><%= number_to_currency( oph.night_payment, :unit => "Rp ") %></td>
@@ -48,7 +48,7 @@ Data Riwayat Harga Lembur
         <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_overtime_payment_history_path(oph), :class => "btn btn-warning" %>
         <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, oph, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
         <% if oph.activate == false  %>
-        ?
+        <%= link_to 'Aktifkan', set_activation_overtime_payment_history_path(oph), :class=>'btn btn-primary'%>
         <% end %>
 
         

@@ -1,0 +1,26 @@
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "jquery.inputmask" %>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "call_datepicker" %>
+<% end%>
+
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Ubah Data Riwayat Biiaya Lembur
+<% end%>
+
+<% content_for :content_body do %>
+<%= render 'form',  btn_title: "Ubah Data" %>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Lihat', overtime_payment_history_path(@oph), :class=>'btn btn-primary' %> 
+<%= link_to 'Kembali', overtime_payment_histories_path  , :class=>'btn btn-primary' %>
+
+<% end%>
+
+

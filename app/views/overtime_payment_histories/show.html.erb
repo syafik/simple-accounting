@@ -1,0 +1,40 @@
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Data Riwayat Biaya Lembur
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td> <b> Tanggal </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @oph.applicable_date %></td>
+		</tr>
+		<tr>
+			<td> <b> Nama Karyawan </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= "#{@oph.try(:user).try(:first_name)} #{@oph.try(:user).try(:mid_name)} #{@oph.try(:user).try(:last_name)}"%> </td>
+		</tr>
+		<tr>
+			<td> <b> Biaya Lembur Siang </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= number_to_currency( @oph.day_payment, :unit => "Rp ") %></td>
+		</tr>
+		<tr>
+			<td> <b> Biaya Lembur Malam </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= number_to_currency( @oph.night_payment, :unit => "Rp ") %></td>
+		</tr>
+	</table>
+</div>
+
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_overtime_payment_history_path(@oph),:class=>'btn btn-primary' %>
+<%= link_to 'Kembali', overtime_payment_histories_path, :class=>'btn btn-primary' %>
+<% end%>
