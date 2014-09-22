@@ -20,7 +20,9 @@ Data Riwayat Penggajian
       <th > Nama Karyawan </th>
       <th > Jumlah Pembayaran</th>
       <th > Status </th>
+      <% if current_user.role_id == 2%>
       <th > Aksi </th>
+      <% end %>
     </tr>
   </thead>
   
@@ -39,7 +41,7 @@ Data Riwayat Penggajian
       <% end %>
 
       <td><%= stat  %></td>
-
+      <% if current_user.role_id == 2%>
       <td>
         <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
         <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_history_path(salary_history), :class => "btn btn-warning" %>
@@ -47,10 +49,8 @@ Data Riwayat Penggajian
         <% if salary_history.activate == false  %>
         <%= link_to 'Aktifkan', set_activation_salary_history_path(salary_history), :class=>'btn btn-primary'%>
         <% end %>
-
-        
-        
       </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

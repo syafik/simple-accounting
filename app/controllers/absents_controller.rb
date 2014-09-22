@@ -116,9 +116,22 @@ class AbsentsController < ApplicationController
         redirect_to absents_path
       end
     else
-      p "masuk"
-      if @check_absent.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
+      th_in = @check_absent.time_in.hour
+      th_now = Time.now.hour
+
+      tm_in = @check_absent.time_in.min
+      tm_now = Time.now.min
+
+      difh = th_now - th_in
+      difm = tm_now - tm_in
+
+      # still bug because time.now.min => using 24 but from databas using am pm
+
+
+
+      if difm >= 8 && difm >=0 &&  @check_absent.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
         redirect_to absents_path
+      else
       end
     end
     

@@ -2,7 +2,11 @@ class SalaryHistoriesController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   
   def index
-    @salary_histories = SalaryHistory.order("id asc")
+    if current_user.role_id == 2
+      @salary_histories = SalaryHistory.order("id asc")
+    else
+      @salary_histories = SalaryHistory.where(user_id: current_user.id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,7 +42,7 @@ class SalaryHistoriesController < ApplicationController
     
     # save to overtime payment hitsory
     overtime_payment_history = {applicable_date:  params[:salary_history][:applicable_date], day_payment: params[:overtime_day_payment], night_payment: params[:overtime_night_payment], user_id: current_user.id, activate: true}
- 
+
     respond_to do |format|
       if @salary_history.save && OvertimePaymentHistory.create(overtime_payment_history)
         format.html { redirect_to @salary_history, notice: 'Salary history was successfully created.' }
@@ -85,10 +89,10 @@ def set_activation
  #  how to update collect on rails
  # SalaryHistory.where("id <> ?", params[:format]).update_all(activate: false)
  SalaryHistory.update_all("activate = false", "id <> #{ params[:id] } AND user_id = #{@salary_history.user_id}" )
-  end
+end
 
-  private
-  def get_user
-    @users = User.all.map {|user| [user.email, user.id]}
-  end
+private
+def get_user
+  @users = User.all.map {|user| [user.email, user.id]}
+end
 end

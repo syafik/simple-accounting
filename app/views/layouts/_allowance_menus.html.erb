@@ -5,11 +5,14 @@
 		<i class="fa fa-angle-left pull-right"></i>
 	</a>
 	<ul class="treeview-menu">
+		<% if current_user.role_id == 2%>
 		<li> 
 			<%= link_to allowance_categories_path do %>
 			<i class="fa fa-angle-double-right"></i> Kategori Tunjangan
 			<% end %>
 		</li>
+		<% end %>
+		
 		<li> 
 			<%= link_to allowances_path do %>
 			<i class="fa fa-angle-double-right"></i> Data Tunjangan

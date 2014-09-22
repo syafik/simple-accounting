@@ -73,7 +73,9 @@ Daftar Hadir Karyawan
 <% end %>
 
 <% content_for :content_nav do %>
+<% if current_user.role_id == 2%>
 <%= link_to 'Buat Data', new_absent_path, :class=>'btn btn-primary' %>
+<% end%>
 <% end%>
 
 
