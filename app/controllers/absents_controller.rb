@@ -77,9 +77,14 @@ class AbsentsController < ApplicationController
   # POST /absents
   # POST /absents.json
   def create
+
+    params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S")
+    params[:absent][:time_out] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S")
+
+    
     params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
     @absent = Absent.new(params[:absent])
-   
+
 
     respond_to do |format|
       if @absent.save
