@@ -42,6 +42,7 @@ class OvertimesController < ApplicationController
   # POST /overtimes
   # POST /overtimes.json
   def create
+    params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
     @overtime = Overtime.new(params[:overtime])
 
 
@@ -50,6 +51,9 @@ class OvertimesController < ApplicationController
 
     total_long_overtime = overtime_history.to_i + params[:overtime][:long_overtime].to_i
     
+    long_overtime = ((@overtime.end_time - @overtime.start_time)/3600)
+    @overtime.long_overtime = long_overtime
+
     respond_to do |format|
       if total_long_overtime <= 8  &&@overtime.save
         format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
