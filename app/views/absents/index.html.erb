@@ -8,6 +8,9 @@ Daftar Hadir Karyawan
 
 <% content_for :content_body do %>
 <% if current_user.role_id == 2 %>
+<div align="left">
+	<h4><%= @date %></h4>
+</div>
 <%= render partial: "list", locals: {absents: @absents} %>
 <br/ >
 <%= link_to "sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %> | 
