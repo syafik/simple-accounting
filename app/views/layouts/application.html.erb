@@ -7,6 +7,22 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <style type="text/css">
+        a.custom-link{
+            color: #FF0000 !important;
+        }
+        /* mouse over link */
+        a.custom-link:hover {
+            color: #C43A3A !important;
+        }
+
+        /* selected link */
+        a.custom-link:active {
+            color: #000000 !important;
+        }
+        
+    </style>
+    
     <%= yield :header %>
 
 
@@ -319,7 +335,7 @@
                 </div>
             </section>
         </section>
-    
+
         
         <%= yield %>
     </aside><!-- /.right-side -->
@@ -330,11 +346,11 @@
 
 <%= javascript_include_tag "application" %>
 
-<div class="no-print" style="position: fixed; top: 150px; right: 0px; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.698); border-radius: 5px 0px 0px 5px; padding: 10px 15px; font-size: 16px; z-index: 999999; cursor: pointer; color: rgb(221, 221, 221);">
-<div class="no-print" style="padding: 10px; position: fixed; top: 130px; right: -200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 3px solid rgba(0, 0, 0, 0.698); width: 200px; z-index: 999999;">
+<!-- <div class="no-print" style="position: fixed; top: 600px; right: 0px; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.698); border-radius: 5px 0px 0px 5px; padding: 10px 15px; font-size: 16px; z-index: 999999; cursor: pointer; color: rgb(221, 221, 221);">
+    <div class="no-print" style="padding: 10px; position: fixed; top: 130px; right: -200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 3px solid rgba(0, 0, 0, 0.698); width: 200px; z-index: 999999;"> -->
 
-<%= yield :bottom_js%>
-</body>
-</html>
+        <%= yield :bottom_js%>
+    </body>
+    </html>
 
 

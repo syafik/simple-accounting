@@ -2,7 +2,7 @@ $(function() {
     /* For demo purposes */
     var demo = $("<div />").css({
         position: "fixed",
-        top: "150px",
+        top: "600px",
         right: "0",
         background: "rgba(0, 0, 0, 0.7)",
         "border-radius": "5px 0px 0px 5px",
@@ -16,7 +16,7 @@ $(function() {
     var demo_settings = $("<div />").css({
         "padding": "10px",
         position: "fixed",
-        top: "130px",
+        top: "500px",
         right: "-200px",
         background: "#fff",
         border: "3px solid rgba(0, 0, 0, 0.7)",

@@ -15,6 +15,16 @@ Detail Kehadiran
 			<td> <%= @absent.date %></td>
 		</tr>
 		<tr>
+			<td> <b> Jam Masuk </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.time_in.strftime("%I:%M:%S") rescue nil  %></td>
+		</tr>
+		<tr>
+			<td> <b> Jam Masuk </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @absent.time_out.strftime("%I:%M:%S") rescue nil  %></td>
+		</tr>
+		<tr>
 			<td> <b>Nama Karyawan </b> </td>
 			<td> <b> :</b> </td>
 			<td> <%= "#{@absent.try(:user).try(:first_name)} #{@absent.try(:user).try(:mid_name)} #{@absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
@@ -22,7 +32,19 @@ Detail Kehadiran
 		<tr>
 			<td> <b> Kategori </b> </td>
 			<td> <b> :</b> </td>
-			<td> <%= @absent.categories %></td>
+			<td> 
+				<% if @absent.categories == 1%>
+				Masuk
+				<% elsif @absent.categories == 2%>
+				Alfa
+				<% elsif @absent.categories == 3%>
+				Izin
+				<% elsif @absent.categories == 4%>
+				Sakit
+				<% elsif @absent.categories == 5%>
+				Cuti
+				<% end %>
+			</td>
 		</tr>
 
 		<tr>

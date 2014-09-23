@@ -20,6 +20,7 @@ Daftar Karyawan
     <th> No. telepon </th>
     <th> Email </th>
     <th> Peran </th>
+    <th> Jabatan </th>
     <th> Aksi </th>
     
   </tr>
@@ -30,6 +31,7 @@ Daftar Karyawan
     <td><%= manage_user.telephone %></td>
     <td><%= manage_user.email %></td>
     <td><%= manage_user.role.name rescue nil %></td>
+    <td><%= manage_user.position %></td>
     
     <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  
       <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  

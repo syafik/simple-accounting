@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
   # validates :last_name, presence: true
   validates :birth_date, presence: true
+  validates :position, presence: true
 
 
   def get_all_sub_category

@@ -7,9 +7,11 @@ Daftar Hadir Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-
 <% if current_user.role_id == 2 %>
 <%= render partial: "list", locals: {absents: @absents} %>
+<br/ >
+<%= link_to "sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %> | 
+<%= link_to "selanjutnya", absents_path(:search => @date.tomorrow), class: "custom-link"%>
 <% else %>
 
 <% if @check_absent.blank? %>
@@ -30,7 +32,7 @@ Daftar Hadir Karyawan
 	Pukul
 </p>
 <p>
-	<%= @check_absent.time_in.strftime("%H:%M %p %Z") %>
+	<%= @check_absent.time_in.strftime("%H:%M ") %>
 </p>
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -52,13 +54,13 @@ Daftar Hadir Karyawan
 							Tanggal
 						</p>
 						<p>
-							<%= Date.today%>
+							<%= Time.current.to_date %>
 						</p>
 						<p>
 							Pukul
 						</p>
 						<p>
-							<%= "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"%>
+							<%= Time.current.strftime("%H:%M:%S") %>
 						</p>
 						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary' %>
 					</div>
@@ -74,7 +76,7 @@ Daftar Hadir Karyawan
 
 <% content_for :content_nav do %>
 <% if current_user.role_id == 2%>
-<%= link_to 'Buat Data', new_absent_path, :class=>'btn btn-primary' %>
+<%= link_to 'Buat Data Ketidakhadiran', new_absent_path, :class=>'btn btn-primary' %>
 <% end%>
 <% end%>
 

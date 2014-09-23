@@ -6,16 +6,25 @@ class AbsentsController < ApplicationController
   # GET /absents
   # GET /absents.json
   def index
-    @absents= Absent.order("date desc").paginate(:page => params[:page], :per_page => 10)
-
     @date = Date.today
-    year = params[:year] || @date.year
-    month = params[:month] || @date.month
-    @date = DateTime.new(year.to_i,month.to_i, 1)
-    @next = @date + 1.month
-    @prev = @date - 1.month
-    @start_date = @date.beginning_of_month
-    @end_date = @date.end_of_month
+    p "="*99
+    p @date
+    if params[:search]
+      @date = params[:search].to_date
+      @absents= Absent.where(date: params[:search]).order("date desc")
+    else
+      @absents= Absent.where(date: Date.today).order("date desc")
+    end
+    
+
+    # @date = Date.today
+    # year = params[:year] || @date.year
+    # month = params[:month] || @date.month
+    # @date = DateTime.new(year.to_i,month.to_i, 1)
+    # @next = @date + 1.month
+    # @prev = @date - 1.month
+    # @start_date = @date.beginning_of_month
+    # @end_date = @date.end_of_month
 
 
     # if current_user.role != 2
@@ -68,7 +77,9 @@ class AbsentsController < ApplicationController
   # POST /absents
   # POST /absents.json
   def create
+    params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
     @absent = Absent.new(params[:absent])
+   
 
     respond_to do |format|
       if @absent.save
@@ -111,26 +122,31 @@ class AbsentsController < ApplicationController
 
   def set_attend
     if @check_absent.blank?
-      absent =Absent.create(user_id: current_user.id, time_in: Time.now.strftime("%I:%M:%S"), date: Date.today, categories: 1)
+      absent =Absent.create(user_id: current_user.id, time_in: Time.current.strftime("%H:%M:%S"), date: Time.current.to_date, categories: 1)
       # absent.time_in = Time.now.strftime("%I:%M:%S")
       if absent.save!
         redirect_to absents_path
       end
     else
       th_in = @check_absent.time_in.hour
-      th_now = Time.now.hour
+      th_now = Time.current.hour
 
       tm_in = @check_absent.time_in.min
-      tm_now = Time.now.min
+      tm_now = Time.current.min
 
       difh = th_now - th_in
       difm = tm_now - tm_in
 
       # still bug because time.now.min => using 24 but from databas using am pm
+      p "="*9
+      p difh
+      p "="*9
+      p difm
+
+      
 
 
-
-      if difm >= 8 && difm >=0 &&  @check_absent.update_attributes(time_out: Time.now.strftime("%I:%M:%S"))
+      if difh >= 8 && difm >=0 &&  @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: "#{difh}.#{difm}".to_f)
         redirect_to absents_path
       else
       end
