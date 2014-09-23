@@ -25,6 +25,15 @@ Detail Karyawan
       <td> <b> :</b> </td>
       <td> <%= @manage_user.birth_date %></td>
     </tr>
+    <tr>
+      <td> <b> Jenis Kelamin </b> </td>
+      <td> <b> :</b> </td>
+      <% if @manage_user.gender == true %>
+      <td> Pria </td>
+      <% else %>
+      <td> Wanita </td>
+      <% end %>
+    </tr>
 
     <tr>
       <td> <b> Telephone </b> </td>

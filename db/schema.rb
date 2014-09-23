@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140922060646) do
+ActiveRecord::Schema.define(:version => 20140923042917) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(:version => 20140922060646) do
     t.integer  "role_id"
     t.datetime "deleted_at"
     t.integer  "max_furlough"
+    t.string   "position"
   end
 
   add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
