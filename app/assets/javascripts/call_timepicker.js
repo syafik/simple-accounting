@@ -1,1 +1,5 @@
-$(".timepicker").timepicker();
+$(".timepicker").timepicker({
+minuteStep: 5,
+showInputs: false,
+disableFocus: true
+});

@@ -12,6 +12,7 @@ $("#absent_permission_category").change(function(){
 		$("#end-date-space").show();
 		$("#absent_permission_end_date").val("");
 		$("#absent_permission_end_date").show();
+		$(".absent-time").hide();
 	}
 
 });

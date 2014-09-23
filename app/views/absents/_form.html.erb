@@ -29,7 +29,31 @@
 
 <div class="form-group" style="width: 50%">
   <label>Kategori:</label>
-  <%= f.select :categories, options_for_select([['Alfa',2], ['Izin',3], ['Sakit',4]], @absent.try(:categories)),{}, class: "form-control", required: true%>
+  <%= f.select :categories, options_for_select([['Masuk',1],['Alfa',2], ['Izin',3], ['Sakit',4]], @absent.try(:categories)),{}, class: "form-control", required: true%>
+</div>
+
+<div class="bootstrap-timepicker absent-time" style="width: 50%">
+  <div class="form-group">
+    <label>Time picker:</label>
+    <div class="input-group">
+      <%= f.text_field :time_in, class: "form-control timepicker test" %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
+</div>
+
+<div class="bootstrap-timepicker absent-time" style="width: 50%">
+  <div class="form-group">
+    <label>Time picker:</label>
+    <div class="input-group">
+      <%= f.text_field :time_out, class: "form-control timepicker test" %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
 </div>
 
 <div class="form-group" style="width: 50%">
