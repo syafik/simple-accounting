@@ -26,7 +26,7 @@
       <td ><%= absent.date %></td>
       <td ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
       <td ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
-      <td> <%= "#{absent.try(:user).try(:first_name)} #{absent.try(:user).try(:mid_name)} #{absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
+      <td> <%= "#{absent.try(:user).try(:first_name)} #{absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
 
       <% if absent.categories == 1 %>
       <td >Masuk</td>

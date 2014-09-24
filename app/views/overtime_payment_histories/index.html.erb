@@ -30,7 +30,7 @@ Data Riwayat Harga Lembur
     <% @oph.each do |oph| %>
     <tr>
       <td><%= oph.applicable_date %></td>
-      <td><%= "#{oph.try(:user).try(:first_name)} #{oph.try(:user).try(:mid_name)} #{oph.try(:user).try(:last_name)}" %></td>
+      <td><%= "#{oph.try(:user).try(:first_name)} #{oph.try(:user).try(:last_name)}" %></td>
       <td><%= number_to_currency( oph.day_payment, :unit => "Rp ") %></td>
       <td><%= number_to_currency( oph.night_payment, :unit => "Rp ") %></td>
 

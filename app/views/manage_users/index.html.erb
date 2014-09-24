@@ -27,7 +27,7 @@ Daftar Karyawan
 
   <% @manage_users.each do |manage_user| %>
   <tr>
-    <td><%= "#{manage_user.first_name} #{manage_user.mid_name} #{manage_user.last_name} ".downcase.titleize%></td>
+    <td><%= "#{manage_user.first_name} #{manage_user.last_name} ".downcase.titleize%></td>
     <td><%= manage_user.telephone %></td>
     <td><%= manage_user.email %></td>
     <td><%= manage_user.role.name rescue nil %></td>

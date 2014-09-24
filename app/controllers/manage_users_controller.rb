@@ -10,6 +10,7 @@ class ManageUsersController < ApplicationController
  end
 
  def create
+  params[:user][:birth_date] = DateTime.strptime(params[:user][:birth_date], "%m/%d/%Y").to_date
   @manage_user = User.new(params[:user])
 
   @manage_user.password = "12345678"
@@ -33,6 +34,9 @@ class ManageUsersController < ApplicationController
   end
 
   def update
+    p "="*100
+    p params
+    # xxx
     @manage_user = User.find(params[:id])
     
 

@@ -16,7 +16,7 @@
 
 <div class="form-group" style="width: 50%">
   <label>Name Pegawai:</label>
-  <%= "#{current_user.first_name} #{current_user.mid_name} #{current_user.last_name}"%>
+  <%= "#{current_user.first_name} #{current_user.last_name}"%>
   <% if current_user.role_id != 2%>
   <%= f.hidden_field :user_id, class: "form-control", value: current_user.id %>
   <% end %>

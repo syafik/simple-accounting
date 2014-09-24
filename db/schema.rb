@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140923152051) do
+ActiveRecord::Schema.define(:version => 20140924052050) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -197,7 +197,6 @@ ActiveRecord::Schema.define(:version => 20140923152051) do
     t.boolean  "gender"
     t.string   "religion"
     t.string   "first_name"
-    t.string   "mid_name"
     t.string   "last_name"
     t.date     "birth_date"
     t.integer  "role_id"

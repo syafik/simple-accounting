@@ -21,11 +21,6 @@
     <label>Nama Depan:</label>
     <%= f.text_field :first_name, :placeholder=> "Nama Depan",  class: "form-control", required: true %>
   </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Tengah:</label>
-    <%= f.text_field :mid_name, :placeholder=> "Nama Tengah",  class: "form-control" %>
-  </div>
   
   <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Nama Akhir:</label>
@@ -38,8 +33,8 @@
   <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Jenis Kelamin:</label>
     <!-- tanda tanya tah -->
-    <%= f.radio_button :gender, :class=> "form-control", :value=> true, required: true %> Pria
-    <%= f.radio_button :gender, :class=> "form-control", :value=> false, required: true %> Wanita
+    <%= f.radio_button :gender, true, checked:  @manage_user.gender ? true : false %> Pria
+    <%= f.radio_button :gender, false, checked:  @manage_user.gender ? false : true %> Wanita
     
   </div>
 
@@ -49,19 +44,19 @@
     
   </div>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
+  <div class="form-group" style="width: 50%; text-align: left;">
     <label>Tanggal Lahir:</label>
     <div class="input-group">
       <div class="input-group-addon">
         <i class="fa fa-calendar"></i>
       </div>
-      <%= f.text_field :birth_date, :placeholder=> "Tanggal Lahir" , class: "form-control pull-right date_custom",type: "date", required: true %>
+      <%= f.text_field :birth_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true  %>
     </div>
   </div>
 
   <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Telephone:</label>
-    <%= f.number_field :telephone, :placeholder=> "Telephone",  class: "form-control", "data-mask"=>"",  "data-inputmask" => "'mask': '(999) 999-9999'" , required: true %>
+    <%= f.text_field :telephone, :placeholder=> "Telephone",  class: "form-control", "data-mask"=>"",  "data-inputmask" => "'mask': '(999) 999-9999'" , required: true %>
   </div>
 
   <div class="form-group" style="width: 50%; text-align: left;" >
@@ -69,7 +64,7 @@
     <%= f.text_field :address, :placeholder=> "Alamat",  class: "form-control", required: true %>
   </div>
 
-   <div class="form-group" style="width: 50%; text-align: left;" >
+  <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Maksimal Cuti</label>
     <%= f.number_field :max_furlough, :placeholder=> "Maksimal Cuti ",  value: 12, class: "form-control", required: true %>
     
@@ -86,7 +81,7 @@
 
   <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Jabatan:</label>
-    <%= f.text_field :position, :placeholder=> "Alamat",  class: "form-control", required: true %>
+    <%= f.text_field :position, :placeholder=> "Jabatan",  class: "form-control", required: true %>
   </div>
 
   <div class="wrapeer-sub-category" id="nested-sub-category">
@@ -107,4 +102,22 @@
     <%= f.submit btn_title, :class=>'btn btn-default' %>
   </div>
 
-  
+  <% content_for :bottom_js do %>
+  <script type="text/javascript">
+    $('document').ready(function(){
+      <% if @manage_user.gender %>
+      $('.iradio_minimal:first').addClass('checked')
+      <% else %>
+      $('.iradio_minimal:last').addClass('checked')
+      <% end %>
+
+      // $('.iCheck-helper').click(function(){
+      //   $("input:radio").removeAttr("checked");
+      //   $(this).parent().find("input").attr("checked", true );
+
+
+      // })
+  })
+
+  </script>
+  <% end%>
