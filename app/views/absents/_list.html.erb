@@ -7,9 +7,10 @@
   <thead>
     <tr>
       <th>Tanggal </th>
+      <th>Nama Karyawan</th>
       <th>Jam Masuk</th>
       <th>Jam Keluar</th>
-      <th>Nama Karyawan</th>
+      <th>Total Jam Kerja</th>
       <th>Kategori</th>
       
       <% if current_user.role_id == 2 %> 
@@ -24,9 +25,10 @@
     <% absents.each do |absent| %>
     <tr>
       <td ><%= absent.date %></td>
+      <td> <%= "#{absent.try(:user).try(:first_name)} #{absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
       <td ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
       <td ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
-      <td> <%= "#{absent.try(:user).try(:first_name)} #{absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
+      <td ><%= absent.total_work_time %></td>
 
       <% if absent.categories == 1 %>
       <td >Masuk</td>

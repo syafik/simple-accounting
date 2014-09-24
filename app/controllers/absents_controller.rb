@@ -77,13 +77,18 @@ class AbsentsController < ApplicationController
   # POST /absents
   # POST /absents.json
   def create
+    params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
+    if params[:absent][:time_in] && params[:absent][:time_out]
+      params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
+      params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
+    end
+    @absent = Absent.new(params[:absent])
 
-    params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
-    params[:absent][:time_out] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
 
     
-    params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
-    @absent = Absent.new(params[:absent])
+    total_work_time = ((@absent.time_out - @absent.time_in)/3600) rescue nil
+    @absent.total_work_time = total_work_time
+    
 
 
     respond_to do |format|
