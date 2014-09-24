@@ -8,13 +8,20 @@ Daftar Hadir Karyawan
 
 <% content_for :content_body do %>
 <% if current_user.role_id == 2 %>
-<div align="left">
-	<h4><%= @date %></h4>
-</div>
+
+<table style="text-align: center; width: 100%; ">
+	<tr>
+		<td><%= link_to "sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %></td>
+		<td><h4><%= @date.strftime("%d-%m-%Y") %></h4></td>
+		<td><%= link_to "selanjutnya", absents_path(:search => @date.tomorrow), class: "custom-link"%></td>
+	</tr>
+</table>
+	 
+
 <%= render partial: "list", locals: {absents: @absents} %>
 <br/ >
-<%= link_to "sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %> | 
-<%= link_to "selanjutnya", absents_path(:search => @date.tomorrow), class: "custom-link"%>
+ 
+
 <% else %>
 
 <% if @check_absent.blank? %>

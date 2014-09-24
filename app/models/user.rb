@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
 
   validates :email, uniqueness: true
-  validates :telephone, presence: true
+  validates :telephone, presence: true, numericality: { only_integer: true }
   validates :address, presence: true
   # validates :gender, presence: true
   validates :role_id, presence: true
