@@ -6,6 +6,9 @@ class Absent < ActiveRecord::Base
   	# validates :description, presence: true
   	# validates :user_id, presence:true
 
+  	validates :date, uniqueness: { scope: :user_id,
+    message: "Nama Dengan Tanggal Tersebut Telah Terekap sebelumnya" }
+
   # before_save :convert_date_string_to_timestamp
 
   # def convert_date_string_to_timestamp

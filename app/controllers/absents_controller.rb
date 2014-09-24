@@ -88,7 +88,6 @@ class AbsentsController < ApplicationController
     
     total_work_time = ((@absent.time_out - @absent.time_in)/3600) rescue nil
     @absent.total_work_time = total_work_time
-    
 
 
     respond_to do |format|
