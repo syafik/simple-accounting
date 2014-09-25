@@ -1,11 +1,23 @@
  <div class="form-group" style="width: 50%; text-align: left;" >
  	<label>Gaji </label>
  	<%= f.number_field :payment, :placeholder=> "Gaji",  class: "form-control", required: true  %>
- 	<%= f.hidden_field :applicable_date, :placeholder=> "Gaji",  value: Date.today ,class: "form-control"  %>
- 	<%= f.hidden_field :activate, :placeholder=> "Gaji",  value: true ,class: "form-control"  %>
+ 	
 
  </div>
 
+ <div class="form-group" style="width: 50%; text-align: left;" >
+ 	<label>Harga Lembur Siang </label>
+ 	<%= f.number_field :day_payment_overtime, :placeholder=> "Harga Lembur Siang ",  class: "form-control", required: true %>
+
+
+ </div>
+
+ <div class="form-group" style="width: 50%; text-align: left;" >
+ 	<label>Harga Lembur Malam </label>
+ 	<%= f.number_field :night_payment_overtime, :placeholder=> "Harga Lembur Malam",  class: "form-control", required: true %>
+ </div>
+ <%= f.hidden_field :applicable_date, :placeholder=> "Gaji",  value: Date.today ,class: "form-control"  %>
+ <%= f.hidden_field :activate, :placeholder=> "Gaji",  value: true ,class: "form-control"  %>
 
 
  <% content_for :bottom_js do %>
@@ -13,13 +25,13 @@
  	$("#user_salary_histories_attributes_0_payment").keyup(function(){
  		$lembursiang = Math.round(parseInt($(this).val()) /140) ;
  		$lemburmalam = $lembursiang * 2
- 		$("#user_overtime_payment_histories_attributes_0_day_payment").val($lembursiang);
- 		$("#user_overtime_payment_histories_attributes_0_night_payment").val($lemburmalam);
+ 		$("#user_salary_histories_attributes_0_day_payment_overtime").val($lembursiang);
+ 		$("#user_salary_histories_attributes_0_night_payment_overtime").val($lemburmalam);
  	});
 
- 	$("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
+ 	$("#user_salary_histories_attributes_0_day_payment_overtime").keyup(function(){
  		$hasil = parseInt($(this).val()) * 2;
- 		$("#user_overtime_payment_histories_attributes_0_night_payment").val($hasil);
+ 		$("#user_salary_histories_attributes_0_night_payment_overtime").val($hasil);
  	});
  </script>
 

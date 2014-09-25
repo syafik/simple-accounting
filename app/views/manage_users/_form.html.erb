@@ -90,14 +90,6 @@
     <% end %>
   </div>
 
-  <div class="wrapeer-sub-category" id="nested-sub-category">
-    <%= f.fields_for :overtime_payment_histories do |builder| %>
-    <%= render "overtime_payment_histories_fields", :f => builder %>
-    <% end %>
-  </div>
-
-
-
   <div class="form-group" style="width: 50%; text-align: left;" >
     <%= f.submit btn_title, :class=>'btn btn-default' %>
   </div>

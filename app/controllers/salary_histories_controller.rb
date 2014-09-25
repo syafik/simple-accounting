@@ -2,8 +2,12 @@ class SalaryHistoriesController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   
   def index
+    p "======"
+    p params
+    user_id = params[:user_id].to_i
+    
     if current_user.role_id == 2
-      @salary_histories = SalaryHistory.order("id asc")
+      @salary_histories = SalaryHistory.where(user_id: user_id).order("id asc")
     else
       @salary_histories = SalaryHistory.where(user_id: current_user.id)
     end
