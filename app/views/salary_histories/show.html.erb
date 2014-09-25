@@ -31,5 +31,5 @@ Detail Data Riwayat Penggajian
 
 <% content_for :content_nav do %>
 <%= link_to 'Ubah', edit_salary_history_path(@salary_history),:class=>'btn btn-primary' %>
-<%= link_to 'Kembali', salary_histories_path, :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', salary_histories_path(user_id: @salary_history.try(:user).try(:id) ), :class=>'btn btn-primary'%>
 <% end%>

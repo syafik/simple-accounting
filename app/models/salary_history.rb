@@ -5,8 +5,11 @@ class SalaryHistory < ActiveRecord::Base
 	attr_accessible :applicable_date, :payment, :user_id, :activate, :day_payment_overtime, :night_payment_overtime
 
 	validates :payment, presence: true
+	validates :day_payment_overtime, presence: true
+	validates :night_payment_overtime, presence: true
 	validates :applicable_date, presence: true
    # validates :activate, presence: true
 
 
  end
+

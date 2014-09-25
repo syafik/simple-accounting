@@ -19,7 +19,7 @@ Ubah Data Riwayat Penggajian
 
 <% content_for :content_nav do %>
 <%= link_to 'Lihat', @salary_history, :class=>'btn btn-primary' %> 
-<%= link_to 'Kembali', salary_histories_path  , :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', salary_histories_path(user_id: params[:id] ), :class=>'btn btn-primary'%>
 
 <% end%>
 

@@ -36,10 +36,11 @@ Daftar Karyawan
     <td><%= manage_user.role.name rescue nil %></td>
     <td><%= manage_user.position %></td>
     <td><%= manage_user.salary_histories.where(activate: true).first.payment rescue 0 %></td>
-    <td><%= manage_user.overtime_payment_histories.where(activate: true).first.day_payment rescue 0 %></td>
-    <td><%= manage_user.overtime_payment_histories.where(activate: true).first.night_payment rescue 0 %></td>
+    <td><%= manage_user.salary_histories.where(activate: true).first.day_payment_overtime rescue 0 %></td>
+    <td><%= manage_user.salary_histories.where(activate: true).first.night_payment_overtime rescue 0 %></td>
     
-    <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  <%= link_to 'Lihat Riwayat Gaji', salary_histories_path(user_id: manage_user.id ), :class=>'btn btn-info' %>  
+    
+    <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  <%= link_to 'Lihat Riwayat Gaji', salary_histories_path(user_id: manage_user.id), :class=>'btn btn-info' %>  
       <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  
       <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
     </td>

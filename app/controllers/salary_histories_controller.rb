@@ -1,13 +1,9 @@
 class SalaryHistoriesController < ApplicationController
-  before_filter :get_user, :only => [:new, :create, :edit, :update]
+  before_filter :check_date, :only => [:create]
   
   def index
-    p "======"
-    p params
-    user_id = params[:user_id].to_i
-    
     if current_user.role_id == 2
-      @salary_histories = SalaryHistory.where(user_id: user_id).order("id asc")
+      @salary_histories = SalaryHistory.where(user_id: params[:user_id]).order("id asc")
     else
       @salary_histories = SalaryHistory.where(user_id: current_user.id)
     end
@@ -41,7 +37,8 @@ class SalaryHistoriesController < ApplicationController
   end
 
   def create
-    params[:salary_history][:applicable_date] = DateTime.strptime(params[:salary_history][:applicable_date], "%m/%d/%Y").to_date
+
+
     @salary_history = SalaryHistory.new(params[:salary_history])
     
     # save to overtime payment hitsory
@@ -59,6 +56,7 @@ class SalaryHistoriesController < ApplicationController
   end
 
   def update
+
     @salary_history = SalaryHistory.find(params[:id])
 
     respond_to do |format|
@@ -75,9 +73,10 @@ class SalaryHistoriesController < ApplicationController
   def destroy
     @salary_history = SalaryHistory.find(params[:id])
     @salary_history.destroy
+    set_last_active = SalaryHistory.where(user_id: @salary_history.user_id).last.update_attributes(activate: true)
 
     respond_to do |format|
-      format.html { redirect_to salary_histories_url }
+      format.html { redirect_to salary_histories_path(user_id: @salary_history.user_id) }
       format.json { head :no_content }
     end
   end
@@ -96,8 +95,18 @@ def set_activation
  redirect_to salary_histories_path
 end
 
-private
 def get_user
-  @users = User.all.map {|user| [user.email, user.id]}
+  # @users = User.all.map {|user| [user.email, user.id]}
+  # @user_id = params[:id]
 end
+
+private
+def check_date
+
+  if  params[:salary_history][:applicable_date].is_a?(String)
+    params[:salary_history][:applicable_date] = DateTime.strptime(params[:salary_history][:applicable_date], "%m/%d/%Y").to_date
+    
+  end
+end
+
 end

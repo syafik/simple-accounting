@@ -19,7 +19,9 @@ SimpleAccounting::Application.routes.draw do
   match "/loan_payments/:id/new" => "loan_payments#new",   :as => "new_loan_payments",  :via => :get
   match "/loan_payments/:id/edit" => "loan_payments#edit",   :as => "edit_loan_payments",  :via => :get
   match "/absents/:id/set_attend" => "absents#set_attend",   :as => "set_absent_attend",  :via => :get
-  
+  match "/salary_histories/:id/new" => "salary_histories#new",   :as => "new_salary_history",  :via => :get
+  # get '/salary_histories/:id', to: 'salary_histories#index', as: 'salary_histories_user'
+
 
   resources :allowance_categories do
     resources :allowance_sub_categories
@@ -34,6 +36,7 @@ SimpleAccounting::Application.routes.draw do
   resources :overtime_payment_histories do
     member do
       get :set_activation
+      get :index
     end
   end
 

@@ -17,14 +17,18 @@
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
+
     <%= f.text_field :applicable_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true %>
   </div>
 </div>
 
 <div class="form-group" style="width: 50%">
   <label>Karyawan:</label>
-  <%= f.select :user_id, options_for_select(@users), {}, {class: "form-control", required: true} %>
+  &nbsp; &nbsp;
+  <%= SalaryHistory.where(user_id: 9).first.user.first_name %>
+  
 </div>
+<%= f.hidden_field :user_id, class: "form-control", required: true, value: params[:id] %>
 
 <div class="form-group" style="width: 50%">
   <label>Besar Dana:</label>
@@ -34,22 +38,17 @@
 
 <div class="form-group" style="width: 50%">
   <label>Biaya Lembur Siang:</label>
-  <%= number_field_tag(:overtime_day_payment, :payment, class: "form-control pull-right", required: true) %>
+  <%= f.number_field :day_payment_overtime, class: "form-control pull-right", required: true%>
 </div>
 
 <div class="form-group" style="width: 50%">
   <label>Biaya Lembur Malam:</label>
-  <%= number_field_tag(:overtime_night_payment, :payment, class: "form-control pull-right", required: true) %>
+  <%= f.number_field :night_payment_overtime, class: "form-control pull-right", required: true%>
 </div>
 
 <div class="actions">
   <%= f.submit btn_title, :class=>'btn btn-default' %>
 </div>
-
-
-
-
-
 <% end %>
 
 
@@ -59,17 +58,17 @@
  $('#salary_history_payment').keyup(function(){
     $day_overtime = Math.round(parseInt($(this).val())/140);
     $night_overtime = $day_overtime * 2;
-    $('#overtime_day_payment').val($day_overtime);
-    $('#overtime_night_payment').val($night_overtime);
+    $('#salary_history_day_payment_overtime').val($day_overtime);
+    $('#salary_history_night_payment_overtime').val($night_overtime);
  });
 
- $('#overtime_day_payment').keyup(function(){
+ $('#salary_history_day_payment_overtime').keyup(function(){
   $night_overtime = parseInt($(this).val()) * 2;
-  $('#overtime_night_payment').val($night_overtime);
+  $('#salary_history_night_payment_overtime').val($night_overtime);
  });
 
  $('#salary_history_payment').keyup();
- $('#overtime_day_payment').keyup();
+ $('#salary_history_day_payment_overtime').keyup();
   
 
   // $("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
