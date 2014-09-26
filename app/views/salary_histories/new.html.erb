@@ -14,7 +14,7 @@ Buat Data Riwayat Penggajian
 <% end%>
 
 <% content_for :content_body do %>
-<%= render 'form',  btn_title: "Buat Data" %>
+<%= render 'form',  btn_title: "Buat Data", user_id: params[:user_id].to_i %>
 <% end%>
 
 <% content_for :content_nav do %>

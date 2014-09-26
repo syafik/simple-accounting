@@ -92,7 +92,7 @@ def set_activation
  #  how to update collect on rails
  # SalaryHistory.where("id <> ?", params[:format]).update_all(activate: false)
  SalaryHistory.update_all("activate = false", "id <> #{ params[:id] } AND user_id = #{@salary_history.user_id}" )
- redirect_to salary_histories_path
+ redirect_to salary_histories_path(user_id: @salary_history.user_id)
 end
 
 def get_user

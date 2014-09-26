@@ -22,19 +22,12 @@
   </div>
 </div>
 
-<% user_id = nil %>
-
-<% if params[:user_id ]%>
-<% user_id = params[:user_id] %>
-<% else %>
-<% user_id = @salary_history.user_id %>
-<% end %>
-
 
 <div class="form-group" style="width: 50%">
   <label>Karyawan:</label>
   &nbsp; &nbsp;
-  <%= SalaryHistory.where(user_id: 9).first.user.first_name %>
+  <% u = User.find(user_id) %>
+  <%= "#{u.first_name} #{u.last_name}" %>
   
 </div>
 <%= f.hidden_field :user_id, class: "form-control", required: true, value: user_id %>

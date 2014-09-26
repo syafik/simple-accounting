@@ -13,13 +13,14 @@ Gaji
 Ubah Data Riwayat Penggajian
 <% end%>
 
+
 <% content_for :content_body do %>
-<%= render 'form',  btn_title: "Ubah Data" %>
+<%= render 'form',  btn_title: "Ubah Data", user_id: @salary_history.user_id %>
 <% end%>
 
 <% content_for :content_nav do %>
 <%= link_to 'Lihat', @salary_history, :class=>'btn btn-primary' %> 
-<%= link_to 'Kembali', salary_histories_path(user_id: params[:id] ), :class=>'btn btn-primary'%>
+<%= link_to 'Kembali', salary_histories_path(user_id: @salary_history.user_id ), :class=>'btn btn-primary'%>
 
 <% end%>
 
