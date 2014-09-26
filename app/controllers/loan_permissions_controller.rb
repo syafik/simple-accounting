@@ -99,6 +99,8 @@ class LoanPermissionsController < ApplicationController
       @loan_permission.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today)
     end
 
+    redirect_to loan_permissions_path
+
 
     
   end
@@ -107,6 +109,7 @@ class LoanPermissionsController < ApplicationController
 
     @loan_permission = LoanPermission.find(params[:id])
     @loan_permission.update_attributes(:status=>3)
+    redirect_to new_loan_permission_path
   end
 
   def set_decline

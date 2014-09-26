@@ -22,13 +22,22 @@
   </div>
 </div>
 
+<% user_id = nil %>
+
+<% if params[:user_id ]%>
+<% user_id = params[:user_id] %>
+<% else %>
+<% user_id = @salary_history.user_id %>
+<% end %>
+
+
 <div class="form-group" style="width: 50%">
   <label>Karyawan:</label>
   &nbsp; &nbsp;
   <%= SalaryHistory.where(user_id: 9).first.user.first_name %>
   
 </div>
-<%= f.hidden_field :user_id, class: "form-control", required: true, value: params[:id] %>
+<%= f.hidden_field :user_id, class: "form-control", required: true, value: user_id %>
 
 <div class="form-group" style="width: 50%">
   <label>Besar Dana:</label>
@@ -53,28 +62,28 @@
 
 
 <% content_for :bottom_js do %>
- <script type="text/javascript">
+<script type="text/javascript">
 
  $('#salary_history_payment').keyup(function(){
-    $day_overtime = Math.round(parseInt($(this).val())/140);
-    $night_overtime = $day_overtime * 2;
-    $('#salary_history_day_payment_overtime').val($day_overtime);
-    $('#salary_history_night_payment_overtime').val($night_overtime);
- });
+  $day_overtime = Math.round(parseInt($(this).val())/140);
+  $night_overtime = $day_overtime * 2;
+  $('#salary_history_day_payment_overtime').val($day_overtime);
+  $('#salary_history_night_payment_overtime').val($night_overtime);
+});
 
  $('#salary_history_day_payment_overtime').keyup(function(){
   $night_overtime = parseInt($(this).val()) * 2;
   $('#salary_history_night_payment_overtime').val($night_overtime);
- });
+});
 
- $('#salary_history_payment').keyup();
- $('#salary_history_day_payment_overtime').keyup();
-  
+ // $('#salary_history_payment').keyup();
+ // $('#salary_history_day_payment_overtime').keyup();
+
 
   // $("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
   //   $hasil = parseInt($(this).val()) * 2;
   //   $("#user_overtime_payment_histories_attributes_0_night_payment").val($hasil);
   // });
- </script>
+</script>
 
- <% end%>
+<% end%>

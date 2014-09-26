@@ -48,7 +48,7 @@ Data Riwayat Penggajian
       <% if current_user.role_id == 2%>
       <td>
         <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
-        <%= link_to "Ubah".html_safe, edit_salary_history_path(salary_history), :class => "btn btn-warning" %>
+        <%= link_to "Ubah".html_safe, edit_salary_history_path(salary_history, id: params[:id]), :class => "btn btn-warning" %>
         <%= link_to "Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
         <% if salary_history.activate == false  %>
         <%= link_to 'Aktifkan', set_activation_salary_history_path(salary_history), :class=>'btn btn-primary'%>
