@@ -17,8 +17,10 @@ class Absent < ActiveRecord::Base
   def self.get_total_work_time(time_in, time_out)
     difh = time_out.hour - time_in.hour
 
-    if (time_out.min <= time_in.min)
+    if (time_out.min < time_in.min)
       to = time_out.min + 60
+    else
+      to = time_out.min
     end
     difm = to - time_in.min
     p "==out=="

@@ -47,7 +47,7 @@ class AbsentsController < ApplicationController
   # POST /absents
   # POST /absents.json
   def create
-    
+
     if params[:absent][:time_in] && params[:absent][:time_out]
       params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
       params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
@@ -69,6 +69,15 @@ class AbsentsController < ApplicationController
   # PUT /absents/1.json
   def update
     @absent = Absent.find(params[:id])
+
+    if params[:absent][:time_in] && params[:absent][:time_out]
+      p "masuuuuuuk"
+      params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
+      p params[:absent][:time_in]
+      params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
+      p params[:absent][:time_out]
+      params[:absent][:total_work_time] =Absent.get_total_work_time(Time.parse(params[:absent][:time_in]), Time.parse(params[:absent][:time_out]) )
+    end
 
     respond_to do |format|
       if @absent.update_attributes(params[:absent])
