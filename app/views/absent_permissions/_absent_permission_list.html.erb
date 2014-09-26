@@ -30,8 +30,8 @@
             <%= "Cuti "%>
             <%end%>
         </td>
-        <td><%= absent_permission.submission_date %></td>
-        <td><%= absent_permission.approval_date %></td>
+        <td><%= absent_permission.submission_date.strftime("%d-%B-%Y") %></td>
+        <td><%= absent_permission.approval_date.strftime("%d-%B-%Y") %></td>
 
         <td><%= absent_permission.long %> Hari</td>
         <td><%= absent_permission.message %></td>

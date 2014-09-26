@@ -23,7 +23,7 @@ Detail Pengajuan Izin dan Cuti
     <tr>
       <td> <b>Tanggal Pengajuan </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @absent_permission.submission_date %> </td>
+      <td> <%= @absent_permission.submission_date.strftime("%d-%B-%Y") %> </td>
     </tr>
     <tr>
       <td> <b>Nama Karyawan </b> </td>
@@ -33,13 +33,13 @@ Detail Pengajuan Izin dan Cuti
     <tr>
       <td> <b>Untuk Tanggal </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @absent_permission.start_date %> </td>
+      <td> <%= @absent_permission.start_date.strftime("%d-%B-%Y") %> </td>
     </tr>
 
     <tr>
       <td> <b>Sampai Tanggal </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @absent_permission.end_date %> </td>
+      <td> <%= @absent_permission.end_date.strftime("%d-%B-%Y") %> </td>
     </tr>
 
     <tr>

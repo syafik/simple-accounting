@@ -12,17 +12,17 @@ Detail Pembayaran
     <tr>
       <td> <b>Tanggal Pengajuan </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @loan_payment.submission_date %> </td>
+      <td> <%= @loan_payment.submission_date.strftime("%d-%B-%Y") %> </td>
     </tr>
     <tr>
       <td> <b>Tanggal Persetujuan </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @loan_payment.approval_date %> </td>
+      <td> <%= @loan_payment.approval_date.strftime("%d-%B-%Y") %> </td>
     </tr>
     <tr>
       <td> <b>Tanggal Pembayaran </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @loan_payment.payment_date %> </td>
+      <td> <%= @loan_payment.payment_date.strftime("%d-%B-%Y") %> </td>
     </tr>
     <tr>
       <td> <b>Nama Karyawan </b> </td>

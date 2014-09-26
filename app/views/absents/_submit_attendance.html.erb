@@ -2,7 +2,7 @@
   <label>Tanggal:</label>
   <div class="input-group">
     <%= f.hidden_field :date, value: Date.today, class: "form-control pull-right date_custom" %>
-    <%= Date.today%>
+    <%= Date.today.strftime("%d-%B-%Y")%>
   </div>
 </div>
 

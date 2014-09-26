@@ -16,7 +16,7 @@
 
   <% get_laon_permissions.each  do |lp| %>
   <tr>
-    <td> <%= lp.submission_date %> </td>
+    <td> <%= lp.submission_date.strftime("%d-%B-%Y") %> </td>
     <td> <%= lp.total_loan %> </td>
     <td> <%= lp.message %> </td> 
     <td> <%= lp.description %> </td> 

@@ -23,8 +23,8 @@
     <% loan_permissions.each do |loan_permission| %>
     <tr>
         
-        <td><%= loan_permission.submission_date %></td>
-        <td><%= loan_permission.approval_date %></td>
+        <td><%= loan_permission.submission_date.strftime("%d-%B-%Y") %></td>
+        <td><%= loan_permission.approval_date.strftime("%d-%B-%Y") %></td>
         <td><%= loan_permission.total_loan %></td>
 
         

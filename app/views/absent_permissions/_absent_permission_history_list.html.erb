@@ -17,7 +17,7 @@
 
   <% get_absent_permissions.each  do |ap| %>
   <tr>
-    <td> <%= ap.submission_date %> </td>
+    <td> <%= ap.submission_date.strftime("%d-%B-%Y") %> </td>
     <% if  ap.category == 1 %>
     <td> Izin </td>
     <% elsif ap.category == 2 %>

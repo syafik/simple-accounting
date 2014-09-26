@@ -20,8 +20,8 @@
 
   <% loan_payment_history.each  do |lph| %>
   <tr>
-    <td> <%= lph.submission_date %> </td>
-    <td> <%= lph.approval_date %> </td>
+    <td> <%= lph.submission_date.strftime("%d-%B-%Y") %> </td>
+    <td> <%= lph.approval_date.strftime("%d-%B-%Y") %> </td>
 
     <td> <%= number_to_currency( lph.total_payment, :unit => "Rp ") %> </td>
     <td> <%= lph.message %> </td> 

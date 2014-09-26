@@ -4,7 +4,7 @@
 	<tr>
 		<td>Tanggal Pengajuan</td>
 		<td>:</td>
-		<td><%= @allowance_claim_transaction.submission_date %></td>
+		<td><%= @allowance_claim_transaction.submission_date.strftime("%d-%B-%Y") %></td>
 	</tr>
 
 	<tr>
@@ -22,7 +22,7 @@
 	<tr>
 		<td> Tanggal Persetujuan</td>
 		<td>:</td>
-		<td><%= @allowance_claim_transaction.approval_date %></td>
+		<td><%= @allowance_claim_transaction.approval_date.strftime("%d-%B-%Y") %></td>
 	</tr>
 
 	<tr>

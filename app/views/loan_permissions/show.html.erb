@@ -12,7 +12,7 @@ Detail Pengajuan Izin dan Cuti
     <tr>
       <td> <b>Tanggal Pengajuan </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @loan_permission.submission_date %> </td>
+      <td> <%= @loan_permission.submission_date.strftime("%d-%B-%Y") %> </td>
     </tr>
     <tr>
       <td> <b>Nama Karyawan </b> </td>

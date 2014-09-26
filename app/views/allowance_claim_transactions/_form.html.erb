@@ -30,7 +30,7 @@
           <%= hidden_field :totalnominal, :value => nominal %>
         </td>
         <td>
-          <%= Date.today %>
+          <%= Date.today.strftime("%d-%B-%Y") %>
           <%= f.hidden_field :submission_date, :value => Date.today %>
         </td>
       </tr>

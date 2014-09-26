@@ -12,7 +12,7 @@ Detail Kehadiran
 		<tr>
 			<td> <b> Tanggal </b> </td>
 			<td> <b> :</b> </td>
-			<td> <%= @absent.date %></td>
+			<td> <%= @absent.date.strftime("%d-%B-%Y") %></td>
 		</tr>
 		<tr>
 			<td> <b> Jam Masuk </b> </td>

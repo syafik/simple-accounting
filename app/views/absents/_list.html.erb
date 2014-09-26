@@ -24,10 +24,10 @@
   <tbody>
     <% absents.each do |absent| %>
     <tr>
-      <td ><%= absent.date %></td>
+      <td ><%= absent.date.strftime("%d-%B-%Y") %></td>
       <td> <%= "#{absent.try(:user).try(:first_name)} #{absent.try(:user).try(:last_name)}".downcase.titleize %> </td>
-      <td ><%= absent.time_in.strftime("%I:%M:%S") rescue nil %></td>
-      <td ><%= absent.time_out.strftime("%I:%M:%S") rescue nil %></td>
+      <td ><%= absent.time_in.strftime("%H:%M ") rescue nil %></td>
+      <td ><%= absent.time_out.strftime("%H:%M ") rescue nil %></td>
       <td ><%= absent.total_work_time %></td>
 
       <% if absent.categories == 1 %>

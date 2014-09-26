@@ -23,7 +23,7 @@ Detail Karyawan
     <tr>
       <td> <b> Tanggal Lahir </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.birth_date %></td>
+      <td> <%= @manage_user.birth_date.strftime("%d-%B-%Y") %></td>
     </tr>
     <tr>
       <td> <b> Jenis Kelamin </b> </td>

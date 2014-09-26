@@ -31,7 +31,7 @@ Data Penggajian
   <tbody>
     <% @salaries.each do |salary| %>
     <tr>
-      <td><%= salary.date %></td>
+      <td><%= salary.date.strftime("%d-%B-%Y") %></td>
       <td><%= salary.try(:salary_history).try(:user).try(:name) %></td>   
       <!-- <td><%= salary.total_attendance %></td>
       <td><%= salary.total_absence %></td>

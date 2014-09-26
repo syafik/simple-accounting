@@ -21,7 +21,7 @@
 
 <div class="form-group" style="width: 50%">
   <label>Tanggal Pengajuan: </label>
-  <%= Date.today %>
+  <%= Date.today.strftime("%d-%B-%Y") %>
   <% if current_user.role_id == 2%>
   <%= f.hidden_field :approval_date, class: "form-control", value: Date.today %>
   <%else%>

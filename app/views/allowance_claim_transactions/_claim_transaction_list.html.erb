@@ -24,12 +24,12 @@
 		<tr>
 
 			<td> <%= claim.try(:allowance).try(:user).try(:email) %> </td>
-			<td> <%= claim.submission_date %> </td>
+			<td> <%= claim.submission_date.strftime("%d-%B-%Y") %> </td>
 
 			<% if claim.status == 0 %>
 			<td>  </td>
 			<% else %>
-			<td> <%= claim.approval_date %> </td>
+			<td> <%= claim.approval_date.strftime("%d-%B-%Y") %> </td>
 			<% end %>
 
 			<td> <%= claim.upload %> Kosong </td>
