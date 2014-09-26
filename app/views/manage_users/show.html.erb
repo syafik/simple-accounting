@@ -48,13 +48,37 @@ Detail Karyawan
     </tr>
 
     <tr>
+      <td> <b> No Rekening </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.account_number %></td>
+    </tr>
+
+    <tr>
+      <td> <b> Nama Bank </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.bank_name %></td>
+    </tr>
+
+    <tr>
+      <td> <b> Cabang Bank </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.account_branch_name %></td>
+    </tr>
+
+    <tr>
+      <td> <b> Nama Akun Rekening </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.account_name %></td>
+    </tr>
+
+    <tr>
       <td> <b> Peran </b> </td>
       <td> <b> :</b> </td>
       <td> <%= @manage_user.role.name %></td>
     </tr>
 
     <tr>
-      <td> <b> Peran </b> </td>
+      <td> <b> Jabatan </b> </td>
       <td> <b> :</b> </td>
       <td> <%= @manage_user.position %></td>
     </tr>

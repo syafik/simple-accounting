@@ -19,11 +19,10 @@ Daftar Karyawan
     <th> Nama </th>
     <th> No. telepon </th>
     <th> Email </th>
-    <th> Peran </th>
     <th> Jabatan </th>
     <th> Gaji </th>
-    <th> Biaya Lembur Siang </th>
-    <th> Biaya Lembur Malam </th>
+
+    <th> No Rek </th>
     <th> Aksi </th>
     
   </tr>
@@ -33,18 +32,31 @@ Daftar Karyawan
     <td><%= "#{manage_user.first_name} #{manage_user.last_name} ".downcase.titleize%></td>
     <td><%= manage_user.telephone %></td>
     <td><%= manage_user.email %></td>
-    <td><%= manage_user.role.name rescue nil %></td>
     <td><%= manage_user.position %></td>
-    <td><%= number_to_currency( manage_user.salary_histories.where(activate: true).first.payment, :unit => "Rp ") rescue 0 %></td>
-    <td><%= number_to_currency( manage_user.salary_histories.where(activate: true).first.day_payment_overtime, :unit => "Rp ") rescue 0 %></td>
-    <td><%= number_to_currency( manage_user.salary_histories.where(activate: true).first.night_payment_overtime, :unit => "Rp ") rescue 0%></td>
-    
-    
-    <td><%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  <%= link_to 'Lihat Riwayat Gaji', salary_histories_path(user_id: manage_user.id), :class=>'btn btn-success' %>  
-      <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  
-      <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+    <td>
+      <p>Gaji Aktif</p>
+      <p>
+        <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.payment, :unit => "Rp ") rescue 0 %>
+      </p>
+      <p>Lembur Siang</p>
+      <p>
+        <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.day_payment_overtime, :unit => "Rp ") rescue 0 %>
+      </p>
+      <p>Lembur Malam</p>
+      <p>
+        <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.night_payment_overtime, :unit => "Rp ") rescue 0%>
+      </p>
     </td>
-    
+    <td><%= manage_user.account_number %></td>
+
+
+    <td>
+      <%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  <br/>
+      <%= link_to 'Lihat Riwayat Gaji', salary_histories_path(user_id: manage_user.id), :class=>'btn btn-success' %>  <br/>
+      <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  <br/>
+      <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %><br/>
+    </td>
+
   </tr>
   <% end %>
 </table>

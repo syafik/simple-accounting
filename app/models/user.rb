@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :telephone, :address, :gender, :role_id, :first_name, :last_name, :birth_date, :salary_histories_attributes, :overtime_payment_histories_attributes, :religion, :max_furlough, :position
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :telephone, :address, :gender, :role_id, :first_name, :last_name, :birth_date, :salary_histories_attributes, :overtime_payment_histories_attributes, :religion, :max_furlough, :position, :account_number, :bank_name, :account_branch_name, :account_name
   # attr_accessible :title, :body
 
 
@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
   # validates :last_name, presence: true
   validates :birth_date, presence: true
   validates :position, presence: true
+  validates :account_number, presence: true, numericality: { only_integer: true }
+  validates :bank_name, presence: true
+  validates :account_branch_name, presence: true
+  validates :account_name, presence: true
 
 
   def get_all_sub_category

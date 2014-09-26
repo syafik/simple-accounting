@@ -10,7 +10,7 @@ class ManageUsersController < ApplicationController
  end
 
  def create
-  params[:user][:birth_date] = DateTime.strptime(params[:user][:birth_date], "%m/%d/%Y").to_date
+
   @manage_user = User.new(params[:user])
 
   @manage_user.password = "12345678"
@@ -93,6 +93,14 @@ class ManageUsersController < ApplicationController
 
   def get_roles
     @roles = Role.all.map { |role| [role.name, role.id]}
+  end
+
+  private
+  def check_date
+    if  params[:user][:birth_date] .is_a?(String)
+      params[:user][:birth_date]  = DateTime.strptime(params[:user][:birth_date] , "%m/%d/%Y").to_date
+
+    end
   end
 
 end
