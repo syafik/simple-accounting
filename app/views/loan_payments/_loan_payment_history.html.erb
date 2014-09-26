@@ -22,7 +22,8 @@
   <tr>
     <td> <%= lph.submission_date %> </td>
     <td> <%= lph.approval_date %> </td>
-    <td> <%= lph.total_payment %> </td>
+
+    <td> <%= number_to_currency( lph.total_payment, :unit => "Rp ") %> </td>
     <td> <%= lph.message %> </td> 
     <td> <%= lph.description %> </td> 
     <% if current_user.role_id == 2 %>

@@ -29,7 +29,7 @@ Daftar Hutang
         <td><%= loan_permissions.total_loan %></td>
         <td><%= loan_permissions.message %></td>
         <td><%= loan_permissions.description %></td>
-        <td><%= loan_permissions.loan_payments.get_residue(loan_permissions.id) %></td>
+        <td><%= number_to_currency( loan_permissions.loan_payments.get_residue(loan_permissions.id), :unit => "Rp ") %></td>
         <td>
             <% if current_user.role_id == 2%>
             <%= link_to 'Daftar Pembayaran', edit_loan_payments_path(loan_permissions.id ), :class=>'btn btn-primary' %>
