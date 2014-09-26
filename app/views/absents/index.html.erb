@@ -26,7 +26,7 @@ Daftar Hadir Karyawan
 
 <% if @check_absent.blank? %>
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	Buat Data Masuk
+	Absen Masuk
 </button>
 
 
@@ -36,7 +36,7 @@ Daftar Hadir Karyawan
 	Tanggal
 </p>
 <p>
-	<%= @check_absent.date %>
+	<%= @check_absent.date.strftime("%d-%B-%Y") %>
 </p>
 <p>
 	Anda Masuk Pukul
@@ -52,7 +52,7 @@ Daftar Hadir Karyawan
 </p>
 <% elsif @check_absent.time_out.blank? %>
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	Buat Data Keluar
+	Absen Keluar
 </button>
 <% else %>
 <p>
