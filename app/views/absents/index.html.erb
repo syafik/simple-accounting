@@ -16,11 +16,11 @@ Daftar Hadir Karyawan
 		<td><%= link_to "selanjutnya", absents_path(:search => @date.tomorrow), class: "custom-link"%></td>
 	</tr>
 </table>
-	 
+
 
 <%= render partial: "list", locals: {absents: @absents} %>
 <br/ >
- 
+
 
 <% else %>
 
@@ -39,15 +39,23 @@ Daftar Hadir Karyawan
 	<%= @check_absent.date %>
 </p>
 <p>
-	Pukul
+	Anda Masuk Pukul
 </p>
 <p>
 	<%= @check_absent.time_in.strftime("%H:%M ") %>
 </p>
 
+<% long_work = Time.now.hour - @check_absent.time_in.hour %>
+<% if long_work <= 7 %>
+<p>
+	Selamat Bekerja
+</p>
+<% else %>
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 	Buat Data Keluar
 </button>
+<% end %>
+
 <% end %>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -72,7 +80,7 @@ Daftar Hadir Karyawan
 						<p>
 							<%= Time.current.strftime("%H:%M:%S") %>
 						</p>
-						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary' %>
+						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary', :onclick => "myFunction();" %>
 					</div>
 				</div>
 			</div>

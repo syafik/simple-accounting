@@ -297,11 +297,11 @@
             <aside class="right-side">
                 <section class="content-header">
                     <h1>
-                     <%= yield :content_title%>
-                 </h1>
-             </section>
+                       <%= yield :content_title%>
+                   </h1>
+               </section>
 
-             <section  class="content" >
+               <section  class="content" >
                 <% if flash[:notice] %>
                 <div id="notice" class="alert alert-success alert-dismissable">
                     <i class="fa fa-check"></i>
@@ -350,6 +350,8 @@
     <div class="no-print" style="padding: 10px; position: fixed; top: 130px; right: -200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 3px solid rgba(0, 0, 0, 0.698); width: 200px; z-index: 999999;"> -->
 
         <%= yield :bottom_js%>
+
+        
     </body>
     </html>
 
