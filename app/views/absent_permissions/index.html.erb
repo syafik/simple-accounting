@@ -32,33 +32,33 @@ Data Pengajuan Ijin dan Cuti
 <div class="tab-content">
     <div class="tab-pane active" id="pending">
         <!-- pendding transaction list -->
-        
+        <br/>
         <%= render partial: "absent_permission_list", locals: { absent_permissions:  @absent_permissions[:pendings] } rescue "DATA MASIH BELUM TERISI" %>
         <!-- pendding transaction list -->
     </div>
 
     <div class="tab-pane" id="approved">
         <!-- approved transaction list -->
-        
+        <br/>
         <%= render partial: "absent_permission_list", locals: { absent_permissions:  @absent_permissions[:approveds] } rescue "DATA MASIH BELUM TERISI" %>
         <!-- approved transaction list -->
     </div>
     
     <div class="tab-pane" id="rejected">
         <!-- rejected transaction list -->
-        
+        <br/>
         <%= render partial: "absent_permission_list", locals: { absent_permissions:  @absent_permissions[:rejecteds] } rescue "DATA MASIH BELUM TERISI" %>
         <!-- rejected transaction list -->
     </div>
      <div class="tab-pane" id="taken">
         <!-- rejected transaction list -->
-        
+        <br/>
         <%= render partial: "absent_permission_list", locals: { absent_permissions:  @absent_permissions[:takens] } rescue "DATA MASIH BELUM TERISI" %>
         <!-- rejected transaction list -->
     </div>
     <div class="tab-pane" id="decline">
         <!-- rejected transaction list -->
-        
+        <br/>
         <%= render partial: "absent_permission_list", locals: { absent_permissions:  @absent_permissions[:declines] } rescue "DATA MASIH BELUM TERISI" %>
         <!-- rejected transaction list -->
     </div>

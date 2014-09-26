@@ -35,6 +35,7 @@ Pengajuan Ijin dan Cuti
 <div class="tab-content">
 	<div class="tab-pane active" id="approved">
 		<!-- approved transaction list -->
+		<br/>
 
 		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:approveds]} %>
 		<!-- approved transaction list -->
@@ -42,27 +43,27 @@ Pengajuan Ijin dan Cuti
 
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
-
+		<br/>
 		<%= render partial: "absent_permission_history_list", locals: {get_absent_permissions: @get_absent_permissions[:rejecteds]} %>
 		<!-- rejected transaction list -->
 	</div>
 
 	<div class="tab-pane" id="pending">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:pendings]} %>
 		<!-- pending transaction list -->
 	</div>
 
 	<div class="tab-pane" id="taken">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:takens]} %>
 		<!-- pending transaction list -->
 	</div>
 	<div class="tab-pane" id="decline">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "absent_permission_history_list", locals: { get_absent_permissions: @get_absent_permissions[:declines]} %>
 		<!-- pending transaction list -->
 	</div>

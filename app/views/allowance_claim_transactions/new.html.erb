@@ -27,6 +27,7 @@ Transaksi Tunjangan
 <div class="tab-content">
   <div class="tab-pane active" id="approved">
     <!-- approved transaction list -->
+    <br/>
     <%= render partial: "search_claim_history_list", locals: { tab_cat: "approved"} %>
     <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:approveds]} %>
     <!-- approved transaction list -->
@@ -34,6 +35,7 @@ Transaksi Tunjangan
 
   <div class="tab-pane" id="rejected">
     <!-- rejected transaction list -->
+    <br/>
     <%= render partial: "search_claim_history_list", locals: { tab_cat: "rejected"} %>
     <%= render partial: "claim_transaction_history_list", locals: {get_allowance_claim_transaction: @get_allowance_claim_transaction[:rejecteds]} %>
     <!-- rejected transaction list -->
@@ -41,6 +43,7 @@ Transaksi Tunjangan
 
   <div class="tab-pane" id="pending">
     <!-- pending transaction list -->
+    <br/>
     <%= render partial: "search_claim_history_list", locals: { tab_cat: "pending"} %>
     <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:pendings]} %>
     <!-- pending transaction list -->
@@ -48,6 +51,7 @@ Transaksi Tunjangan
 
   <div class="tab-pane" id="revision">
     <!-- revision transaction list -->
+    <br/>
     <%= render partial: "search_claim_history_list", locals: { tab_cat: "revision"} %>
     <%= render partial: "claim_transaction_history_list", locals: { get_allowance_claim_transaction: @get_allowance_claim_transaction[:revisions]} %>
     <!-- revisi transaction list -->

@@ -34,34 +34,34 @@ Pengajuan Ijin dan Cuti
 <div class="tab-content">
 	<div class="tab-pane active" id="approved">
 		<!-- approved transaction list -->
-
+		<br/>
 		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:approveds]} %>
 		<!-- approved transaction list -->
 	</div>
 
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
-
+		<br/>
 		<%= render partial: "loan_permission_history_list", locals: {get_laon_permissions: @get_laon_permissions[:rejecteds]} %>
 		<!-- rejected transaction list -->
 	</div>
 
 	<div class="tab-pane" id="pending">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:pendings]} %>
 		<!-- pending transaction list -->
 	</div>
 
 	<div class="tab-pane" id="taken">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:takens]} %>
 		<!-- pending transaction list -->
 	</div>
 	<div class="tab-pane" id="decline">
 		<!-- pending transaction list -->
-
+		<br/>
 		<%= render partial: "loan_permission_history_list", locals: { get_laon_permissions: @get_laon_permissions[:declines]} %>
 		<!-- pending transaction list -->
 	</div>

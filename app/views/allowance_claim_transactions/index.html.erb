@@ -26,6 +26,7 @@ Data Transaksi Tunjangan
 <div class="tab-content">
 	<div class="tab-pane active" id="pending">
 		<!-- pendding transaction list -->
+		<br/>
 		<%= render partial: "search_list", locals: { tab_cat: "pending"} %>
 		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:pendings] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- pendding transaction list -->
@@ -33,6 +34,7 @@ Data Transaksi Tunjangan
 
 	<div class="tab-pane" id="approved">
 		<!-- approved transaction list -->
+		<br/>
 		<%= render partial: "search_list", locals: { tab_cat: "approved"} %>
 		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:approveds] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- approved transaction list -->
@@ -40,6 +42,7 @@ Data Transaksi Tunjangan
 	
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
+		<br/>
 		<%= render partial: "search_list", locals: { tab_cat: "rejected"} %>
 		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:rejecteds] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- rejected transaction list -->
@@ -47,6 +50,7 @@ Data Transaksi Tunjangan
 
 	<div class="tab-pane" id="revision">
 		<!-- revision transaction list -->
+		<br/>
 		<%= render partial: "search_list", locals: { tab_cat: "revision"} %>
 		<%= render partial: "claim_transaction_list", locals: { allowance_claim_transaction:  @allowance_claim_transactions[:revisions] } rescue "DATA MASIH BELUM TERISI" %>
 		<!-- revision transaction list -->

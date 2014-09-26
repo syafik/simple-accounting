@@ -54,6 +54,12 @@ Detail Karyawan
     </tr>
 
     <tr>
+      <td> <b> Peran </b> </td>
+      <td> <b> :</b> </td>
+      <td> <%= @manage_user.position %></td>
+    </tr>
+
+    <tr>
       <td> <b> Gaji </b> </td>
       <td> <b> :</b> </td>
       <td> <%= number_to_currency( @manage_user.salary_histories.where(:activate => true).first.payment, :unit => "Rp ")   %></td>
@@ -79,7 +85,12 @@ Detail Karyawan
 
 <% content_for :content_nav do %>
 <%= link_to 'Ubah', edit_manage_user_path(@manage_user), :class=>'btn btn-primary' %> 
+
+<% if current_user.role_id == 2%>
 <%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
+<% else %>
+<%= link_to 'Kembali', manage_user_path(current_user.id), :class=>'btn btn-primary' %>
+<% end%>
 <% end%>
 
 

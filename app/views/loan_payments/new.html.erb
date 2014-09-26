@@ -23,14 +23,14 @@ Form Pembayaran Hutang
 <div class="tab-content">
 	<div class="tab-pane active" id="approved">
 		<!-- approved transaction list -->
-
+		<br/>
 		<%= render partial: "loan_payment_history", locals: { loan_payment_history: @loan_payment_history[:approveds]} %>
 		<!-- approved transaction list -->
 	</div>
 
 	<div class="tab-pane" id="rejected">
 		<!-- rejected transaction list -->
-
+		<br/>
 		<%= render partial: "loan_payment_history", locals: { loan_payment_history: @loan_payment_history[:rejecteds]} %>
 		<!-- rejected transaction list -->
 	</div>

@@ -16,10 +16,11 @@
 	<%= render partial: "layouts/allowance_menus" %>
 	
 	<% else %>
-	<li class="active">
-		<a href="index.html">
-			<i class="glyphicon glyphicon-user"></i> <span>Profile</span>
-		</a>
+	
+	<li> 
+		<%= link_to manage_user_path(current_user.id) do %>
+		<i class="glyphicon glyphicon-user"></i> Profile
+		<% end %>
 	</li>
 	<% end %>
 	<%= render partial: "layouts/absent_menus" %>
