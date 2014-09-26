@@ -11,9 +11,9 @@ Daftar Hadir Karyawan
 
 <table style="text-align: center; width: 100%; ">
 	<tr>
-		<td><%= link_to "sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %></td>
-		<td><h4><%= @date.strftime("%d-%m-%Y") %></h4></td>
-		<td><%= link_to "selanjutnya", absents_path(:search => @date.tomorrow), class: "custom-link"%></td>
+		<td align="right"><%= link_to "<< sebelumnya", absents_path(:search => @date.yesterday), class: "custom-link" %></td>
+		<td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%d-%B-%Y") %></h4></td>
+		<td align="left"><%= link_to "selanjutnya >>", absents_path(:search => @date.tomorrow), class: "custom-link"%></td>
 	</tr>
 </table>
 
