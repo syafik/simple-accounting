@@ -9,7 +9,8 @@ Gaji
 <% end%>
 
 <% content_for :content_sub_title do %>
-Data Riwayat Penggajian
+<% u = User.find(params[:user_id]) %>
+Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
 <% end%>
 
 <% content_for :content_body do %>
@@ -17,11 +18,11 @@ Data Riwayat Penggajian
   <thead>
     <tr>
       <th > Tanggal </th>
-      <th > Nama Karyawan </th>
-      <th > Jumlah Pembayaran</th>
+      
       <th > Jumlah Pembayaran</th>
       <th > Biaya Lembur Siang </th>
       <th > Biaya Lembur Malam </th>
+      <th>Status</th>
       <% if current_user.role_id == 2%>
       <th > Aksi </th>
       <% end %>
@@ -32,7 +33,6 @@ Data Riwayat Penggajian
     <% @salary_histories.each do |salary_history| %>
     <tr>
       <td><%= salary_history.applicable_date.strftime("%d-%B-%Y") %></td>
-      <td><%= "#{salary_history.try(:user).try(:first_name)} #{salary_history.try(:user).try(:last_name)}" %></td>
       <td><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
       <td><%= number_to_currency( salary_history.day_payment_overtime, :unit => "Rp ") %></td>
       <td><%= number_to_currency( salary_history.night_payment_overtime, :unit => "Rp ") %></td>

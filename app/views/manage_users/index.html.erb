@@ -33,21 +33,42 @@ Daftar Karyawan
     <td><%= manage_user.telephone %></td>
     <td><%= manage_user.email %></td>
     <td><%= manage_user.position %></td>
-    <td>
-      <p>Gaji Aktif</p>
+    <td align="left">
+      <p>Gaji Aktif :</p>
       <p>
         <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.payment, :unit => "Rp ") rescue 0 %>
       </p>
-      <p>Lembur Siang</p>
+      <p>Lembur Siang :</p>
       <p>
         <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.day_payment_overtime, :unit => "Rp ") rescue 0 %>
       </p>
-      <p>Lembur Malam</p>
+      <p>Lembur Malam :</p>
       <p>
         <%= number_to_currency( manage_user.salary_histories.where(activate: true).first.night_payment_overtime, :unit => "Rp ") rescue 0%>
       </p>
     </td>
-    <td><%= manage_user.account_number %></td>
+    <td align="left">
+      <p> No Rekening :</p>
+      <p>
+        <%= manage_user.account_number %>
+      </p>
+
+      <p> Nama Bank :</p>
+      <p>
+        <%= manage_user.bank_name %>
+      </p>
+
+      <p> Cabang :</p>
+      <p>
+        <%= manage_user.account_branch_name %>
+      </p>
+
+      <p> Nama Akun :</p>
+      <p>
+        <%= manage_user.account_name %>
+      </p>
+      
+    </td>
 
 
     <td>
