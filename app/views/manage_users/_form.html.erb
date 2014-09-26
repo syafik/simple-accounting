@@ -84,11 +84,13 @@
     <%= f.text_field :position, :placeholder=> "Jabatan",  class: "form-control", required: true %>
   </div>
 
+  <% if params[:from] %>
   <div class="wrapeer-sub-category" id="nested-sub-category">
     <%= f.fields_for :salary_histories do |builder| %>
     <%= render "salary_histories_fields", :f => builder %>
     <% end %>
   </div>
+  <% end %>
 
 
   <% end%>

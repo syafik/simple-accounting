@@ -2,48 +2,18 @@
 class AbsentsController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   before_filter :get_absent, :only => [:index, :set_attend]
+  before_filter :check_date, :only => [:create]
 
   # GET /absents
   # GET /absents.json
   def index
     @date = Date.today
-    p "="*99
-    p @date
     if params[:search]
       @date = params[:search].to_date
       @absents= Absent.where(date: params[:search]).order("date desc")
     else
       @absents= Absent.where(date: Date.today).order("date desc")
     end
-    
-
-    # @date = Date.today
-    # year = params[:year] || @date.year
-    # month = params[:month] || @date.month
-    # @date = DateTime.new(year.to_i,month.to_i, 1)
-    # @next = @date + 1.month
-    # @prev = @date - 1.month
-    # @start_date = @date.beginning_of_month
-    # @end_date = @date.end_of_month
-
-
-    # if current_user.role != 2
-    #   # didnt work yet
-    #   @absents = current_user.absents.where("extract(year from date) = #{Time.now.year} AND extract(month from date) = #{Time.now.month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
-    # else
-    #   if params[:search]
-    #     @absents =  Absent.where(user_id: params[:search])
-    #   else 
-    #     @absents = Absent.where("extract(year from date) = #{year} AND extract(month from date) = #{month}").order("date desc").paginate(:page => params[:page], :per_page => 10)
-    #   end
-    # end
-
-
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @absents }
-    #   format.js
-    # end
   end
 
   # GET /absents/1
@@ -77,19 +47,13 @@ class AbsentsController < ApplicationController
   # POST /absents
   # POST /absents.json
   def create
-    params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
+    
     if params[:absent][:time_in] && params[:absent][:time_out]
       params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
       params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
     end
     @absent = Absent.new(params[:absent])
-
-
-    
-    total_work_time = ((@absent.time_out - @absent.time_in)/3600) rescue nil
-    @absent.total_work_time = total_work_time
-
-
+    @absent.total_work_time = Absent.get_total_work_time(@absent.time_in, @absent.time_out) rescue nil
     respond_to do |format|
       if @absent.save
         format.html { redirect_to @absent, notice: 'Absent was successfully created.' }
@@ -137,14 +101,7 @@ class AbsentsController < ApplicationController
         redirect_to absents_path
       end
     else
-      th_in = @check_absent.time_in.hour
-      th_now = Time.current.hour
 
-      tm_in = @check_absent.time_in.min
-      tm_now = Time.current.min
-
-      difh = th_now - th_in
-      difm = tm_now - tm_in
 
       # still bug because time.now.min => using 24 but from databas using am pm
       p "="*9
@@ -158,23 +115,12 @@ class AbsentsController < ApplicationController
       if @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: "#{difh}.#{difm}".to_f)
         p "="*99
         p @check_absent
-      
+
         redirect_to absents_path
       else
         redirect_to absents_path
       end
     end
-    
-
-    # respond_to do |format|
-    #   if absent.save
-    #     format.html { redirect_to absent, notice: 'Absent was successfully created.' }
-    #     format.json { render json: absent, status: :created, location: absent }
-    #   else
-    #     format.html { render action: "new",:flash => { :error => "Insufficient rights!" } }
-    #     format.json { render json: absent.errors, status: :unprocessable_entity }
-    #   end
-    # end
 
   end
 
@@ -186,5 +132,13 @@ class AbsentsController < ApplicationController
 
   def get_absent
     @check_absent = current_user.absents.where({categories: 1, date: Date.today}).first
+  end
+
+  def check_date
+
+    if  params[:absent][:date].is_a?(String)
+      params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
+
+    end
   end
 end
