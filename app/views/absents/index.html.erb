@@ -50,10 +50,20 @@ Daftar Hadir Karyawan
 <p>
 	Selamat Bekerja
 </p>
-<% else %>
+<% elsif @check_absent.time_out.blank? %>
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 	Buat Data Keluar
 </button>
+<% else %>
+<p>
+	Anda Keluar Pukul
+</p>
+<p>
+	<%= @check_absent.time_out.strftime("%H:%M ") %>
+</p>
+<p>
+	Terimakasih Untuk Hari Ini
+</p>
 <% end %>
 
 <% end %>

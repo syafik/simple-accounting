@@ -155,9 +155,13 @@ class AbsentsController < ApplicationController
       
 
 
-      if difh >= 8 && difm >=0 &&  @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: "#{difh}.#{difm}".to_f)
+      if @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: "#{difh}.#{difm}".to_f)
+        p "="*99
+        p @check_absent
+      
         redirect_to absents_path
       else
+        redirect_to absents_path
       end
     end
     
