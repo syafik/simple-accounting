@@ -86,19 +86,19 @@ Detail Karyawan
     <tr>
       <td> <b> Gaji </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.where(:activate => true).first.payment, :unit => "Rp ")   %></td>
+      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.payment, :unit => "Rp ")   %></td>
     </tr>
 
     <tr>
       <td> <b> Harga Lembur Siang  </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.where(:activate => true).first.day_payment_overtime, :unit => "Rp ")   %></td>
+      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ")   %></td>
     </tr>
 
     <tr>
       <td> <b> Harga Lembur Siang  </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.where(:activate => true).first.night_payment_overtime, :unit => "Rp ")   %></td>
+      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ")   %></td>
     </tr>
 
   </table>

@@ -9,7 +9,7 @@ Gaji
 <% end%>
 
 <% content_for :content_sub_title do %>
-<% u = User.find(params[:user_id]) %>
+<% u = User.find(params[:id]) %>
 Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
 <% end%>
 
@@ -47,7 +47,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <td><%= stat  %></td>
       <% if current_user.role_id == 2%>
       <td>
-        <%= link_to 'Lihat', salary_history, :class=>'btn btn-info' %> 
+        <%= link_to 'Lihat', salary_history_path(salary_history), :class=>'btn btn-info' %> 
         <%= link_to "Ubah".html_safe, edit_salary_history_path(salary_history, id: params[:id]), :class => "btn btn-warning" %>
         <%= link_to "Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
         <% if salary_history.activate == false  %>
@@ -62,7 +62,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
 <% end %>
 
 <% content_for :content_nav do %>
-<%= link_to 'Buat Rekap Gaji', new_salary_history_path(params[:user_id]) , :class=>'btn btn-primary'%>
+<%= link_to 'Buat Rekap Gaji', new_salary_history_path(params[:id]) , :class=>'btn btn-primary'%>
 <%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
 <% end%>
 

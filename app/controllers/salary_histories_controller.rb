@@ -3,7 +3,7 @@ class SalaryHistoriesController < ApplicationController
   
   def index
     if current_user.role_id == 2
-      @salary_histories = SalaryHistory.where(user_id: params[:user_id]).order("id asc")
+      @salary_histories = SalaryHistory.where(user_id: params[:id]).order("id asc")
     else
       @salary_histories = SalaryHistory.where(user_id: current_user.id)
     end
@@ -16,7 +16,6 @@ class SalaryHistoriesController < ApplicationController
 
   def show
     @salary_history = SalaryHistory.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @salary_history }
