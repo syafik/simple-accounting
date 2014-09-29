@@ -47,6 +47,14 @@
   </div><!-- /.form group -->
 </div>
 
+<% if current_user.role_id == 2 %>
+<div class="form-group" style="width: 50%; text-align: left;" >
+  <label>Status:</label>
+  <%= f.select :status, options_for_select([['Terima', true],['Tolak', false]], @overtime),{},class: "form-control", required: true%>
+
+</div>
+<% end %>
+
 <div class="form-group" style="width: 50%">
   <label>Deskripsi:</label>
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
