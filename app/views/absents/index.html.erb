@@ -7,7 +7,7 @@ Daftar Hadir Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-<% if current_user.role_id == 2 %>
+<% if current_user.role_id == 2 %><!-- if role  -->
 
 <table style="text-align: center; width: 100%; ">
 	<tr>
@@ -24,48 +24,33 @@ Daftar Hadir Karyawan
 
 <% else %>
 
-<% if @check_absent.blank? %>
-<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	Absen Masuk
-</button>
+	<% if @check_absent.blank? %> <!-- if doesn't have absent -->
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+		Absen Masuk
+	</button>
 
 
 
-<% else %>
-<p>
-	Tanggal
-</p>
-<p>
-	<%= @check_absent.date.strftime("%d-%B-%Y") %>
-</p>
-<p>
-	Anda Masuk Pukul
-</p>
-<p>
-	<%= @check_absent.time_in.strftime("%H:%M ") %>
-</p>
+	<% else %>
+	<p>Tanggal</p>
+	<p><%= @check_absent.date.strftime("%d-%B-%Y") %></p>
+	<p>Anda Masuk Pukul</p>
+	<p><%= @check_absent.time_in.strftime("%H:%M ") %></p>
+	<% end %> <!-- if doesn't have absent -->
 
 
-<% if @check_absent.time_out.blank? %>
-<p>
-	Selamat Bekerja
-</p>
-<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	Absen Keluar
-</button>
-<% else %>
-<p>
-	Anda Keluar Pukul
-</p>
-<p>
-	<%= @check_absent.time_out.strftime("%H:%M ") %>
-</p>
-<p>
-	Terimakasih Untuk Hari Ini
-</p>
-<% end %>
+	<% if @check_absent.time_out.blank? %> <!-- if doesn't have absent out-->
+		<p>Selamat Bekerja</p>
+		<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			Absen Keluar
+		</button>
+	<% else %>
+		<p>Anda Keluar Pukul</p>
+		<p><%= @check_absent.time_out.strftime("%H:%M ") %></p>
+		<p>Terimakasih Untuk Hari Ini</p>
+	<% end %><!-- if doesn't have absent out-->
 
-<% end %>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -79,22 +64,12 @@ Daftar Hadir Karyawan
 					<div class="tab-content">
 						<% long_work = Time.now.hour - @check_absent.time_in.hour %>
 						<% if long_work < 8 %>
-						<p>
-							Jam Kerja Anda Belum 8 Jam
-						</p>
+						<p>Jam Kerja Anda Belum 8 Jam</p>
 						<% else %>
-						<p>
-							Tanggal
-						</p>
-						<p>
-							<%= Time.current.to_date.strftime("%d-%B-%Y") %>
-						</p>
-						<p>
-							Pukul
-						</p>
-						<p>
-							<%= Time.current.strftime("%H:%M:%S") %>
-						</p>
+						<p>Tanggal</p>
+						<p><%= Time.current.to_date.strftime("%d-%B-%Y") %></p>
+						<p>Pukul</p>
+						<p><%= Time.current.strftime("%H:%M:%S") %></p>
 						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary', :onclick => "myFunction();" %>
 						<% end %>
 					</div>
@@ -105,7 +80,8 @@ Daftar Hadir Karyawan
 </div><!-- /.modal -->
 
 
-<% end %>
+
+<% end %><!-- if role   -->
 <% end %>
 
 <% content_for :content_nav do %>
