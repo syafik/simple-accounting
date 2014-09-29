@@ -3,7 +3,7 @@ SimpleAccounting::Application.routes.draw do
   resources :roles
 
   resources :absents
-  resources :overtimes
+  
   resources :salaries
   resources :manage_users
 
@@ -57,6 +57,13 @@ SimpleAccounting::Application.routes.draw do
       get :set_approval
       get :set_taken
       get :set_decline
+    end
+  end
+
+  resources :overtimes do
+    member do
+      get :set_approval
+      get :set_rejected
     end
   end
 

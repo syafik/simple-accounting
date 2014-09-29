@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929042516) do
+ActiveRecord::Schema.define(:version => 20140929074056) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20140929042516) do
     t.time     "end_time"
     t.float    "long_overtime"
     t.float    "payment"
+    t.boolean  "status"
   end
 
   create_table "roles", :force => true do |t|

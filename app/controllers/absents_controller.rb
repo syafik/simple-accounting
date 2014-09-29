@@ -110,18 +110,13 @@ class AbsentsController < ApplicationController
         redirect_to absents_path
       end
     else
-
-
       # still bug because time.now.min => using 24 but from databas using am pm
-      p "="*9
-      p difh
-      p "="*9
-      p difm
+      total_work_time = Absent.get_total_work_time(@check_absent.time_in, Time.parse(Time.current.strftime("%H:%M:%S")))
 
       
 
 
-      if @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: "#{difh}.#{difm}".to_f)
+      if @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: total_work_time)
         p "="*99
         p @check_absent
 
