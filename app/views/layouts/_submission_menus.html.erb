@@ -8,12 +8,12 @@
 		<% if current_user.role_id == 2%>
 		<li> 
 			<%= link_to absent_permissions_path do %>
-			<i class="fa fa-angle-double-right"></i> Daftar Pengajuan Ijin dan Cuti
+			<i class="fa fa-angle-double-right"></i> Pengajuan Ijin dan Cuti
 			<% end %>
 		</li>
 		<li> 
 			<%= link_to loan_permissions_path do %>
-			<i class="fa fa-angle-double-right"></i> Daftar Pengajuan Pinjaman Uang
+			<i class="fa fa-angle-double-right"></i> Pengajuan Pinjaman Uang
 			<% end %>
 		</li>
 		<% else %>
@@ -32,12 +32,13 @@
 			<i class="fa fa-angle-double-right"></i> Pengajuan Tunjangan
 			<% end %>
 		</li>
+		
+		<% end %>
 		<li> 
 			<%= link_to overtimes_path do %>
 			<i class="fa fa-angle-double-right"></i> Pengajuan Lembur
 			<% end %>
 		</li>
-		<% end %>
 		<li> 
 			<%= link_to loan_payments_path do %>
 			<i class="fa fa-angle-double-right"></i> Pengajuan Bayar Hutang

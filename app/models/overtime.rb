@@ -1,7 +1,7 @@
 class Overtime < ActiveRecord::Base
 	belongs_to :user 
 
-	attr_accessible :date, :description, :long_overtime, :user_id, :start_time, :end_time, :payment
+	attr_accessible :date, :description, :long_overtime, :user_id, :start_time, :end_time, :payment, :status
 	validates  :date, :start_time, :end_time,   presence: true
 
 	def self.long_overtime(start_time, end_time)

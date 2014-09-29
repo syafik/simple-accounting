@@ -3,7 +3,12 @@ class OvertimesController < ApplicationController
   # GET /overtimes
   # GET /overtimes.json
   def index
-    @overtimes = Overtime.where(:user_id => current_user.id)
+    if current_user.role_id==2
+      @overtimes = Overtime.order("id asc")
+    else
+      @overtimes = Overtime.where(:user_id => current_user.id)
+    end
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,6 +54,7 @@ class OvertimesController < ApplicationController
     total_long_overtime = Overtime.total_long_overtime(current_user, @overtime.long_overtime)
     @overtime.payment = Overtime.payment_overtime(@overtime.start_time, @overtime.end_time, current_user)
     @overtime.long_overtime = total_long_overtime
+    
 
     respond_to do |format|
       if total_long_overtime <= 8  && @overtime.save
@@ -90,6 +96,24 @@ class OvertimesController < ApplicationController
     @overtime = Overtime.find(params[:id])
     @overtime.destroy
 
+    respond_to do |format|
+      format.html { redirect_to overtimes_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def set_approval
+    @overtime = Overtime.find(params[:id])
+    @overtime.update_attributes(status: true)
+    respond_to do |format|
+      format.html { redirect_to overtimes_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def set_rejected
+    @overtime = Overtime.find(params[:id])
+    @overtime.update_attributes(status: false)
     respond_to do |format|
       format.html { redirect_to overtimes_url }
       format.json { head :no_content }
