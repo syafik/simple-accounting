@@ -17,9 +17,9 @@ Data Riwayat Penggajian
 <thead>
   <tr>
     <th> Tanggal </th>
-    <th>  User ID </th>
+    <th>  Nama Karyawan </th>
     <th> Lama Lembur </th>
-    
+    <th> Biaya Lembur </th>
     <th> Aksi </th>
   </tr>
 </thead>
@@ -27,8 +27,9 @@ Data Riwayat Penggajian
   <% @overtimes.each do |overtime| %>
   <tr>
     <td><%= overtime.date.strftime("%d-%B-%Y") %></td>
-    <td><%= overtime.user_id %></td>
+    <td><%= "#{overtime.user.first_name} #{overtime.user.last_name}" %></td>
     <td><%= overtime.long_overtime %></td>
+    <td><%= number_to_currency( overtime.payment, :unit => "Rp ") rescue 0 %></td>
     <td>
       <span class="pull-right">
         <%= link_to 'Lihat', overtime, :class=>'btn btn-info' %> 

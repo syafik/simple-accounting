@@ -12,8 +12,7 @@ class Overtime < ActiveRecord::Base
 		else
 			to = end_time.min
 		end
-		difm = to - start_time.min
-		
+		difm = (to - start_time.min).to_f * 0.6
 		tot = "#{difh}.#{difm}".to_f 
 		
 		return tot

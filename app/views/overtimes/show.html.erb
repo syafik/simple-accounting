@@ -1,25 +1,53 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Pengajuan
+<% end%>
 
-<p>
-  <b>Date:</b>
-  <%= @overtime.date.strftime("%d-%B-%Y") %>
-</p>
+<% content_for :content_sub_title do %>
+Detail Lembur
+<% end%>
 
-<p>
-  <b>User:</b>
-  <%= @overtime.user_id %>
-</p>
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td><b>Tanggal</b></td>
+			<td> : </td>
+			<td> <%= @overtime.date.strftime("%d-%B-%Y") %> </td>
+		</tr>
+		<tr>
+			<td><b>Nama Karyawan</b></td>
+			<td> : </td>
+			<td> <%= "#{@overtime.user.first_name} #{@overtime.user.last_name}" %></td>
+		</tr>
+		<tr>
+			<td><b> Jam Mulai</b></td>
+			<td> : </td>
+			<td> <%= @overtime.start_time.strftime("%H:%M ") %></td>
+		</tr>
+		<tr>
+			<td><b> Jam Berakhir</b></td>
+			<td> : </td>
+			<td> <%= @overtime.end_time.strftime("%H:%M ") %></td>
+		</tr>
+		<tr>
+			<td><b>Lama Lembur</b></td>
+			<td> : </td>
+			<td> <%= @overtime.long_overtime %></td>
+		</tr>
+		<tr>
+			<td><b>Besar Dana</b></td>
+			<td> : </td>
+			<td> <%= number_to_currency( @overtime.payment, :unit => "Rp ") rescue 0 %></td>
+		</tr>
+	</table>
+</div>
+<% end%>
 
-<p>
-  <b>Long overtime:</b>
-  <%= @overtime.long_overtime %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @overtime.description %>
-</p>
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_overtime_path(@overtime), :class=>'btn btn-primary' %> 
+<%= link_to 'Kembali', overtimes_path, :class=>'btn btn-primary' %>
+<% end%>
 
 
-<%= link_to 'Edit', edit_overtime_path(@overtime) %> |
-<%= link_to 'Back', overtimes_path %>
+
+

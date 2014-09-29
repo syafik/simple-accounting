@@ -74,7 +74,7 @@ class OvertimesController < ApplicationController
     params[:overtime][:long_overtime]= total_long_overtime
 
     respond_to do |format|
-      if @overtime.update_attributes(params[:overtime])
+      if total_long_overtime <= 8 && @overtime.update_attributes(params[:overtime])
         format.html { redirect_to @overtime, notice: 'Overtime was successfully updated.' }
         format.json { head :no_content }
       else
