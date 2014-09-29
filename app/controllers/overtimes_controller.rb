@@ -45,17 +45,13 @@ class OvertimesController < ApplicationController
     params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
     @overtime = Overtime.new(params[:overtime])
 
-
-    # count long overtime
-    overtime_history = Overtime.where(:user_id =>  current_user.id).sum(:long_overtime)
-
-    total_long_overtime = overtime_history.to_i + params[:overtime][:long_overtime].to_i
-    
-    long_overtime = ((@overtime.end_time - @overtime.start_time)/3600)
-    @overtime.long_overtime = long_overtime
+    @overtime.long_overtime = Overtime.long_overtime(@overtime.start_time, @overtime.end_time)
+    total_long_overtime = Overtime.total_long_overtime(current_user, @overtime.long_overtime)
+    @overtime.payment = Overtime.payment_overtime(@overtime.start_time, @overtime.end_time, current_user)
+    @overtime.long_overtime = total_long_overtime
 
     respond_to do |format|
-      if total_long_overtime <= 8  &&@overtime.save
+      if total_long_overtime <= 8  && @overtime.save
         format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
         format.json { render json: @overtime, status: :created, location: @overtime }
       else
@@ -69,6 +65,13 @@ class OvertimesController < ApplicationController
   # PUT /overtimes/1.json
   def update
     @overtime = Overtime.find(params[:id])
+    
+    params[:overtime][:long_overtime] = Overtime.long_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]))
+
+    
+    total_long_overtime = Overtime.total_long_overtime(current_user, params[:overtime][:long_overtime])
+    params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), current_user)
+    params[:overtime][:long_overtime]= total_long_overtime
 
     respond_to do |format|
       if @overtime.update_attributes(params[:overtime])

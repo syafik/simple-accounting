@@ -26,7 +26,7 @@
 //= require icheck.min
 //= require AdminLTE/app
 
-//= require AdminLTE/demo
+
 
 
 
