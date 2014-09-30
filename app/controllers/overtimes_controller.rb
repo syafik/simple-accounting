@@ -131,8 +131,8 @@ class OvertimesController < ApplicationController
 
   def check_date
 
-    if  params[:user][:date].is_a?(String)
-      params[:user][:date] = DateTime.strptime(params[:user][:date], "%m/%d/%Y").to_date
+    if  params[:overtime][:date].is_a?(String)
+      params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
 
     end
   end
