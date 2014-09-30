@@ -44,6 +44,11 @@ class Overtime < ActiveRecord::Base
 		end
 
 
+		p "===day==="
+		p long_overtime(start_time_day, end_time_day)
+		p "===night==="
+		p long_overtime(start_time_day, end_time_day)
+		# xxxx
 
 		day_payment = long_overtime(start_time_day, end_time_day) * price_day
 		night_payment = long_overtime(start_time_night, end_time_night) * price_night

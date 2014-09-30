@@ -34,6 +34,8 @@ gem "cancan"
 # Adding paranoia for deletion
 gem "paranoia", "~> 1.0"
 
+gem "setler", '0.0.11'
+
 
 group :development do
 	gem 'debugger'

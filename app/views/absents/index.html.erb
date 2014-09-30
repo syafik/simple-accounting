@@ -72,13 +72,17 @@ Daftar Hadir Karyawan
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3>Buat Absent</h3>
+				<% if @check_absent.blank? %>
+				<h3>Absen Masuk</h3>
+				<% else %>
+				<h3>Absen Keluar</h3>
+				<% end %>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="tab-content">
 						
-						
+						<% if @check_absent.blank? %>						
 						<p>
 							Tanggal
 						</p>
@@ -91,11 +95,14 @@ Daftar Hadir Karyawan
 						<p>
 							<%= Time.current.strftime("%H:%M:%S") %>
 						</p>
-						<% if @check_absent.blank? || long_work.to_i >= 8 %>
-						<% if long_work.to_i >= 8 %>
-						<p>Anda Belum Bekerja Selama 8 Jam</p>
+						
 						<% end %>
+
+						<% if @check_absent.blank? || long_work.to_i >= 8 %>
+						
 						<%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary', :onclick => "myFunction();" %>
+						<% else %>
+						<p>Anda Belum Bekerja Selama 8 Jam</p>
 						<% end %>
 						
 					</div>

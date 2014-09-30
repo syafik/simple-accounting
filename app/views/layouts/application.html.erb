@@ -308,6 +308,12 @@
                     <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
                     <p ><%= notice %></p>
                 </div> 
+                <% elsif flash[:error] %>
+                <div id="error" class="alert alert-warning alert-dismissable">
+                    <i class="fa fa-warning"></i>
+                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                    <p ><%= flash[:error] %></p>
+                </div> 
                 <% end %>
                 
                 <div class="text-center">

@@ -1,4 +1,7 @@
 <%= form_for(@overtime,:html => { style: "text-align: left;"}) do |f| %>
+<% if @errors %>
+eror <%= @errors %>
+<% end %>
 <% if @overtime.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@overtime.errors.count, "error") %> prohibited this overtime from being saved:</h2>
@@ -27,7 +30,7 @@
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
-    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom" %>
+    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true %>
   </div>
 </div>
 

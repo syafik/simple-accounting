@@ -1,7 +1,7 @@
 
 class OvertimesController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
-  before_filter :check_date, :only => [:create]
+  before_filter :check_date, :only => [:create, :update]
   # GET /overtimes
   # GET /overtimes.json
   def index
@@ -55,7 +55,7 @@ class OvertimesController < ApplicationController
     @overtime.long_overtime = Overtime.long_overtime(@overtime.start_time, @overtime.end_time)
     total_long_overtime = Overtime.total_long_overtime(user, @overtime.long_overtime)
     @overtime.payment = Overtime.payment_overtime(@overtime.start_time, @overtime.end_time, user)
-    @overtime.long_overtime = total_long_overtime
+    
     
 
     respond_to do |format|
@@ -63,7 +63,8 @@ class OvertimesController < ApplicationController
         format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
         format.json { render json: @overtime, status: :created, location: @overtime }
       else
-        format.html { render action: "new" }
+        # format.html { render action: "new" }
+        format.html { redirect_to new_overtime_url,  :flash => { :error => "Jam Lembur Anda Melebihi 8 Jam" }}
         format.json { render json: @overtime.errors, status: :unprocessable_entity }
       end
     end
@@ -81,7 +82,7 @@ class OvertimesController < ApplicationController
     
     total_long_overtime = Overtime.total_long_overtime(user, params[:overtime][:long_overtime])
     params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
-    params[:overtime][:long_overtime]= total_long_overtime
+    
 
     respond_to do |format|
       if total_long_overtime <= 8 && @overtime.update_attributes(params[:overtime])
@@ -132,6 +133,7 @@ class OvertimesController < ApplicationController
   def check_date
 
     if  params[:overtime][:date].is_a?(String)
+      p "masuk"
       params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
 
     end

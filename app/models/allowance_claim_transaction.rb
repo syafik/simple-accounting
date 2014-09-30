@@ -128,7 +128,7 @@ def self.approval
       #looking for total nominal by allowance_id
       #AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date => "#{Time.now.year}-01-01".."#{Time.now.year}-12-31")
 
-      allowance_claim_transaction = AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" )
+      allowance_claim_transaction = AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => 1, :approval_date=> "#{Time.now.year}-01-01".."#{Time.now.year}-12-31" )
       totalnominal = 0
       allowance_claim_transaction.each do |allowance_claim_transaction|
         totalnominal = totalnominal + allowance_claim_transaction.nominal
