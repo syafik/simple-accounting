@@ -39,6 +39,11 @@ Detail Lembur
 			<td> : </td>
 			<td> <%= number_to_currency( @overtime.payment, :unit => "Rp ") rescue 0 %></td>
 		</tr>
+		<tr>
+			<td><b>Deskripsi</b></td>
+			<td> : </td>
+			<td> <%= @overtime.description %></td>
+		</tr>
 	</table>
 </div>
 <% end%>

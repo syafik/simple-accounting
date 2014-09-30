@@ -71,12 +71,13 @@ class OvertimesController < ApplicationController
   # PUT /overtimes/1.json
   def update
     @overtime = Overtime.find(params[:id])
+    @user= User.find(@overtime.user_id)
     
     params[:overtime][:long_overtime] = Overtime.long_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]))
 
     
     total_long_overtime = Overtime.total_long_overtime(current_user, params[:overtime][:long_overtime])
-    params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), current_user)
+    params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), @user)
     params[:overtime][:long_overtime]= total_long_overtime
 
     respond_to do |format|
