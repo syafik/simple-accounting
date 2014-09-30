@@ -19,8 +19,8 @@ class Overtime < ActiveRecord::Base
 	end
 
 	def self.payment_overtime(start_time, end_time, user)
-		price_day = user.salary_histories.activate.first.day_payment_overtime
-		price_night = user.salary_histories.activate.first.night_payment_overtime
+		price_day = user.salary_histories.activate.first.day_payment_overtime rescue 0
+		price_night = user.salary_histories.activate.first.night_payment_overtime rescue 0
 		day_payment = 0
 		night_payment = 0
 		start_time_day = Time.parse("00:00")
