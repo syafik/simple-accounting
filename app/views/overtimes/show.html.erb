@@ -49,7 +49,9 @@ Detail Lembur
 <% end%>
 
 <% content_for :content_nav do %>
+<% if current_user.role_id == 2%>
 <%= link_to 'Ubah', edit_overtime_path(@overtime), :class=>'btn btn-primary' %> 
+<% end %>
 <%= link_to 'Kembali', overtimes_path, :class=>'btn btn-primary' %>
 <% end%>
 

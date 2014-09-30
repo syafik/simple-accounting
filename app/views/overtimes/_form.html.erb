@@ -11,6 +11,15 @@
 </div>
 <% end %>
 
+<% if current_user.role_id == 2 %>
+<div class="form-group" style="width: 50%">
+  <label>Karyawan:</label>
+  <%= f.select :user_id, options_for_select(@users, @overtime.user_id), {}, {class: "form-control"}%>
+</div>
+<% else %>
+<%= f.hidden_field :user_id, :value => current_user.id %>
+<% end %>
+
 
 <div class="form-group" style="width: 50%">
   <label>Tanggal:</label>
@@ -60,7 +69,7 @@
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
 </div>
 
-<%= f.hidden_field :user_id, :value => current_user.id %>
+
 
 <%= f.submit nil, :class=>'btn btn-default' %>
 

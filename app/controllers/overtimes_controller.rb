@@ -1,5 +1,6 @@
 
 class OvertimesController < ApplicationController
+  before_filter :get_user, :only => [:new, :create, :edit, :update]
   # GET /overtimes
   # GET /overtimes.json
   def index
@@ -47,12 +48,14 @@ class OvertimesController < ApplicationController
   # POST /overtimes
   # POST /overtimes.json
   def create
+
     params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
     @overtime = Overtime.new(params[:overtime])
+    user = User.find(@overtime.user_id)
 
     @overtime.long_overtime = Overtime.long_overtime(@overtime.start_time, @overtime.end_time)
-    total_long_overtime = Overtime.total_long_overtime(current_user, @overtime.long_overtime)
-    @overtime.payment = Overtime.payment_overtime(@overtime.start_time, @overtime.end_time, current_user)
+    total_long_overtime = Overtime.total_long_overtime(user, @overtime.long_overtime)
+    @overtime.payment = Overtime.payment_overtime(@overtime.start_time, @overtime.end_time, user)
     @overtime.long_overtime = total_long_overtime
     
 
@@ -71,13 +74,14 @@ class OvertimesController < ApplicationController
   # PUT /overtimes/1.json
   def update
     @overtime = Overtime.find(params[:id])
-    @user= User.find(@overtime.user_id)
+    user= User.find(@overtime.user_id)
+    
     
     params[:overtime][:long_overtime] = Overtime.long_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]))
 
     
-    total_long_overtime = Overtime.total_long_overtime(current_user, params[:overtime][:long_overtime])
-    params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), @user)
+    total_long_overtime = Overtime.total_long_overtime(user, params[:overtime][:long_overtime])
+    params[:overtime][:payment] = Overtime.payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
     params[:overtime][:long_overtime]= total_long_overtime
 
     respond_to do |format|
@@ -119,5 +123,10 @@ class OvertimesController < ApplicationController
       format.html { redirect_to overtimes_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def get_user
+    @users = User.all.map {|user| [user.first_name, user.id]}
   end
 end
