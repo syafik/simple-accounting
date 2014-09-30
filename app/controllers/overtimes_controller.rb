@@ -1,6 +1,7 @@
 
 class OvertimesController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
+  before_filter :check_date, :only => [:create]
   # GET /overtimes
   # GET /overtimes.json
   def index
@@ -48,8 +49,6 @@ class OvertimesController < ApplicationController
   # POST /overtimes
   # POST /overtimes.json
   def create
-
-    params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
     @overtime = Overtime.new(params[:overtime])
     user = User.find(@overtime.user_id)
 
@@ -128,5 +127,13 @@ class OvertimesController < ApplicationController
   private
   def get_user
     @users = User.all.map {|user| [user.first_name, user.id]}
+  end
+
+  def check_date
+
+    if  params[:user][:date].is_a?(String)
+      params[:user][:date] = DateTime.strptime(params[:user][:date], "%m/%d/%Y").to_date
+
+    end
   end
 end
