@@ -1,11 +1,11 @@
 SimpleAccounting::Application.routes.draw do
 
   resources :roles
-
-  resources :absents
   
+  resources :absents
   resources :salaries
   resources :manage_users
+
 
   
   
@@ -20,12 +20,20 @@ SimpleAccounting::Application.routes.draw do
   match "/loan_payments/:id/edit" => "loan_payments#edit",   :as => "edit_loan_payments",  :via => :get
   match "/absents/:id/set_attend" => "absents#set_attend",   :as => "set_absent_attend",  :via => :get
   match "/salary_histories/:user_id/new" => "salary_histories#new",   :as => "new_salary_history",  :via => :get
+  match "/settings/overtime" => "settings#overtime", :as => "overtime_setting", :via => :get
+  match "/settings/overtime_create" => "settings#overtime_create", :as => "overtime_create", :via => :post
   get '/salary_histories/:id/user', to: 'salary_histories#index', as: 'salary_histories_user'
 
 
   resources :allowance_categories do
     resources :allowance_sub_categories
   end
+
+  # resources :settings do
+  #   member do
+  #     post :overtime_create
+  #   end
+  # end
 
   resources :allowance_claim_transactions do
     collection do
