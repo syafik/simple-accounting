@@ -18,8 +18,10 @@ Data Riwayat Lembur
     <tr>
       <th> Tanggal </th>
       <th>  Nama Karyawan </th>
+      <th> Waktu Lembur </th>
       <th> Lama Lembur </th>
       <th> Biaya Lembur </th>
+      <th> Total </th>
       <th> Status </th>
       
       <th> Aksi </th>
@@ -31,7 +33,14 @@ Data Riwayat Lembur
     <tr>
       <td><%= overtime.date.strftime("%d-%B-%Y") %></td>
       <td><%= "#{overtime.user.first_name} #{overtime.user.last_name}" %></td>
+      <td><%= overtime.start_time.strftime("%H:%M ") %> - <%= overtime.end_time.strftime("%H:%M ") %></td>
       <td><%= overtime.long_overtime %></td>
+      <td>
+        <p>Siang:</p>
+        <p><%= number_to_currency( overtime.day_payment, :unit => "Rp ") rescue 0 %></p>
+        <p>Malam:</p>
+        <p><%= number_to_currency( overtime.night_payment, :unit => "Rp ") rescue 0 %></p>
+      </td>
       <td><%= number_to_currency( overtime.payment, :unit => "Rp ") rescue 0 %></td>
       <td>
         <% if overtime.status == nil%>

@@ -35,7 +35,17 @@ Detail Lembur
 			<td> <%= @overtime.long_overtime %></td>
 		</tr>
 		<tr>
-			<td><b>Besar Dana</b></td>
+			<td><b>Besar Dana Lembur Siang</b></td>
+			<td> : </td>
+			<td> <%= number_to_currency( @overtime.day_payment, :unit => "Rp ") rescue 0 %></td>
+		</tr>
+		<tr>
+			<td><b>Besar Dana Lembur Malam</b></td>
+			<td> : </td>
+			<td> <%= number_to_currency( @overtime.night_payment, :unit => "Rp ") rescue 0 %></td>
+		</tr>
+		<tr>
+			<td><b>Total Dana</b></td>
 			<td> : </td>
 			<td> <%= number_to_currency( @overtime.payment, :unit => "Rp ") rescue 0 %></td>
 		</tr>

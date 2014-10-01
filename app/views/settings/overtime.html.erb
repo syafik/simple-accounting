@@ -1,0 +1,69 @@
+<% content_for :header do %>
+
+<% end%>
+
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "jquery.inputmask" %>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions" %>
+<%= javascript_include_tag "call_datepicker" %>
+<%= javascript_include_tag "bootstrap-timepicker.min" %>
+<%= javascript_include_tag "call_timepicker" %>
+<% end%>
+
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Buat Data Lembur
+<% end%>
+
+<% content_for :content_body do %>
+<%= form_tag overtime_create_path, :method => 'post' do %>
+
+<div class="bootstrap-timepicker" style="width: 20%">
+  <div class="form-group">
+    <label>Jam Mulai Lembur Siang:</label>
+    <div class="input-group">
+      <%= text_field_tag :startlimitdaytime,  Setting[:startlimitdaytime], class: "form-control timepicker test"  %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
+</div>
+
+<div class="bootstrap-timepicker" style="width: 20%">
+  <div class="form-group">
+    <label>Jam Mulai Lembur Malam:</label>
+    <div class="input-group">
+      <%= text_field_tag :startlimitnighttime,  Setting[:startlimitnighttime], class: "form-control timepicker test"  %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
+</div>
+
+
+<div class="form-group" align="left">
+  <%= submit_tag "Simpan", :class=>'btn btn-default'%>
+</div>
+
+
+<% end %>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Kembali', overtimes_path  , :class=>'btn btn-primary' %>
+<% end%>
+
+
+
+
+<!-- ======================== -->
+
+
+
+

@@ -97,7 +97,7 @@ class AbsentPermission < ActiveRecord::Base
 
   def self.have_been_taken(user)
     # get total have been taken
-    hbt = AbsentPermission.where("user_id = ? AND status = ? AND extract(year  from approval_date) = ?", user.id, 3, 2014).sum(:long)
+    hbt = AbsentPermission.where("user_id = ? AND status = ? AND extract(year  from approval_date) = ?", user.id, 3, Time.now.year).sum(:long)
 
     return hbt
   end

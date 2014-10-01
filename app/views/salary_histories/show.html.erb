@@ -11,18 +11,28 @@ Detail Data Riwayat Penggajian
 	<table>
 		<tr>
 			<td> <b> Tanggal </b> </td>
-			<td> <b> :</b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
 			<td> <%= @salary_history.applicable_date.strftime("%d-%B-%Y") %></td>
 		</tr>
 		<tr>
 			<td> <b> Nama Karyawan </b> </td>
-			<td> <b> :</b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
 			<td> <%= "#{@salary_history.try(:user).try(:first_name)} #{@salary_history.try(:user).try(:last_name)}"%> </td>
 		</tr>
 		<tr>
-			<td> <b> Besar Dana </b> </td>
-			<td> <b> :</b> </td>
+			<td> <b> Besar Gaji </b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
 			<td> <%= number_to_currency( @salary_history.payment, :unit => "Rp ") %></td>
+		</tr>
+		<tr>
+			<td> <b> Biaya Lembur Siang </b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
+			<td> <%= number_to_currency( @salary_history.day_payment_overtime, :unit => "Rp ") %></td>
+		</tr>
+		<tr>
+			<td> <b> Biaya Lembur Siang </b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
+			<td> <%= number_to_currency( @salary_history.night_payment_overtime, :unit => "Rp ") %></td>
 		</tr>
 	</table>
 </div>
