@@ -7,6 +7,7 @@ class SettingsController < ApplicationController
 	def overtime_create
 		Setting[:startlimitdaytime] = params[:startlimitdaytime]
 		Setting[:startlimitnighttime] = params[:startlimitnighttime]
+		Setting[:maxovertimeperday] = params[:maxovertimeperday]
 	end
 
 end

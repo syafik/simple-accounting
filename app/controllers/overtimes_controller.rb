@@ -1,12 +1,28 @@
 
 class OvertimesController < ApplicationController
-	before_filter :get_user, :only => [:new, :create, :edit, :update]
+	before_filter :get_user, :only => [:index, :new, :create, :edit, :update]
 	before_filter :check_date, :only => [:create]
   # GET /overtimes
   # GET /overtimes.json
   def index
-  	if current_user.role_id==2
-  		@overtimes = Overtime.order("id asc")
+    @current_time = Date.today
+    year = params[:year] || @current_time.year
+    month = params[:month] || @current_time.month
+    @date = DateTime.new(year.to_i,month.to_i, 1)
+    @next = @date + 1.month
+    @prev = @date - 1.month
+    @start_date = @date.beginning_of_month
+    @end_date = @date.end_of_month
+
+    @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
+    
+    if current_user.role_id==2
+        if params[:user_id]
+          @overtimes = @overtimes.where(user_id: params[:user_id])
+        else
+          @overtimes = @overtimes#.order("id asc")
+        end
+  		
   	else
   		@overtimes = Overtime.where(:user_id => current_user.id)
   	end
@@ -60,12 +76,14 @@ class OvertimesController < ApplicationController
 
 
 
+
+
   	respond_to do |format|
-  		if total_long_overtime <= 8  && @overtime.save
+  		if total_long_overtime <= Setting[:maxovertimeperday].to_f  && @overtime.save
   			format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
   			format.json { render json: @overtime, status: :created, location: @overtime }
   		else
-        # format.html { render action: "new" }
+
         format.html { redirect_to new_overtime_url,  :flash => { :error => "Jam Lembur Anda Melebihi 8 Jam" }}
         format.json { render json: @overtime.errors, status: :unprocessable_entity }
       end
@@ -77,28 +95,31 @@ class OvertimesController < ApplicationController
   def update
   	@overtime = Overtime.find(params[:id])
   	user= User.find(@overtime.user_id)
-  	params[:overtime][:long_overtime] = 0
+  	params[:overtime][:long_overtime] = @overtime.long_overtime
 
-  	if Time.parse(@overtime.start_time.strftime("%H:%M ")) != Time.parse(params[:overtime][:start_time]) && Time.parse(@overtime.end_time.strftime("%H:%M ")) !=Time.parse(params[:overtime][:end_time])
-
+  	if Time.parse(@overtime.start_time.strftime("%H:%M ")) != Time.parse(params[:overtime][:start_time]) || Time.parse(@overtime.end_time.strftime("%H:%M ")) !=Time.parse(params[:overtime][:end_time])
   		params[:overtime][:long_overtime] = Overtime.long_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]))
-  	end 
+      total_long_overtime = Overtime.total_long_overtime(user, params[:overtime][:long_overtime])
+    end
 
-  	total_long_overtime = Overtime.total_long_overtime(user, params[:overtime][:long_overtime])
-  	params[:overtime][:day_payment] = Overtime.day_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
-  	params[:overtime][:night_payment] = Overtime.night_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
-  	params[:overtime][:payment] = params[:overtime][:day_payment] + params[:overtime][:night_payment]
+    total_long_overtime = 0 
 
-  	respond_to do |format|
-  		if total_long_overtime <= 8 && @overtime.update_attributes(params[:overtime])
-  			format.html { redirect_to @overtime, notice: 'Overtime was successfully updated.' }
-  			format.json { head :no_content }
-  		else
-  			format.html { render action: "edit" }
-  			format.json { render json: @overtime.errors, status: :unprocessable_entity }
-  		end
-  	end
-  end
+
+
+    params[:overtime][:day_payment] = Overtime.day_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
+    params[:overtime][:night_payment] = Overtime.night_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
+    params[:overtime][:payment] = params[:overtime][:day_payment] + params[:overtime][:night_payment]
+
+    respond_to do |format|
+      if total_long_overtime <= Setting[:maxovertimeperday].to_f && @overtime.update_attributes(params[:overtime])
+       format.html { redirect_to @overtime, notice: 'Overtime was successfully updated.' }
+       format.json { head :no_content }
+     else
+       format.html { render action: "edit" }
+       format.json { render json: @overtime.errors, status: :unprocessable_entity }
+     end
+   end
+ end
 
   # DELETE /overtimes/1
   # DELETE /overtimes/1.json

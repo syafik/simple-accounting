@@ -142,7 +142,6 @@ class AbsentsController < ApplicationController
 
     if  params[:absent][:date].is_a?(String)
       params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
-
     end
   end
 end

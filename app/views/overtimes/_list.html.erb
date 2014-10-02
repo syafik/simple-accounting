@@ -1,0 +1,71 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th> Tanggal </th>
+      <th>  Nama Karyawan </th>
+      <th> Waktu Lembur </th>
+      <th> Lama Lembur </th>
+      <th> Biaya Lembur </th>
+      <th> Total </th>
+      <th> Status </th>
+      
+      <th> Aksi </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @overtimes.each do |overtime| %>
+    <tr>
+      <td><%= overtime.date.strftime("%d-%B-%Y") %></td>
+      <td><%= "#{overtime.user.first_name} #{overtime.user.last_name}" %></td>
+      <td><%= overtime.start_time.strftime("%H:%M ") %> - <%= overtime.end_time.strftime("%H:%M ") %></td>
+      <td><%= overtime.long_overtime %></td>
+      <td>
+        <p>Siang:</p>
+        <p><%= number_to_currency( overtime.day_payment, :unit => "Rp ") rescue 0 %></p>
+        <p>Malam:</p>
+        <p><%= number_to_currency( overtime.night_payment, :unit => "Rp ") rescue 0 %></p>
+      </td>
+      <td><%= number_to_currency( overtime.payment, :unit => "Rp ") rescue 0 %></td>
+      <td>
+        <% if overtime.status == nil%>
+        Menunggu Persetujuan
+        <% elsif overtime.status == true %>
+        Diterima
+        <% else %>
+        Ditolak
+        <% end %>
+      </td>
+      
+      <td>
+        <span class="pull-right">
+
+          <% if current_user.role_id == 2 && overtime.status == nil%>
+          <%= link_to "<i class=\"icon-fire\"></i> Setuju".html_safe, set_approval_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
+          <%= link_to "<i class=\"icon-fire\"></i> Tolak".html_safe, set_rejected_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
+          <% end %>
+          
+          
+
+          <% if current_user.role_id == 2%>
+          <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_overtime_path(overtime), :class => "btn btn-warning" %>
+          <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, overtime, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
+          <% end %>
+
+          <%= link_to 'Lihat', overtime, :class=>'btn btn-info' %> 
+
+
+
+          
+          
+          
+          
+          
+          
+        </span>
+      </td>
+      
+    </tr>
+    <% end %>
+  </tbody>
+</table>

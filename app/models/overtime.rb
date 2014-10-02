@@ -69,8 +69,8 @@ class Overtime < ActiveRecord::Base
 	
 
 	def self.total_long_overtime(user, new_long_overtime)
-		# .where("user_id = ? AND status = ? AND extract(date  from date) = ?", user.id, true, Time.now.month).sum(:long)
-		overtime_history = Overtime.where(:user_id =>  user.id).sum(:long_overtime)
+		
+		overtime_history = Overtime.where("user_id = ? AND status = ? AND date = ?", user.id, true, Time.now).sum(:long_overtime)
 		total_long_overtime = overtime_history.to_i + new_long_overtime
 
 		return total_long_overtime

@@ -35,4 +35,7 @@
 		<i class="fa  fa-credit-card"></i> Transaksi Tunjangan
 		<% end %>
 	</li>
+	<% if current_user.role_id == 2%>
+	<%= render partial: "layouts/setting_menus" %>
+	<% end %>
 </ul>

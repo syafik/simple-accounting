@@ -46,6 +46,18 @@ Buat Data Lembur
   </div><!-- /.form group -->
 </div>
 
+<div class="bootstrap-timepicker" style="width: 20%">
+  <div class="form-group">
+    <label>Jumlah Jam Lembur Maksimal:</label>
+    <div class="input-group">
+    <%= number_field_tag :maxovertimeperday,  Setting[:maxovertimeperday], class: "form-control"  %>
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+      </div>
+    </div><!-- /.input group -->
+  </div><!-- /.form group -->
+</div>
+
 
 <div class="form-group" align="left">
   <%= submit_tag "Simpan", :class=>'btn btn-default'%>
@@ -54,16 +66,3 @@ Buat Data Lembur
 
 <% end %>
 <% end%>
-
-<% content_for :content_nav do %>
-<%= link_to 'Kembali', overtimes_path  , :class=>'btn btn-primary' %>
-<% end%>
-
-
-
-
-<!-- ======================== -->
-
-
-
-
