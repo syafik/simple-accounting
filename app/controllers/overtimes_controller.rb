@@ -15,6 +15,9 @@ class OvertimesController < ApplicationController
     @end_date = @date.end_of_month
 
     @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
+
+    p "====="
+    p params
     
     if current_user.role_id==2
         if params[:user_id]

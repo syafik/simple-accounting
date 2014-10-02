@@ -1,9 +1,11 @@
-<%= form_tag overtimes_path(:year => @start_date.year, :month => @start_date.month), :method => 'get' do %>
+<%= form_tag overtimes_path, :method => 'get' do %>
 <table>
 	<tr>
 		<td>
 			<div class="form-group">
 				<%= select_tag(:user_id, options_for_select(@users), class: "form-control") %>
+				<%= hidden_field_tag(:year, @start_date.year) %>
+				<%= hidden_field_tag(:month, @start_date.month) %>
 			</div>
 		</td>
 		<td>
