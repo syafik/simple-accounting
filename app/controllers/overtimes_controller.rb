@@ -94,7 +94,7 @@ class OvertimesController < ApplicationController
   # PUT /overtimes/1.json
   def update
   	@overtime = Overtime.find(params[:id])
-  	user= User.find(@overtime.user_id)
+  	user= User.find(params[:overtime][:user_id].to_i)
   	params[:overtime][:long_overtime] = @overtime.long_overtime
 
   	if Time.parse(@overtime.start_time.strftime("%H:%M ")) != Time.parse(params[:overtime][:start_time]) || Time.parse(@overtime.end_time.strftime("%H:%M ")) !=Time.parse(params[:overtime][:end_time])

@@ -38,16 +38,20 @@ class Overtime < ActiveRecord::Base
 			p "masuuuuuuuuuuuuuuuuuuk"
 			start = Time.parse("00:00")
 			finish = Time.parse("00:00")
-		elsif Time.parse(start_time.strftime("%H:%M ")) < ls
+		elsif Time.parse(start_time.strftime("%H:%M ")) < ls || Time.parse(start_time.strftime("%H:%M ")) >= lf
 			start = ls
 		elsif Time.parse(end_time.strftime("%H:%M ")) > lf
 			finish = lf
 		end
 
+
+
 		long = long_overtime(start, finish)
+
 		
 
 		day_payment = long * price_day
+		
 		return day_payment
 	end
 
