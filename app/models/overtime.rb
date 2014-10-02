@@ -5,13 +5,22 @@ class Overtime < ActiveRecord::Base
 	validates  :date, :start_time, :end_time,   presence: true
 
 	def self.long_overtime(start_time, end_time)
-		difh = end_time.hour - start_time.hour
+		if end_time.hour < start_time.hour
+			te = end_time.hour + 24
+		else
+			te = end_time.hour
+		end
+
+
+		difh = te - start_time.hour
 
 		if (end_time.min < start_time.min)
 			to = end_time.min + 60
 		else
 			to = end_time.min
 		end
+
+
 		difm = (to - start_time.min).to_f * 0.6
 		tot = "#{difh}.#{difm}".to_f 
 		
