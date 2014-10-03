@@ -7,56 +7,31 @@ class Salary < ActiveRecord::Base
 
  def  self.generate_salary
   last_salary = Salary.last
-  date = Date.today.at_beginning_of_week.strftime("%Y-%m-2")
-  this_mounth = Date.today.at_beginning_of_week.strftime("%m")
-  this_year = Date.today.at_beginning_of_week.strftime("%Y")
+  date = Date.today.strftime("%Y-%m-2")
+  this_month = Date.today.month
+  this_year = Date.today.year
 
-  if last_salary == nil
-    
-    salaries = []
-    
-    p "=========="
-    p date
-    user = User.all
 
-    user.each do | u |
-     if u.salary_histories
+  salaries = [] # tamp for salaries
+
+  user = User.all # get all user
+
+
+  user.each do | u |
+    if u.role.name != "admin" && u.salary_histories
       total_attendance = Absent.where(:user_id => u, :categories => 1).count
       total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
-      total_overtime_hours = u.overtimes.sum(:long_overtime)
-      total_overtime_payment  = total_overtime_hours * u.overtime_pay
-      salary_history_id = u.salary_histories.where(activate: true).select("id").first.id
-
+      total_overtime_hours = u.overtimes.where("user_id = ? AND status = ? AND extract(month  from date) = ?", u.id, true, this_month).sum(:long_overtime)
+      total_overtime_payment  = u.overtimes.where("user_id = ? AND status = ? AND extract(month  from date) = ?", u.id, true, this_month).sum(:payment)
+      salary_history_id = u.salary_histories.activate.first.id
       salaries << {date: date, total_attendance: total_attendance, total_absence: total_absence,  total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, salary_history_id: salary_history_id }
 
     end
-    @salaries = Salary.create(salaries)
   end
-else
-  if last_salary.date.at_beginning_of_week.strftime("%m") != this_mounth ||  last_salary.date.at_beginning_of_week.strftime("%Y")
-    salaries = []
-    
-    p "=========="
-    p date
-    user = User.all
 
-    user.each do | u |
-      if u.salary_histories
-        total_attendance = Absent.where(:user_id => u, :categories => 1).count
-        total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
-        total_overtime_hours = u.overtimes.sum(:long_overtime)
-        total_overtime_payment  = total_overtime_hours * u.overtime_pay
-        salary_history_id = u.salary_histories.where(activate: true).select("id").first.id
-
-        salaries << {date: date, total_attendance: total_attendance, total_absence: total_absence,  total_overtime_hours: total_overtime_hours, total_overtime_payment: total_overtime_payment, salary_history_id: salary_history_id }
-
-      end
-      @salaries = Salary.new(salaries[0])
-      @salaries .save
-    end
+  if last_salary == nil || last_salary.date.month != this_month || last_salary.date.year != this_year
+    Salary.create(salaries)
   end
-end
-
 end
 
 end

@@ -1,39 +1,61 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_title do %>
+Gaji
+<% end%>
 
-<p>
-  <b>Date:</b>
-  <%= @salary.date.strftime("%d-%B-%Y") %>
-</p>
+<% content_for :content_sub_title do %>
+Detail Gaji
+<% end%>
 
-<p>
-  <b>User:</b>
-  <%= @salary.user_id %>
-</p>
+<% content_for :content_body do %>
+<div align="left">
+  <table>
+    <tr>
+      <td> <b> Tanggal </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.date.strftime("%d-%B-%Y") %> </td>
+    </tr>
+    <tr>
+      <td> <b> Nama </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= "#{@salary.salary_history.user.first_name} #{@salary.salary_history.user.last_name}" %> </td>
+    </tr>
+    <tr>
+      <td> <b> Kehadiran </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.total_attendance %> </td>
+    </tr>
+    <tr>
+      <td> <b> Absent </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.total_absence %> </td>
+    </tr>
+    <tr>
+      <td> <b> Total Jam Lembur </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.total_overtime_hours %> </td>
+    </tr>
+    <tr>
+      <td> <b> Gaji </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.salary_history.payment %> </td>
+    </tr>
+    <tr>
+      <td> <b> Biaya Lembur </b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.total_overtime_payment %> </td>
+    </tr>
+    <tr>
+      <td> <b> Total Gaji</b> </td>
+      <td> &nbsp; <b> :</b> &nbsp;  </td>
+      <td> <%= @salary.total_overtime_payment + @salary.salary_history.payment %> </td>
+    </tr>
 
-<p>
-  <b>Attendance:</b>
-  <%= @salary.attendance %>
-</p>
+  </table>
+</div>
+<% end%>
 
-<p>
-  <b>Number of absences:</b>
-  <%= @salary.number_of_absences %>
-</p>
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_salary_path(@salary) , :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', salaries_path, :class=>'btn btn-primary' %>
+<% end%>
 
-<p>
-  <b>Amount of overtime:</b>
-  <%= @salary.amount_of_overtime %>
-</p>
-
-<p>
-  <b>Salary:</b>
-  <%= @salary.salary %>
-</p>
-
-<p>
-  <b>Overtime pay:</b>
-  <%= @salary.overtime_pay %>
-</p>
-
-<%= link_to 'Edit', edit_salary_path(@salary) %> |
-<%= link_to 'Back', salaries_path %>
