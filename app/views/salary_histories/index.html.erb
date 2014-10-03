@@ -23,7 +23,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <th > Biaya Lembur Siang </th>
       <th > Biaya Lembur Malam </th>
       <th>Status</th>
-      <% if current_user.role_id == 2%>
+      <% if current_user.role.name == "admin"%>
       <th > Aksi </th>
       <% end %>
     </tr>
@@ -45,7 +45,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <% end %>
 
       <td><%= stat  %></td>
-      <% if current_user.role_id == 2%>
+      <% if current_user.role.name == "admin"%>
       <td>
         <%= link_to 'Lihat', salary_history_path(salary_history), :class=>'btn btn-info' %> 
         <%= link_to "Ubah".html_safe, edit_salary_history_path(salary_history, id: params[:id]), :class => "btn btn-warning" %>

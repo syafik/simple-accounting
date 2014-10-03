@@ -5,7 +5,7 @@
 		<i class="fa fa-angle-left pull-right"></i>
 	</a>
 	<ul class="treeview-menu">
-		<% if current_user.role_id == 2%>
+		<% if current_user.role.name == "admin"%>
 		<li> 
 			<%= link_to absent_permissions_path do %>
 			<i class="fa fa-angle-double-right"></i> Pengajuan Ijin dan Cuti

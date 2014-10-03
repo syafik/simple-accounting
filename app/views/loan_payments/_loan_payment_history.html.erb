@@ -11,7 +11,7 @@
     <th > Total Pembayaran </th>
     <th > Pesan </th>
     <th> Keterangan </th>
-    <% if current_user.role_id == 2 %>
+    <% if current_user.role.name == "admin" %>
     <th> Aksi </th>
     <% end %>
     
@@ -26,7 +26,7 @@
     <td> <%= number_to_currency( lph.total_payment, :unit => "Rp ") %> </td>
     <td> <%= lph.message %> </td> 
     <td> <%= lph.description %> </td> 
-    <% if current_user.role_id == 2 %>
+    <% if current_user.role.name == "admin" %>
     <th> 
       <%= link_to 'Setuju', set_approval_loan_payment_path(lph, decision: "approved"),   class: "btn btn-warning"%> 
       <a href="#myModal-<%= lph.id%>" data-attribute = "<%= lph.id%>" role="button" class="btn btn-danger" data-toggle="modal" id="reject_btn-<%= lph.id%>">Tidak Setuju</a>

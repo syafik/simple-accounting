@@ -84,8 +84,8 @@
     <%= f.text_field :account_name, :placeholder=> "Nama Akun Rek",  class: "form-control", required: true %>
   </div>
 
-  <%= current_user.role_id %>
-  <% if current_user.role_id == 2%>
+  
+  <% if current_user.role.name == "admin" %>
   <div class="form-group" style="width: 50%; text-align: left;" >
     <label>Maksimal Cuti</label>
     <%= f.number_field :max_furlough, :placeholder=> "Maksimal Cuti ",  value: 12, class: "form-control", required: true %>

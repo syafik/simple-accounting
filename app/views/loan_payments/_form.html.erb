@@ -18,7 +18,7 @@
 <div class="form-group" style="width: 50%">
   <label>Tanggal Pengajuan: </label>
   <%= Date.today.strftime("%d-%B-%Y") %>
-  <% if current_user.role_id == 2%>
+  <% if current_user.role.name == "admin" %>
   <%= f.hidden_field :approval_date, class: "form-control", value: Date.today %>
   <%else%>
   <%= f.hidden_field :submission_date, class: "form-control", value: Date.today %>
@@ -38,7 +38,7 @@
   <%= f.number_field :total_payment, class: "form-control" %>
 </div>
 <% status = nil%>
-<% if current_user.role_id == 2 %>
+<% if current_user.role.name == "admin" %>
 <div class="form-group" style="width: 50%">
   <label>Deskripsi:</label>
   <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>

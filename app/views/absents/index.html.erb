@@ -7,7 +7,7 @@ Daftar Hadir Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-<% if current_user.role_id == 2 %>
+<% if current_user.role.name == "admin" %>
 
 <table style="text-align: center; width: 100%; ">
 	<tr>
@@ -117,7 +117,7 @@ Daftar Hadir Karyawan
 <% end %>
 
 <% content_for :content_nav do %>
-<% if current_user.role_id == 2%>
+<% if current_user.role.name == "admin" %>
 <%= link_to 'Buat Data Ketidakhadiran', new_absent_path, :class=>'btn btn-primary' %>
 <% end%>
 <% end%>

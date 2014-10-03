@@ -40,14 +40,14 @@
       <td>
         <span class="pull-right">
 
-          <% if current_user.role_id == 2 && overtime.status == nil%>
+          <% if current_user.role.name == "admin"  && overtime.status == nil%>
           <%= link_to "<i class=\"icon-fire\"></i> Setuju".html_safe, set_approval_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
           <%= link_to "<i class=\"icon-fire\"></i> Tolak".html_safe, set_rejected_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
           <% end %>
           
           
 
-          <% if current_user.role_id == 2%>
+          <% if current_user.role.name == "admin" %>
           <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_overtime_path(overtime), :class => "btn btn-warning" %>
           <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, overtime, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
           <% end %>

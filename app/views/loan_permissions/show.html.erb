@@ -37,7 +37,7 @@ Detail Pengajuan Izin dan Cuti
 <% end%>
 
 <% content_for :content_nav do %>
-<% if current_user.role_id == 2 %>
+<% if current_user.role.name == 2 %>
 <%= link_to 'Kembali', loan_permissions_path, :class=>'btn btn-primary' %>
 <% else %>
 <%= link_to 'Kembali', new_loan_permission_path, :class=>'btn btn-primary' %>

@@ -59,7 +59,7 @@ Detail Kehadiran
 <% content_for :content_nav do %>
 
 <%= link_to 'Ubah', edit_absent_path(@absent), :class=>'btn btn-primary' %>
-<% if current_user.role_id == 2 %>
+<% if current_user.role.name == "admin" %>
 <%= link_to 'Kembali', absents_path, :class=>'btn btn-primary' %>
 <% end%>
 <% end%>

@@ -5,7 +5,7 @@
 		</a>
 	</li>
 	
-	<% if current_user.role_id == 2%>
+	<% if current_user.role.name == "admin" %>
 	<li> 
 		<%= link_to roles_path do %>
 		<i class="fa   fa-question"></i> Peran
@@ -35,7 +35,7 @@
 		<i class="fa  fa-credit-card"></i> Transaksi Tunjangan
 		<% end %>
 	</li>
-	<% if current_user.role_id == 2%>
+	<% if current_user.role.name == "admin"%>
 	<%= render partial: "layouts/setting_menus" %>
 	<% end %>
 </ul>

@@ -13,7 +13,7 @@
       <th>Total Jam Kerja</th>
       <th>Kategori</th>
       
-      <% if current_user.role_id == 2 %> 
+      <% if current_user.role.name == "admin" %> 
       <th>
         Action
       </th>
@@ -44,7 +44,7 @@
 
       
 
-      <% if current_user.role_id == 2 %> 
+      <% if current_user.role.name == "admin" %> 
       <td >
         <%= link_to 'Lihat', absent, :class=>'btn btn-info' %>
         <%= link_to 'Ubah', edit_absent_path(absent), :class=>'btn btn-warning' %>
