@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141003071049) do
+ActiveRecord::Schema.define(:version => 20141003073044) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -159,6 +159,9 @@ ActiveRecord::Schema.define(:version => 20141003071049) do
     t.datetime "updated_at",             :null => false
     t.float    "total_overtime_payment"
     t.integer  "salary_history_id"
+    t.float    "jamsostek"
+    t.float    "thp"
+    t.boolean  "transfered"
   end
 
   create_table "salary_histories", :force => true do |t|

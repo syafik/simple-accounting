@@ -18,7 +18,10 @@ Data Penggajian
     <tr>
       <th> Tanggal </th>
       <th>  Nama Karyawan </th>
-      <th> Total Gaji </th>
+      <td> Gaji Pokok </td>
+      <td> Biaya Lembur </td>
+      <td> Jam Sostek</td>
+      <th> THP </th>
       <th> Aksi </th>
     </tr>
   </thead>
@@ -26,11 +29,16 @@ Data Penggajian
     <% @salaries.each do |salary| %>
     <tr>
       <td><%= salary.date.strftime("%d-%B-%Y") %></td>
-      <td><%= "#{salary.try(:salary_history).try(:user).try(:first_name)} #{ salary.try(:salary_history).try(:user).try(:last_name)}" %></td>   
       <td>
-      <% sp = salary.salary_history.payment %>
-      <% tot = sp + salary.total_overtime_payment %>
-      <%= tot %>
+        <%= "#{salary.try(:salary_history).try(:user).try(:first_name)} #{ salary.try(:salary_history).try(:user).try(:last_name)}" %>
+      </td>   
+      <td><%= sp = salary.salary_history.payment %></td>
+      <td><%= tot = sp + salary.total_overtime_payment %></td>
+      <td></td>
+      <td>
+        
+        
+        <%= tot %>
       </td>
 
 

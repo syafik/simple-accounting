@@ -36,11 +36,6 @@
 		<% end %>
 	</li>
 	<% if current_user.role.name == "admin"%>
-	<li> 
-		<%= link_to salaries_path do %>
-		<i class="fa   fa-money"></i> Gaji
-		<% end %>
-	</li>
 	<%= render partial: "layouts/salary_menus" %>
 	<%= render partial: "layouts/setting_menus" %>
 	<% end %>
