@@ -1,13 +1,13 @@
 <li class="treeview">
 	<a href="#">
-		<i class="fa fa-dollar"></i>
+		<i class="fa fa-money"></i>
 		<span>Gaji</span>
 		<i class="fa fa-angle-left pull-right"></i>
 	</a>
 	<ul class="treeview-menu">
 		<li> 
-			<%= link_to salary_histories_path do %>
-			<i class="fa fa-angle-double-right"></i> Riwayat Penggajihan
+			<%= link_to salary_schedules_path do %>
+			<i class="fa fa-angle-double-right"></i> Jadwal Penggajihan
 			<% end %>
 		</li>
 		<li> 
@@ -15,6 +15,5 @@
 			<i class="fa fa-angle-double-right"></i> Penggajihan
 			<% end %>
 		</li>
-		<%= render partial: "layouts/overtime_payment_history_menus" %>
 	</ul>
 </li>

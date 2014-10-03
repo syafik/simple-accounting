@@ -1,0 +1,2 @@
+module SalarySchedulesHelper
+end

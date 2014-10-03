@@ -1,5 +1,7 @@
 SimpleAccounting::Application.routes.draw do
 
+  resources :salary_schedules
+
   resources :roles
   
   resources :absents

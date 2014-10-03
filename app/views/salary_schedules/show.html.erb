@@ -1,0 +1,24 @@
+<% content_for :content_title do %>
+Kehadiran
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Kehadiran
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+	<table>
+		<tr>
+			<td> <b> Tanggal </b> </td>
+			<td> <b> :</b> </td>
+			<td> <%= @salary_schedule.date %> </td>
+		</tr>
+	</table>
+</div>
+<% end%>
+
+<% content_for :content_nav do %>
+<%= link_to 'Ubah', edit_salary_schedule_path(@salary_schedule), :class=>'btn btn-primary' %>
+<%= link_to 'Kembali', salary_schedules_path, :class=>'btn btn-primary' %>
+<% end%>

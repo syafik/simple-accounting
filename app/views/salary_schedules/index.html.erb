@@ -1,0 +1,41 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+</style>
+
+<% content_for :content_title do %>
+Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Jadwal Penggajian
+<% end%>
+
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Tanggal</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @salary_schedules.each do |salary_schedule| %>
+    <tr>
+      <td><%= salary_schedule.date %></td>
+      <td>
+        <%= link_to 'Lihat', salary_schedule, :class=>'btn btn-info' %>
+        <%= link_to 'Ubah', edit_salary_schedule_path(salary_schedule)  , :class=>'btn btn-warning'%>
+        <%= link_to 'Hapus', salary_schedule, :class=>'btn btn-danger', confirm: 'Apa Anda Yakin?', method: :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<% content_for :content_nav do %>
+<%= link_to 'Buat Jadwal', new_salary_schedule_path, :class=>'btn btn-primary' %>
+<% end%>
+
