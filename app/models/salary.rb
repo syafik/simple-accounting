@@ -6,7 +6,7 @@ class Salary < ActiveRecord::Base
  validates  :date,   presence: true
 
  def  self.generate_salary
-  last_salary = Salary.last
+  
   date = Date.today.strftime("%Y-%m-2")
   this_month = Date.today.month
   this_year = Date.today.year
@@ -29,9 +29,9 @@ class Salary < ActiveRecord::Base
     end
   end
 
-  if last_salary == nil || last_salary.date.month != this_month || last_salary.date.year != this_year
+  
     Salary.create(salaries)
-  end
+  
 end
 
 end

@@ -41,9 +41,18 @@ class SalariesController < ApplicationController
   # POST /salaries
   # POST /salaries.json
   def create
-    if Date.today
-      Salary.generate_salary
+    last_salary = Salary.last
+
+    respond_to do |format|
+      if last_salary == nil || last_salary.date.month != Date.today.month || last_salary.date.year != Date.today.year
+        Salary.generate_salary
+        format.html { redirect_to salaries_path, notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
+      else
+        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Men-generate Gaji Untuk Bulan Ini" }}
+      end
     end
+    
+
   end
 
   # PUT /salaries/1
