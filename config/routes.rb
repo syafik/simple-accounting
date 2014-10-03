@@ -24,6 +24,10 @@ SimpleAccounting::Application.routes.draw do
   match "/salary_histories/:user_id/new" => "salary_histories#new",   :as => "new_salary_history",  :via => :get
   match "/settings/overtime" => "settings#overtime", :as => "overtime_setting", :via => :get
   match "/settings/overtime_create" => "settings#overtime_create", :as => "overtime_create", :via => :post
+
+  match "/settings/jamsostek" => "settings#jamsostek", :as => "jamsostek_setting", :via => :get
+  match "/settings/jamsostek_create" => "settings#jamsostek_create", :as => "jamsostek_create", :via => :post
+
   get '/salary_histories/:id/user', to: 'salary_histories#index', as: 'salary_histories_user'
 
 

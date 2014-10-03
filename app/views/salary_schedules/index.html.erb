@@ -25,7 +25,7 @@ Data Jadwal Penggajian
     <tr>
       <td><%= salary_schedule.date %></td>
       <td>
-        <%= link_to 'Lihat', salary_schedule, :class=>'btn btn-info' %>
+        <%= link_to 'Lihat', salaries_path(date: salary_schedule.date), :class=>'btn btn-info' %>
         <%= link_to 'Ubah', edit_salary_schedule_path(salary_schedule)  , :class=>'btn btn-warning'%>
         <%= link_to 'Hapus', salary_schedule, :class=>'btn btn-danger', confirm: 'Apa Anda Yakin?', method: :delete %>
       </td>

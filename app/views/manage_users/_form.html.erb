@@ -113,6 +113,12 @@
   </div>
   <% end %>
 
+  <div class="form-group" style="width: 50%; text-align: left;" >
+  <label>Jam Sostek:</label>
+    <%= f.select :allowed_jamsostek, options_for_select([['Ya', true],['Tidak', false]], @overtime),{},class: "form-control", required: true%>
+
+  </div>
+
 
   <% end%>
   <div class="form-group" style="width: 50%; text-align: left;" >

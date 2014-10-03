@@ -3,7 +3,12 @@ class SalariesController < ApplicationController
   # GET /salaries
   # GET /salaries.json
   def index
-    @salaries = Salary.all
+    if params[:date]
+      @salaries = Salary.where(date: params[:date])
+    else
+      @salaries = Salary.all
+    end
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,10 +46,15 @@ class SalariesController < ApplicationController
   # POST /salaries
   # POST /salaries.json
   def create
-    last_salary = Salary.last
+    date_salary = SalarySchedule.last
+    check_date_availabel = Salary.where(date: date_salary.date)
+
+    
+   
+    
 
     respond_to do |format|
-      if last_salary == nil || last_salary.date.month != Date.today.month || last_salary.date.year != Date.today.year
+      if date_salary.date == Date.today && check_date_availabel.blank?
         Salary.generate_salary
         format.html { redirect_to salaries_path, notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
       else

@@ -11,4 +11,13 @@ class SettingsController < ApplicationController
 		redirect_to overtime_setting_path
 	end
 
+	def jamsostek
+
+	end
+
+	def jamsostek_create
+		Setting[:jamsostek] = params[:jamsostek]
+		redirect_to jamsostek_setting_path
+	end
+
 end

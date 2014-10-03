@@ -1,5 +1,6 @@
 
 class SalarySchedulesController < ApplicationController
+  before_filter :check_date, :only => [:create, :update]
   # GET /salary_schedules
   # GET /salary_schedules.json
   def index
@@ -79,6 +80,14 @@ class SalarySchedulesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to salary_schedules_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def check_date
+
+    if  params[:salary_schedule][:date].is_a?(String)
+      params[:salary_schedule][:date] = DateTime.strptime(params[:salary_schedule][:date], "%m/%d/%Y").to_date
     end
   end
 end
