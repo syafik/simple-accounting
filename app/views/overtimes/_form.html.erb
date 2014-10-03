@@ -62,7 +62,7 @@ eror <%= @errors %>
 <% if current_user.role.name == "admin" %>
 <div class="form-group" style="width: 50%; text-align: left;" >
   <label>Status:</label>
-  <%= f.select :status, options_for_select([['Terima', true],['Tolak', false]], @overtime),{},class: "form-control", required: true%>
+  <%= f.select :status, options_for_select([['Terima', 1],['Tolak', 2]], @overtime),{},class: "form-control", required: true%>
 
 </div>
 <% end %>
