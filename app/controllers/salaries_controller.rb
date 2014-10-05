@@ -50,7 +50,7 @@ class SalariesController < ApplicationController
     check_date_availabel = Salary.where(date: date_salary.date)
 
     
-   
+
     
 
     respond_to do |format|
@@ -70,6 +70,13 @@ class SalariesController < ApplicationController
   def update
     @salary = Salary.find(params[:id])
 
+    jamsostek = 0
+    if @salary.salary_history.user.allowed_jamsostek == false
+      jamsostek = salary.salary_history.payment * (Setting[:jamsostek].to_f/100)
+    end
+
+    params[:salary][:thp] = params[:salary][:etc].to_f + @salary.salary_history.payment + @salary.total_overtime_payment + jamsostek
+
     respond_to do |format|
       if @salary.update_attributes(params[:salary])
         format.html { redirect_to @salary, notice: 'Salary was successfully updated.' }
@@ -81,8 +88,22 @@ class SalariesController < ApplicationController
     end
   end
 
-  # <div class="wrapeer-salary" id="nested-salary">
-  #  <%= f.fields_for :salary do |builder| %> <%= render "salary_fields", :f => builder %> <% end %> </div>
+  def transfered
+    @salary = Salary.find(params[:id])
+    @salary.update_attributes(transfered: true)
+    transaction = Transaction.new(date: Date.today, value: @salary.thp, is_debit: true, description: "terkirim")
+
+    
+
+    respond_to do |format|
+      if transaction.save!
+        format.html { redirect_to salaries_path, notice: 'Sudah Terkirim' }
+      else
+        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Men-generate Gaji Untuk Bulan Ini" }}
+      end
+    end
+  end
+
 
   # DELETE /salaries/1
   # DELETE /salaries/1.json

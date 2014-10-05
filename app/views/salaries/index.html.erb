@@ -36,27 +36,30 @@ Data Penggajian
       <td><%= sp = salary.salary_history.payment %></td>
       <td><%= salary.total_overtime_payment %></td>
       <td>
-      <% if salary.salary_history.user.allowed_jamsostek == true%>
-      <%= sp * (Setting[:jamsostek].to_f/100)%>
-      <% else %>
-      <%= salary.jamsostek%>
-      <% end %>
-      
+        <% if salary.salary_history.user.allowed_jamsostek == true%>
+        <%= sp * (Setting[:jamsostek].to_f/100)%>
+        <% else %>
+        <%= salary.jamsostek%>
+        <% end %>
+
       </td>
       <td><%= salary.etc rescue 0%></td>
 
       <td>
-        
-        
+
+
         <%= salary.thp %>
       </td>
 
 
       <td>
         <span class="pull-right">
+          <%= link_to "<i class=\"icon-fire\"></i> Tambah Biaya Lain Lain".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
           <%= link_to 'Lihat', salary, :class=>'btn btn-info' %>
-          <%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
           <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+          <% if salary.transfered == nil %>
+          <%= link_to "<i class=\"icon-fire\"></i> Transfer".html_safe, transfered_salary_path(salary), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?'%>
+          <% end %>
         </span>
       </td>
     </tr>

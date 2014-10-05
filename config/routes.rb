@@ -5,7 +5,7 @@ SimpleAccounting::Application.routes.draw do
   resources :roles
   
   resources :absents
-  resources :salaries
+  
   resources :manage_users
 
 
@@ -35,11 +35,11 @@ SimpleAccounting::Application.routes.draw do
     resources :allowance_sub_categories
   end
 
-  # resources :settings do
-  #   member do
-  #     post :overtime_create
-  #   end
-  # end
+  resources :salaries do
+    member do
+      get :transfered
+    end
+  end
 
   resources :allowance_claim_transactions do
     collection do
