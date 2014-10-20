@@ -1,87 +1,67 @@
-<% content_for :bottom_js do %>
-<script type="text/javascript" src="/assets/jquery.nyroModal.custom.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('.nyroModal').nyroModal();
-	});
-</script>
-<% end%>
-
 <% content_for :content_title do %>
-Tranasaksi
+  <Tran></Tran>Transaksi
 <% end%>
 
 <% content_for :content_sub_title do %>
-Rekap Transaksi
+  <% if flash[:alert] %>
+	<div class="alert alert-danger alert-dismissable">
+	  <i class="fa fa-ban"></i>
+	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	  <b><%= flash[:alert] %></b>
+	</div>
+  <% end %>
+
+  Rekap Transaksi
 <% end%>
 
-<% content_for :content_body do %>
-
-
-<div class="text-center">
-	<%= link_to '<< PREV', transactions_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-geckoboard btn btn-primary" %>
+<section class="content">
+  <div class="text-center">
+	<%= link_to 'Prev Month', transactions_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-info btn-small" %>
 	<%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
-	<%= link_to 'NEXT >>', transactions_path(:year => @next.year, :month => @next.month), :class => "btn btn-geckoboard btn btn-primary" %>
-</div>
+	<%= link_to 'Next Month', transactions_path(:year => @next.year, :month => @next.month), :class => "btn btn-info btn-small" %>
+  </div>
 
-<br />
+  <br />
 
-<table id="example2" class="table table-bordered table-hover">
+  <table class="table tablesorter table-hover">
 	<thead>
-		<tr>
-			<th >NO</th>
-			<th  >Date</th>
-			<th  width="300px">Description</th>
-			<th >Debit</th>
-			<th >Credit</th>
-			<th><span class="pull-right">Action</span></th>
-		</tr>
-	</thead>
-	<%  counter= 1 %>
-
-	<tbody>
-	<% @transactions.each do |transaction| %>
-	<% if transaction.is_debit %>
-	<tr class="success">
-		<%  else %>
-		<tr class="error">
-			<% end %>
-			<td><%= counter %></td>
-			<td><%= transaction.date.strftime("%d  %B %Y") %></td>
-			<td width="300px"><%= transaction.description %></td>
-			<td class="right"><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
-			<td class="right"><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
-			<td>
-				<span class="pull-right">
-					<%= link_to "<i class=\"icon-fire\"></i> Ubah".html_safe, edit_transaction_path(transaction), :class => "nyroModal btn btn-success" %>
-					<%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, transaction, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
-				</span>
-			</td>
-			<% counter += 1 # *counter = counter + 1%>
-		</tr>
-	</tr>
-
-	<% end %>
 	<tr>
-		<td></td>
-		<td></td>
-		<th  width="300px">Total : </th>
-		<td class="right"><span class="blue"><%= number_to_currency(@total_debit, unit: "Rp. ")%></span></td>
-		<td class="right"><span class="red"><%= number_to_currency(@total_credit, unit: "Rp. ") %></span></td>
-		<td colspan="2"></td>
-
+	  <th>NO</th>
+	  <th>Date</th>
+	  <th>Description</th>
+	  <th>Debit</th>
+	  <th>Credit</th>
+	  <th><span class="pull-right">Action</span></th>
 	</tr>
-	</tbody>
-</table>
+	</thead>
 
-<%= link_to "Debit", new_transaction_path, :class => "nyroModal btn btn-geckoboard1 btn btn-primary" %>
-<%= link_to 'CREDIT', new_credit_transactions_path, :class => "nyroModal btn btn-geckoboard1 btn btn-primary" %>
+	<% @transactions.each_with_index do |transaction, index| %>
+	  <tr class="<%= transaction.is_debit ? 'success' : 'error' %>">
+		<td><%= index + 1 %></td>
+		<td><%= transaction.date.strftime("%d  %B %Y") %></td>
+		<td><%= transaction.description %></td>
+		<td><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
+		<td><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
+		<td>
+		<span class="pull-right">
+		  <%= link_to '<small class="badge bg-green">Edit</small>'.html_safe, edit_transaction_path(transaction), remote: true %>
+		  <%= link_to '<small class="badge bg-red">delete</small>'.html_safe, transaction, confirm: 'Are you sure?', method: :delete %>
+		  <%= link_to '<small class="badge bg-yellow">updated</small>'.html_safe, transaction if transaction.created_at != transaction.updated_at %>
+		</span>
+		</td>
+	  </tr>
+	<% end %>
 
-<% end%>
+	<tr class="subtotal">
+	  <td colspan="3" style="text-align: right;">Total : </td>
+	  <td class="right"><span class="blue"><%= number_to_currency(@total_debit, unit: "Rp. ")%></span></td>
+	  <td class="right"><span class="red"><%= number_to_currency(@total_credit, unit: "Rp. ") %></span></td>
+	  <td colspan="2"></td>
+	</tr>
+  </table>
 
-<% content_for :content_nav do %>
+  <%= link_to "Debit", new_transaction_path(debit: true), class: "btn btn-primary", remote: true %>
+  <%= link_to "Credit", new_transaction_path, :class => "btn btn-primary", remote: true %>
 
-<% end%>
-
-
-
+  <div id="containerModal"></div>
+</section>

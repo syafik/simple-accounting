@@ -1,2 +1,0 @@
-module OvertimePaymentHistoriesHelper
-end

@@ -1,0 +1,4 @@
+$("#containerModal").html("<%= escape_javascript(render :partial => "/transactions/edit") %>");
+$('#transaction_date').datepicker({ format: 'dd/MM/yyyy' });
+$('#editTransactionModal').modal('show');
+$('#transaction_value').maskMoney({precision: 0});

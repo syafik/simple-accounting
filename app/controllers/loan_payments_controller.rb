@@ -1,4 +1,3 @@
-
 class LoanPaymentsController < ApplicationController
   before_filter :get_loan_detil, only: [:new, :edit]
   # GET /loan_payments

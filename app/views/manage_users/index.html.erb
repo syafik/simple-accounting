@@ -5,88 +5,61 @@
 </style>
 
 <% content_for :content_title do %>
-Karyawan
+  Karyawan
 <% end%>
 
 <% content_for :content_sub_title do %>
-Daftar Karyawan
+  Daftar Karyawan
 <% end%>
 
 <% content_for :content_body do %>
 
-<table id="example2" class="table table-bordered table-hover">
-  <tr>
-    <th> Nama </th>
-    <th> No. telepon </th>
-    <th> Email </th>
-    <th> Jabatan </th>
-    <th> Gaji </th>
+  <table id="example2" class="table table-bordered table-hover">
+	<tr>
+	  <th> Nama </th>
+	  <th> No. telepon </th>
+	  <th> Email </th>
+	  <th> Jabatan </th>
+	  <th> No Rek </th>
+	  <th> Aksi </th>
+	</tr>
 
-    <th> No Rek </th>
-    <th> Aksi </th>
-    
-  </tr>
+	<% @manage_users.each do |manage_user| %>
+	<tr>
+	  <td>
+		<%= link_to "#{manage_user.first_name} #{manage_user.last_name} ".titleize, manage_user_path(manage_user), class: 'btn btn-primary btn-sm' %>
+	  </td>
+	  <td><%= manage_user.telephone %></td>
+	  <td><%= manage_user.email %></td>
+	  <td><%= manage_user.position %></td>
+	  <td align="left">
+		<p> No Rekening: <%= manage_user.account_number %></p>
+		<p> Nama Bank: <%= manage_user.bank_name %></p>
+		<p> Cabang: <%= manage_user.account_branch_name %></p>
+		<p> Nama Akun: <%= manage_user.account_name %></p>
+	  </td>
+	  <td>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-info btn-flat">Action</button>
+		  <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+			<li><%= link_to 'Riwayat Gaji', salary_histories_user_path(manage_user.id) %></li>
+			<li><%= link_to 'Ubah', edit_manage_user_path(manage_user) %></li>
+			<li><%= link_to 'Hapus', manage_user_path(manage_user), confirm: 'Are you sure?', method: :delete %></li>
+		  </ul>
+		</div>
 
-  <% @manage_users.each do |manage_user| %>
-  <tr>
-    <td><%= "#{manage_user.first_name} #{manage_user.last_name} ".downcase.titleize%></td>
-    <td><%= manage_user.telephone %></td>
-    <td><%= manage_user.email %></td>
-    <td><%= manage_user.position %></td>
-    <td align="left">
-      <p>Gaji Aktif :</p>
-      <p>
-        <%= number_to_currency( manage_user.salary_histories.activate.first.payment, :unit => "Rp ") rescue 0 %>
-      </p>
-      <p>Lembur Siang :</p>
-      <p>
-        <%= number_to_currency( manage_user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ") rescue 0 %>
-      </p>
-      <p>Lembur Malam :</p>
-      <p>
-        <%= number_to_currency( manage_user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ") rescue 0%>
-      </p>
-    </td>
-    <td align="left">
-      <p> No Rekening :</p>
-      <p>
-        <%= manage_user.account_number %>
-      </p>
-
-      <p> Nama Bank :</p>
-      <p>
-        <%= manage_user.bank_name %>
-      </p>
-
-      <p> Cabang :</p>
-      <p>
-        <%= manage_user.account_branch_name %>
-      </p>
-
-      <p> Nama Akun :</p>
-      <p>
-        <%= manage_user.account_name %>
-      </p>
-      
-    </td>
-
-
-    <td>
-      <%= link_to 'Lihat', manage_user_path(manage_user), :class=>'btn btn-info' %>  <br/>
-      <%= link_to 'Lihat Riwayat Gaji', salary_histories_user_path(manage_user.id), :class=>'btn btn-success' %>  <br/>
-      <%= link_to 'Ubah', edit_manage_user_path(manage_user), :class=>'btn btn-warning' %>  <br/>
-      <%= link_to 'Hapus', manage_user_path(manage_user), :class=>'btn btn-danger', confirm: 'Are you sure?', method: :delete %><br/>
-    </td>
-
-  </tr>
-  <% end %>
-</table>
+	  </td>
+	</tr>
+	<% end %>
+  </table>
 <% end%>
 
-
-
 <% content_for :content_nav do %>
-<%= link_to 'Buat User', new_manage_user_path, :class=>'btn btn-primary'%>
+  <%= link_to 'Buat User', new_manage_user_path, :class=>'btn btn-primary'%>
 <% end%>
 
 

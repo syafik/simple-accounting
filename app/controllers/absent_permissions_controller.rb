@@ -5,11 +5,8 @@ class AbsentPermissionsController < ApplicationController
   # GET /absent_permissions.json
   def index
     if current_user.role_id == 2
-        @absent_permissions = AbsentPermission.admin_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
-        
-
-        
-      end
+      @absent_permissions = AbsentPermission.admin_search(params[:search],current_user)#.paginate(:page => params[:page], :per_page => 1)
+    end
       # @absent_permissions = AbsentPermission.all
 
       respond_to do |format|
@@ -112,12 +109,8 @@ class AbsentPermissionsController < ApplicationController
   end
 
   def set_approval
-    p "masuk approval"
-    p params
     @absent_permission = AbsentPermission.find(params[:id])
-    #cek status
     decision = params[:decision]
-    p decision
 
     if decision == "rejected"
       @absent_permission.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
@@ -127,21 +120,12 @@ class AbsentPermissionsController < ApplicationController
       else
         end_date = @absent_permission.start_date + @absent_permission.long.days rescue nil
       end
-      p "======"
-      p "masuk"
       @absent_permission.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today, :end_date => end_date )
     end
-
-
-    
   end
 
   def set_taken
-    p "======="
-    p params
     @absent_permission = AbsentPermission.find(params[:id])
-    p "======="
-    p @absent_permission
     @absent_permission.update_attributes(:status=>3)
     @absent_permission.save_to_absent
   end
@@ -153,11 +137,7 @@ class AbsentPermissionsController < ApplicationController
 
   private
 
-  
-
   def get_history
     @get_absent_permissions = AbsentPermission.user_search(params[:search],current_user)
-    p @get_absent_permissions
-
   end
 end

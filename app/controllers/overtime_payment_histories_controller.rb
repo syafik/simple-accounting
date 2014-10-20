@@ -27,9 +27,6 @@ class OvertimePaymentHistoriesController < ApplicationController
 	  def create
 	  	params[:overtime_payment_history][:applicable_date] = DateTime.strptime(params[:overtime_payment_history][:applicable_date], "%m/%d/%Y").to_date
 	  	@oph = OvertimePaymentHistory.new(params[:overtime_payment_history])
-	  	p "================="
-	  	p params
-	  	p @oph
 
 	  	respond_to do |format|
 	  		if @oph.save

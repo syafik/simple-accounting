@@ -8,12 +8,6 @@ SimpleAccounting::Application.routes.draw do
   
   resources :manage_users
 
-
-  
-  
-
-
-
   # get "allowance_sub_categories/index"
 
   # get "allowances/index"
@@ -98,11 +92,15 @@ SimpleAccounting::Application.routes.draw do
   resources :allowance_sub_categories
   devise_for :users, controllers: {sessions: :sessions}
 
-  resources :transactions, :reports do
+  resources :transactions do
     collection do
       post :credit
-      get :new_credit
       get :edit_transaction
+    end
+  end
+
+  resources :reports do
+    collection do
       get :reporting
     end
   end

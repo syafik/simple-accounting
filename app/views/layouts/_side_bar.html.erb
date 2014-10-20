@@ -1,48 +1,41 @@
 <ul class="sidebar-menu">
-	<li class="active">
-		<a href="index.html">
-			<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-		</a>
+  <li class="active">
+	<a href="/">
+	  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+	</a>
+  </li>
+
+  <% if current_user.role.name == "admin" %>
+	<li>
+	  <%= link_to '<i class="fa fa-bar-chart-o"></i> Accounting'.html_safe, transactions_path %>
 	</li>
-	
-	<% if current_user.role.name == "admin" %>
-	<li> 
-		<%= link_to roles_path do %>
-		<i class="fa   fa-question"></i> Peran
-		<% end %>
+	<li>
+	  <%= link_to '<i class="fa fa-table"></i> Reports'.html_safe, reports_path %>
+	</li>
+	<li>
+	  <%= link_to '<i class="fa fa-question"></i> Peran'.html_safe, roles_path %>
 	</li>
 
 	<%= render partial: "layouts/manage_user_menus" %>
 	<%= render partial: "layouts/allowance_menus" %>
-	
-	<% else %>
-	
-	<li> 
-		<%= link_to manage_user_path(current_user.id) do %>
-		<i class="glyphicon glyphicon-user"></i> Profile
-		<% end %>
-	</li>
-	<% end %>
-	<%= render partial: "layouts/absent_menus" %>
-	
-	
-	<%= render partial: "layouts/submission_menus" %>
-	
-	
+  <% else %>
 
-	<li> 
-		<%= link_to new_allowance_claim_transaction_path do %>
-		<i class="fa  fa-credit-card"></i> Transaksi Tunjangan
-		<% end %>
+	<li>
+	  <%= link_to '<i class="glyphicon glyphicon-user"></i> Profile'.html_safe, manage_user_path(current_user.id) %>
 	</li>
-	<% if current_user.role.name == "admin"%>
-	<li> 
-		<%= link_to salary_schedules_path do %>
-		<i class="fa  fa-money"></i> Gaji
-		<% end %>
-	</li>
-	
+  <% end %>
 
+  <%= render partial: "layouts/absent_menus" %>
+  <%= render partial: "layouts/submission_menus" %>
+
+  <li>
+	<%= link_to '<i class="fa fa-credit-card"></i> Transaksi Tunjangan'.html_safe, new_allowance_claim_transaction_path %>
+  </li>
+
+  <% if current_user.role.name == "admin"%>
+	<li>
+	  <%= link_to '<i class="fa  fa-money"></i> Gaji'.html_safe, salary_schedules_path %>
+	</li>
 	<%= render partial: "layouts/setting_menus" %>
-	<% end %>
+  <% end %>
 </ul>

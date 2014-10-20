@@ -1,4 +1,3 @@
-
 class ManageUsersController < ApplicationController
 
   before_filter :get_roles,  :only => [:new, :create, :update, :edit] 
@@ -16,14 +15,6 @@ class ManageUsersController < ApplicationController
   @manage_user.password = "12345678"
   respond_to do |format|
     if @manage_user.save(validated: false)
-      p '======'
-      p @manage_user.password
-
-        # @manage_user.salary_histories.create(:payment => params[:salary], :date => Date.today, :activate=>true)
-        # UserMailer.send_accsess_new_user(@manage_user).deliver
-
-
-
         format.html { redirect_to manage_user_url(@manage_user) , notice: 'User was successfully created.' }
         format.json { render json: @new_manage_user , status: :created, location: @manage_user  }
       else
@@ -34,11 +25,7 @@ class ManageUsersController < ApplicationController
   end
 
   def update
-    p "="*100
-    p params
-    # xxx
     @manage_user = User.find(params[:id])
-    
 
     respond_to do |format|
       if @manage_user.update_attributes(params[:user])
@@ -77,13 +64,6 @@ class ManageUsersController < ApplicationController
   def destroy
     @manage_user = User.find(params[:id])
     @manage_user.destroy
-
-    # respond_to do |format|
-    #   format.html { redirect_to format }
-    #   manage_users_url.json { head :no_content }
-    #   format.json { render json: @manage_users }
-    # end
-
 
     respond_to do |format|
       format.html { redirect_to manage_users_url }

@@ -53,8 +53,6 @@ class AllowanceCategoriesController < ApplicationController
          format.html { redirect_to @allowance_category}
        else
          format.html { render :new }
-
-
        end
      end
 

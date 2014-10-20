@@ -1,4 +1,3 @@
-
 class AbsentsController < ApplicationController
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   before_filter :get_absent, :only => [:index, :set_attend]
@@ -71,11 +70,8 @@ class AbsentsController < ApplicationController
     @absent = Absent.find(params[:id])
 
     if params[:absent][:time_in] && params[:absent][:time_out]
-      p "masuuuuuuk"
       params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
-      p params[:absent][:time_in]
       params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
-      p params[:absent][:time_out]
       params[:absent][:total_work_time] =Absent.get_total_work_time(Time.parse(params[:absent][:time_in]), Time.parse(params[:absent][:time_out]) )
     end
 
@@ -112,14 +108,7 @@ class AbsentsController < ApplicationController
     else
       # still bug because time.now.min => using 24 but from databas using am pm
       total_work_time = Absent.get_total_work_time(@check_absent.time_in, Time.parse(Time.current.strftime("%H:%M:%S")))
-
-      
-
-
       if @check_absent.update_attributes(time_out: Time.current.strftime("%H:%M:%S"), total_work_time: total_work_time)
-        p "="*99
-        p @check_absent
-
         redirect_to absents_path
       else
         redirect_to absents_path
@@ -139,7 +128,6 @@ class AbsentsController < ApplicationController
   end
 
   def check_date
-
     if  params[:absent][:date].is_a?(String)
       params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
     end

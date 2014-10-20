@@ -1,4 +1,3 @@
-
 class AllowanceSubCategoriesController < ApplicationController
   before_filter :get_allowance_categories,  :except => [:index, :show, :destroy] 
   def new
@@ -42,24 +41,11 @@ class AllowanceSubCategoriesController < ApplicationController
     @allowance_category = AllowanceCategory.find(params[:allowance_category_id])
     @allowance_sub_category =  @allowance_category.allowance_sub_categories.find(params[:id])
     @allowance_sub_category.destroy
-    #redirect_to allowance_categories_path(@allowance_category)
-
-    #@allowance_sub_category = AllowanceSubCategory.find(params[:id])
-    #@allowance_sub_category.destroy
-    #redirect_to allowance_sub_categories_path
-
-    # article = Article.find(params[:article_id])
-    # @comment = article.comments.find(params[:id])
-    # @comment.destroy
   end
 
   private
-    def get_allowance_categories
-      @allowance_categories = AllowanceCategory.all.map { |allowance_category| [allowance_category.name, allowance_category.id] }
-      
-    end
-
-    
-
+  def get_allowance_categories
+    @allowance_categories = AllowanceCategory.all.map { |allowance_category| [allowance_category.name, allowance_category.id] }
+  end
 
 end

@@ -1,4 +1,3 @@
-
 class LoanPermissionsController < ApplicationController
   before_filter :get_history,  :only => [:new, :create] 
 

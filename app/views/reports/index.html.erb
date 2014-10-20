@@ -1,3 +1,59 @@
+<% content_for :content_title do %>
+  <Tran></Tran>Reports
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Rekap Report
+<% end%>
+
+<section class="content">
+  <div class="row">
+	<section class="col-md-12 connectedSortable ui-sortable">
+	  <div class="nav-tabs-custom" style="cursor: move;">
+		<!-- Tabs within a box -->
+		<ul class="nav nav-tabs pull-right">
+		  <li class="active"><a href="#revenue-chart" data-toggle="tab">Money</a></li>
+		  <li class="pull-left header"><i class="fa fa-inbox"></i> Money</li>
+		</ul>
+		<div class="tab-content no-padding">
+		  <!-- Morris chart - Sales -->
+		  <div id="myfirstchart" style="height: 250px;"></div>
+		</div>
+	  </div>
+	</section>
+  </div>
+</section>
+
+<%= content_for :bottom_js do %>
+  <script type="text/javascript">
+	new Morris.Line({
+	  // ID of the element in which to draw the chart.
+	  element: 'myfirstchart',
+	  // Chart data records -- each entry in this array corresponds to a point on
+	  // the chart.
+	  data: [
+		{ year: '1', value: 20, value2: 9},
+		{ year: '2', value: 20, value2: 9},
+		{ year: '3', value: 20, value2: 9},
+		{ year: '4', value: 20, value2: 9},
+		{ year: '5', value: 20, value2: 9},
+		{ year: '6', value: 20, value2: 9},
+		{ year: '7', value: 20, value2: 9},
+		{ year: '8', value: 20, value2: 9},
+	  ],
+	  // The name of the data record attribute that contains x-values.
+	  xkey: 'year',
+	  // A list of names of data record attributes that contain y-values.
+	  ykeys: ['value', 'value2'],
+	  // Labels for the ykeys -- will be displayed when you hover over the
+	  // chart.
+	  labels: ['Value', 'value2']
+	});
+
+  </script>
+<% end %>
+
+---------
 <script type="text/javascript" src="/assets/xcharts.js"></script>
 <script type="text/javascript" src="/assets/d3.min.js"></script>
 <script type="text/javascript" src="/assets/jquery.formatCurrency-1.4.0.min.js"></script>
@@ -38,52 +94,10 @@
 </div>
 <div class="clearfix"></div>
 
+<h3 class="text-center"> Report: <%#= @date %> - <%#=  params[:date][:grad_year] %> </h3>
+<figure id="myChart"></figure>
 
-<% if @is_report %>
-  <h3 class="text-center"> Report: <%= @date %> - <%=  params[:date][:grad_year] %> </h3>
-  <figure id="myChart"></figure>
-
-  <table>
-  </table>
-
-  <script type="text/javascript">
-	$(document).ready(function(){
-	  var data = {
-		  "main": [
-			{
-			  //"label": "Foo",
-			  "data": [ {
-				"x": "pendapatan",
-				"y": <%= @transactions.debits.sum(:value) %>
-			  },
-			  {
-				"x": "Pengeularan",
-				"y": <%= @transactions.credits.sum(:value) %>
-			  }]
-			}
-		  ],
-		  "xScale": "ordinal",
-		  "yScale": "linear"
-		}
-	  chart = new xChart('bar', data, '#myChart');
-
-	  <% if params[:date] and params[:date][:month] %>
-	  $("#date_month").val("<%=  params[:date][:month] %>");
-	  <% end %>
-
-	  <% if params[:date] and params[:date][:grad_year] %>
-		$("#date_grad_year").val("<%=  params[:date][:grad_year] %>");
-		$("g[transform='translate(60,0)']").attr("transform", "translate(100,0)");
-	  <% end %>
-
-	  setTimeout(function () {
-		$(".axisY .tick.major text").each(function( index ) {
-		  $(this).formatCurrency({ symbol: "Rp." });
-		});
-	  }, 2500);
-	});
-
-  </script>
-<% end %>
+<table>
+</table>
 
     

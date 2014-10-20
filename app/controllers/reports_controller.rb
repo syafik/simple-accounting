@@ -18,7 +18,6 @@ class ReportsController < ApplicationController
 
   def reporting
     @transactions = Transaction.where("extract(year  from date) = ? AND extract(month from date) = ?", "#{params[:date][:grad_year]}", "#{params[:date][:month]}")
-    @is_report = true
     @date = Date::MONTHNAMES[params[:date][:month].to_i]
     @total_debit = @transactions.debits.sum(:value)
     @total_credit = @transactions.credits.sum(:value)

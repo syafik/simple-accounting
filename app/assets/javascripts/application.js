@@ -24,20 +24,12 @@
 //= require bootstrap-datepicker
 //= require bootstrap3-wysihtml5.all.min
 //= require icheck.min
+//= require jquery.maskMoney.js
 //= require AdminLTE/app
 
-
-
-
-
-
 function remove_fields(link) {
-// console.log("test : ", $(link))
- //  $(link).previous("input[type=hidden]").value = "1";
- //  $(link).up(".fields").hide();
  $(link).parent().remove()
 }
-
 
 function add_fields2() {
   x =$("#nested-sub-category table").size()

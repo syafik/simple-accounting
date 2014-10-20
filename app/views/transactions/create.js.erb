@@ -1,0 +1,8 @@
+<% if @is_saved %>
+  $('#transactionModal').modal('hide');
+  $("p.error-messages").hide();
+  window.location.reload()
+<% else %>
+  $("p.error-messages").html("<%= @error_msg.split(", ") %>");
+  $("p.error-messages").show();
+<% end %>
