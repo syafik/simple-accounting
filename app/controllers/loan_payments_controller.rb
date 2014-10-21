@@ -1,4 +1,6 @@
 class LoanPaymentsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :get_loan_detil, only: [:new, :edit]
   # GET /loan_payments
   # GET /loan_payments.json

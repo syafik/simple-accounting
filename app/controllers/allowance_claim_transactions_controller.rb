@@ -1,5 +1,6 @@
-
 class AllowanceClaimTransactionsController < ApplicationController
+  load_and_authorize_resource
+
 	before_filter :get_allowance_detil
   before_filter :get_history,  :only => [:new, :create] 
   before_filter :get_sub_category, :only => [:index, :new]

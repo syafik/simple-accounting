@@ -1,4 +1,6 @@
 class AllowancesController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :get_allowance_sub_categories_user,  :except => [:show, :destroy, :find_sub_categories] 
 
   def new

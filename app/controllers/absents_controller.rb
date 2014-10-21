@@ -99,9 +99,10 @@ class AbsentsController < ApplicationController
   end
 
   def set_attend
+    p '= set_attend' * 66
+    p params
     if @check_absent.blank?
-      absent =Absent.create(user_id: current_user.id, time_in: Time.current.strftime("%H:%M:%S"), date: Time.current.to_date, categories: 1)
-      # absent.time_in = Time.now.strftime("%I:%M:%S")
+      absent = Absent.create(user_id: current_user.id, time_in: Time.current.strftime("%H:%M:%S"), date: Time.current.to_date, categories: 1)
       if absent.save!
         redirect_to absents_path
       end
@@ -128,7 +129,7 @@ class AbsentsController < ApplicationController
   end
 
   def check_date
-    if  params[:absent][:date].is_a?(String)
+    if params[:absent][:date].is_a?(String)
       params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
     end
   end

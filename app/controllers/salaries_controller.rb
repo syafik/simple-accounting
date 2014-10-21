@@ -1,5 +1,6 @@
-
 class SalariesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /salaries
   # GET /salaries.json
   def index

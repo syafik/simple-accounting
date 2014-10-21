@@ -1,6 +1,7 @@
 class LoanPermissionsController < ApplicationController
-  before_filter :get_history,  :only => [:new, :create] 
+  load_and_authorize_resource
 
+  before_filter :get_history,  :only => [:new, :create] 
 
   # GET /loan_permissions
   # GET /loan_permissions.json

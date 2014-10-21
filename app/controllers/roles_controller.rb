@@ -1,4 +1,3 @@
-
 class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json

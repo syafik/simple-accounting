@@ -1,22 +1,22 @@
 class ManageUsersController < ApplicationController
+  load_and_authorize_resource :class => "User"
 
   before_filter :get_roles,  :only => [:new, :create, :update, :edit] 
 
   def new
-   @manage_user = User.new
-   @manage_user.salary_histories.build
-   @manage_user.overtime_payment_histories.build
+   @user = User.new
+   @user.salary_histories.build
+   @user.overtime_payment_histories.build
  end
 
  def create
 
-  @manage_user = User.new(params[:user])
-
-  @manage_user.password = "12345678"
+  @user = User.new(params[:user])
+  @user.password = "12345678"
   respond_to do |format|
-    if @manage_user.save(validated: false)
-        format.html { redirect_to manage_user_url(@manage_user) , notice: 'User was successfully created.' }
-        format.json { render json: @new_manage_user , status: :created, location: @manage_user  }
+    if @user.save(validated: false)
+        format.html { redirect_to manage_user_url(@user) , notice: 'User was successfully created.' }
+        format.json { render json: @new_manage_user , status: :created, location: @user  }
       else
         format.html { render action: "new" }
         format.json { render json: @new_manage_user .errors, status: :unprocessable_entity }
@@ -25,45 +25,45 @@ class ManageUsersController < ApplicationController
   end
 
   def update
-    @manage_user = User.find(params[:id])
+    @user = User.find(params[:id])
 
     respond_to do |format|
-      if @manage_user.update_attributes(params[:user])
-        format.html { redirect_to manage_user_url(@manage_user), notice: 'User was successfully updated.' }
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to manage_user_url(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @manage_user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def edit
-    @manage_user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
 
   def index
-    @manage_users = User.all
+    @users = User.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @manage_users  }
+      format.json { render json: @users  }
     end
   end
 
   def show
-    @manage_user =User.find(params[:id])
+    @user =User.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @manage_user }
+      format.json { render json: @user }
     end
   end
 
   def destroy
-    @manage_user = User.find(params[:id])
-    @manage_user.destroy
+    @user = User.find(params[:id])
+    @user.destroy
 
     respond_to do |format|
       format.html { redirect_to manage_users_url }

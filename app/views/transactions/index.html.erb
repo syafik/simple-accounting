@@ -15,6 +15,7 @@
 <% end%>
 
 <section class="content">
+
   <div class="text-center">
 	<%= link_to 'Prev Month', transactions_path(:year => @prev.year, :month => @prev.month ), :class => "btn btn-info btn-small" %>
 	<%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
@@ -23,42 +24,70 @@
 
   <br />
 
-  <table class="table tablesorter table-hover">
-	<thead>
-	<tr>
-	  <th>NO</th>
-	  <th>Date</th>
-	  <th>Description</th>
-	  <th>Debit</th>
-	  <th>Credit</th>
-	  <th><span class="pull-right">Action</span></th>
-	</tr>
-	</thead>
+  <div class="box">
+	<div class="box-body no-padding">
+	  <table class="table table-striped">
+		<tbody><tr>
+		  <th style="width: 10px">#</th>
+		  <th>Date</th>
+		  <th>Description</th>
+		  <th>Debit</th>
+		  <th>Credit</th>
+		  <th><span class="pull-right">Action</span></th>
+		</tr>
+		<% @transactions.each_with_index do |transaction, index| %>
+		  <tr class="<%= transaction.is_debit ? 'success' : 'error' %>">
+			<td><%= index + 1 %></td>
+			<td><%= transaction.date.strftime("%d  %B %Y") %></td>
+			<td><%= transaction.description %></td>
+			<td><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
+			<td><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
+			<td>
+			  <span class="pull-right">
+				<%= link_to '<small class="badge bg-green">Edit</small>'.html_safe, edit_transaction_path(transaction), remote: true %>
+				<%= link_to '<small class="badge bg-red">delete</small>'.html_safe, transaction, confirm: 'Are you sure?', method: :delete %>
+			  </span>
+			</td>
+		  </tr>
+		<% end %>
+		</tbody></table>
+	</div>
+  </div>
 
-	<% @transactions.each_with_index do |transaction, index| %>
-	  <tr class="<%= transaction.is_debit ? 'success' : 'error' %>">
-		<td><%= index + 1 %></td>
-		<td><%= transaction.date.strftime("%d  %B %Y") %></td>
-		<td><%= transaction.description %></td>
-		<td><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
-		<td><%= number_to_currency(transaction.value,unit: "Rp. ") if !transaction.is_debit %></td>
-		<td>
-		<span class="pull-right">
-		  <%= link_to '<small class="badge bg-green">Edit</small>'.html_safe, edit_transaction_path(transaction), remote: true %>
-		  <%= link_to '<small class="badge bg-red">delete</small>'.html_safe, transaction, confirm: 'Are you sure?', method: :delete %>
-		  <%= link_to '<small class="badge bg-yellow">updated</small>'.html_safe, transaction if transaction.created_at != transaction.updated_at %>
-		</span>
-		</td>
-	  </tr>
-	<% end %>
+  <div class="row">
+	<div class="col-md-4">
+	  <div class="box box-solid box-danger">
+		<div class="box-header">
+		  <h3 class="box-title">Credit:</h3>
+		</div>
+		<div class="box-body">
+		  <h4><%= number_to_currency(@total_credit, unit: "Rp. ")%> </h4>
+		</div>
+	  </div>
+	</div>
 
-	<tr class="subtotal">
-	  <td colspan="3" style="text-align: right;">Total : </td>
-	  <td class="right"><span class="blue"><%= number_to_currency(@total_debit, unit: "Rp. ")%></span></td>
-	  <td class="right"><span class="red"><%= number_to_currency(@total_credit, unit: "Rp. ") %></span></td>
-	  <td colspan="2"></td>
-	</tr>
-  </table>
+	<div class="col-md-4">
+	  <div class="box box-solid box-success">
+		<div class="box-header">
+		  <h3 class="box-title">Debit:</h3>
+		</div>
+		<div class="box-body">
+		  <h4><%= number_to_currency(@total_debit, unit: "Rp. ")%> </h4>
+		</div>
+	  </div>
+	</div>
+
+	<div class="col-md-4">
+	  <div class="box box-solid box-info">
+		<div class="box-header">
+		  <h3 class="box-title">Selisih:</h3>
+		</div>
+		<div class="box-body">
+		  <h4><%= number_to_currency(@total_debit - @total_credit, unit: "Rp. ")%> </h4>
+		</div><!-- /.box-body -->
+	  </div><!-- /.box -->
+	</div><!-- /.col -->
+  </div>
 
   <%= link_to "Debit", new_transaction_path(debit: true), class: "btn btn-primary", remote: true %>
   <%= link_to "Credit", new_transaction_path, :class => "btn btn-primary", remote: true %>

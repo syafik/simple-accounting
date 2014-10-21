@@ -27,18 +27,16 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
   validates :telephone, presence: true, numericality: { only_integer: true }
-  validates :address, presence: true
-  # validates :gender, presence: true
-  validates :role_id, presence: true
-  validates :first_name, presence: true
-  # validates :last_name, presence: true
-  validates :birth_date, presence: true
-  validates :position, presence: true
+  validates :address, :role_id, :first_name, :birth_date, :position, :bank_name, :account_branch_name, :account_name, presence: true
   validates :account_number, presence: true, numericality: { only_integer: true }
-  validates :bank_name, presence: true
-  validates :account_branch_name, presence: true
-  validates :account_name, presence: true
 
+  def is_admin?
+    self.role.name == "admin"
+  end
+
+  def is_user?
+    self.role.name == "user"
+  end
 
   def get_all_sub_category
     allowances.select("allowance_sub_category_id").map{|a| [a.allowance_sub_category.try(:name), a.try(:id)]}

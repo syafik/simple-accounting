@@ -1,4 +1,5 @@
 class AllowanceCategoriesController < ApplicationController
+  load_and_authorize_resource
   # GET /allowance_categories
   # GET /allowance_categories.json
   def index
@@ -91,7 +92,6 @@ class AllowanceCategoriesController < ApplicationController
     @allowance_sub_category = @allowance_category.allowance_sub_category
     respond_to do |format|
       format.js 
-
     end
   end
 end

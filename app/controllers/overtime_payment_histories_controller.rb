@@ -1,6 +1,8 @@
-
 class OvertimePaymentHistoriesController < ApplicationController
+  load_and_authorize_resource
+
 	before_filter :get_user, :only => [:new, :create, :edit, :update]
+
 	def index
 		@oph = OvertimePaymentHistory.order("applicable_date asc")
 	end

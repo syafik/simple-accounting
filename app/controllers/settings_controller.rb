@@ -1,7 +1,7 @@
-
 class SettingsController < ApplicationController
-	def overtime
+  load_and_authorize_resource
 
+	def overtime
 	end
 
 	def overtime_create
@@ -12,7 +12,6 @@ class SettingsController < ApplicationController
 	end
 
 	def jamsostek
-
 	end
 
 	def jamsostek_create

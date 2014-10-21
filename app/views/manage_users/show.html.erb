@@ -13,22 +13,22 @@ Detail Karyawan
     <tr>
       <td> <b> Email </b> </td>
       <td> <b> :</b> </td>
-      <td><%= @manage_user.email %> </td>
+      <td><%= @user.email %> </td>
     </tr>
     <tr>
       <td> <b>Nama Karyawan </b> </td>
       <td> <b> :</b> </td>
-      <td><%= "#{@manage_user.first_name} #{@manage_user.last_name} "%> </td>
+      <td><%= "#{@user.first_name} #{@user.last_name} "%> </td>
     </tr>
     <tr>
       <td> <b> Tanggal Lahir </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.birth_date.strftime("%d-%B-%Y") %></td>
+      <td> <%= @user.birth_date.strftime("%d-%B-%Y") %></td>
     </tr>
     <tr>
       <td> <b> Jenis Kelamin </b> </td>
       <td> <b> :</b> </td>
-      <% if @manage_user.gender == true %>
+      <% if @user.gender == true %>
       <td> Pria </td>
       <% else %>
       <td> Wanita </td>
@@ -38,67 +38,69 @@ Detail Karyawan
     <tr>
       <td> <b> Telephone </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.telephone %></td>
+      <td> <%= @user.telephone %></td>
     </tr>
 
     <tr>
       <td> <b> Alamat </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.address %></td>
+      <td> <%= @user.address %></td>
     </tr>
 
     <tr>
       <td> <b> No Rekening </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.account_number %></td>
+      <td> <%= @user.account_number %></td>
     </tr>
 
     <tr>
       <td> <b> Nama Bank </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.bank_name %></td>
+      <td> <%= @user.bank_name %></td>
     </tr>
 
     <tr>
       <td> <b> Cabang Bank </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.account_branch_name %></td>
+      <td> <%= @user.account_branch_name %></td>
     </tr>
 
     <tr>
       <td> <b> Nama Akun Rekening </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.account_name %></td>
+      <td> <%= @user.account_name %></td>
     </tr>
 
     <tr>
       <td> <b> Peran </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.role.name %></td>
+      <td> <%= @user.role.name %></td>
     </tr>
 
     <tr>
       <td> <b> Jabatan </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @manage_user.position %></td>
+      <td> <%= @user.position %></td>
     </tr>
 
     <tr>
       <td> <b> Gaji </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.payment, :unit => "Rp ")   %></td>
+      <td>
+		<%= number_to_currency(@user.salary_histories.activate.first.payment, :unit => "Rp ") if @user.salary_histories.present? %>
+	  </td>
     </tr>
 
     <tr>
       <td> <b> Harga Lembur Siang  </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ")   %></td>
+      <td> <%= number_to_currency( @user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
     </tr>
 
     <tr>
       <td> <b> Harga Lembur Siang  </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @manage_user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ")   %></td>
+      <td> <%= number_to_currency( @user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
     </tr>
 
   </table>
@@ -108,7 +110,7 @@ Detail Karyawan
 
 
 <% content_for :content_nav do %>
-<%= link_to 'Ubah', edit_manage_user_path(@manage_user), :class=>'btn btn-primary' %> 
+<%= link_to 'Ubah', edit_manage_user_path(@user), :class=>'btn btn-primary' %> 
 
 <% if current_user.role.name == "admin"%>
 <%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>

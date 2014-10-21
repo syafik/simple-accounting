@@ -1,5 +1,6 @@
-
 class AbsentPermissionsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :get_history,  :only => [:new, :create] 
   # GET /absent_permissions
   # GET /absent_permissions.json

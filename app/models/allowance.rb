@@ -3,8 +3,6 @@ class Allowance < ActiveRecord::Base
   belongs_to :user
   has_many :allowance_claim_transactions
   
-  
-
   attr_accessible :value, :user_id, :allowance_sub_category_id
 
   validates :user_id, uniqueness: { scope: :allowance_sub_category_id,
@@ -13,9 +11,6 @@ class Allowance < ActiveRecord::Base
     validates :value, presence: true
     validates :user_id, presence: true
     validates :allowance_sub_category_id, presence: true
-
-
-
 
     def self.search(search, search_by)
       search = search.strip rescue nil

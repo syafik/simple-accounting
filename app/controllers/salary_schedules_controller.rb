@@ -1,5 +1,6 @@
-
 class SalarySchedulesController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :check_date, :only => [:create, :update]
   # GET /salary_schedules
   # GET /salary_schedules.json
