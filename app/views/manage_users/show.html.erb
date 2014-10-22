@@ -23,7 +23,7 @@ Detail Karyawan
     <tr>
       <td> <b> Tanggal Lahir </b> </td>
       <td> <b> :</b> </td>
-      <td> <%= @user.birth_date.strftime("%d-%B-%Y") %></td>
+      <td> <%= @user.birth_date.strftime("%d-%B-%Y") if @user.birth_date.present? %></td>
     </tr>
     <tr>
       <td> <b> Jenis Kelamin </b> </td>
@@ -106,8 +106,6 @@ Detail Karyawan
   </table>
 </div>
 <% end%>
-
-
 
 <% content_for :content_nav do %>
 <%= link_to 'Ubah', edit_manage_user_path(@user), :class=>'btn btn-primary' %> 

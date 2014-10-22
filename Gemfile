@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.5'
 gem 'pg'
+gem 'mysql2'
 gem 'devise'
 
 group :assets do
