@@ -3,8 +3,6 @@ class AbsentsController < ApplicationController
   before_filter :get_absent, :only => [:index, :set_attend]
   before_filter :check_date, :only => [:create]
 
-  # GET /absents
-  # GET /absents.json
   def index
     @date = Date.today
     if params[:search]
@@ -15,8 +13,6 @@ class AbsentsController < ApplicationController
     end
   end
 
-  # GET /absents/1
-  # GET /absents/1.json
   def show
     @absent = Absent.find(params[:id])
 
@@ -26,25 +22,19 @@ class AbsentsController < ApplicationController
     end
   end
 
-  # GET /absents/new
-  # GET /absents/new.json
   def new
     @absent = Absent.new
     
-    #@absent_categories = AbsentCategory.all.map { |absent_category| [absent_category.category_name, absent_category.id] }
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @absent }
     end
   end
 
-  # GET /absents/1/edit
   def edit
     @absent = Absent.find(params[:id])
   end
 
-  # POST /absents
-  # POST /absents.json
   def create
 
     if params[:absent][:time_in] && params[:absent][:time_out]
@@ -64,15 +54,13 @@ class AbsentsController < ApplicationController
     end
   end
 
-  # PUT /absents/1
-  # PUT /absents/1.json
   def update
     @absent = Absent.find(params[:id])
 
     if params[:absent][:time_in] && params[:absent][:time_out]
       params[:absent][:time_in] = Time.parse(params[:absent][:time_in]).strftime("%H:%M:%S") rescue nil
       params[:absent][:time_out] = Time.parse(params[:absent][:time_out]).strftime("%H:%M:%S") rescue nil
-      params[:absent][:total_work_time] =Absent.get_total_work_time(Time.parse(params[:absent][:time_in]), Time.parse(params[:absent][:time_out]) )
+      params[:absent][:total_work_time] = Absent.get_total_work_time(Time.parse(params[:absent][:time_in]), Time.parse(params[:absent][:time_out]) )
     end
 
     respond_to do |format|
@@ -86,8 +74,6 @@ class AbsentsController < ApplicationController
     end
   end
 
-  # DELETE /absents/1
-  # DELETE /absents/1.json
   def destroy
     @absent = Absent.find(params[:id])
     @absent.destroy
@@ -99,8 +85,6 @@ class AbsentsController < ApplicationController
   end
 
   def set_attend
-    p '= set_attend' * 66
-    p params
     if @check_absent.blank?
       absent = Absent.create(user_id: current_user.id, time_in: Time.current.strftime("%H:%M:%S"), date: Time.current.to_date, categories: 1)
       if absent.save!

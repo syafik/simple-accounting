@@ -11,7 +11,6 @@ class Overtime < ActiveRecord::Base
 			te = end_time.hour
 		end
 
-
 		difh = te - start_time.hour
 
 		if (end_time.min < start_time.min)
@@ -20,10 +19,8 @@ class Overtime < ActiveRecord::Base
 			to = end_time.min
 		end
 
-
 		difm = (to - start_time.min).to_f * 0.6
 		tot = "#{difh}.#{difm}".to_f 
-		
 		return tot
 	end
 
@@ -35,7 +32,6 @@ class Overtime < ActiveRecord::Base
 		finish = Time.parse(end_time.strftime("%H:%M "))
 
 		if Time.parse(start_time.strftime("%H:%M ")) < ls && Time.parse(end_time.strftime("%H:%M ")) > lf
-			p "masuuuuuuuuuuuuuuuuuuk"
 			start = Time.parse("00:00")
 			finish = Time.parse("00:00")
 		elsif Time.parse(start_time.strftime("%H:%M ")) < ls || Time.parse(start_time.strftime("%H:%M ")) >= lf
@@ -44,17 +40,10 @@ class Overtime < ActiveRecord::Base
 			finish = lf
 		end
 
-
-
 		long = long_overtime(start, finish)
-
-		
-
 		day_payment = long * price_day
-		
 		return day_payment
 	end
-
 
 	def self.night_payment_overtime(start_time, end_time, user)
 		price_night = user.salary_histories.activate.first.night_payment_overtime rescue 0
@@ -78,8 +67,6 @@ class Overtime < ActiveRecord::Base
 		night_payment = long * price_night
 		return night_payment
 	end
-
-	
 
 	def self.total_long_overtime(user, new_long_overtime)
 		

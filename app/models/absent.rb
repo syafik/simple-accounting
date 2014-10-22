@@ -13,7 +13,8 @@ class Absent < ActiveRecord::Base
     else
       to = time_out.min
     end
-    difm = to - time_in.min
+    difm = (to - time_in.min).to_f * 0.6
+    tot = "#{difh}.#{difm}".to_f
     return tot
   end
 end

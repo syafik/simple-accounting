@@ -101,7 +101,7 @@ Detail Karyawan
     </tr>
 
     <tr>
-      <td> <b> Harga Lembur Siang  </b> </td>
+      <td> <b> Harga Lembur Malam  </b> </td>
       <td> <b> :</b> </td>
       <td> <%= number_to_currency( @user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
     </tr>
