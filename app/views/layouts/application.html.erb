@@ -54,7 +54,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <%= link_to "Profile", manage_user_path(current_user.id), class: "btn btn-default btn-flat" %> 
                                     </div>
                                     <div class="pull-right">
                                         <%= link_to "SIGN OUT", destroy_user_session_path, :method => :delete , class: "btn btn-default btn-flat" %>

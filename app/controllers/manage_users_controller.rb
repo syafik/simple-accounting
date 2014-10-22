@@ -26,9 +26,16 @@ class ManageUsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    account_update_params = params[:user]
+
+    if account_update_params[:password].blank?
+      account_update_params.delete("password")
+      account_update_params.delete("password_confirmation")
+    end
+
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+    if @user.update_attributes(account_update_params)
         format.html { redirect_to manage_user_url(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

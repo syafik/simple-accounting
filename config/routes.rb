@@ -90,7 +90,8 @@ SimpleAccounting::Application.routes.draw do
   end
 
   resources :allowance_sub_categories
-  devise_for :users, controllers: {sessions: :sessions}
+  devise_for :users, controllers: {sessions: :sessions, :passwords => "Passwords"}
+
 
   resources :transactions do
     collection do
