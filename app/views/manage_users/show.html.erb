@@ -11,6 +11,9 @@ Detail Karyawan
 <div align="left">
   <table>
     <tr>
+      <td colspan="3"><%= image_tag @user.avatar.url(:small) %> </td>
+    </tr>
+    <tr>
       <td> <b> Email </b> </td>
       <td> <b> :</b> </td>
       <td><%= @user.email %> </td>

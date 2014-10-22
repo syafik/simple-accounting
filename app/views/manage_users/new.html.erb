@@ -15,7 +15,7 @@ Buat Data Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-<%= form_for(@manage_user ? @manage_user : :manage_user, :url => manage_users_path) do |f| %>
+<%= form_for(@user ? @user : :manage_user, :url => manage_users_path) do |f| %>
 
 <%= render partial: 'form', locals: {f: f,  btn_title: "Buat Data", from: "new"} %>
 <% end %>

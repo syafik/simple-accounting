@@ -16,6 +16,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem "paperclip", "~> 4.2"
 gem 'will_paginate'
 gem "cancan"
 gem "paranoia", "~> 1.0"

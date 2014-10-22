@@ -1,14 +1,14 @@
-  <% if @manage_user.errors.any? %>
+  <% if @user.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@manage_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
     <ul>
-      <% @manage_user.errors.full_messages.each do |msg| %>
+      <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
       <% end %>
     </ul>
   </div>
-  <% end if @manage_user %>
+  <% end if @user %>
 
 
 
@@ -119,6 +119,11 @@
 
   </div>
 
+  <div style="width: 50%; text-align: left;">
+    <label>Upload Foto</label><br>
+    <%= f.file_field :avatar %>
+  </div>
+  <p>
 
   <% end%>
   <div class="form-group" style="width: 50%; text-align: left;" >
@@ -143,3 +148,11 @@
 
   </script>
   <% end%>
+
+
+
+
+
+
+
+

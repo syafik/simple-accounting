@@ -14,7 +14,7 @@ Edit Data Karyawan
 <% end%>
 
 <% content_for :content_body do %>
-<%= form_for(@manage_user, :url => {action: "update", controllers: "manage_users"}) do |f| %>
+<%= form_for(@user, :url => {action: "update", controllers: "manage_users"}, :html => { :multipart => true }) do |f| %>
 <%= render partial: 'form', locals: {f: f,  btn_title: "Ubah Data", from: "edit"} %>
 <% end %>
 <% end%>
@@ -22,7 +22,7 @@ Edit Data Karyawan
 
 
 <% content_for :content_nav do %>
-<%= link_to 'Lihat', manage_user_path(@manage_user), :class=>'btn btn-primary'%> 
+<%= link_to 'Lihat', manage_user_path(@user), :class=>'btn btn-primary'%> 
 <% if current_user.role.name == "admin"%>
 <%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
 <% else %>

@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  attr_accessible :avatar
+  has_attached_file :avatar,
+                    :styles => {
+                      :thumb => "50x50>",
+                      :small => "100x100"
+                    }
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 1.megabytes
   acts_as_paranoid
   has_many :allowances, dependent: :destroy
   has_many :absents
