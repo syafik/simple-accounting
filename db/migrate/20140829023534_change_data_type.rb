@@ -1,5 +1,9 @@
 class ChangeDataType < ActiveRecord::Migration
-  def change
-  	change_column :allowance_claim_transactions, :status, 'integer USING CAST(status AS integer)'
+  def up
+  	change_column :allowance_claim_transactions, :status, :integer
+  end
+
+  def down
+    change_column :allowance_claim_transactions, :status, :boolean
   end
 end
