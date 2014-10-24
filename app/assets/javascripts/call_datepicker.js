@@ -1,1 +1,1 @@
-$( ".date_custom" ).datepicker();
+$( ".date_custom").datepicker();

@@ -24,80 +24,52 @@
   </div>
 </section>
 
+<div class="row">
+  <div class="col-md-4">
+	<div class="box box-solid box-danger">
+	  <div class="box-header">
+		<h3 class="box-title">Credit:</h3>
+	  </div>
+	  <div class="box-body">
+		<h4><%= number_to_currency(@credits, unit: "Rp. ")%> </h4>
+	  </div>
+	</div>
+  </div>
+
+  <div class="col-md-4">
+	<div class="box box-solid box-success">
+	  <div class="box-header">
+		<h3 class="box-title">Debit:</h3>
+	  </div>
+	  <div class="box-body">
+		<h4><%= number_to_currency(@debits, unit: "Rp. ")%> </h4>
+	  </div>
+	</div>
+  </div>
+
+  <div class="col-md-4">
+	<div class="box box-solid box-info">
+	  <div class="box-header">
+		<h3 class="box-title">Profit:</h3>
+	  </div>
+	  <div class="box-body">
+		<h4><%= number_to_currency(@profit, unit: "Rp. ")%> </h4>
+	  </div><!-- /.box-body -->
+	</div><!-- /.box -->
+  </div><!-- /.col -->
+</div>
+
 <%= content_for :bottom_js do %>
   <script type="text/javascript">
-	new Morris.Line({
-	  // ID of the element in which to draw the chart.
+	Morris.Line({
 	  element: 'myfirstchart',
-	  // Chart data records -- each entry in this array corresponds to a point on
-	  // the chart.
-	  data: [
-		{ year: '1', value: 20, value2: 9},
-		{ year: '2', value: 20, value2: 9},
-		{ year: '3', value: 20, value2: 9},
-		{ year: '4', value: 20, value2: 9},
-		{ year: '5', value: 20, value2: 9},
-		{ year: '6', value: 20, value2: 9},
-		{ year: '7', value: 20, value2: 9},
-		{ year: '8', value: 20, value2: 9},
-	  ],
-	  // The name of the data record attribute that contains x-values.
-	  xkey: 'year',
-	  // A list of names of data record attributes that contain y-values.
-	  ykeys: ['value', 'value2'],
-	  // Labels for the ykeys -- will be displayed when you hover over the
-	  // chart.
-	  labels: ['Value', 'value2']
+	  data: <%= raw @data.to_json %>,
+	  xkey: 'x',
+	  ykeys: ['y', 'z'],
+	  labels: ['Debit', 'Credit']
+	}).on('click', function(i, row){
+	  console.log(i, row);
 	});
 
   </script>
 <% end %>
-
----------
-<script type="text/javascript" src="/assets/xcharts.js"></script>
-<script type="text/javascript" src="/assets/d3.min.js"></script>
-<script type="text/javascript" src="/assets/jquery.formatCurrency-1.4.0.min.js"></script>
-
-<h3>Reporting</h3>
-
-<div class="span5 ml0">
-  <%= form_tag reporting_reports_path, method: :get do %>
-	<p>
-	  Pilih bulan: <%= select_month(Date.today) %>
-	</p>
-	<p>
-	  Pilih tahun: <%= select_year(Date.today, :start_year => Time.now.year, :end_year => Time.now.year - 2, :field_name => 'grad_year') %>
-	</p>
-	<%= submit_tag "Submit", :class => "btn btn-primary" %>
-  <% end %>
-</div>
-
-<div class="span6 well pull-right">
-  <h4>KESIMPULAN :</h4>
-  <p>
-	<strong>Total Pendapatan:</strong>
-	<span class="label label-primary"><%= number_to_currency(@transactions.debits.sum(:value), unit: "Rp. ") %></span>
-  </p>
-  <p>
-	<strong>Total Pengeluaran:</strong>
-	<span class="label label-warning"><%= number_to_currency(@transactions.credits.sum(:value), unit: "Rp. ") %></span>
-  </p>
-  <p>
-	<% if @transactions.debits.sum(:value) >= @transactions.credits.sum(:value) %>
-	  <strong>Mendapat keuntungan:</strong>
-	  <span class="label label-info"><%=  number_to_currency(@profit, unit: "Rp. ")%></span>
-	<% else %>
-	  <strong>Mendapat kerugian:</strong>
-	  <span class="label label-warning"> <%=  number_to_currency(@profit, unit: "Rp. ") %> </span>
-	<% end %>
-  </p>
-</div>
-<div class="clearfix"></div>
-
-<h3 class="text-center"> Report: <%#= @date %> - <%#=  params[:date][:grad_year] %> </h3>
-<figure id="myChart"></figure>
-
-<table>
-</table>
-
-    

@@ -1,31 +1,22 @@
 class ReportsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :class => "Transaction"
 
   def index
-    @current_time = Date.today
-    year = params[:year] || @current_time.year
-    month = params[:month] || @current_time.month
-    day = params[:day] || @current_time.day #9
-    @date = DateTime.new(year.to_i,month.to_i, 1)
-    @next = @date + 1.month
-    @prev = @date - 1.month
-    @start_date = @date.beginning_of_month
-    @end_date = @date.end_of_month
-    @transactions = Transaction.where(:date => @start_date..@end_date)
-    @total_debit = @transactions.debits.sum(:value)
-    @total_credit = @transactions.credits.sum(:value)
-    @profit = @total_debit -  @total_credit
-  end
+    @year = Date.today.year
+    @transactions = Transaction.by_year(@year)
 
-  def reporting
-    @transactions = Transaction.where("extract(year  from date) = ? AND extract(month from date) = ?", "#{params[:date][:grad_year]}", "#{params[:date][:month]}")
-    @date = Date::MONTHNAMES[params[:date][:month].to_i]
-    @total_debit = @transactions.debits.sum(:value)
-    @total_credit = @transactions.credits.sum(:value)
-    @profit = @total_debit -  @total_credit
-    render template: "reports/index"
+    data = []
+    (1..12).each do |i|
+      transaction = @transactions.by_month(i)
+      data << {x: "#{@year}-#{i}", y: transaction.debits.sum(:value), z: transaction.credits.sum(:value) }
+    end
+    @data = data
+    @debits = @transactions.debits.sum(:value) || 0
+    @credits = @transactions.credits.sum(:value) || 0
+    @profit = @debits - @credits
+
+    #@transactions = Transaction.by_year(year).group("Extract(MONTH FROM date), is_debit").
+    #    select("CASE WHEN is_debit THEN sum(value) END as debit, CASE WHEN !is_debit THEN sum(value) END as credit, sum(value), EXTRACT(MONTH from date) as bulan, is_debit")
   end
- 
- 
 
 end
