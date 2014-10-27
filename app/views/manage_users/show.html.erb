@@ -8,10 +8,35 @@
 
 <% content_for :content_body do %>
 
+  <div class="modal fade" id="MySalary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <h4 class="modal-title" id="myModalLabel"><h1>GAJI KU:</h1></h4>
+		  <p class="error-messages hide">Error message</p>
+		</div>
+		<div class="modal-body">
+		  <h2>
+			<%= number_to_currency(@user.salary_histories.activate.first.payment, :unit => "Rp ") if @user.salary_histories.present? %>
+		  </h2>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
   <div align="left">
 	<table>
 	  <tr>
-		<td colspan="3"><%= image_tag @user.avatar.url(:small) %> </td>
+		<td colspan="1"><b> Foto </b></td>
+		<td> <b>  :&nbsp&nbsp&nbsp</b> </td>
+		<td> <%= image_tag @user.avatar.url(:small) %> </td>
+	  </tr>
+	  <tr>
+		<td colspan="2"><td><%= button_to 'Hapus Foto', avatar_path(@user), :class => "btn btn-primary", method: :delete, data: { confirm: 'Apakah anda yakin ingin menghapus foto?' } %></td>
 	  </tr>
 	  <tr>
 		<td> <b> Email </b> </td>
@@ -100,29 +125,7 @@
 
 	</table>
   </div>
-
-
-  <div class="modal fade" id="MySalary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<h4 class="modal-title" id="myModalLabel"><h1>GAJI KU:</h1></h4>
-			<p class="error-messages hide">Error message</p>
-		  </div>
-		  <div class="modal-body">
-			<h2>
-			  <%= number_to_currency(@user.salary_histories.activate.first.payment, :unit => "Rp ") if @user.salary_histories.present? %>
-			</h2>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		  </div>
-	  </div>
-	</div>
-  </div>
-
-<% end %>
+<% end%>
 
 <% content_for :content_nav do %>
   <%= link_to 'Lihat Gaji', '#', :class=>'btn btn-primary show-gaji' %>

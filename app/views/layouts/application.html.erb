@@ -48,8 +48,11 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header bg-light-blue">
-                                    <img src="/assets/avatar3.png" class="img-circle" alt="User Image" />
-                                    <p><%= current_user.first_name %></p>
+                                    <% if current_user.avatar.exists? == false %>
+                                        <img src="/assets/avatar3.png" class="img-circle" alt="User Image" />
+                                    <% else %>
+                                        <%= image_tag current_user.avatar.url(:small), :class => "img-circle" %>
+                                    <% end %>
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
