@@ -4,7 +4,12 @@ class Overtime < ActiveRecord::Base
 	attr_accessible :date, :description, :long_overtime, :user_id, :start_time, :end_time, :payment, :status, :day_payment, :night_payment
 	validates  :date, :start_time, :end_time,   presence: true
 
-	def self.long_overtime(start_time, end_time)
+  scope :total_overtime_by_date, (lambda do |first_date, end_date|
+    where("status = 1 AND date >= ? and date <= ?", first_date, end_date)
+  end)
+
+
+  def self.long_overtime(start_time, end_time)
 		if end_time.hour < start_time.hour
 			te = end_time.hour + 24
 		else

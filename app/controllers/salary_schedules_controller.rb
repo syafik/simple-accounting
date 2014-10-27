@@ -1,20 +1,14 @@
 class SalarySchedulesController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :check_date, :only => [:create, :update]
-  # GET /salary_schedules
-  # GET /salary_schedules.json
   def index
     @salary_schedules = SalarySchedule.all
-
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @salary_schedules }
     end
   end
 
-  # GET /salary_schedules/1
-  # GET /salary_schedules/1.json
   def show
     @salary_schedule = SalarySchedule.find(params[:id])
 
@@ -24,56 +18,52 @@ class SalarySchedulesController < ApplicationController
     end
   end
 
-  # GET /salary_schedules/new
-  # GET /salary_schedules/new.json
   def new
     @salary_schedule = SalarySchedule.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @salary_schedule }
     end
   end
 
-  # GET /salary_schedules/1/edit
   def edit
     @salary_schedule = SalarySchedule.find(params[:id])
   end
 
-  # POST /salary_schedules
-  # POST /salary_schedules.json
   def create
     @salary_schedule = SalarySchedule.new(params[:salary_schedule])
-
+    last_salary = SalarySchedule.this_year
+    last_schedule_date = if last_salary.this_month.present?
+      last_salary.this_month.last.date
+    elsif last_salary.prev_month.present?
+      last_salary.prev_month.last.date
+    else
+      Date.today.beginning_of_month
+    end
+    @salary_schedule.first_date = last_schedule_date
+    @salary_schedule.end_date = params[:salary_schedule][:date]
     respond_to do |format|
       if @salary_schedule.save
         format.html { redirect_to @salary_schedule, notice: 'Salary schedule was successfully created.' }
-        format.json { render json: @salary_schedule, status: :created, location: @salary_schedule }
       else
-        format.html { render action: "new" }
-        format.json { render json: @salary_schedule.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_salary_schedule_path, :flash => { :error => @salary_schedule.errors.full_messages } }
       end
     end
   end
 
-  # PUT /salary_schedules/1
-  # PUT /salary_schedules/1.json
   def update
     @salary_schedule = SalarySchedule.find(params[:id])
-
+    @salary_schedule.end_date = params[:salary_schedule][:date]
     respond_to do |format|
       if @salary_schedule.update_attributes(params[:salary_schedule])
         format.html { redirect_to @salary_schedule, notice: 'Salary schedule was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @salary_schedule.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /salary_schedules/1
-  # DELETE /salary_schedules/1.json
   def destroy
     @salary_schedule = SalarySchedule.find(params[:id])
     @salary_schedule.destroy
@@ -84,11 +74,8 @@ class SalarySchedulesController < ApplicationController
     end
   end
 
-  private
-  def check_date
-
-    if  params[:salary_schedule][:date].is_a?(String)
-      params[:salary_schedule][:date] = DateTime.strptime(params[:salary_schedule][:date], "%m/%d/%Y").to_date
-    end
+  def list_salary
+    @users = User.all
   end
+
 end

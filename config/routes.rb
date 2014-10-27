@@ -1,6 +1,10 @@
 SimpleAccounting::Application.routes.draw do
 
-  resources :salary_schedules
+  resources :salary_schedules do
+    collection do
+      get :list_salary
+    end
+  end
 
   resources :roles
   
@@ -9,7 +13,6 @@ SimpleAccounting::Application.routes.draw do
   resources :manage_users
 
   # get "allowance_sub_categories/index"
-
   # get "allowances/index"
 
   match "/loan_payments/:id/new" => "loan_payments#new",   :as => "new_loan_payments",  :via => :get
@@ -18,12 +21,9 @@ SimpleAccounting::Application.routes.draw do
   match "/salary_histories/:user_id/new" => "salary_histories#new",   :as => "new_salary_history",  :via => :get
   match "/settings/overtime" => "settings#overtime", :as => "overtime_setting", :via => :get
   match "/settings/overtime_create" => "settings#overtime_create", :as => "overtime_create", :via => :post
-
   match "/settings/jamsostek" => "settings#jamsostek", :as => "jamsostek_setting", :via => :get
   match "/settings/jamsostek_create" => "settings#jamsostek_create", :as => "jamsostek_create", :via => :post
-
   get '/salary_histories/:id/user', to: 'salary_histories#index', as: 'salary_histories_user'
-
 
   resources :allowance_categories do
     resources :allowance_sub_categories

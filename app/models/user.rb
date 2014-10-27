@@ -20,8 +20,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :salary_histories
   accepts_nested_attributes_for :overtime_payment_histories
 
-
-
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -53,4 +51,9 @@ class User < ActiveRecord::Base
   def self.get_all_sub_category_class(user)
     user.allowances.select("allowance_sub_category_id").map{|a| [a.allowance_sub_category.try(:name), a.try(:id)]}
   end
+
+  def my_salary
+    salary_histories.where(activate: true).sum(:payment)
+  end
+
 end

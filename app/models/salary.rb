@@ -2,58 +2,52 @@ class Salary < ActiveRecord::Base
 
 	belongs_to :salary_history
 
- attr_accessible :total_attendance, :total_absence, :total_overtime_hours, :total_overtime_payment, :salary_history_id, :date, :jamsostek, :thp, :transfered, :etc
- validates  :date,   presence: true
+  attr_accessible :total_attendance, :total_absence, :total_overtime_hours, :total_overtime_payment, :salary_history_id, :date, :jamsostek, :thp, :transfered, :etc
+  validates  :date, presence: true
 
- def  self.generate_salary
-  
-  date = SalarySchedule.last.date
-  this_month = Date.today.month
-  this_year = Date.today.year
+  scope :this_month, where("MONTH(date) = #{Date.today.month}")
 
+  def self.generate_salary(salary_schedule)
+    first_date = salary_schedule.first_date
+    end_date = salary_schedule.end_date
+    salaries = [] # tamp for salaries
+    users = User.all # get all user
 
-  salaries = [] # tamp for salaries
+    users.each do |user|
+      if user.salary_histories.present?
+        total_attendance = user.absents.this_year.this_month.where(:categories => 1).count
+        total_absence = user.absents.this_year.this_month.where("categories <> ?", 1).count
 
-  user = User.all # get all user
+        total_overtime_hours = user.overtimes.total_overtime_by_date(first_date, end_date).sum(:long_overtime)
+        total_overtime_payment  = user.overtimes.total_overtime_by_date(first_date, end_date).sum(:payment)
+        salary_history_id = user.salary_histories.activate.first.id
+        jamsostek = 0
+        main_salary = user.salary_histories.activate.first.payment
 
+        if user.allowed_jamsostek == false
+          jamsostek = main_salary * (Setting[:jamsostek].to_f/100)
+        end
+        total_payment = main_salary + total_overtime_payment + jamsostek
 
-  user.each do | u |
-    if u.role.name != "admin" && u.salary_histories
-      total_attendance = Absent.where(:user_id => u, :categories => 1).count
-      total_absence = Absent.where("user_id =? AND categories <> ?", u, 1).count
-      total_overtime_hours = u.overtimes.where("user_id = ? AND status = ? AND extract(month  from date) = ?", u.id, 1, this_month).sum(:long_overtime)
-      total_overtime_payment  = u.overtimes.where("user_id = ? AND status = ? AND extract(month  from date) = ?", u.id, 1, this_month).sum(:payment)
-      salary_history_id = u.salary_histories.activate.first.id
+        salaries << {
+          date: salary_schedule.end_date,
+          total_attendance: total_attendance,
+          total_absence: total_absence,
+          total_overtime_hours: total_overtime_hours,
+          total_overtime_payment: total_overtime_payment,
+          salary_history_id: salary_history_id,
+          jamsostek: jamsostek,
+          thp: total_payment,
+          transfered: false
+        }
 
-      jamsostek = 0
-      main_salary = u.salary_histories.activate.first.payment
-
-      if u.allowed_jamsostek == false
-        jamsostek = main_salary * (Setting[:jamsostek].to_f/100)
       end
-      
-
-      total_payment = main_salary + total_overtime_payment + jamsostek
-
-      salaries << {
-        date: date, 
-        total_attendance: total_attendance, 
-        total_absence: total_absence,  
-        total_overtime_hours: total_overtime_hours, 
-        total_overtime_payment: total_overtime_payment, 
-        salary_history_id: salary_history_id,
-        jamsostek: jamsostek,
-        thp: total_payment,
-        transfered: false 
-      }
-
     end
-  end
 
+    salary = Salary.create(salaries)
+    salary_schedule.update_attribute("status", true) if salary
   
-    Salary.create(salaries)
-  
-end
+  end
 
 end
 
