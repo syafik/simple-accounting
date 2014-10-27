@@ -105,6 +105,12 @@ SimpleAccounting::Application.routes.draw do
       get :reporting
     end
   end
+
+  resources :avatar do
+    # member do
+    #    delete 'destroy', as: :delete
+    # end
+  end
   #resources :claim_transactions
   root :to => 'absents#index'
 

@@ -11,7 +11,12 @@ Detail Karyawan
 <div align="left">
   <table>
     <tr>
-      <td colspan="3"><%= image_tag @user.avatar.url(:small) %> </td>
+      <td colspan="1"><b> Foto </b></td>
+      <td> <b>  :&nbsp&nbsp&nbsp</b> </td>
+      <td> <%= image_tag @user.avatar.url(:small) %> </td>
+    </tr>
+    <tr>
+      <td colspan="2"><td><%= button_to 'Hapus Foto', avatar_path(@user), :class => "btn btn-primary", method: :delete, data: { confirm: 'Apakah anda yakin ingin menghapus foto?' } %></td>
     </tr>
     <tr>
       <td> <b> Email </b> </td>
