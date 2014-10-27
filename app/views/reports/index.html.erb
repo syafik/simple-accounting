@@ -65,8 +65,8 @@
 	  element: 'myfirstchart',
 	  data: <%= raw @data.to_json %>,
 	  xkey: 'x',
-	  ykeys: ['y', 'z'],
-	  labels: ['Debit', 'Credit']
+	  ykeys: ['y', 'z', 's'],
+	  labels: ['Debit', 'Credit', 'Selisih']
 	}).on('click', function(i, row){
 	  console.log(i, row);
 	});

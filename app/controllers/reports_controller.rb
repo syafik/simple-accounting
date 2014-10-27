@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
     data = []
     (1..12).each do |i|
       transaction = @transactions.by_month(i)
-      data << {x: "#{@year}-#{i}", y: transaction.debits.sum(:value), z: transaction.credits.sum(:value) }
+      data << {x: "#{@year}-#{i}", y: transaction.debits.sum(:value), z: transaction.credits.sum(:value), s: (transaction.debits.sum(:value) - transaction.credits.sum(:value)) }
     end
     @data = data
     @debits = @transactions.debits.sum(:value) || 0
