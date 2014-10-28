@@ -16,6 +16,7 @@
 
   <table id="example2" class="table table-bordered table-hover">
 	<tr>
+	  <th> Foto </th>
 	  <th> Nama </th>
 	  <th> No. telepon </th>
 	  <th> Email </th>
@@ -26,8 +27,15 @@
 
 	<% @manage_users.each do |manage_user| %>
 	<tr>
+	  <td><% if manage_user.avatar.exists? == false %>
+                <img src="/assets/avatar3.png" class="img-circle" alt="User Image" height="115px" width="115px"/>
+            <% else %>
+                <%= image_tag manage_user.avatar.url(:small), :class => "img-circle",  
+                :height => "115px", :width => "115px"%>
+            <% end %>
+      </td>
 	  <td>
-		<%= link_to "#{manage_user.first_name} #{manage_user.last_name} ".titleize, manage_user_path(manage_user), class: 'btn btn-primary btn-sm' %>
+		<%= link_to "#{manage_user.first_name} #{manage_user.last_name} ".titleize, manage_user_path(manage_user), class: 'btn btn-primary btn-sm' %><br>
 	  </td>
 	  <td><%= manage_user.telephone %></td>
 	  <td><%= manage_user.email %></td>

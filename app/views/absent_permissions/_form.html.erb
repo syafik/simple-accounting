@@ -4,7 +4,7 @@
 <%= form_for(@absent_permission,:html => { style: "text-align: left;"}) do |f| %>
 <% if @absent_permission.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@absent_permission.errors.count, "error") %> prohibited this absent_permission from being saved:</h2>
+  <h2><%= pluralize(@absent_permission.errors.count, "error") %> prohibited this absent_permissionsfrom being saved:</h2>
 
   <ul>
     <% @absent_permission.errors.full_messages.each do |msg| %>

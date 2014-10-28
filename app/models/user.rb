@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :styles => {
                       :thumb => "50x50>",
-                      :small => "100x100",
+                      :small => "120x120",
                       :default_url => "/assets/images/medium/missing_avatar3.png"
                     }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/

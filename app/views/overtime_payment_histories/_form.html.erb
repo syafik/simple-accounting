@@ -1,7 +1,7 @@
 <%= form_for(@oph,:html => { style: "text-align: left;"}) do |f| %>
 <% if @oph.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@oph.errors.count, "error") %> prohibited this salary from being saved:</h2>
+  <h2><%= pluralize(@oph.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
   <ul>
     <% @oph.errors.full_messages.each do |msg| %>

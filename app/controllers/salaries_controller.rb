@@ -59,7 +59,7 @@ class SalariesController < ApplicationController
         Salary.generate_salary
         format.html { redirect_to salaries_path, notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
       else
-        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Men-generate Gaji Untuk Bulan Ini" }}
+        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Menggenerate Gaji Untuk Bulan Ini" }}
       end
     end
     
@@ -100,7 +100,7 @@ class SalariesController < ApplicationController
       if transaction.save!
         format.html { redirect_to salaries_path, notice: 'Sudah Terkirim' }
       else
-        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Men-generate Gaji Untuk Bulan Ini" }}
+        format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Menggenerate Gaji Untuk Bulan Ini" }}
       end
     end
   end

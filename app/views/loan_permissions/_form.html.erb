@@ -1,7 +1,7 @@
 <%= form_for(@loan_permission,:html => { style: "text-align: left;"}) do |f| %>
 <% if @loan_permission.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@loan_permission.errors.count, "error") %> prohibited this loan_permission from being saved:</h2>
+  <h2><%= pluralize(@loan_permission.errors.count, "error") %> prohibited this loan_permissions from being saved::</h2>
 
   <ul>
     <% @loan_permission.errors.full_messages.each do |msg| %>

@@ -48,7 +48,7 @@ class AbsentsController < ApplicationController
         format.html { redirect_to @absent, notice: 'Absent was successfully created.' }
         format.json { render json: @absent, status: :created, location: @absent }
       else
-        format.html { render action: "new",:flash => { :error => "Insufficient rights!" } }
+        format.html { render action: "new",:flash => { :error => "insufficient rights!" } }
         format.json { render json: @absent.errors, status: :unprocessable_entity }
       end
     end
