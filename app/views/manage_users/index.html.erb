@@ -14,39 +14,44 @@
 
 <% content_for :content_body do %>
 
-  <table id="example2" class="table table-bordered table-hover">
-	<tr>
-	  <th> Foto </th>
-	  <th> Nama </th>
-	  <th> No. telepon </th>
-	  <th> Email </th>
-	  <th> Jabatan </th>
-	  <th> No Rek </th>
-	  <th> Aksi </th>
-	</tr>
+  <table id="example2" class="table table-bordered table-hover" >
 
 	<% @manage_users.each do |manage_user| %>
 	<tr>
-	  <td><% if manage_user.avatar.exists? == false %>
+	  <td>
+	  		<%= link_to manage_user_path(manage_user) do %>
+		    <% if manage_user.avatar.exists? == false %>
+                
                 <img src="/assets/avatar3.png" class="img-circle" alt="User Image" height="115px" width="115px"/>
             <% else %>
                 <%= image_tag manage_user.avatar.url(:small), :class => "img-circle",  
                 :height => "115px", :width => "115px"%>
             <% end %>
-      </td>
-	  <td>
-		<%= link_to "#{manage_user.first_name} #{manage_user.last_name} ".titleize, manage_user_path(manage_user), class: 'btn btn-primary btn-sm' %><br>
+                <% end %>
+
 	  </td>
-	  <td><%= manage_user.telephone %></td>
-	  <td><%= manage_user.email %></td>
-	  <td><%= manage_user.position %></td>
 	  <td align="left">
-		<p> No Rekening: <%= manage_user.account_number %></p>
-		<p> Nama Bank: <%= manage_user.bank_name %></p>
-		<p> Cabang: <%= manage_user.account_branch_name %></p>
-		<p> Nama Akun: <%= manage_user.account_name %></p>
+	  <strong>Nama : </strong><br>
+      <%= "#{manage_user.first_name} #{manage_user.last_name} ".titleize %><br>   
+      <strong>No. Telepon :</strong><br>
+	  <%= manage_user.telephone %><br>
+
+	  <strong>E-Mail :</strong><br>
+	  <%= manage_user.email %>
+	  </td>
+
+	  <td align="left">
+	  <strong>Posisi :</strong>
+	  <%= manage_user.position %><br>
+
+	  <strong>Rekening :</strong>
+		<br> No. Rekening&nbsp;: <%= manage_user.account_number %>
+		<br> Nama Bank&nbsp;&nbsp;&nbsp;&nbsp;: <%= manage_user.bank_name %>
+		<br> Cabang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <%= manage_user.account_branch_name %>
+		<br> Nama Akun&nbsp;&nbsp;&nbsp;&nbsp;: <%= manage_user.account_name %>
 	  </td>
 	  <td>
+	    <strong>Aksi :</strong><br>
 		<div class="btn-group">
 		  <button type="button" class="btn btn-info btn-flat">Action</button>
 		  <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
