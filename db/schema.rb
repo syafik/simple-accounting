@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141021041045) do
+ActiveRecord::Schema.define(:version => 20141027051709) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -181,8 +181,11 @@ ActiveRecord::Schema.define(:version => 20141021041045) do
 
   create_table "salary_schedules", :force => true do |t|
     t.date     "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "status",     :default => false
+    t.date     "first_date"
+    t.date     "end_date"
   end
 
   create_table "settings", :force => true do |t|

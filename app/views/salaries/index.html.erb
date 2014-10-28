@@ -39,18 +39,14 @@ Data Penggajian
         <% if salary.salary_history.user.allowed_jamsostek == true%>
         <%= sp * (Setting[:jamsostek].to_f/100)%>
         <% else %>
-        <%= salary.jamsostek%>
+        <%= salary.jamsostek %>
         <% end %>
-
       </td>
       <td><%= salary.etc rescue 0%></td>
 
       <td>
-
-
         <%= salary.thp %>
       </td>
-
 
       <td>
         <span class="pull-right">
@@ -58,7 +54,7 @@ Data Penggajian
           <%= link_to 'Lihat', salary, :class=>'btn btn-info' %>
           <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
           <% if salary.transfered == nil %>
-          <%= link_to "<i class=\"icon-fire\"></i> Transfer".html_safe, transfered_salary_path(salary), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?'%>
+            <%= link_to "<i class=\"icon-fire\"></i> Transfer".html_safe, transfered_salary_path(salary), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?'%>
           <% end %>
         </span>
       </td>
@@ -70,16 +66,11 @@ Data Penggajian
 
 <% end%>
 
-
-
-
-
 <% content_for :content_nav do %>
 
-
-<%= form_for :salary, url: salaries_path do |f| %>
-<%= f.submit "Generate", :class=>'btn btn-primary'%>
-<% end %>
+  <%= form_for :salary, url: salaries_path(:salary_schedule => @salary_schedule || nil) do |f| %>
+	<%= f.submit "Generate", :class=>'btn btn-primary' if (@date.to_date - 2.days) == Date.today || (@date.to_date - 1.days) == Date.today %>
+  <% end if @date.present? %>
 
 <% end%>
 

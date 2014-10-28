@@ -1,16 +1,16 @@
 <% content_for :content_title do %>
-Kehadiran
+  Salary
 <% end%>
 
 <% content_for :content_sub_title do %>
-Detail Kehadiran
+  Detail Salary Schedule
 <% end%>
 
 <% content_for :content_body do %>
 <div align="left">
 	<table>
 		<tr>
-			<td> <b> Tanggal </b> </td>
+			<td> <b> Date </b> </td>
 			<td> <b> :</b> </td>
 			<td> <%= @salary_schedule.date %> </td>
 		</tr>
@@ -19,5 +19,5 @@ Detail Kehadiran
 <% end%>
 
 <% content_for :content_nav do %>
-<%= link_to 'Kembali', salary_schedules_path, :class=>'btn btn-primary' %>
+<%= link_to 'Back', salary_schedules_path, :class=>'btn btn-primary' %>
 <% end%>

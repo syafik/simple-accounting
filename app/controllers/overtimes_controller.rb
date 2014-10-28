@@ -17,14 +17,11 @@ class OvertimesController < ApplicationController
 
     @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
 
-    p "====="
-    p params
-
     if current_user.role_id==2
         if params[:user_id]
           @overtimes = @overtimes.where(user_id: params[:user_id])
         else
-          @overtimes = @overtimes#.order("id asc")
+          @overtimes = @overtimes
         end
   		
   	else
@@ -79,16 +76,11 @@ class OvertimesController < ApplicationController
   	@overtime.payment = @overtime.day_payment + @overtime.night_payment
     @overtime.status = 0
 
-
-
-
-
   	respond_to do |format|
   		if total_long_overtime <= Setting[:maxovertimeperday].to_f  && @overtime.save
   			format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
   			format.json { render json: @overtime, status: :created, location: @overtime }
   		else
-
         format.html { redirect_to new_overtime_url,  :flash => { :error => "Jam Lembur Anda Melebihi 8 Jam" }}
         format.json { render json: @overtime.errors, status: :unprocessable_entity }
       end
@@ -108,8 +100,6 @@ class OvertimesController < ApplicationController
     end
 
     total_long_overtime = 0 
-
-
 
     params[:overtime][:day_payment] = Overtime.day_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
     params[:overtime][:night_payment] = Overtime.night_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
@@ -142,6 +132,7 @@ class OvertimesController < ApplicationController
   	@overtime = Overtime.find(params[:id])
   	@overtime.update_attributes!(status: 1)
   	respond_to do |format|
+      UserMailer.send_lembur_approved_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
   	end
@@ -151,6 +142,7 @@ class OvertimesController < ApplicationController
   	@overtime = Overtime.find(params[:id])
   	@overtime.update_attributes!(status: 2)
   	respond_to do |format|
+      UserMailer.send_lembur_rejected_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
   	end

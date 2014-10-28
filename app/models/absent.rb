@@ -6,6 +6,9 @@ class Absent < ActiveRecord::Base
 
   validates :date, uniqueness: { scope: :user_id, message: "Nama Dengan Tanggal Tersebut Telah Terekap sebelumnya" }
 
+  scope :this_year, where("YEAR(date) = #{Date.today.year}")
+  scope :this_month, where("MONTH(date) = #{Date.today.month}")
+
   def self.get_total_work_time(time_in, time_out)
     difh = time_out.hour - time_in.hour
     if (time_out.min < time_in.min)

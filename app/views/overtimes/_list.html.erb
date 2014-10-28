@@ -33,7 +33,7 @@
           <%= link_to "<i class=\"icon-fire\"></i> Setuju".html_safe, set_approval_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
           <%= link_to "<i class=\"icon-fire\"></i> Tolak".html_safe, set_rejected_overtime_path(overtime), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?'%>
           <% else %>
-        <% if overtime.status == nil%>
+        <% if overtime.status == 0 %>
         Menunggu Persetujuan
         <% elsif overtime.status == 1 %>
         Diterima

@@ -1,0 +1,40 @@
+<style type="text/css">
+  th {
+	text-align: center;
+  }
+</style>
+
+<% content_for :content_title do %>
+  List Gaji
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Data Gaji Karyawan
+<% end%>
+
+<% content_for :content_body do %>
+
+  <table class="table table-striped">
+	<tbody>
+	<tr>
+	  <th>Name</th>
+	  <th>Gaji Pokok</th>
+	  <th>Jamsostek</th>
+	</tr>
+	<% @users.each do |user| %>
+	<tr>
+	  <tr>
+		<td><%= user.first_name %> <%= user.last_name %></td>
+		<td><%= user.my_salary %></td>
+		<td><%= (user.my_salary * (Setting[:jamsostek].to_f/100)) %></td>
+	  </tr>
+	<% end  %>
+	</tbody>
+  </table>
+
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Buat Jadwal', new_salary_schedule_path, :class=>'btn btn-primary' %>
+<% end %>
+

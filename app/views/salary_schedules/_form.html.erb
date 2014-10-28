@@ -2,7 +2,6 @@
   <% if @salary_schedule.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@salary_schedule.errors.count, "error") %> prohibited this salary_schedule from being saved:</h2>
-
       <ul>
       <% @salary_schedule.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,12 +11,12 @@
   <% end %>
 
   <div class="form-group" style="width: 50%">
-  <label>Tanggal:</label>
+  <label>Date:</label>
   <div class="input-group">
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
-    <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true  %>
+    <%= f.text_field :date, class: "form-control date_custom", :"data-date-format" => "yyyy-mm-dd"  %>
   </div>
 </div>
 
