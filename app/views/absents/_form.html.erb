@@ -11,14 +11,13 @@
   </div>
   <% end %>
 
-
   <div class="form-group" style="width: 50%">
 	<label>Tanggal:</label>
 	<div class="input-group">
 	  <div class="input-group-addon">
 		<i class="fa fa-calendar"></i>
 	  </div>
-	  <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", required: true  %>
+	  <%= f.text_field :date, :placeholder=> "Tanggal" , class: "form-control date_custom", :"data-date-format" => "yyyy-mm-dd"  %>
 	</div>
   </div>
 
@@ -48,7 +47,7 @@
 	<div class="form-group">
 	  <label>Jam Keluar:</label>
 	  <div class="input-group">
-		<%= f.text_field :time_out, value: (@absent.time_out.present? ? @absent.time_out.strftime("%I:%M %p") : Time.now.strftime("%I:%M %p")), class: "form-control timepicker" %>
+		<%= f.text_field :time_out, value: (@absent.time_out.present? ? @absent.time_out.strftime("%H:%M") : Time.now.strftime("%I:%M %p")), class: "form-control timepicker" %>
 		<div class="input-group-addon">
 		  <i class="fa fa-clock-o"></i>
 		</div>

@@ -5,4 +5,15 @@ class UserMailer < ActionMailer::Base
   	@user = user
   	mail(to: user.email, subject: "Welcome Board")
   end
+
+  def send_lembur_approved_user(user)
+  	@user = user
+  	mail(to: user.email, subject: "lembur anda diterima")
+  end
+
+ def send_lembur_rejected_user(user)
+  	@user = user
+  	mail(to: user.email, subject: "lembur anda ditolak")
+ end
+
 end

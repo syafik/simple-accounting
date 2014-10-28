@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><%= content_for?(:title) ? yield(:title) : "Admin Pushjaw" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Admin PUSHJAW" %></title>
     <%= csrf_meta_tags %>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= yield :header %>
 
@@ -84,23 +83,23 @@
             <aside class="right-side">
                 <section class="content-header">
                     <h1>
-                       <%= yield :content_title%>
+                       <%= yield :content_title %>
                    </h1>
                </section>
 
                <section  class="content" >
                 <% if flash[:notice] %>
-                <div id="notice" class="alert alert-success alert-dismissable">
-                    <i class="fa fa-check"></i>
-                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-                    <p ><%= notice %></p>
-                </div> 
-                <% elsif flash[:error] %>
-                <div id="error" class="alert alert-warning alert-dismissable">
-                    <i class="fa fa-warning"></i>
-                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-                    <p ><%= flash[:error] %></p>
-                </div> 
+				  <div id="notice" class="alert alert-success alert-dismissable">
+					  <i class="fa fa-check"></i>
+					  <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					  <p ><%= notice %></p>
+				  </div>
+				<% elsif flash[:error] %>
+					<div id="error" class="alert alert-warning alert-dismissable">
+						<i class="fa fa-warning"></i>
+						<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+						<p ><%= flash[:error] %></p>
+					</div>
                 <% end %>
                 
                 <div class="text-center">
@@ -113,18 +112,16 @@
                                         <br style="clear: both;" />
                                         <br/>
                                         <div class="row">
-
                                         </div>
                                         <%= yield :content_body%>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div align="right">
-                    <%= yield :content_nav%>
+                    <%= yield :content_nav %>
                 </div>
             </section>
         </section>

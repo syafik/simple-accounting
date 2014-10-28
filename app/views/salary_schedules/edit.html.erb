@@ -1,16 +1,16 @@
 <% content_for :bottom_js do %>
-    <%= javascript_include_tag "jquery.inputmask" %>
-    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
-    <%= javascript_include_tag "jquery.inputmask.extensions" %>
-    <%= javascript_include_tag "call_datepicker" %>
+  <%= javascript_include_tag "jquery.inputmask" %>
+  <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+  <%= javascript_include_tag "jquery.inputmask.extensions" %>
+  <%= javascript_include_tag "call_datepicker" %>
 <% end%>
 
 <% content_for :content_title do %>
-Gaji
+  Gaji
 <% end%>
 
 <% content_for :content_sub_title do %>
-Ubah Jadwal
+  Ubah Jadwal
 <% end%>
 
 <% content_for :content_body do %>
@@ -18,7 +18,7 @@ Ubah Jadwal
 <% end%>
 
 <% content_for :content_nav do %>
-<%= link_to 'Lihat', @salary_schedule, :class=>'btn btn-primary' %> 
+<%= link_to 'Lihat', @salary_schedule, :class=>'btn btn-primary' %>
 <%= link_to 'Kembali', salary_schedules_path, :class=>'btn btn-primary' %>
 
 <% end%>

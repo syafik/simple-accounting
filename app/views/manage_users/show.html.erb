@@ -1,16 +1,36 @@
 <% content_for :content_title do %>
-Karyawan
+  Karyawan
 <% end%>
 
 <% content_for :content_sub_title do %>
-Detail Karyawan
+  Detail Karyawan
 <% end%>
 
 <% content_for :content_body do %>
 
-<div align="left">
-  <table>
-    <tr>
+  <div class="modal fade" id="MySalary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <h4 class="modal-title" id="myModalLabel"><h1>GAJI KU:</h1></h4>
+		  <p class="error-messages hide">Error message</p>
+		</div>
+		<div class="modal-body">
+		  <h2>
+			<%= number_to_currency(@user.salary_histories.activate.first.payment, :unit => "Rp ") if @user.salary_histories.present? %>
+		  </h2>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <div align="left">
+	<table>
+	  <tr>
       <td colspan="1"><b> Foto </b></td>
       <td> <b>  :&nbsp&nbsp&nbsp</b> </td>
       <td> <% if @user.avatar.exists? == false %>
@@ -20,115 +40,118 @@ Detail Karyawan
            <% end %>
       </td>
     </tr>
-    <tr>
-      <td colspan="2"><td><%= button_to 'Hapus Foto', avatar_path(@user), :class => "btn btn-primary", method: :delete, data: { confirm: 'Apakah anda yakin ingin menghapus foto?' } %></td>
-    </tr>
-    <tr>
-      <td> <b> Email </b> </td>
-      <td> <b> :</b> </td>
-      <td><%= @user.email %> </td>
-    </tr>
-    <tr>
-      <td> <b>Nama Karyawan </b> </td>
-      <td> <b> :</b> </td>
-      <td><%= "#{@user.first_name} #{@user.last_name} "%> </td>
-    </tr>
-    <tr>
-      <td> <b> Tanggal Lahir </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.birth_date.strftime("%d-%B-%Y") if @user.birth_date.present? %></td>
-    </tr>
-    <tr>
-      <td> <b> Jenis Kelamin </b> </td>
-      <td> <b> :</b> </td>
-      <% if @user.gender == true %>
-      <td> Pria </td>
-      <% else %>
-      <td> Wanita </td>
-      <% end %>
-    </tr>
+	  <tr>
+		<td colspan="2"><td><%= button_to 'Hapus Foto', avatar_path(@user), :class => "btn btn-primary", method: :delete, data: { confirm: 'Apakah anda yakin ingin menghapus foto?' } %></td>
+	  </tr>
+	  <tr>
+		<td> <b> Email </b> </td>
+		<td> <b> :</b> </td>
+		<td><%= @user.email %> </td>
+	  </tr>
+	  <tr>
+		<td> <b>Nama Karyawan </b> </td>
+		<td> <b> :</b> </td>
+		<td><%= "#{@user.first_name} #{@user.last_name} "%> </td>
+	  </tr>
+	  <tr>
+		<td> <b> Tanggal Lahir </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.birth_date.strftime("%d-%B-%Y") if @user.birth_date.present? %></td>
+	  </tr>
+	  <tr>
+		<td> <b> Jenis Kelamin </b> </td>
+		<td> <b> :</b> </td>
+		<% if @user.gender == true %>
+		<td> Pria </td>
+		<% else %>
+		<td> Wanita </td>
+		<% end %>
+	  </tr>
 
-    <tr>
-      <td> <b> Telephone </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.telephone %></td>
-    </tr>
+	  <tr>
+		<td> <b> Telephone </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.telephone %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Alamat </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.address %></td>
-    </tr>
+	  <tr>
+		<td> <b> Alamat </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.address %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> No Rekening </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.account_number %></td>
-    </tr>
+	  <tr>
+		<td> <b> No Rekening </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.account_number %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Nama Bank </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.bank_name %></td>
-    </tr>
+	  <tr>
+		<td> <b> Nama Bank </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.bank_name %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Cabang Bank </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.account_branch_name %></td>
-    </tr>
+	  <tr>
+		<td> <b> Cabang Bank </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.account_branch_name %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Nama Akun Rekening </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.account_name %></td>
-    </tr>
+	  <tr>
+		<td> <b> Nama Akun Rekening </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.account_name %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Peran </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.role.name %></td>
-    </tr>
+	  <tr>
+		<td> <b> Peran </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.role.name %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Jabatan </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= @user.position %></td>
-    </tr>
+	  <tr>
+		<td> <b> Jabatan </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= @user.position %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Gaji </b> </td>
-      <td> <b> :</b> </td>
-      <td>
-		<%= number_to_currency(@user.salary_histories.activate.first.payment, :unit => "Rp ") if @user.salary_histories.present? %>
-	  </td>
-    </tr>
+	  <tr>
+		<td> <b> Harga Lembur Siang  </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= number_to_currency( @user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Harga Lembur Siang  </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @user.salary_histories.activate.first.day_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
-    </tr>
+	  <tr>
+		<td> <b> Harga Lembur Malam  </b> </td>
+		<td> <b> :</b> </td>
+		<td> <%= number_to_currency( @user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
+	  </tr>
 
-    <tr>
-      <td> <b> Harga Lembur Malam  </b> </td>
-      <td> <b> :</b> </td>
-      <td> <%= number_to_currency( @user.salary_histories.activate.first.night_payment_overtime, :unit => "Rp ") if @user.salary_histories.present?  %></td>
-    </tr>
+	</table>
+  </div>
 
-  </table>
-</div>
 <% end%>
 
 <% content_for :content_nav do %>
-<%= link_to 'Ubah', edit_manage_user_path(@user), :class=>'btn btn-primary' %> 
+  <%= link_to 'Lihat Gaji', '#', :class=>'btn btn-primary show-gaji' %>
+  <%= link_to 'Ubah', edit_manage_user_path(@user), :class=>'btn btn-primary' %>
+  <% if current_user.role.name == "admin"%>
+	<%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
+  <% else %>
+	<%= link_to 'Kembali', manage_user_path(current_user.id), :class=>'btn btn-primary' %>
+  <% end%>
+<% end%>
 
-<% if current_user.role.name == "admin"%>
-<%= link_to 'Kembali', manage_users_path, :class=>'btn btn-primary' %>
-<% else %>
-<%= link_to 'Kembali', manage_user_path(current_user.id), :class=>'btn btn-primary' %>
-<% end%>
-<% end%>
+<%= content_for :bottom_js do %>
+  <script type="text/javascript">
+	$(document).ready(function(){
+	  $('a.show-gaji').click(function(){
+		$('#MySalary').modal('show');
+	  });
+	});
+  </script>
+<% end %>
 
 
 

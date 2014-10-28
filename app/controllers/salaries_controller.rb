@@ -1,15 +1,15 @@
 class SalariesController < ApplicationController
   load_and_authorize_resource
 
-  # GET /salaries
-  # GET /salaries.json
   def index
-    if params[:date]
-      @salaries = Salary.where(date: params[:date])
+    if params[:salary_schedule].present?
+      @salary_schedule = SalarySchedule.find(params[:salary_schedule])
+      @salaries = Salary.where(date: @salary_schedule.date)
+      @date = @salary_schedule.try(:date)
     else
-      @salaries = Salary.all
+      @salaries = Salary.this_month
+      @date = nil
     end
-    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,6 @@ class SalariesController < ApplicationController
     end
   end
 
-  # GET /salaries/1
-  # GET /salaries/1.json
   def show
     @salary = Salary.find(params[:id])
 
@@ -28,8 +26,6 @@ class SalariesController < ApplicationController
     end
   end
 
-  # GET /salaries/new
-  # GET /salaries/new.json
   def new
     @salary = Salary.new
 
@@ -39,38 +35,26 @@ class SalariesController < ApplicationController
     end
   end
 
-  # GET /salaries/1/edit
   def edit
     @salary = Salary.find(params[:id])
   end
 
-  # POST /salaries
-  # POST /salaries.json
   def create
-    date_salary = SalarySchedule.last
-    check_date_availabel = Salary.where(date: date_salary.date)
-
-    
-
-    
-
+    @salary_schedule = SalarySchedule.find(params[:salary_schedule])
+    @date = @salary_schedule.date if @salary_schedule.present?
     respond_to do |format|
-      if date_salary.date == Date.today && check_date_availabel.blank?
-        Salary.generate_salary
-        format.html { redirect_to salaries_path, notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
+      if @salary_schedule.present? && (@date - 2.days) == Date.today || (@date - 1.days) == Date.today
+        Salary.generate_salary(@salary_schedule)
+        format.html { redirect_to salaries_path(salary_schedule: @salary_schedule.id), notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
       else
+        @date
         format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Menggenerate Gaji Untuk Bulan Ini" }}
       end
     end
-    
-
   end
 
-  # PUT /salaries/1
-  # PUT /salaries/1.json
   def update
     @salary = Salary.find(params[:id])
-
     jamsostek = 0
     if @salary.salary_history.user.allowed_jamsostek == false
       jamsostek = salary.salary_history.payment * (Setting[:jamsostek].to_f/100)
@@ -94,10 +78,8 @@ class SalariesController < ApplicationController
     @salary.update_attributes(transfered: true)
     transaction = Transaction.new(date: Date.today, value: @salary.thp, is_debit: true, description: "terkirim")
 
-    
-
     respond_to do |format|
-      if transaction.save!
+      if transaction.save
         format.html { redirect_to salaries_path, notice: 'Sudah Terkirim' }
       else
         format.html { redirect_to salaries_path,  :flash => { :error => "Anda Sudah Menggenerate Gaji Untuk Bulan Ini" }}
@@ -106,8 +88,6 @@ class SalariesController < ApplicationController
   end
 
 
-  # DELETE /salaries/1
-  # DELETE /salaries/1.json
   def destroy
     @salary = Salary.find(params[:id])
     @salary.destroy
