@@ -19,7 +19,7 @@ class OvertimesController < ApplicationController
 
     p "====="
     p params
-    
+
     if current_user.role_id==2
         if params[:user_id]
           @overtimes = @overtimes.where(user_id: params[:user_id])
@@ -77,7 +77,7 @@ class OvertimesController < ApplicationController
   	@overtime.day_payment = Overtime.day_payment_overtime(@overtime.start_time, @overtime.end_time, user)
   	@overtime.night_payment = Overtime.night_payment_overtime(@overtime.start_time, @overtime.end_time, user)
   	@overtime.payment = @overtime.day_payment + @overtime.night_payment
-      @overtimes.status = 0
+    @overtime.status = 0
 
 
 
@@ -140,7 +140,7 @@ class OvertimesController < ApplicationController
 
   def set_approval
   	@overtime = Overtime.find(params[:id])
-  	@overtime.update_attributes(status: 1)
+  	@overtime.update_attributes!(status: 1)
   	respond_to do |format|
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
@@ -149,7 +149,7 @@ class OvertimesController < ApplicationController
 
   def set_rejected
   	@overtime = Overtime.find(params[:id])
-  	@overtime.update_attributes(status: 2)
+  	@overtime.update_attributes!(status: 2)
   	respond_to do |format|
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
