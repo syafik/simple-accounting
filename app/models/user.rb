@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar
   has_attached_file :avatar,
-                    :default_url =>  ActionController::Base.helpers.asset_path('avatar.png'),
+                    :default_url =>  ActionController::Base.helpers.asset_path('avatar3.png'), 
                     :styles => {
                       :thumb => "50x50>",
                       :small => "120x120"

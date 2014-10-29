@@ -1,13 +1,18 @@
 <%= form_for(@role,:html => { style: "text-align: left;"} ) do |f| %>
 <% if @role.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@role.errors.count, "error") %> tprohibited this role from being saved:</h2>
+  <div id="notice" class="alert alert-warning alert-dismissable">
+            <i class="fa fa-exclamation"></i>
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <p ><%= notice %></p>
+  <h3><%= pluralize(@role.errors.count, "error") %> tprohibited this role from being saved:</h3>
 
   <ul>
     <% @role.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
     <% end %>
   </ul>
+  </div>
 </div>
 <% end %>
 

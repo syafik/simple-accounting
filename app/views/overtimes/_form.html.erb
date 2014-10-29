@@ -9,13 +9,13 @@
   </div>
 <% end %>
 
-<% if current_user.role.name == "admin" %>
-<div class="form-group" style="width: 50%">
-  <label>Karyawan:</label>
-  <%= f.select :user_id, options_for_select(@users, @overtime.user_id), {}, {class: "form-control"}%>
-</div>
+<% if current_user.is_admin? %>
+  <div class="form-group" style="width: 50%">
+	<label>Karyawan:</label>
+	<%= f.select :user_id, options_for_select(@users, @overtime.user_id), {}, {class: "form-control"}%>
+  </div>
 <% else %>
-<%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
 <% end %>
 
 

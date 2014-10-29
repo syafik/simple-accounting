@@ -140,6 +140,7 @@ h6,
   display: block;
   margin-top: 5px;
 }
+
 /* All images should be responsive */
 img {
   max-width: 100% !important;
@@ -607,7 +608,7 @@ body > .header .logo .icon {
   body > .header {
     position: relative;
   }
-  body > .header .logo,
+  body > .header .logo 
   body > .header .navbar {
     width: 100%;
     float: none;

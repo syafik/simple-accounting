@@ -1,8 +1,13 @@
 <h2> Credit </h2>
 <%= form_for @new_credit, url: credit_transactions_path do |f| %>
+  <div id="notice" class="alert alert-warning alert-dismissable">
+            <i class="fa fa-exclamation"></i>
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <p ><%= notice %></p>
   <% @new_credit.errors.full_messages.each do |msg| %>
     <p><%= msg %></p>
   <% end %>
+  </div>
   <p>
     <%= f.label :date %>
     <%= f.text_field :date, :value => Time.now %>
