@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar
   has_attached_file :avatar,
+                    :default_url =>  ActionController::Base.helpers.asset_path('avatar.png'),
                     :styles => {
                       :thumb => "50x50>",
-                      :small => "120x120",
-                      :default_url => "/assets/images/medium/missing_avatar3.png"
+                      :small => "120x120"
                     }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 1.megabytes
