@@ -1,49 +1,36 @@
-<style type="text/css">
-  th {
-    text-align: center;
-  }
-</style>
-
 <% content_for :bottom_js do %>
-    <%= javascript_include_tag "jquery.inputmask" %>
-    <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
-    <%= javascript_include_tag "jquery.inputmask.extensions" %>
-    <%= javascript_include_tag "call_datepicker" %>
-    <%= javascript_include_tag "bootstrap-timepicker.min" %>
-    <%= javascript_include_tag "call_timepicker" %>
-    <%= javascript_include_tag "form_absent" %>
+  <%= javascript_include_tag "jquery.inputmask" %>
+  <%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+  <%= javascript_include_tag "jquery.inputmask.extensions" %>
+  <%= javascript_include_tag "call_datepicker" %>
+  <%= javascript_include_tag "bootstrap-timepicker.min" %>
+  <%= javascript_include_tag "call_timepicker" %>
+  <%= javascript_include_tag "form_absent" %>
 <% end%>
 
 <% content_for :content_title do %>
-Gaji
+  Gaji
 <% end%>
 
 <% content_for :content_sub_title do %>
-Data Riwayat Lembur
+  Data Riwayat Lembur
 <% end%>
 
 <% content_for :content_body do %>
-<table style="text-align: center; width: 100%; ">
-  <tr>
-    <td style="text-align: left; width: 10%; ">
-    <label>Karyawan:</label>
-    </td>
-    <td style="text-align: left; width: 50%; ">
-      <%= render partial: "search_overtime" %>
-    </td>
-    <td align="right"><%= link_to "<< sebelumnya", overtimes_path(:year => @prev.year, :month => @prev.month), class: "custom-link" %></td>
-    <td style="text-align: center; width: 20%; "><h4><%= @start_date.strftime("%B ") %></h4></td>
-    <td align="left"><%= link_to "selanjutnya >>", overtimes_path(:year => @next.year, :month => @next.month), class: "custom-link"%></td>
-  </tr>
-</table>
 
-<%= render partial: "list" %>
+  <%= render partial: "search_overtime" if current_user.is_admin? %>
 
+  <%= link_to "<< sebelumnya", overtimes_path(:year => @prev.year, :month => @prev.month), class: "btn btn-info" %>
+  <%= @start_date.strftime("%B ") %>
+  <%= link_to "selanjutnya >>", overtimes_path(:year => @next.year, :month => @next.month), class: "btn btn-info" %>
+  <br />
+  <br />
 
+  <%= render partial: "list" %>
 <% end %>
 
 <% content_for :content_nav do %>
-<%= link_to 'Buat Data Lembur', new_overtime_path, :class=>'btn btn-primary' %>
+  <%= link_to 'Buat Data Lembur', new_overtime_path, :class=>'btn btn-primary' %>
 <% end%>
 
 

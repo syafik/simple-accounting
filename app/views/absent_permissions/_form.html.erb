@@ -46,7 +46,7 @@
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
-    <%= f.text_field :start_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom" %>
+    <%= f.text_field :start_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
   </div>
 </div>
 
@@ -56,7 +56,7 @@
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
-    <%= f.text_field :end_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom" %>
+    <%= f.text_field :end_date, :placeholder=> "Dari Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
   </div>
 </div>
 

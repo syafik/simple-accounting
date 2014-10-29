@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+		  xmlns:o="urn:schemas-microsoft-com:office:office"
+		  xmlns:x="urn:schemas-microsoft-com:office:excel"
+		  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+		  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+	<Table>
+	  <Row>
+		<Cell><Data ss:Type="String">No</Data></Cell>
+		<Cell><Data ss:Type="String">Name</Data></Cell>
+		<Cell><Data ss:Type="String">Gaji Pokok</Data></Cell>
+	  </Row>
+	  <% @users.each_with_index do |user, index| %>
+		<Row>
+		  <Cell><Data ss:Type="Number"><%= index + 1 %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= user.first_name %> <%= user.last_name %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(user.my_salary, unit: "Rp: ", precision: 0) %></Data></Cell>
+		</Row>
+	  <% end %>
+	</Table>
+  </Worksheet>
+</Workbook>

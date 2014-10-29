@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <style type="">
+	.table td,
+	.table th {
+	  background-color: #fff !important;
+	}
+	.table {
+	  border-collapse: collapse !important;
+	}
+	.table {
+	  width: 100%;
+	  max-width: 100%;
+	  margin-bottom: 20px;
+	}
+	.table > thead > tr > th,
+	.table > tbody > tr > th,
+	.table > tfoot > tr > th,
+	.table > thead > tr > td,
+	.table > tbody > tr > td,
+	.table > tfoot > tr > td {
+	  padding: 8px;
+	  line-height: 1.42857143;
+	  vertical-align: top;
+	  border-top: 1px solid #ddd;
+	}
+	.table > thead > tr > th {
+	  vertical-align: bottom;
+	  border-bottom: 2px solid #ddd;
+	}
+	.table > caption + thead > tr:first-child > th,
+	.table > colgroup + thead > tr:first-child > th,
+	.table > thead:first-child > tr:first-child > th,
+	.table > caption + thead > tr:first-child > td,
+	.table > colgroup + thead > tr:first-child > td,
+	.table > thead:first-child > tr:first-child > td {
+	  border-top: 0;
+	}
+	.table > tbody + tbody {
+	  border-top: 2px solid #ddd;
+	}
+  </style>
+</head>
+  <body>
+	<div id="content">
+	  <h2>Daftar Gaji Karyawan</h2>
+	  <table class="table">
+		<tbody>
+		<tr>
+		  <th style="text-align: left; width: 50px;">No</th>
+		  <th style="text-align: left;">Name</th>
+		  <th style="text-align: left;">Gaji Pokok</th>
+		</tr>
+		<% @users.each_with_index do |user, index| %>
+		  <tr>
+			<td style="width: 50px;"><%= index + 1 %></td>
+			<td style="text-align: left;"><%= user.first_name %> <%= user.last_name %></td>
+			<td style="text-align: left;"><%= number_to_currency(user.my_salary, unit: "Rp: ", precision: 0) %></td>
+		  </tr>
+		<% end  %>
+		</tbody>
+	  </table>
+	</div>
+  </body>
+</html>

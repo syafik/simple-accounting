@@ -54,4 +54,12 @@ class User < ActiveRecord::Base
   def self.get_all_sub_category_class(user)
     user.allowances.select("allowance_sub_category_id").map{|a| [a.allowance_sub_category.try(:name), a.try(:id)]}
   end
+
+  def my_salary
+    salary_histories.activate.sum(:payment)
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end

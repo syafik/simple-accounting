@@ -1,7 +1,7 @@
 <div class="form-group" style="width: 50%">
   <label>Tanggal:</label>
   <div class="input-group">
-    <%= f.hidden_field :date, value: Date.today, class: "form-control pull-right date_custom" %>
+    <%= f.hidden_field :date, value: Date.today, class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
     <%= Date.today.strftime("%d-%B-%Y")%>
   </div>
 </div>
@@ -9,7 +9,7 @@
 <div class="form-group" style="width: 50%">
   <label>Jam:</label>
   <div class="input-group">
-    <%= f.hidden_field :time_in, value: "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}", class: "form-control pull-right date_custom" %>
+    <%= f.hidden_field :time_in, value: "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}", class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
     <%= "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"%>
   </div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027051709) do
+ActiveRecord::Schema.define(:version => 20141029075911) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(:version => 20141027051709) do
     t.date     "date"
     t.integer  "user_id"
     t.string   "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.time     "start_time"
     t.time     "end_time"
     t.float    "long_overtime"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(:version => 20141027051709) do
     t.float    "day_payment"
     t.float    "night_payment"
     t.integer  "status"
+    t.float    "long_day",      :default => 0.0
+    t.float    "long_night",    :default => 0.0
   end
 
   create_table "roles", :force => true do |t|

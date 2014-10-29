@@ -1,10 +1,8 @@
 class SalaryHistoriesController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :check_date, :only => [:create]
-  
   def index
-    if current_user.role_id == 2
+    if current_user.is_admin?
       @salary_histories = SalaryHistory.where(user_id: params[:id]).order("id asc")
     else
       @salary_histories = SalaryHistory.where(user_id: current_user.id)
@@ -38,10 +36,7 @@ class SalaryHistoriesController < ApplicationController
   end
 
   def create
-
-
     @salary_history = SalaryHistory.new(params[:salary_history])
-    
     # save to overtime payment hitsory
     overtime_payment_history = {applicable_date:  params[:salary_history][:applicable_date], day_payment: params[:overtime_day_payment], night_payment: params[:overtime_night_payment], user_id: current_user.id, activate: true}
 
@@ -82,30 +77,13 @@ class SalaryHistoriesController < ApplicationController
     end
   end
 
-# method for activation salary
-def set_activation
- @salary_history = SalaryHistory.find(params[:id])
- @salary_history.update_attributes(:activate => true)
-
-
- #  how to update collect on rails
- # SalaryHistory.where("id <> ?", params[:format]).update_all(activate: false)
- SalaryHistory.update_all("activate = false", "id <> #{ params[:id] } AND user_id = #{@salary_history.user_id}" )
- redirect_to salary_histories_user_path(@salary_history.user_id)
-end
-
-def get_user
-  # @users = User.all.map {|user| [user.email, user.id]}
-  # @user_id = params[:id]
-end
-
-private
-def check_date
-
-  if  params[:salary_history][:applicable_date].is_a?(String)
-    params[:salary_history][:applicable_date] = DateTime.strptime(params[:salary_history][:applicable_date], "%m/%d/%Y").to_date
-    
+  # method for activation salary
+  def set_activation
+   @salary_history = SalaryHistory.find(params[:id])
+   @salary_history.update_attributes(:activate => true)
+   SalaryHistory.update_all("activate = false", "id <> #{ params[:id] } AND user_id = #{@salary_history.user_id}" )
+   redirect_to salary_histories_user_path(@salary_history.user_id)
   end
-end
+
 
 end

@@ -114,7 +114,7 @@ class AbsentsController < ApplicationController
 
   def check_date
     if params[:absent][:date].is_a?(String)
-      params[:absent][:date] = DateTime.strptime(params[:absent][:date], "%m/%d/%Y").to_date
+      params[:absent][:date] = DateTime.strftime(params[:absent][:date], "%m/%d/%Y").to_date
     end
   end
 end

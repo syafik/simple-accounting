@@ -1,13 +1,14 @@
 class Overtime < ActiveRecord::Base
-	belongs_to :user 
+	belongs_to :user
 
 	attr_accessible :date, :description, :long_overtime, :user_id, :start_time, :end_time, :payment, :status, :day_payment, :night_payment
-	validates  :date, :start_time, :end_time,   presence: true
+	validates :date, :start_time, :end_time, presence: true
+
+  after_validation :calculate_time
 
   scope :total_overtime_by_date, (lambda do |first_date, end_date|
     where("status = 1 AND date >= ? and date <= ?", first_date, end_date)
   end)
-
 
   def self.long_overtime(start_time, end_time)
 		if end_time.hour < start_time.hour
@@ -29,55 +30,57 @@ class Overtime < ActiveRecord::Base
 		return tot
 	end
 
-	def self.day_payment_overtime(start_time, end_time, user)
-		price_day = user.salary_histories.activate.first.day_payment_overtime rescue 0
-		ls = Time.parse(Setting[:startlimitdaytime]) #limit start
-		lf = Time.parse(Setting[:startlimitnighttime]) #limit finish
-		start = Time.parse(start_time.strftime("%H:%M "))
-		finish = Time.parse(end_time.strftime("%H:%M "))
-
-		if Time.parse(start_time.strftime("%H:%M ")) < ls && Time.parse(end_time.strftime("%H:%M ")) > lf
-			start = Time.parse("00:00")
-			finish = Time.parse("00:00")
-		elsif Time.parse(start_time.strftime("%H:%M ")) < ls || Time.parse(start_time.strftime("%H:%M ")) >= lf
-			start = ls
-		elsif Time.parse(end_time.strftime("%H:%M ")) > lf
-			finish = lf
-		end
-
-		long = long_overtime(start, finish)
-		day_payment = long * price_day
-		return day_payment
-	end
-
-	def self.night_payment_overtime(start_time, end_time, user)
-		price_night = user.salary_histories.activate.first.night_payment_overtime rescue 0
-		ls = Time.parse(Setting[:startlimitnighttime]) #limit start
-		lf = Time.parse(Setting[:startlimitdaytime]) #limit finish
-		start = Time.parse(start_time.strftime("%H:%M "))
-		finish = Time.parse(end_time.strftime("%H:%M "))
-
-		if Time.parse(start_time.strftime("%H:%M ")) < ls && Time.parse(end_time.strftime("%H:%M ")) > lf
-			start = Time.parse("00:00")
-			finish = Time.parse("00:00")
-		elsif Time.parse(start_time.strftime("%H:%M ")) < ls
-			start = ls
-		elsif Time.parse(end_time.strftime("%H:%M ")) > lf
-			finish = lf
-		end
-
-		long = long_overtime(start, finish)
-		
-
-		night_payment = long * price_night
-		return night_payment
-	end
-
 	def self.total_long_overtime(user, new_long_overtime)
-		
 		overtime_history = Overtime.where("user_id = ? AND status = ? AND date = ?", user.id, 1, Time.now).sum(:long_overtime)
 		total_long_overtime = overtime_history.to_i + new_long_overtime
 
 		return total_long_overtime
-	end
+  end
+
+  def calculate_time
+    start_time = self.start_time
+    end_time = self.end_time
+    siang = Time.parse("1 Jan 2000 "+ Setting[:startlimitdaytime])
+    malam = Time.parse("1 Jan 2000 "+ Setting[:startlimitnighttime]) #limit finish
+    if end_time <  start_time
+      end_time = end_time + 1.days
+      siang = siang + 1.days #limit start
+    end
+    total_jam = ((end_time - start_time) / 1.hour).round
+    if start_time < malam && end_time < siang
+      #awal siang akhisr malam
+      $stdout.puts jam_siang =  ((malam - start_time) / 1.hour).round
+      $stdout.puts jam_malam = total_jam - jam_siang
+    elsif start_time >= malam && end_time >= siang
+      #"awal malam akhir siang
+      jam_malam =  ((siang - start_time) / 1.hour).round
+      jam_siang = total_jam - jam_malam
+    elsif end_time <= malam && start_time < malam
+      #siang
+      jam_siang =  ((end_time - start_time) / 1.hour).round
+      jam_malam = 0
+    elsif end_time <= siang && start_time >= malam
+      #malam
+      jam_siang = 0
+      jam_malam =  ((end_time - start_time) / 1.hour).round
+    end
+    self.long_day = jam_siang
+    self.long_night = jam_malam
+        self.long_overtime = total_jam
+    if self.long_overtime > Setting[:maxovertimeperday].to_f
+      self.errors.add(:long_overtime, "Jam Lembur kelebihan")
+    end
+    self.day_payment = (self.user.salary_histories.activate.first.day_payment_overtime * self.long_day) rescue 0
+    self.night_payment = (self.user.salary_histories.activate.first.night_payment_overtime * self.long_night) rescue 0
+    self.payment = self.day_payment + self.night_payment
+    self.status = 0
+  end
+
+  def approved?
+    status == 1
+  end
+
+  def waiting?
+    status == 0
+  end
 end

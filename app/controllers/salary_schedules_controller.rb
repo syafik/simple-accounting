@@ -76,6 +76,14 @@ class SalarySchedulesController < ApplicationController
 
   def list_salary
     @users = User.all
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "file_name"
+      end
+      format.xls
+    end
   end
 
 end

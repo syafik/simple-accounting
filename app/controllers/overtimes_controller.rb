@@ -1,10 +1,7 @@
 class OvertimesController < ApplicationController
   load_and_authorize_resource
-
 	before_filter :get_user, :only => [:index, :new, :create, :edit, :update]
-	before_filter :check_date, :only => [:create]
-  # GET /overtimes
-  # GET /overtimes.json
+
   def index
     @current_time = Date.today
     year = params[:year] || @current_time.year
@@ -14,20 +11,17 @@ class OvertimesController < ApplicationController
     @prev = @date - 1.month
     @start_date = @date.beginning_of_month
     @end_date = @date.end_of_month
-
     @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
 
-    if current_user.role_id==2
-        if params[:user_id]
-          @overtimes = @overtimes.where(user_id: params[:user_id])
-        else
-          @overtimes = @overtimes
-        end
-  		
+    if current_user.is_admin?
+      if params[:user_id]
+        @overtimes = @overtimes.where(user_id: params[:user_id])
+      else
+        @overtimes = @overtimes
+      end
   	else
   		@overtimes = Overtime.where(:user_id => current_user.id)
   	end
-
 
   	respond_to do |format|
       format.html # index.html.erb
@@ -35,8 +29,6 @@ class OvertimesController < ApplicationController
     end
   end
 
-  # GET /overtimes/1
-  # GET /overtimes/1.json
   def show
   	@overtime = Overtime.find(params[:id])
 
@@ -46,11 +38,8 @@ class OvertimesController < ApplicationController
     end
   end
 
-  # GET /overtimes/new
-  # GET /overtimes/new.json
   def new
   	@overtime = Overtime.new
-
 
   	respond_to do |format|
       format.html # new.html.erb
@@ -58,37 +47,24 @@ class OvertimesController < ApplicationController
     end
   end
 
-  # GET /overtimes/1/edit
   def edit
   	@overtime = Overtime.find(params[:id])
   end
 
-  # POST /overtimes
-  # POST /overtimes.json
   def create
   	@overtime = Overtime.new(params[:overtime])
-  	user = User.find(@overtime.user_id)
-
-  	@overtime.long_overtime = Overtime.long_overtime(@overtime.start_time, @overtime.end_time)
-  	total_long_overtime = Overtime.total_long_overtime(user, @overtime.long_overtime)
-  	@overtime.day_payment = Overtime.day_payment_overtime(@overtime.start_time, @overtime.end_time, user)
-  	@overtime.night_payment = Overtime.night_payment_overtime(@overtime.start_time, @overtime.end_time, user)
-  	@overtime.payment = @overtime.day_payment + @overtime.night_payment
-    @overtime.status = 0
 
   	respond_to do |format|
-  		if total_long_overtime <= Setting[:maxovertimeperday].to_f  && @overtime.save
+  		if  @overtime.save
   			format.html { redirect_to @overtime, notice: 'Overtime was successfully created.' }
   			format.json { render json: @overtime, status: :created, location: @overtime }
   		else
-        format.html { redirect_to new_overtime_url,  :flash => { :error => "Jam Lembur Anda Melebihi 8 Jam" }}
+        format.html { render :new, :flash => { :error => @overtime.errors.full_messages.join(",") }}
         format.json { render json: @overtime.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /overtimes/1
-  # PUT /overtimes/1.json
   def update
   	@overtime = Overtime.find(params[:id])
   	user= User.find(params[:overtime][:user_id].to_i)
@@ -130,7 +106,7 @@ class OvertimesController < ApplicationController
 
   def set_approval
   	@overtime = Overtime.find(params[:id])
-  	@overtime.update_attributes!(status: 1)
+  	@overtime.update_attribute("status", 1)
   	respond_to do |format|
       UserMailer.send_lembur_approved_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
@@ -140,7 +116,7 @@ class OvertimesController < ApplicationController
 
   def set_rejected
   	@overtime = Overtime.find(params[:id])
-  	@overtime.update_attributes!(status: 2)
+  	@overtime.update_attribute("status", 2)
   	respond_to do |format|
       UserMailer.send_lembur_rejected_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
@@ -153,11 +129,4 @@ class OvertimesController < ApplicationController
   	@users = User.all.map {|user| [user.first_name, user.id]}
   end
 
-  def check_date
-
-  	if  params[:overtime][:date].is_a?(String)
-  		params[:overtime][:date] = DateTime.strptime(params[:overtime][:date], "%m/%d/%Y").to_date
-
-  	end
-  end
 end

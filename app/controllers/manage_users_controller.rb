@@ -10,7 +10,6 @@ class ManageUsersController < ApplicationController
  end
 
  def create
-
   @user = User.new(params[:user])
   @user.password = "12345678"
   respond_to do |format|
@@ -25,17 +24,17 @@ class ManageUsersController < ApplicationController
   end
 
   def update
+    p '= ' * 66
+    p params
     @user = User.find(params[:id])
     account_update_params = params[:user]
-
     if account_update_params[:password].blank?
       account_update_params.delete("password")
       account_update_params.delete("password_confirmation")
     end
 
-
     respond_to do |format|
-    if @user.update_attributes(account_update_params)
+      if @user.update_attributes(account_update_params)
         format.html { redirect_to manage_user_url(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -48,7 +47,6 @@ class ManageUsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-
 
   def index
     @users = User.all
@@ -80,14 +78,6 @@ class ManageUsersController < ApplicationController
 
   def get_roles
     @roles = Role.all.map { |role| [role.name, role.id]}
-  end
-
-  private
-  def check_date
-    if  params[:user][:birth_date] .is_a?(String)
-      params[:user][:birth_date]  = DateTime.strptime(params[:user][:birth_date] , "%m/%d/%Y").to_date
-
-    end
   end
 
 end

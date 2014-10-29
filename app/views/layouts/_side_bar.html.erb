@@ -31,10 +31,6 @@
   </li>
 
   <% if current_user.is_admin? %>
-	<li>
-	  <%= link_to '<i class="fa  fa-money"></i> Gaji'.html_safe, salary_schedules_path %>
-	</li>
-
 	<li class="treeview <%= "active" if params[:conroller].eql? "salary_schedules"%>">
 	  <a href="#">
 		<i class="fa fa-money"></i>

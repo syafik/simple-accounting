@@ -30,6 +30,16 @@ Detail Lembur
 			<td> <%= @overtime.end_time.strftime("%H:%M ") %></td>
 		</tr>
 		<tr>
+		  <td><b>Lama Lembur Siang</b></td>
+		  <td> : </td>
+		  <td> <%= @overtime.long_day %></td>
+		</tr>
+		<tr>
+		  <td><b>Lama Lembur Malam</b></td>
+		  <td> : </td>
+		  <td> <%= @overtime.long_night %></td>
+		</tr>
+		<tr>
 			<td><b>Lama Lembur</b></td>
 			<td> : </td>
 			<td> <%= @overtime.long_overtime %></td>

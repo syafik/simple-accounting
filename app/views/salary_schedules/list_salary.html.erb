@@ -17,16 +17,15 @@
   <table class="table table-striped">
 	<tbody>
 	<tr>
-	  <th>Name</th>
+	  <th>No</th>
+	  <th style="text-align: left;">Name</th>
 	  <th>Gaji Pokok</th>
-	  <th>Jamsostek</th>
 	</tr>
-	<% @users.each do |user| %>
-	<tr>
+	<% @users.each_with_index do |user, index| %>
 	  <tr>
-		<td><%= user.first_name %> <%= user.last_name %></td>
-		<td><%= user.my_salary %></td>
-		<td><%= (user.my_salary * (Setting[:jamsostek].to_f/100)) %></td>
+		<td ><%= index + 1 %></td>
+		<td style="text-align: left;"><%= user.first_name %> <%= user.last_name %></td>
+		<td class="left"><%= number_to_currency(user.my_salary, unit: "Rp: ", precision: 0) %></td>
 	  </tr>
 	<% end  %>
 	</tbody>
@@ -35,6 +34,7 @@
 <% end %>
 
 <% content_for :content_nav do %>
-  <%= link_to 'Buat Jadwal', new_salary_schedule_path, :class=>'btn btn-primary' %>
+  <%= link_to 'Export Pdf', list_salary_salary_schedules_path(format: :pdf), :class=>'btn btn-primary' %>
+  <%= link_to 'Export Excel', list_salary_salary_schedules_path(format: :xls), :class=>'btn btn-primary' %>
 <% end %>
 
