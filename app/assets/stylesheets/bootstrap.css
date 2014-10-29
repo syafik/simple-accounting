@@ -5345,6 +5345,11 @@ a.thumbnail.active {
   color: #2b542c;
 }
 
+.alert-failed {
+  color: #FFFFFF;
+  background-color: #FF3300;
+}
+
 .alert-info {
   color: #31708f;
   background-color: #d9edf7;

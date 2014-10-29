@@ -4,13 +4,18 @@ eror <%= @errors %>
 <% end %>
 <% if @overtime.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@overtime.errors.count, "error") %> prohibited this overtime from being saved:</h2>
+  <div id="notice" class="alert alert-warning alert-dismissable">
+            <i class="fa fa-exclamation"></i>
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <p ><%= notice %></p>
+  <h3><%= pluralize(@overtime.errors.count, "error") %> prohibited this overtime from being saved:</h3>
 
   <ul>
     <% @overtime.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
     <% end %>
   </ul>
+  </div>
 </div>
 <% end %>
 
