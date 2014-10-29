@@ -16,4 +16,13 @@ class UserMailer < ActionMailer::Base
   	mail(to: user.email, subject: "lembur anda ditolak")
  end
 
+ def absent_permissions_user(user, subject)
+ 	@user = user
+ 	subject = if subject == 1
+ 		"pengajuan cuti"
+ else
+ 	"pengajuan izin"
+ end
+    mail(to: "hrd.pushjaw@gmail.com", subject: subject)
+end
 end

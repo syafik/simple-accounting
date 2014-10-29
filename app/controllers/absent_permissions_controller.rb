@@ -61,10 +61,10 @@ class AbsentPermissionsController < ApplicationController
       params[:absent_permission][:long] = (end_date -start_date).to_i
     end
     @absent_permission = AbsentPermission.new(params[:absent_permission])
-      
-
       respond_to do |format|
-        if hbt  < current_user.max_furlough && params[:absent_permission][:long]  < current_user.max_furlough && @absent_permission.save
+       max_furlough = current_user.max_furlough.nil? ? 0 : current_user.max_furlough
+        if hbt  < max_furlough && params[:absent_permission][:long]  < current_user.max_furlough && @absent_permission.save
+          UserMailer.absent_permissions_user(@absent_permission.user, @absent_permission.status).deliver
           format.html { redirect_to @absent_permission, notice: 'Absent permission was successfully created.' }
           format.json { render json: @absent_permission, status: :created, location: @absent_permission }
         else
