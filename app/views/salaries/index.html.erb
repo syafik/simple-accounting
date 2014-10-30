@@ -70,7 +70,7 @@ Data Penggajian
 
   <%= form_for :salary, url: salaries_path(:salary_schedule => @salary_schedule || nil) do |f| %>
 	<%= f.submit "Generate", :class=>'btn btn-primary' if (@date.to_date - 2.days) == Date.today || (@date.to_date - 1.days) == Date.today %>
-  <% end if @date.present? %>
+  <% end if @date.present? && @salary_schedule.present? && !@salary_schedule.status %>
 
 <% end%>
 
