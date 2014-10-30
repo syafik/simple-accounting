@@ -1,11 +1,19 @@
 class ChangeFormatDateOnOvertimes < ActiveRecord::Migration
   def up
-    change_column :overtimes, :start_time, :datetime
-    change_column :overtimes, :end_time, :datetime
+    remove_column :overtimes, :start_time
+    remove_column :overtimes, :end_time
+    add_column :overtimes, :start_time, :datetime
+    add_column :overtimes, :end_time, :datetime
+    #change_column :overtimes, :start_time, :datetime
+    #change_column :overtimes, :end_time, :datetime
   end
 
   def down
-    change_column :overtimes, :start_time, :time
-    change_column :overtimes, :end_time, :time
+    remove_column :overtimes, :start_time
+    remove_column :overtimes, :end_time
+    add_column :overtimes, :start_time, :time
+    add_column :overtimes, :end_time, :time
+    #change_column :overtimes, :start_time, :time
+    #change_column :overtimes, :end_time, :time
   end
 end

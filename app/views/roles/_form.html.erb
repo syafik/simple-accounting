@@ -5,7 +5,7 @@
             <i class="fa fa-exclamation"></i>
             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
             <p ><%= notice %></p>
-  <h3><%= pluralize(@role.errors.count, "error") %> tprohibited this role from being saved:</h3>
+  <h3><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h3>
 
   <ul>
     <% @role.errors.full_messages.each do |msg| %>

@@ -7,7 +7,7 @@
     <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
     <ul>
       <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <li><%= msg %></style></li>
       <% end %>
     </ul>
     </div>
@@ -96,7 +96,7 @@
     <div class="form-group" style="width: 50%; text-align: left;" >
      <%= f.label :password_confirmation, "Confirm new password" %>
      <%= f.password_field :password_confirmation,  class: "form-control" %>
-   </div>
+   </div>difference between localhost and live web
 
 
   <div style="width: 50%; text-align: left;">

@@ -5,7 +5,7 @@
             <i class="fa fa-exclamation"></i>
             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
             <p ><%= notice %></p>
-  <h3><%= pluralize(@loan_permission.errors.count, "error") %> prohibited this loan_permissions from being saved::</h3>
+  <h3><%= pluralize(@loan_permission.errors.count, "error") %> prohibited this loan_permissions from being saved:</h3>
 
   <ul>
     <% @loan_permission.errors.full_messages.each do |msg| %>

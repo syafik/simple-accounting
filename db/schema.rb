@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(:version => 20141030075206) do
     t.date     "submission_date"
     t.date     "approval_date"
     t.string   "upload"
-    t.integer  "status"
     t.text     "description"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "allowance_id"
     t.float    "nominal"
+    t.integer  "status"
   end
 
   add_index "allowance_claim_transactions", ["allowance_id"], :name => "index_allowance_claim_transactions_on_allowance_id"
@@ -132,8 +132,6 @@ ActiveRecord::Schema.define(:version => 20141030075206) do
     t.string   "description"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.datetime "start_time"
-    t.datetime "end_time"
     t.float    "long_overtime"
     t.float    "payment"
     t.float    "day_payment"
@@ -141,6 +139,8 @@ ActiveRecord::Schema.define(:version => 20141030075206) do
     t.integer  "status"
     t.float    "long_day",      :default => 0.0
     t.float    "long_night",    :default => 0.0
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
   create_table "roles", :force => true do |t|
