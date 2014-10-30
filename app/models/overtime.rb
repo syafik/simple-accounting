@@ -40,35 +40,37 @@ class Overtime < ActiveRecord::Base
   def calculate_time
     start_time = self.start_time
     end_time = self.end_time
-    siang = Time.parse("1 Jan 2000 "+ Setting[:startlimitdaytime])
-    malam = Time.parse("1 Jan 2000 "+ Setting[:startlimitnighttime]) #limit finish
-    if end_time <  start_time
-      end_time = end_time + 1.days
-      siang = siang + 1.days #limit start
-    end
+    siang = Time.parse("#{self.date.strftime("%d %b %Y ")}"+ Setting[:startlimitdaytime])
+    malam = Time.parse("#{self.date.strftime("%d %b %Y ")}"+ Setting[:startlimitnighttime]) #limit finish
+
+    s_siang = siang
+    e_siang = malam
+    s_malam = malam
+    e_malam = siang + 1.days
+
     total_jam = ((end_time - start_time) / 1.hour).round
-    if start_time < malam && end_time < siang
-      #awal siang akhisr malam
-      $stdout.puts jam_siang =  ((malam - start_time) / 1.hour).round
-      $stdout.puts jam_malam = total_jam - jam_siang
-    elsif start_time >= malam && end_time >= siang
-      #"awal malam akhir siang
-      jam_malam =  ((siang - start_time) / 1.hour).round
-      jam_siang = total_jam - jam_malam
-    elsif end_time <= malam && start_time < malam
-      #siang
-      jam_siang =  ((end_time - start_time) / 1.hour).round
+    if end_time <= e_siang && start_time >= s_siang
+      jam_siang = ((end_time - start_time) / 1.hour).round
       jam_malam = 0
-    elsif end_time <= siang && start_time >= malam
-      #malam
+    elsif end_time <= e_malam && start_time >= s_malam
       jam_siang = 0
-      jam_malam =  ((end_time - start_time) / 1.hour).round
+      jam_malam = ((end_time - start_time) / 1.hour).round
+
+    elsif start_time <= e_malam && end_time < e_siang
+      #"awal malam akhir siang
+      jam_malam = ((siang - start_time) / 1.hour).round
+      jam_siang = total_jam - jam_malam
+    elsif start_time < e_siang && end_time < e_malam
+      #awal siang akhisr malam
+      jam_siang = ((malam - start_time) / 1.hour).round
+      jam_malam = total_jam - jam_siang
     end
+
     self.long_day = jam_siang
     self.long_night = jam_malam
         self.long_overtime = total_jam
     if self.long_overtime > Setting[:maxovertimeperday].to_f
-      self.errors.add(:long_overtime, "Jam Lembur kelebihan")
+      self.errors.add(:long_overtime, "Jam Lembur kelebihan.")
     end
     self.day_payment = (self.user.salary_histories.activate.first.day_payment_overtime * self.long_day) rescue 0
     self.night_payment = (self.user.salary_histories.activate.first.night_payment_overtime * self.long_night) rescue 0

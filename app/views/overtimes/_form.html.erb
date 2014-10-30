@@ -30,11 +30,11 @@
 </div>
 
 
-<div class="bootstrap-timepicker" style="width: 50%">
+<div class="bootstrap-timepickerx" style="width: 50%">
   <div class="form-group">
     <label>Jam Mulai:</label>
     <div class="input-group">
-      <%= f.text_field :start_time, class: "form-control timepicker test" %>
+      <%= f.text_field :start_time, class: "form-control datetimepicker-overtime" %>
       <div class="input-group-addon">
         <i class="fa fa-clock-o"></i>
       </div>
@@ -42,11 +42,12 @@
   </div><!-- /.form group -->
 </div>
 
-<div class="bootstrap-timepicker" style="width: 50%">
+
+<div class="bootstrap-timepickerx" style="width: 50%">
   <div class="form-group">
     <label>Jam Selesai:</label>
     <div class="input-group">
-      <%= f.text_field :end_time, class: "form-control timepicker test" %>
+      <%= f.text_field :end_time, class: "form-control datetimepicker-overtime" %>
       <div class="input-group-addon">
         <i class="fa fa-clock-o"></i>
       </div>

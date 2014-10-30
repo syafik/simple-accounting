@@ -11,16 +11,15 @@ class OvertimesController < ApplicationController
     @prev = @date - 1.month
     @start_date = @date.beginning_of_month
     @end_date = @date.end_of_month
-    @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
 
     if current_user.is_admin?
       if params[:user_id]
-        @overtimes = @overtimes.where(user_id: params[:user_id])
+        @overtimes = @overtimes.where(user_id: params[:user_id], :date => @start_date..@end_date)
       else
-        @overtimes = @overtimes
+        @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
       end
   	else
-  		@overtimes = Overtime.where(:user_id => current_user.id)
+  		@overtimes = Overtime.where(:date => @start_date..@end_date, :user_id => current_user.id)
   	end
 
   	respond_to do |format|

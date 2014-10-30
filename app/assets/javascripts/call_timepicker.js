@@ -4,3 +4,8 @@ $('.timepicker').timepicker({
     showInputs: false,
     showMeridian: false
 });
+
+$('.datetimepicker-overtime').datetimepicker({
+    timepicker: true,
+    format:'Y-m-d H:i'
+});

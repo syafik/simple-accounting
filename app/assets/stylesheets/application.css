@@ -18,6 +18,7 @@
  * require bootstrap3-wysihtml5.min
  *= require AdminLTE
  *= require bootstrap-timepicker.min
+ *= require jquery.datetimepicker.css
  *= require_self
 */
 

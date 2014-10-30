@@ -23,6 +23,7 @@
 //= require daterangepicker
 //= require bootstrap-datepicker
 //= require bootstrap3-wysihtml5.all.min
+//= require jquery.datetimepicker.js
 //= require icheck.min
 //= require jquery.maskMoney.js
 //= require AdminLTE/app
