@@ -66,22 +66,8 @@ class OvertimesController < ApplicationController
 
   def update
   	@overtime = Overtime.find(params[:id])
-  	user= User.find(params[:overtime][:user_id].to_i)
-  	params[:overtime][:long_overtime] = @overtime.long_overtime
-
-  	if Time.parse(@overtime.start_time.strftime("%H:%M ")) != Time.parse(params[:overtime][:start_time]) || Time.parse(@overtime.end_time.strftime("%H:%M ")) !=Time.parse(params[:overtime][:end_time])
-  		params[:overtime][:long_overtime] = Overtime.long_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]))
-      total_long_overtime = Overtime.total_long_overtime(user, params[:overtime][:long_overtime])
-    end
-
-    total_long_overtime = 0 
-
-    params[:overtime][:day_payment] = Overtime.day_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
-    params[:overtime][:night_payment] = Overtime.night_payment_overtime(Time.parse(params[:overtime][:start_time]), Time.parse(params[:overtime][:end_time]), user)
-    params[:overtime][:payment] = params[:overtime][:day_payment] + params[:overtime][:night_payment]
-
     respond_to do |format|
-      if total_long_overtime <= Setting[:maxovertimeperday].to_f && @overtime.update_attributes(params[:overtime])
+      if @overtime.update_attributes(params[:overtime])
        format.html { redirect_to @overtime, notice: 'Overtime was successfully updated.' }
        format.json { head :no_content }
      else
@@ -91,8 +77,6 @@ class OvertimesController < ApplicationController
    end
  end
 
-  # DELETE /overtimes/1
-  # DELETE /overtimes/1.json
   def destroy
   	@overtime = Overtime.find(params[:id])
   	@overtime.destroy
