@@ -14,7 +14,7 @@ class OvertimesController < ApplicationController
 
     if current_user.is_admin?
       if params[:user_id]
-        @overtimes = @overtimes.where(user_id: params[:user_id], :date => @start_date..@end_date)
+        @overtimes = Overtime.where(user_id: params[:user_id], :date => @start_date..@end_date)
       else
         @overtimes = Overtime.where(:date => @start_date..@end_date).order('date ASC')
       end
