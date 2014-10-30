@@ -5,7 +5,7 @@ class AvatarController < ApplicationController
     user.save
 
     respond_to do |format|
-      format.html { redirect_to manage_users_url, notice: 'Photo was successfully destroyed.' }
+      format.html { redirect_to manage_users_url, notice: 'Photo was successfully destroyed' }
       format.json { head :no_content }
     end
   end

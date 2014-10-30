@@ -48,6 +48,11 @@ body > .header {
   right: 0;
   z-index: 1030;
 }
+/* Logo */
+body > .logo_header {
+  padding: 0 0 0 0!important;
+
+}
 /* Define 2 column template */
 .right-side,
 .left-side {

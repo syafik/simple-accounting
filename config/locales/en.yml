@@ -92,6 +92,7 @@ en:
         other: ! '%{count} detik'
     prompts:
       day: Hari
+      date: Tanggal
       hour: Jam
       minute: Menit
       month: Bulan
@@ -120,8 +121,8 @@ en:
       too_long: terlalu panjang (maksimum %{count} karakter)
       too_short: terlalu pendek (minimum %{count} karakter)
       wrong_length: jumlah karakter salah (seharusnya %{count} karakter)
-    notice:
-      photo_was_successfully_destroyed.: foto berhasil dihapus 
+      birth: lahir
+      Photo was successfully destroyed: foto berhasil dihapus 
     template:
       body: ! 'Ada masalah dengan field berikut:'
       header:

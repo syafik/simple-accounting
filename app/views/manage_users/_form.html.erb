@@ -4,7 +4,7 @@
             <i class="fa fa-exclamation"></i>
             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
             <p ><%= notice %></p>
-    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this from being saved:</h3>
+    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
     <ul>
       <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -54,7 +54,7 @@
       <div class="input-group-addon">
         <i class="fa fa-calendar"></i>
       </div>
-      <%= f.text_field :birth_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
+      <%= f.text_field :birth_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yy-mm-dd" %>
     </div>
   </div>
 
