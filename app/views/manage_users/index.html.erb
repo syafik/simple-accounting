@@ -14,7 +14,7 @@
 
 <% content_for :content_body do %>
 
-  <table id="example2" class="table table-bordered table-hover" >
+  <table id="example2" class="table table-bordered table-hover">
 
 	<% @manage_users.each do |manage_user| %>
 	<tr>
@@ -30,7 +30,7 @@
                 <% end %>
 
 	  </td>
-	  <td align="left" cellpadding=10>
+	  <td style="padding-left:	10px !important;" align="left">
 	  <strong>Nama : </strong><br>
       <%= "#{manage_user.first_name} #{manage_user.last_name} ".titleize %><br>   
       <strong>No. Telepon :</strong><br>
@@ -40,7 +40,7 @@
 	  <%= manage_user.email %>
 	  </td>
 
-	  <td align="left">
+	  <td style="padding-left:	10px !important;" align="left">
 	  <strong>Posisi :</strong>
 	  <%= manage_user.position %><br>
 
