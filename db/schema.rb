@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141030075206) do
+ActiveRecord::Schema.define(:version => 20141031072148) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -201,6 +201,18 @@ ActiveRecord::Schema.define(:version => 20141030075206) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
+  create_table "transaction_summaries", :force => true do |t|
+    t.string   "name"
+    t.integer  "summary_month"
+    t.integer  "summary_year"
+    t.integer  "debit",         :limit => 8
+    t.integer  "credit",        :limit => 8
+    t.integer  "total",         :limit => 8
+    t.text     "description"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "transactions", :force => true do |t|
     t.datetime "date"
     t.string   "description"
@@ -208,6 +220,7 @@ ActiveRecord::Schema.define(:version => 20141030075206) do
     t.boolean  "is_debit",    :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.boolean  "is_close",    :default => false
   end
 
   create_table "users", :force => true do |t|

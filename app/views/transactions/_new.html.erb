@@ -15,7 +15,7 @@
 				<div class="input-group-addon">
 				  <i class="fa fa-calendar"></i>
 				</div>
-				<%= f.text_field :date, value: Date.today().strftime("%Y-10-01"), class: "form-control" %>
+				<%= f.text_field :date, value: Date.today().strftime("%Y-%m-%d"), class: "form-control" %>
 			  </div><!-- /.input group -->
 			</div>
 			<%= f.hidden_field :is_debit, value: @is_debit %>

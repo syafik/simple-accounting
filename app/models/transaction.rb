@@ -1,7 +1,7 @@
 class Transaction < ActiveRecord::Base
-  attr_accessible :date, :description, :is_debit, :value
-  validates  :date, :description,   presence: true
-  validates  :value, presence: true, :numericality => true
+  attr_accessible :date, :description, :is_debit, :value, :is_close
+  validates :date, :description, presence: true
+  validates :value, presence: true, :numericality => true
 
   scope :debits, where(:is_debit => true)
   scope :credits, where(:is_debit => false)
@@ -20,5 +20,4 @@ class Transaction < ActiveRecord::Base
   scope :by_month, (lambda do |month|
     where("MONTH(date) = #{month}")
   end)
-  
 end

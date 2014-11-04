@@ -95,6 +95,7 @@ SimpleAccounting::Application.routes.draw do
 
   resources :transactions do
     collection do
+      delete :close_book
       post :credit
       get :edit_transaction
     end

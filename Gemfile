@@ -20,7 +20,7 @@ gem "paranoia", "~> 1.0"
 gem "setler", '0.0.11'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-
+gem 'closure_tree'
 group :development do
-	gem 'debugger'
+#	gem 'debugger'
 end
