@@ -3,7 +3,7 @@ class TransactionSummary < ActiveRecord::Base
 
 
   before_validation :calculate_total
-  after_save :update_status_transactions
+  after_create :update_status_transactions
 
   def update_status_transactions
     date = DateTime.new(self.summary_year.to_i, self.summary_month.to_i, 1)
@@ -25,7 +25,7 @@ class TransactionSummary < ActiveRecord::Base
     result[:summary_month] = month
     result[:summary_year] = year
     result[:debit] = 0
-    result[:debit] = 0
+    result[:credit] = 0
     transactions.each do |transaction|
       if transaction.is_debit
         result[:debit] = transaction.jumlah
@@ -37,8 +37,10 @@ class TransactionSummary < ActiveRecord::Base
   end
 
   def self.create_close_book(result)
-    transaction_summary =  new(result)
-    transaction_summary.save
+    find_or_create_by(summary_month: result[:summary_month], summary_month: result[:summary_year]) do |st|
+      st.debit = result[:debit]
+      st.credit = result[:credit]
+    end
   end
 
 end
