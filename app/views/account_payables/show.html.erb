@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Time:</b>
+  <%= @account_payable.time %>
+</p>
+
+<p>
+  <b>Debit:</b>
+  <%= @account_payable.debit %>
+</p>
+
+<p>
+  <b>Credit:</b>
+  <%= @account_payable.credit %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @account_payable.description %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @account_payable.date %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_payable_path(@account_payable) %> |
+<%= link_to 'Back', account_payables_path %>
