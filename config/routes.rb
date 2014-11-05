@@ -12,6 +12,8 @@ SimpleAccounting::Application.routes.draw do
   
   resources :manage_users
 
+  resources :account_receivables
+
   # get "allowance_sub_categories/index"
   # get "allowances/index"
 

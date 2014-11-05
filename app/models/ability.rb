@@ -6,7 +6,7 @@ class Ability
     if user.is_admin?
       can :manage, :all
     elsif user.is_user?
-      can :manage, Absent
+      can :manage, Absent, :user_id => user.id
       can :manage, User, :id => user.id
       can :manage, AbsentPermission, :user_id => user.id
       can :manage, LoanPermission, :user_id => user.id

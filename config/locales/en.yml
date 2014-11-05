@@ -127,8 +127,8 @@ en:
       too_long: terlalu panjang (maksimum %{count} karakter)
       too_short: terlalu pendek (minimum %{count} karakter)
       wrong_length: jumlah karakter salah (seharusnya %{count} karakter)
-      birth_date: tanggal lahir
       size: ukuran
+      photo: Foto
 
     template:
       body: ! 'Ada masalah dengan field berikut:'
