@@ -1,9 +1,9 @@
 class TransactionSummary < ActiveRecord::Base
-  attr_accessible :credit, :debit, :description, :name, :total,  :summary_month, :summary_year
+  attr_accessible :credit, :debit, :description, :name, :total, :summary_month, :summary_year
 
 
   before_validation :calculate_total
-  after_create :update_status_transactions
+  after_save :update_status_transactions
 
   def update_status_transactions
     date = DateTime.new(self.summary_year.to_i, self.summary_month.to_i, 1)
@@ -37,9 +37,15 @@ class TransactionSummary < ActiveRecord::Base
   end
 
   def self.create_close_book(result)
-    find_or_create_by(summary_month: result[:summary_month], summary_month: result[:summary_year]) do |st|
-      st.debit = result[:debit]
-      st.credit = result[:credit]
+    ts = TransactionSummary.where(summary_year: result[:summary_year], summary_month: result[:summary_month])
+    if ts.empty?
+      transaction_summary = new(result)
+      transaction_summary.save
+    else
+      $stdout.puts ts.inspect
+      $stdout.puts ts.first.inspect
+      ts.first.update_attributes(result)
+      $stdout.puts ts.first.inspect
     end
   end
 

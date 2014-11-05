@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141031072148) do
+ActiveRecord::Schema.define(:version => 20141104043015) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(:version => 20141031072148) do
     t.time     "time_in"
     t.time     "time_out"
     t.float    "total_work_time"
+  end
+
+  create_table "account_payables", :force => true do |t|
+    t.string   "time"
+    t.integer  "debit",       :limit => 8
+    t.integer  "credit",      :limit => 8
+    t.text     "description"
+    t.datetime "date"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "allowance_categories", :force => true do |t|
