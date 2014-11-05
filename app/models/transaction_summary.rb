@@ -1,5 +1,5 @@
 class TransactionSummary < ActiveRecord::Base
-  attr_accessible :credit, :debit, :description, :name, :total,  :summary_month, :summary_year
+  attr_accessible :credit, :debit, :description, :name, :total, :summary_month, :summary_year
 
 
   before_validation :calculate_total
@@ -25,7 +25,7 @@ class TransactionSummary < ActiveRecord::Base
     result[:summary_month] = month
     result[:summary_year] = year
     result[:debit] = 0
-    result[:debit] = 0
+    result[:credit] = 0
     transactions.each do |transaction|
       if transaction.is_debit
         result[:debit] = transaction.jumlah
@@ -37,8 +37,16 @@ class TransactionSummary < ActiveRecord::Base
   end
 
   def self.create_close_book(result)
-    transaction_summary =  new(result)
-    transaction_summary.save
+    ts = TransactionSummary.where(summary_year: result[:summary_year], summary_month: result[:summary_month])
+    if ts.empty?
+      transaction_summary = new(result)
+      transaction_summary.save
+    else
+      $stdout.puts ts.inspect
+      $stdout.puts ts.first.inspect
+      ts.first.update_attributes(result)
+      $stdout.puts ts.first.inspect
+    end
   end
 
 end

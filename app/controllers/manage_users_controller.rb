@@ -1,7 +1,7 @@
 class ManageUsersController < ApplicationController
   load_and_authorize_resource :class => "User"
 
-  before_filter :get_roles,  :only => [:new, :create, :update, :edit] 
+  before_filter :get_roles,  :only => [:new, :update, :edit] 
 
   def new
    @user = User.new
