@@ -11,27 +11,56 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :time %><br />
-    <%= f.text_field :time %>
+  <div class="form-group" style="width: 20%">
+  <label>Date:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :date, :placeholder=> "Date" , class: "form-control pull-right date_custom", :"data-date-format" => "dd-mm-yyyy" %>
   </div>
-  <div class="field">
+</div>
+
+
+
+
+
+
+  
+
+
+  <div class="form-group" style="width: 50%">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %> <br />
+  </div>
+ <% hidden_field_tag :credit, @credit %>
+ <% if (@account_payable.new_record? && @credit) || (!@account_payable.new_record? && @account_payable.credit > 0) %>
+  <div class="form-group" style="width: 50%">
     <%= f.label :debit %><br />
-    <%= f.number_field :debit %>
+    <%= f.select "parent_id", debit_account %>
+    <%= f.hidden_field :credit, :value => 0 %>
   </div>
-  <div class="field">
+  <div class="form-group" style="width: 50%">
     <%= f.label :credit %><br />
     <%= f.number_field :credit %>
+    <%= f.hidden_field :debit, :value => 0 %>
   </div>
-  <div class="field">
+  <% else %>
+    <div class="form-group" style="width: 50%">
+    <%= f.label :debit %><br />
+    <%= f.number_field :debit %>
+    <%= f.hidden_field :credit, :value => 0 %>
+  </div>
+  <% end %>
+
+  <div class="form-group" style="width: 50%">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.datetime_select :date %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
-  </div>
+  </div>  
 <% end %>
+
+

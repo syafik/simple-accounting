@@ -2,6 +2,7 @@
 class AccountPayablesController < ApplicationController
   # GET /account_payables
   # GET /account_payables.json
+   load_and_authorize_resource
   def index
     @account_payables = AccountPayable.all
 
@@ -26,6 +27,7 @@ class AccountPayablesController < ApplicationController
   # GET /account_payables/new.json
   def new
     @account_payable = AccountPayable.new
+    @credit = params[:credit] ? true : false
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,14 +43,14 @@ class AccountPayablesController < ApplicationController
   # POST /account_payables
   # POST /account_payables.json
   def create
+    @credit = params[:credit] ? true : false
     @account_payable = AccountPayable.new(params[:account_payable])
-
     respond_to do |format|
       if @account_payable.save
         format.html { redirect_to @account_payable, notice: 'Account payable was successfully created.' }
         format.json { render json: @account_payable, status: :created, location: @account_payable }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", :debit => true }
         format.json { render json: @account_payable.errors, status: :unprocessable_entity }
       end
     end

@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Time:</b>
-  <%= @account_payable.time %>
+  <b>Date:</b>
+  <%= @account_payable.date %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @account_payable.title %>
 </p>
 
 <p>
@@ -20,10 +25,9 @@
   <%= @account_payable.description %>
 </p>
 
-<p>
-  <b>Date:</b>
-  <%= @account_payable.date %>
-</p>
+
+
+
 
 
 <%= link_to 'Edit', edit_account_payable_path(@account_payable) %> |
