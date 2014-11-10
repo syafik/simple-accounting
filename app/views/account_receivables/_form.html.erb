@@ -1,0 +1,56 @@
+<%= form_for(@account_receivable, :html => { style: "text-align: left;"} ) do |f| %>
+  <% if @account_receivable.errors.any? %>
+    <div id="error_explanation">
+          <div id="notice" class="alert alert-warning alert-dismissable">
+            <i class="fa fa-exclamation"></i>
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <p ><%= notice %></p>
+      <h2 align="center"><%= pluralize(@account_receivable.errors.count, "error") %> prohibited this account_receivable from being saved:</h2>
+
+      <div align="center">
+      <ul>
+      <% @account_receivable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title, :placeholder=> "Title" %><br />
+  </div>
+  <%= hidden_field_tag :debit, @debit %>
+  <% if (@account_receivable.new_record? && @debit )|| (!@account_receivable.new_record? && @account_receivable.debit > 0) %>
+    <div class="field" style="width: 30%; text-align: left;">
+      <%= f.label :credit %><br />
+      <%= f.select("parent_id", AccountReceivable.where(parent_id:nil).collect{|p| [ "#{p.title} - Rp. #{p.credit}", p.id]}) %> 
+    </div>
+    <div class="field">
+      <%= f.label :debit %><br />
+      <%= f.text_field :debit, :placeholder=> "Debit" %>
+      <%= f.hidden_field :credit, :value=>0%>
+    </div>
+  <% else %>
+    <div class="form-group" style="width: 30%;">
+      <%= f.label :credit %><br />
+      <%= f.text_field :credit, :placeholder=> "Credit" %>
+      <%= f.hidden_field :debit, :value=>0%>
+    </div>
+  <% end %>
+  <div class="form-group" style="width: 30%;">
+  <%= f.label :date %>
+  <div>
+    <%= f.text_field :date, :placeholder=> "Tahun-Bulan-Tanggal, 00-00-00", class: "form-control pull-right date_custom", :"data-date-format" => "yy-mm-dd"%></i><br>
+  </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :placeholder=> "Description" %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

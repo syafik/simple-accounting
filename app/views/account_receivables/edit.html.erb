@@ -1,0 +1,17 @@
+<% content_for :bottom_js do %>
+   <%= javascript_include_tag "call_datepicker" %>
+<% end%>
+
+<% content_for :content_body do %>
+
+<% content_for :content_sub_title do %>	
+<h2 align="left">&nbsp;Edit Data Piutang</h2>
+<% end %>
+
+<%= render 'form' %>
+<% end %>
+
+<% content_for :content_nav do %>
+<%= link_to 'Show', @account_receivable, :class=>'btn btn-primary' %> 
+<%= link_to 'Back', account_receivables_path, :class=>'btn btn-primary' %>
+<% end %>

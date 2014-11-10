@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20141104040704) do
-=======
-ActiveRecord::Schema.define(:version => 20141104043015) do
->>>>>>> 1165bea3ce680dbb9001fe0bba50198778d8461c
+ActiveRecord::Schema.define(:version => 20141110053232) do
 
   create_table "absent_permissions", :force => true do |t|
     t.integer  "category"
@@ -46,16 +42,6 @@ ActiveRecord::Schema.define(:version => 20141104043015) do
     t.float    "total_work_time"
   end
 
-<<<<<<< HEAD
-  create_table "account_receivables", :force => true do |t|
-    t.string   "title"
-    t.integer  "debit"
-    t.integer  "credit"
-    t.text     "description"
-    t.datetime "date"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-=======
   create_table "account_payables", :force => true do |t|
     t.string   "time"
     t.integer  "debit",       :limit => 8
@@ -64,7 +50,18 @@ ActiveRecord::Schema.define(:version => 20141104043015) do
     t.datetime "date"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
->>>>>>> 1165bea3ce680dbb9001fe0bba50198778d8461c
+  end
+
+  create_table "account_receivables", :force => true do |t|
+    t.string   "title"
+    t.integer  "debit"
+    t.integer  "credit"
+    t.text     "description"
+    t.date     "date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "time"
+    t.integer  "parent_id"
   end
 
   create_table "allowance_categories", :force => true do |t|

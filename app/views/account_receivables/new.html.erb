@@ -1,0 +1,22 @@
+<% content_for :bottom_js do %>
+<%= javascript_include_tag "jquery.inputmask"%>
+<%= javascript_include_tag "jquery.inputmask.date.extensions" %>
+<%= javascript_include_tag "jquery.inputmask.extensions"%>
+<%= javascript_include_tag "call_datepicker" %>
+<% end%>
+
+<% content_for :content_title do %>
+Piutang
+<% end%>
+
+<% content_for :content_sub_title do %>
+Buat Daftar Piutang
+<% end%>
+
+<% content_for :content_body do %>
+<%= render 'form' %>
+<% end %>
+
+<% content_for :content_nav do %>
+<%= link_to 'Back', account_receivables_path, :class=>'btn btn-primary' %>
+<% end %>

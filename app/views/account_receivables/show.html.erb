@@ -1,0 +1,51 @@
+<style type="text/css">
+    td, h4, p {
+        text-align: left;
+    }
+</style>
+<% content_for :content_body do %>
+
+<% content_for :content_sub_title do %>
+  <b>
+    <h4>Rincian <%= @account_receivable.title %></h4>
+  </b>
+<% end %>
+
+<table border="0">
+<thead>
+  <tr>
+    <td><b>Title</b></td>
+    <td>:&nbsp;<%= @account_receivable.title %></td>
+  </tr>
+
+  <tr>
+    <td><b>Date</b></td>
+    <td>:&nbsp;<%= @account_receivable.date %></td>
+  </tr> 
+
+  <tr>
+    <td><b>Debit</b></td>
+    <td>:&nbsp;<%= @account_receivable.debit %></td>
+  </tr>
+
+  <tr>
+    <td><b>Credit</b></td>
+    <td>:&nbsp;<%= @account_receivable.credit %></td>
+  </tr>
+
+  <tr>
+    <td><b>Description</b></td>
+    <td>:&nbsp;<%= @account_receivable.description %></td>
+  </tr>
+</thead>
+</table>
+<br>
+<p>
+  <b>Total:</b> 
+</p>
+
+<% content_for :content_nav do %>
+<%= link_to 'Edit', edit_account_receivable_path(@account_receivable), :class=>'btn btn-primary' %>
+<%= link_to 'Back', account_receivables_path, :class=>'btn btn-primary' %>
+<% end %>
+<% end %>
