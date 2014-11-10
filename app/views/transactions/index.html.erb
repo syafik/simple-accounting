@@ -51,8 +51,8 @@
           <th style="width: 10px">#</th>
           <th>Date</th>
           <th>Description</th>
-          <th>Debit</th>
-          <th>Credit</th>
+          <th style="text-align: center;" >Debit</th>
+          <th style="text-align: center;">Credit</th>4 bx
           <th><span class="pull-right">Action</span></th>
         </tr>
         <% @transactions.each_with_index do |transaction, index| %>
@@ -60,8 +60,8 @@
               <td><%= index + 1 %></td>
               <td><%= transaction.date.strftime("%d  %B %Y") %></td>
               <td><%= transaction.description %></td>
-              <td><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
-              <td><%= number_to_currency(transaction.value, unit: "Rp. ") if !transaction.is_debit %></td>
+              <td style="text-align: right;"><%= number_to_currency(transaction.value, unit: "Rp. ") if transaction.is_debit %></td>
+              <td style="text-align: right;"><%= number_to_currency(transaction.value, unit: "Rp. ") if !transaction.is_debit %></td>
               <td>
                 <% unless transaction.is_close %>
 			  <span class="pull-right">

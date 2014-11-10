@@ -1,186 +1,179 @@
-  <% if @user.errors.any? %>
-  <div id="error_explanation">
-    <div id="notice" class="alert alert-warning alert-dismissable">
-            <i class="fa fa-exclamation"></i>
-            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-            <p ><%= notice %></p>
-    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></style></li>
-      <% end %>
-    </ul>
-    </div>
-  </div>
-  <% end if @user %>
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <div id="notice" class="alert alert-warning alert-dismissable">
+        <i class="fa fa-exclamation"></i>
+        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        <p><%= notice %></p>
 
-
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Email:</label>
-    <%= f.text_field :email, :placeholder=> "Email" , class: "form-control", type: "email", required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Depan:</label>
-    <%= f.text_field :first_name, :placeholder=> "Nama Depan",  class: "form-control", required: true %>
-  </div>
-  
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Akhir:</label>
-    <%= f.text_field :last_name, :placeholder=> "Nama Belakang",  class: "form-control" %>
-  </div>
-
-  
-  
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Jenis Kelamin:</label>
-    <!-- tanda tanya tah -->
-    <%= f.radio_button :gender, true, checked:  @manage_user.gender ? true : false %> Pria
-    <%= f.radio_button :gender, false, checked:  @manage_user.gender ? false : true %> Wanita
-    
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Agama:</label>
-    <%= f.select :religion, options_for_select([['Islam', 'islam'],['Kristen', 'Kristen'],['Budha','Budha'],['Hindu','Hindu']], @manage_user.religion),{},class: "form-control", required: true%>
-    
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;">
-    <label>Tanggal Lahir:</label>
-    <div class="input-group">
-      <div class="input-group-addon">
-        <i class="fa fa-calendar"></i>
+        <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></style></li>
+          <% end %>
+        </ul>
       </div>
-      <%= f.text_field :birth_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yy-mm-dd" %>
     </div>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Telephone:</label>
-    <%= f.text_field :telephone, :placeholder=> "Telephone",  class: "form-control", "data-mask"=>"",  "data-inputmask" => "'mask': '(999) 999-9999'" , required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Alamat:</label>
-    <%= f.text_field :address, :placeholder=> "Alamat",  class: "form-control", required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>No Rek:</label>
-    <%= f.text_field :account_number, :placeholder=> "No Rekening",  class: "form-control", required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Bank:</label>
-    <%= f.text_field :bank_name, :placeholder=> "Nama Bank",  class: "form-control", required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Cabang Bank:</label>
-    <%= f.text_field :account_branch_name, :placeholder=> "Nama Cabang Bank",  class: "form-control", required: true %>
-  </div>
-
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Nama Akun Rek:</label>
-    <%= f.text_field :account_name, :placeholder=> "Nama Akun Rek",  class: "form-control", required: true %>
-  </div>
-  <% if current_user.role.name == "user" %>
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :password, "New password" %>
-    <%= f.password_field :password, :autofocus => true,  class: "form-control"%>
-     </div>
-     
-    <div class="form-group" style="width: 50%; text-align: left;" >
-     <%= f.label :password_confirmation, "Confirm new password" %>
-     <%= f.password_field :password_confirmation,  class: "form-control" %>
-   </div>difference between localhost and live web
+<% end if @user %>
 
 
-  <div style="width: 50%; text-align: left;">
-    <label>Upload Foto</label><br>
-    <%= f.file_field :avatar %>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Email:</label>
+  <%= f.text_field :email, :placeholder => "Email", class: "form-control", type: "email", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Nama Depan:</label>
+  <%= f.text_field :first_name, :placeholder => "Nama Depan", class: "form-control", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Nama Akhir:</label>
+  <%= f.text_field :last_name, :placeholder => "Nama Belakang", class: "form-control" %>
+</div>
+
+
+
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Jenis Kelamin:</label>
+  <!-- tanda tanya tah -->
+  <%= f.radio_button :gender, true, checked: @manage_user.gender ? true : false %> Pria
+  <%= f.radio_button :gender, false, checked: @manage_user.gender ? false : true %> Wanita
+
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Agama:</label>
+  <%= f.select :religion, options_for_select([['Islam', 'islam'], ['Kristen', 'Kristen'], ['Budha', 'Budha'], ['Hindu', 'Hindu']], @manage_user.religion), {}, class: "form-control", required: true %>
+
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Tanggal Lahir:</label>
+
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :birth_date, :placeholder => "Tanggal", class: "form-control pull-right date_custom", :"data-date-format" => "yy-mm-dd" %>
   </div>
-  <p>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Telephone:</label>
+  <%= f.text_field :telephone, :placeholder => "Telephone", class: "form-control", "data-mask" => "", "data-inputmask" => "'mask': '(999) 999-9999'", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Alamat:</label>
+  <%= f.text_field :address, :placeholder => "Alamat", class: "form-control", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>No Rek:</label>
+  <%= f.text_field :account_number, :placeholder => "No Rekening", class: "form-control", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Nama Bank:</label>
+  <%= f.text_field :bank_name, :placeholder => "Nama Bank", class: "form-control", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Nama Cabang Bank:</label>
+  <%= f.text_field :account_branch_name, :placeholder => "Nama Cabang Bank", class: "form-control", required: true %>
+</div>
+
+<div class="form-group" style="width: 50%; text-align: left;">
+  <label>Nama Akun Rek:</label>
+  <%= f.text_field :account_name, :placeholder => "Nama Akun Rek", class: "form-control", required: true %>
+</div>
+
+<% unless @user.new_record? %>
+    <% if current_user.role.name == "user" %>
+        <div class="form-group" style="width: 50%; text-align: left;">
+          <%= f.label :password, "New password" %>
+          <%= f.password_field :password, :autofocus => true, class: "form-control" %>
+        </div>
+
+        <div class="form-group" style="width: 50%; text-align: left;">
+          <%= f.label :password_confirmation, "Confirm new password" %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>difference between localhost and live web
+    <% end %>
 <% end %>
 
-  
-  <% if current_user.role.name == "admin" %>
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Maksimal Cuti</label>
-    <%= f.number_field :max_furlough, :placeholder=> "Maksimal Cuti ",  value: 12, class: "form-control", required: true %>
-    
-    
-  </div>
 
-  
+<% if current_user.role.name == "admin" %>
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Maksimal Cuti</label>
+      <%= f.number_field :max_furlough, :placeholder => "Maksimal Cuti ", value: 12, class: "form-control", required: true %>
+    </div>
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Peran:</label>
+      <%= f.select :role_id, options_for_select(@roles.uniq, @manage_user.role_id), {}, class: "form-control" %>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Peran:</label>
-    <%= f.select :role_id, options_for_select(@roles.uniq, @manage_user.role_id), {},  class: "form-control" %>
-    
-  </div>
+    </div>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <label>Jabatan:</label>
-    <%= f.text_field :position, :placeholder=> "Jabatan",  class: "form-control", required: true %>
-  </div>
-  <% if from == "new" %>
-  <div class="wrapeer-sub-category" id="nested-sub-category">
-    <%= f.fields_for :salary_histories do |builder| %>
-    <%= render "salary_histories_fields", :f => builder %>
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Jabatan:</label>
+      <%= f.text_field :position, :placeholder => "Jabatan", class: "form-control", required: true %>
+    </div>
+    <% if from == "new" %>
+        <div class="wrapeer-sub-category" id="nested-sub-category">
+          <%= f.fields_for :salary_histories do |builder| %>
+              <%= render "salary_histories_fields", :f => builder %>
+          <% end %>
+        </div>
     <% end %>
-  </div>
-  <% end %>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
-  <label>Jam Sostek:</label>
-    <%= f.select :allowed_jamsostek, options_for_select([['Ya', true],['Tidak', false]], @overtime),{},class: "form-control", required: true%>
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Jam Sostek:</label>
+      <%= f.select :allowed_jamsostek, options_for_select([['Ya', true], ['Tidak', false]], @overtime), {}, class: "form-control", required: true %>
 
-  </div>
+    </div>
+    <% unless @user.new_record? %>
+        <div class="form-group" style="width: 50%; text-align: left;">
+          <%= f.label :password, "New password" %>
+          <%= f.password_field :password, :autofocus => true, class: "form-control" %>
+        </div>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :password, "New password" %>
-    <%= f.password_field :password, :autofocus => true,  class: "form-control"%>
-     </div>
-     
-    <div class="form-group" style="width: 50%; text-align: left;" >
-     <%= f.label :password_confirmation, "Confirm new password" %>
-     <%= f.password_field :password_confirmation,  class: "form-control" %>
-   </div>
+        <div class="form-group" style="width: 50%; text-align: left;">
+          <%= f.label :password_confirmation, "Confirm new password" %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+    <% end %>
 
+    <div style="width: 50%; text-align: left;">
+      <label>Ubah Foto Profil</label><br>
+      <%= f.file_field :avatar %>
+    </div>
+    <p>
 
-  <div style="width: 50%; text-align: left;">
-    <label>Ubah Foto Profil</label><br>
-    <%= f.file_field :avatar %>
-  </div>
-  <p>
-
-  <% end%>
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.submit btn_title, :class=>'btn btn-default', confirm: 'Are you sure?' %>
-  </div>
-  <% content_for :bottom_js do %>
-  <script type="text/javascript">
-    $('document').ready(function(){
+<% end %>
+<div class="form-group" style="width: 50%; text-align: left;">
+  <%= f.submit btn_title, :class => 'btn btn-default', confirm: 'Are you sure?' %>
+</div>
+<% content_for :bottom_js do %>
+    <script type="text/javascript">
+      $('document').ready(function(){
       <% if @manage_user.gender %>
-      $('.iradio_minimal:first').addClass('checked')
+          $('.iradio_minimal:first').addClass('checked')
       <% else %>
-      $('.iradio_minimal:last').addClass('checked')
+          $('.iradio_minimal:last').addClass('checked')
       <% end %>
 
       // $('.iCheck-helper').click(function(){
-      //   $("input:radio").removeAttr("checked");
-      //   $(this).parent().find("input").attr("checked", true );
+      // $("input:radio").removeAttr("checked");
+      // $(this).parent().find("input").attr("checked", true );
 
 
       // })
-  })
+      })
 
-  </script>
-  <% end%>
+    </script>
+<% end %>
 
 
 

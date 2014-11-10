@@ -9,7 +9,7 @@ class TransactionSummary < ActiveRecord::Base
     date = DateTime.new(self.summary_year.to_i, self.summary_month.to_i, 1)
     start_date = date.beginning_of_month
     end_date = date.end_of_month
-    transactions = Transaction.where(date: start_date..end_date).update_all(:is_close => true)
+    transactions = Transaction.where(created_at: start_date..end_date).update_all(:is_close => true)
   end
 
   def calculate_total
@@ -20,7 +20,7 @@ class TransactionSummary < ActiveRecord::Base
     date = DateTime.new(year.to_i, month.to_i, 1)
     start_date = date.beginning_of_month
     end_date = date.end_of_month
-    transactions = Transaction.where(date: start_date..end_date).group("is_debit").select("sum(value) as jumlah, is_debit")
+    transactions = Transaction.where(created_at: start_date..end_date).group("is_debit").select("sum(value) as jumlah, is_debit")
     result = {}
     result[:summary_month] = month
     result[:summary_year] = year
