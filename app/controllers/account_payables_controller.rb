@@ -4,7 +4,7 @@ class AccountPayablesController < ApplicationController
   # GET /account_payables.json
    load_and_authorize_resource
   def index
-    @account_payables = AccountPayable.all
+    @account_payables = AccountPayable.where(parent_id: nil)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +16,7 @@ class AccountPayablesController < ApplicationController
   # GET /account_payables/1.json
   def show
     @account_payable = AccountPayable.find(params[:id])
+    @account_payables = AccountPayable.where(parent_id: @account_payable.id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +28,8 @@ class AccountPayablesController < ApplicationController
   # GET /account_payables/new.json
   def new
     @account_payable = AccountPayable.new
-    @credit = params[:credit] ? true : false
+    @credit = params[:credit].eql?("true") ? true : false
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,8 +45,15 @@ class AccountPayablesController < ApplicationController
   # POST /account_payables
   # POST /account_payables.json
   def create
-    @credit = params[:credit] ? true : false
+    parent = AccountPayable.find(params[:account_payable][:parent_id]) if params[:account_payable][:parent_id]
+    @account_payables = AccountPayable.where(parent_id: parent.id) if params[:account_payable][:parent_id]
+    @credit = params[:credit].eql?("true") ? true : false
     @account_payable = AccountPayable.new(params[:account_payable])
+
+    @sisa_hutang = parent.debit.to_i - @account_payables.sum(&:credit).to_i if params[:account_payable][:parent_id]
+    if params[:account_payable][:parent_id] and params[:account_payable][:credit].to_i > @sisa_hutang.to_i
+    render action: "new", :debit => true 
+   else
     respond_to do |format|
       if @account_payable.save
         format.html { redirect_to @account_payable, notice: 'Account payable was successfully created.' }
@@ -55,6 +64,7 @@ class AccountPayablesController < ApplicationController
       end
     end
   end
+end
 
   # PUT /account_payables/1
   # PUT /account_payables/1.json

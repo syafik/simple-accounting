@@ -22,19 +22,12 @@
 </div>
 
 
-
-
-
-
-  
-
-
   <div class="form-group" style="width: 50%">
     <%= f.label :title %><br />
     <%= f.text_field :title %> <br />
   </div>
- <% hidden_field_tag :credit, @credit %>
- <% if (@account_payable.new_record? && @credit) || (!@account_payable.new_record? && @account_payable.credit > 0) %>
+ <%= hidden_field_tag :credit, @credit %>
+ <% if @credit %>
   <div class="form-group" style="width: 50%">
     <%= f.label :debit %><br />
     <%= f.select "parent_id", debit_account %>
@@ -62,5 +55,7 @@
     <%= f.submit %>
   </div>  
 <% end %>
+
+
 
 

@@ -26,7 +26,43 @@
 </p>
 
 
+<style>
+  table tr th, table tr td{text-align: center;}
+</style>
 
+
+<h1>Listing Hutang</h1>
+<table class="table table-bordered table-hover">
+    </tr>
+    <tr>
+    <th>Date</th>
+    <th>Title</th>
+    <th>bayar hutang</th>
+  </tr>
+<% @sisa_hutang = 0 %>
+<% @account_payables.each do |account_payable| %>
+  <tr>
+   <td><%= account_payable.date.strftime("%d-%B-%Y") %></td>
+   <%if account_payable.parent_id %>
+    <td><%= account_payable.parent.title %></td>
+    <% else %>
+     <td><%= account_payable.title %></td>
+    <% end %>
+    <td><%= account_payable.credit %></td>
+  </tr>
+<% end %>
+</table>
+
+<p> keterangan
+<p> Sisa pembayaran: 
+<%if (@account_payable.debit - @account_payables.sum(&:credit)) ==0 %>
+lunas
+<%else%>
+ <%= @account_payable.debit - @account_payables.sum(&:credit) %>
+<%end%>
+
+<br />
+<br />
 
 
 

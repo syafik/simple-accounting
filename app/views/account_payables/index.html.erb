@@ -1,9 +1,16 @@
+<% content_for :content_title do %>
+<Tran></Tran>Hutang
+<% end%>
+
+<% content_for :content_sub_title do %>
+Rekap Hutang
+<% end%>
+
 <style>
   table tr th, table tr td{text-align: center;}
 </style>
-
-<h1>Listing account_payables</h1>
-<table class="table table-bordered">
+<% content_for :content_body do %>
+<table class="table table-bordered table-bordered table-hover">
     </tr>
     <tr>
     <th>Date</th>
@@ -11,27 +18,30 @@
     <th>Debit</th>
     <th>Credit</th>
     <th>Description</th>
-    <th colspan ="3">Action</th>
+    <th colspan ="2">Action</th>
   </tr>
+
+
 <% @account_payables.each do |account_payable| %>
   <tr>
    <td><%= account_payable.date.strftime("%d-%B-%Y") %></td>
    <%if account_payable.parent_id %>
-    <td><%= account_payable.parent.title %></td>
+    <td><%= link_to account_payable.parent.title, account_payable %></td>
     <% else %>
-     <td><%= account_payable.title %></td>
+     <td><%= link_to account_payable.title, account_payable %></td>
     <% end %>
     <td><%= account_payable.debit %></td>
     <td><%= account_payable.credit %></td>
     <td><%= account_payable.description %></td>
-    <td><%= link_to 'Show', account_payable %></td>
-    <td><%= link_to 'Edit', edit_account_payable_path(account_payable) %></td>
-    <td><%= link_to 'Destroy', account_payable, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to '<small class="badge bg-green">Edit</small>'.html_safe, edit_account_payable_path(account_payable) %></td>
+    <td><%= link_to '<small class="badge bg-red">Delete</small>'.html_safe, account_payable, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'Debit', new_account_payable_path(debit: true) %>
-<%= link_to 'Credit', new_account_payable_path(credit: true) %>
+<% content_for :content_nav do %>
+<%= link_to 'Debit', new_account_payable_path(credit: false), :class=>'btn btn-primary' %>
+<%= link_to 'Credit', new_account_payable_path(credit: true), :class=>'btn btn-primary' %>
+<% end %>
+<% end %>
