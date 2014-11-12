@@ -18,10 +18,10 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
   <thead>
     <tr>
       <th > Tanggal </th>
-      
       <th > Jumlah Pembayaran</th>
       <th > Biaya Lembur Siang </th>
       <th > Biaya Lembur Malam </th>
+      <th > Jamsostek </th>
       <th>Status</th>
       <% if current_user.role.name == "admin"%>
       <th > Aksi </th>
@@ -36,6 +36,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <td><%= number_to_currency( salary_history.payment, :unit => "Rp ") %></td>
       <td><%= number_to_currency( salary_history.day_payment_overtime, :unit => "Rp ") %></td>
       <td><%= number_to_currency( salary_history.night_payment_overtime, :unit => "Rp ") %></td>
+      <td><%= salary_history.allowed_jamsostek%></td>
 
       <% stat = nil %>
       <% if salary_history.activate == true  %>

@@ -1,100 +1,167 @@
 <% content_for :content_title do %>
-<Tran></Tran>Reports
-<% end%>
+    <Tran></Tran>Reports
+<% end %>
 
 <% content_for :content_sub_title do %>
-Rekap Report
-<% end%>
+    Rekap Report
+<% end %>
 
 <section class="content">
   <div class="row">
-   <section class="col-md-12 connectedSortable ui-sortable">
-     <div class="nav-tabs-custom" style="cursor: move;">
-      <!-- Tabs within a box -->
-      <ul class="nav nav-tabs pull-right">
-        <li class="active"><a href="#revenue-chart" data-toggle="tab">Money</a></li>
-        <li class="pull-left header"><i class="fa fa-inbox"></i> Money</li>
-      </ul>
-      <div class="tab-content no-padding">
-        <!-- Morris chart - Sales -->
-        <div id="myfirstchart" style="height: 250px;"></div>
-      </div>
-    </div>
-  </section>
-</div>
+    <section class="col-md-12 connectedSortable ui-sortable">
+      <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </section>
+  </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
+  <div class="row">
+    <br/>
+
+    <div class="col-md-12">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
         <tr>
           <th>No</th>
           <th>Date</th>
           <th>Debit</th>
           <th>Credit</th>
+          <th>Selisih</th>
+          <th>Kas</th>
         </tr>
-      </thead>
-      <tbody>
-        <% @transactions.each_with_index do |transaction, i| %>
-          <tr>
+        </thead>
+        <tbody>
+        <% kas = 0 %>
+        <% @transactions[4].each_with_index do |transaction, i| %>
+            <% kas = kas + transaction.total %>
+            <tr>
               <td><%= i+1 %></td>
-              <td><%= "#{Date::MONTHNAMES[transaction.summary_month]} -#{transaction.summary_year}" %></td>
-              <td><%= transaction.debit %></td>
-              <td><%= transaction.credit %></td>
-          </tr>  
+              <td><%= link_to "#{Date::MONTHNAMES[transaction.summary_month]} -#{transaction.summary_year}", transactions_path(month: transaction.summary_month, year: transaction.summary_year) %></td>
+              <td style="text-align: right;"><%= number_to_currency(transaction.debit, unit: "Rp. ") %></td>
+              <td style="text-align: right;"><%= number_to_currency(transaction.credit, unit: "Rp. ") %></td>
+              <td style="text-align: right;" class="<%= transaction.total < 0 ?  "minus-currency" : ""%>"><%= number_to_currency(transaction.total, unit: "Rp. ",  negative_format: "(%u%n)") %></td>
+              <td style="text-align: right;"><%= number_to_currency(kas, unit: "Rp. ") %></td>
+            </tr>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-   <div class="box box-solid box-danger">
-     <div class="box-header">
-      <h3 class="box-title">Credit:</h3>
-    </div>
-    <div class="box-body">
-      <h4><%= number_to_currency(@credits, unit: "Rp. ")%> </h4>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
+  <div class="row">
 
-<div class="col-md-4">
-	<div class="box box-solid box-success">
-   <div class="box-header">
-    <h3 class="box-title">Debit:</h3>
-  </div>
-  <div class="box-body">
-    <h4><%= number_to_currency(@debits, unit: "Rp. ")%> </h4>
-  </div>
-</div>
-</div>
+    <div class="col-md-4">
+      <div class="box box-solid box-success">
+        <div class="box-header">
+          <h3 class="box-title">Debit:</h3>
+        </div>
+        <div class="box-body">
+          <h4><%= number_to_currency(@debits, unit: "Rp. ") %> </h4>
+        </div>
+      </div>
+    </div>
 
-<div class="col-md-4">
-	<div class="box box-solid box-info">
-   <div class="box-header">
-    <h3 class="box-title">Profit:</h3>
+    <div class="col-md-4">
+      <div class="box box-solid box-danger">
+        <div class="box-header">
+          <h3 class="box-title">Credit:</h3>
+        </div>
+        <div class="box-body">
+          <h4><%= number_to_currency(@credits, unit: "Rp. ") %> </h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="box box-solid box-info">
+        <div class="box-header">
+          <h3 class="box-title">Profit:</h3>
+        </div>
+        <div class="box-body">
+          <h4><%= number_to_currency(@profit, unit: "Rp. ") %> </h4>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
   </div>
-  <div class="box-body">
-    <h4><%= number_to_currency(@profit, unit: "Rp. ")%> </h4>
-  </div><!-- /.box-body -->
-</div><!-- /.box -->
-</div><!-- /.col -->
-</div>
+
+
 </section>
 
 <%= content_for :bottom_js do %>
-<script type="text/javascript">
-	Morris.Line({
-   element: 'myfirstchart',
-   data: <%= raw @data.to_json %>,
-   xkey: 'x',
-   ykeys: ['y', 'z', 's'],
-   labels: ['Debit', 'Credit', 'Selisih']
- }).on('click', function(i, row){
-   console.log(i, row);
- });
+    <script type="text/javascript">
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'Grafik Laporan Keuangan'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: [
+                    { // Primary yAxis
+                        labels: {
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        },
+                        title: {
+                            text: 'Rupiah',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        },
+                        opposite: false
 
-</script>
+                    }
+                ],
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Kas',
+                        marker: {
+                            symbol: 'square'
+                        },
+                        data: <%= raw @transactions[3]%>
+                    },
+                    {
+                        name: 'Debit',
+                        marker: {
+                            symbol: 'square'
+                        },
+                        data: <%= raw @transactions[0]%>
+                    },
+                    {
+                        name: 'Credit',
+                        marker: {
+                            symbol: 'square'
+                        },
+                        data: <%= raw @transactions[1]%>
+                    },
+                    {
+                        name: 'Selisih',
+                        marker: {
+                            symbol: 'square'
+                        },
+                        data: <%= raw @transactions[2]%>
+                    }
+                ]
+            });
+        });
+    </script>
 <% end %>

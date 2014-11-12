@@ -24,10 +24,13 @@ class Salary < ActiveRecord::Base
         jamsostek = 0
         main_salary = user.salary_histories.activate.first.payment
 
-        if user.allowed_jamsostek == false
+        # if user.allowed_jamsostek == false
           jamsostek = main_salary * (Setting[:jamsostek].to_f/100)
-        end
+        # end
         total_payment = main_salary + total_overtime_payment + jamsostek
+        if user.salary_histories.activate.first.allowed_jamsostek
+          total_payment = total_payment - jamsostek
+        end
 
         salaries << {
           date: salary_schedule.end_date,

@@ -5,7 +5,7 @@ class SalaryHistory < ActiveRecord::Base
 
 	scope :activate, -> { where(activate: true) }
 
-	attr_accessible :applicable_date, :payment, :user_id, :activate, :day_payment_overtime, :night_payment_overtime
+	attr_accessible :applicable_date, :payment, :user_id, :activate, :day_payment_overtime, :night_payment_overtime, :allowed_jamsostek
 
 	validates :payment, presence: true
 	validates :day_payment_overtime, presence: true

@@ -1,5 +1,5 @@
 class SalarySchedule < ActiveRecord::Base
-  attr_accessible :date
+  attr_accessible :date, :first_date, :end_date
 
   scope :this_year, where("YEAR(date) = #{Date.today.year}")
   scope :this_month, where("MONTH(date) = #{Date.today.month}")
