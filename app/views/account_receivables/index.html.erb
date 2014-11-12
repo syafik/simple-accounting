@@ -32,8 +32,9 @@
 <% @account_receivables.each do |account_receivable| %>
   <tr>
     <td><%= link_to account_receivable.title, account_receivable %></td>
-    <td><%= account_receivable.debit %></td>
-    <td><%= account_receivable.credit %></td>
+    
+    <td>Rp. <%= account_receivable.debit %></td>
+    <td>Rp. <%= account_receivable.credit %></td>
     <td><%= account_receivable.description %></td>
     <td><%= account_receivable.date %></td>
     <td colspan="2">
@@ -45,8 +46,8 @@
 </table>
 <br />
 <% content_for :content_nav do %>
-<%= link_to 'Debit', new_account_receivable_path(debit: true), :class=>'btn btn-primary' %>
-<%= link_to 'Credit', new_account_receivable_path(credit: true), :class=>'btn btn-primary'  %>
+<%= link_to 'Debit', new_account_receivable_path(debit: true), :class=>'btn btn-secondary-success' %>
+<%= link_to 'Credit', new_account_receivable_path(credit: true), :class=>'btn btn-secondary-danger'  %>
 <% end %>
 
 <% end %>

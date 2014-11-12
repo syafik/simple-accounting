@@ -1891,6 +1891,15 @@ Component: timeline
   background-color: #3c8dbc;
   border-color: #367fa9;
 }
+.btn.btn-secondary-success {
+  background-color: #00a65a;
+  color: #fff;
+}
+.btn.btn-secondary-danger {
+  background-color: #f56954;
+  color: #fff;
+}
+.btn.btn-
 .btn.btn-primary:hover,
 .btn.btn-primary:active,
 .btn.btn-primary.hover {
