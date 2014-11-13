@@ -1,30 +1,82 @@
-<% content_for :content_title do %>
-    Gaji
-<% end %>
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <style type="">
+	.table td,
+	.table th {
+	  background-color: #fff !important;
+	}
+	.table {
+	  border-collapse: collapse !important;
+	}
+	.table {
+	  width: 100%;
+	  max-width: 100%;
+	  margin-bottom: 20px;
+	}
+	.table > thead > tr > th,
+	.table > tbody > tr > th,
+	.table > tfoot > tr > th,
+	.table > thead > tr > td,
+	.table > tbody > tr > td,
+	.table > tfoot > tr > td {
+	  padding: 8px;
+	  line-height: 1.42857143;
+	  vertical-align: top;
+	  border-top: 1px solid #ddd;
+	}
+	.table > thead > tr > th {
+	  /*vertical-align: bottom;*/
+	  border-bottom: 2px solid #ddd;
+	  text-align: left !important;
+	}
+	.table > thead > tr > th.text-right {text-align: right !important;}
+	.table > caption + thead > tr:first-child > th,
+	.table > colgroup + thead > tr:first-child > th,
+	.table > thead:first-child > tr:first-child > th,
+	.table > caption + thead > tr:first-child > td,
+	.table > colgroup + thead > tr:first-child > td,
+	.table > thead:first-child > tr:first-child > td {
+	  border-top: 0;
+	}
+	.table > tbody + tbody {
+	  border-top: 2px solid #ddd;
+	}
+	.width50{width: 50%; border: none !important; padding: 4px !important;}
+	.pr50 {padding-right: 50px !important;}
+	span.title{width: 100px; display: inline-flex;}
+    table {font-size: 14px !important;}
+  </style>
+</head>
+<body>
+  <div id="content">
 
-<% content_for :content_sub_title do %>
-    Detail Gaji
-<% end %>
+	<table class="table">
+	  <thead>
 
-<% content_for :content_body do %>
-
-  <br /><br />
-  <table class="table">
-	<thead>
-	  <tr><td colspan="4"><%= image_tag "pushjaw.png" %></td></tr>
 	  <tr>
-		<th colspan="2" class="tleft"><strong>PUSHJAW MEDIA INFORMATIKA</strong></th>
-		<th colspan="2" class="text-right"><strong>SLIP GAJI</strong></th>
+		<th rowspan="2" class="tleft">
+		  <%= wicked_pdf_image_tag 'pushjaw.png' %>
+		</th>
+		<th rowspan="2" class="tleft">
+		  <strong>PUSHJAW MEDIA INFORMATIKA</strong>
+		  <br />
+		  <span style="font-weight: normal;" >Kompleks Melong green garden, jl mig 3 no 1</span>
+		  <br />
+		  <span style="font-weight: normal;" >0226001425</span>
+		</th>
+		<th rowspan="2" colspan="2" class="text-right"><strong>SLIP GAJI</strong></th>
 	  </tr>
-	</thead>
-	<tbody>
+	  </thead>
+	  <tbody>
 	  <tr>
-		<td colspan="4" class="text-right"><strong><%= @salary.date.strftime("%B %Y") %></strong></td>
+		<th colspan="4">&nbsp;</th>
 	  </tr>
 	  <tr>
 		<td colspan="2" class="text-left width50">
 		  <span class="title">NAMA</span>
-		  : <%= "#{@salary.salary_history.user.first_name.try(:titleize)} #{@salary.salary_history.user.last_name.try(:titleize)}" %>
+		  : <strong><%= "#{@salary.salary_history.user.first_name.try(:titleize)} #{@salary.salary_history.user.last_name.try(:titleize)}" %></strong>
 		</td>
 		<td colspan="2" class="text-left width50">
 		  <span class="title">ALAMAT</span>
@@ -43,14 +95,14 @@
 		</td>
 	  </tr>
 
-	</tbody>
-	<thead>
+	  </tbody>
+	  <thead>
 	  <tr>
 		<th colspan="2" class="text-center"><strong>PENERIMAAN</strong></th>
 		<th colspan="2" class="text-center"><strong>POTONGAN</strong></th>
 	  </tr>
-	</thead>
-	<tbody>
+	  </thead>
+	  <tbody>
 	  <tr>
 		<td class="text-left">Gaji Pokok</td>
 		<td class="text-right pr50">
@@ -74,8 +126,8 @@
 		</td>
 		<td colspan="2"></td>
 	  </tr>
-	</tbody>
-	<thead>
+	  </tbody>
+	  <thead>
 	  <tr>
 		<th class="text-left">Total Pendapatan</th>
 		<th class="text-right pr50"><%= number_to_currency(@total_pendapatan, :unit => "Rp: ", precision: 0) %></th>
@@ -87,8 +139,8 @@
 		<th class="text-right pr50"><%= number_to_currency(@total_penerimaan, :unit => "Rp: ", precision: 0) %></th>
 		<th colspan="2"></th>
 	  </tr>
-	</thead>
-	<tbody>
+	  </thead>
+	  <tbody>
 	  <tr><td colspan="4" class="text-left width50">&nbsp;</td></tr>
 	  <tr><td colspan="4" class="text-left width50">&nbsp;</td></tr>
 	  <tr>
@@ -103,14 +155,11 @@
 		<td colspan="2" class="text-center width50">Diterima Oleh:</td>
 	  </tr>
 
-	</tbody>
+	  </tbody>
 
-  </table>
+	</table>
 
-<% end %>
-
-<% content_for :content_nav do %>
-  <%= link_to 'Export PDF', salary_path(@salary, format: 'pdf'), :class => 'btn btn-primary' %>
-  <%= link_to 'Kembali', salaries_path, :class => 'btn btn-primary' %>
-<% end %>
+  </div>
+</body>
+</html>
 

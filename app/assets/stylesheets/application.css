@@ -23,7 +23,8 @@
 */
 
 .datepicker{z-index:1151 !important;}
-
 .tleft {text-align: left !important;}
-
 .minus-currency{color: #ff0000;}
+.width50{width: 50%; border: none !important; padding: 4px !important;}
+.pr50 {padding-right: 50px !important;}
+span.title{width: 100px; display: inline-flex;}

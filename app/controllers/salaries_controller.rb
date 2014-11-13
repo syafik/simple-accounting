@@ -19,10 +19,16 @@ class SalariesController < ApplicationController
 
   def show
     @salary = Salary.find(params[:id])
+    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
+    @total_potongan   = 0
+    @total_penerimaan = @total_pendapatan - @total_potongan
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @salary }
+      format.pdf do
+        render :pdf => "file_name", :orientation => 'Landscape'
+      end
     end
   end
 
