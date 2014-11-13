@@ -56,11 +56,10 @@ class SalariesController < ApplicationController
   def update
     @salary = Salary.find(params[:id])
     jamsostek = 0
-    if @salary.salary_history.user.allowed_jamsostek == false
-      jamsostek = salary.salary_history.payment * (Setting[:jamsostek].to_f/100)
+    params[:salary][:thp] = params[:salary][:etc].to_f + @salary.salary_history.payment + @salary.total_overtime_payment + @salary.jamsostek
+    if @salary.salary_history.allowed_jamsostek
+      params[:salary][:thp] = params[:salary][:thp] -  @salary.jamsostek
     end
-
-    params[:salary][:thp] = params[:salary][:etc].to_f + @salary.salary_history.payment + @salary.total_overtime_payment + jamsostek
 
     respond_to do |format|
       if @salary.update_attributes(params[:salary])

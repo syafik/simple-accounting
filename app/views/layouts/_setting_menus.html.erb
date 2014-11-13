@@ -11,5 +11,14 @@
 	<li>
 	  <%= link_to '<i class="fa fa-angle-double-right"></i> Pengaturan JamSostek'.html_safe, jamsostek_setting_path %>
 	</li>
+    <li>
+      <%= link_to allowance_categories_path do %>
+          <i class="fa fa-angle-double-right"></i> Kategori Tunjangan
+      <% end %>
+    </li>
+    <li>
+      <%= link_to '<i class="fa fa-question"></i> Peran'.html_safe, roles_path %>
+    </li>
   </ul>
+
 </li>

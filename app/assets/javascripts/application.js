@@ -27,6 +27,8 @@
 //= require icheck.min
 //= require jquery.maskMoney.js
 //= require AdminLTE/app
+//= require highcharts
+//= require exporting
 
 function remove_fields(link) {
  $(link).parent().remove()

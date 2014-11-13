@@ -49,4 +49,32 @@ class TransactionSummary < ActiveRecord::Base
     end
   end
 
+  def self.get_report(summary_year= Date.today.year)
+    data = self.select("sum(debit) as debit , sum(credit) as credit, sum(total) as total, summary_month, summary_year").
+        where(summary_year: summary_year).
+        group("summary_month, summary_year").
+        order("summary_month ASC")
+    debit = []
+    credit = []
+    selisih = []
+    kas_total = []
+    kas = 0
+    list = data.collect { |s| s.summary_month }
+    (1..12).each do |i|
+      if c = list.index(i)
+        kas = kas + data[c].total
+
+        debit << data[c].debit
+        credit << data[c].credit
+        selisih << data[c].total
+        kas_total << kas
+      else
+        debit << 0
+        credit << 0
+        selisih << 0
+        kas_total << kas
+      end
+    end
+    return debit, credit, selisih, kas_total, data
+  end
 end

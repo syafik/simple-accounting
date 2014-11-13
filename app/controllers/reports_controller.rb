@@ -3,12 +3,11 @@ class ReportsController < ApplicationController
 
   def index
     @year = Date.today.year
-    @transactions = TransactionSummary.where(summary_year: @year ).order("summary_month")
-
-    @data =  @transactions.each_with_index.map{|tran, i| {x: "#{Date::MONTHNAMES[tran.summary_month]}-#{tran.summary_year}", y: tran.debit, z: tran.credit, s: tran.debit - tran.credit } }
-    @debits = @transactions.sum(:debit) || 0
-    @credits = @transactions.sum(:credit) || 0
-    @profit = @debits - @credits
+    @transactions = TransactionSummary.get_report(@year )
+    # @debits = @transactions[4].sum(:debit) || 0
+    @debits = @transactions[4].map(&:debit).inject(0, &:+) || 0
+    @credits =@transactions[4].map(&:credit).inject(0, &:+) || 0
+    @profit = @transactions[4].map(&:total).inject(0, &:+) || 0
 
   end
 

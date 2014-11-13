@@ -52,7 +52,11 @@
   <label>Biaya Lembur Malam:</label>
   <%= f.number_field :night_payment_overtime, class: "form-control pull-right", required: true%>
 </div>
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Jamsostek:</label>
+      <%= f.check_box :allowed_jamsostek%>
 
+    </div>
 <div class="actions">
   <%= f.submit btn_title, :class=>'btn btn-default' %>
 </div>

@@ -3,4 +3,7 @@ class AccountPayable < ActiveRecord::Base
   acts_as_tree
 
    validates :title, presence: true
+   validates :credit, presence: true
+   validates :debit, presence: true
+   validates :date, presence: true
 end

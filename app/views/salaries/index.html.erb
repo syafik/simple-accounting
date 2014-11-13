@@ -1,78 +1,75 @@
 <style type="text/css">
-  th {
-    text-align: center;
-  }
+    th {
+        text-align: center;
+    }
 </style>
 
 <% content_for :content_title do %>
-Gaji
-<% end%>
+    Gaji
+<% end %>
 
 <% content_for :content_sub_title do %>
-Data Penggajian
-<% end%>
+    Data Penggajian
+<% end %>
 
 <% content_for :content_body do %>
-<table id="example2" class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th> Tanggal </th>
-      <th>  Nama Karyawan </th>
-      <td> Gaji Pokok </td>
-      <td> Biaya Lembur </td>
-      <td> Jam Sostek</td>
-      <td> biaya lain </td>
-      <th> THP </th>
-      <th> Aksi </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @salaries.each do |salary| %>
-    <tr>
-      <td><%= salary.date.strftime("%d-%B-%Y") %></td>
-      <td>
-        <%= "#{salary.try(:salary_history).try(:user).try(:first_name)} #{ salary.try(:salary_history).try(:user).try(:last_name)}" %>
-      </td>   
-      <td><%= sp = salary.salary_history.payment %></td>
-      <td><%= salary.total_overtime_payment %></td>
-      <td>
-        <% if salary.salary_history.user.allowed_jamsostek == true%>
-        <%= sp * (Setting[:jamsostek].to_f/100)%>
-        <% else %>
-        <%= salary.jamsostek %>
-        <% end %>
-      </td>
-      <td><%= salary.etc rescue 0%></td>
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th rowspan="2">No</th>
+        <th rowspan="2"> Tanggal</th>
+        <th rowspan="2"> Nama Karyawan</th>
+        <th colspan="4"> Pendapatan</th>
+        <th> Potongan</th>
+        <th rowspan="2"> THP</th>
+        <th rowspan="2"> aksi</th>
+      </tr>
+      <tr>
+        <th> Gaji Pokok</th>
+        <th> Biaya Lembur</th>
+        <th> Jamsostek</th>
+        <th> Biaya lain</th>
+        <th> Jamsostek</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @salaries.each_with_index do |salary, index| %>
+          <tr>
+            <td><%= index + 1%></td>
+            <td><%= salary.date.strftime("%d-%B-%Y") %></td>
+            <td><%= link_to  "#{salary.try(:salary_history).try(:user).try(:first_name)} #{ salary.try(:salary_history).try(:user).try(:last_name)}", salary %>
+            </td>
+            <td><%= number_to_currency(salary.salary_history.payment,unit: "Rp. ") %></td>
+            <td><%= number_to_currency(salary.total_overtime_payment,unit: "Rp. ")  %></td>
+            <td><%= number_to_currency(salary.jamsostek,unit: "Rp. ")  %></td>
+            <td><%= number_to_currency(salary.etc,unit: "Rp. ")  rescue "-" %></td>
+            <td><%= salary.salary_history.allowed_jamsostek  ? number_to_currency(salary.jamsostek , unit: "Rp. ") : "-" %></td>
+            <td><%= number_to_currency(salary.thp, unit: "Rp. ") %></td>
 
-      <td>
-        <%= salary.thp %>
-      </td>
-
-      <td>
+            <td>
         <span class="pull-right">
-          <%= link_to "<i class=\"icon-fire\"></i> Tambah Biaya Lain Lain".html_safe, edit_salary_path(salary), :class => "nyroModal btn btn-success" %>
-          <%= link_to 'Lihat', salary, :class=>'btn btn-info' %>
-          <%= link_to "<i class=\"icon-fire\"></i> Hapus".html_safe, salary, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %>
+          <%= link_to "<small class=\"fa fa-money badge bg-green\">Tambah</small>".html_safe, edit_salary_path(salary) %>
+          <%= link_to "<small class=\"badge bg-red\">Hapus</small>".html_safe, salary, :class => "icon-trash", confirm: 'Are you sure?', method: :delete %>
           <% if salary.transfered == nil %>
-            <%= link_to "<i class=\"icon-fire\"></i> Transfer".html_safe, transfered_salary_path(salary), :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?'%>
+            <%= link_to "<i class=\"icon-fire\"></i> Transfer".html_safe, transfered_salary_path(salary), :class => "icon-trash", :class => "btn btn-danger", confirm: 'Are you sure?' %>
           <% end %>
         </span>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
 
 
-<% end%>
+<% end %>
 
 <% content_for :content_nav do %>
 
-  <%= form_for :salary, url: salaries_path(:salary_schedule => @salary_schedule || nil) do |f| %>
-	<%= f.submit "Generate", :class=>'btn btn-primary' if (@date.to_date - 2.days) == Date.today || (@date.to_date - 1.days) == Date.today %>
-  <% end if @date.present? && @salary_schedule.present? && !@salary_schedule.status %>
+    <%= form_for :salary, url: salaries_path(:salary_schedule => @salary_schedule || nil) do |f| %>
+        <%= f.submit "Generate", :class => 'btn btn-primary' if (@date.to_date - 2.days) == Date.today || (@date.to_date - 1.days) == Date.today %>
+    <% end if @date.present? && @salary_schedule.present? && !@salary_schedule.status %>
 
-<% end%>
+<% end %>
 
 
 
