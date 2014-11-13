@@ -1,91 +1,98 @@
-<%= form_for(@salary_history,:html => { style: "text-align: left;"}) do |f| %>
-<% if @salary_history.errors.any? %>
-<div id="error_explanation">
-  <div id="notice" class="alert alert-warning alert-dismissable">
+<%= form_for(@salary_history, :html => {style: "text-align: left;"}) do |f| %>
+    <% if @salary_history.errors.any? %>
+        <div id="error_explanation">
+          <div id="notice" class="alert alert-warning alert-dismissable">
             <i class="fa fa-exclamation"></i>
             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-            <p ><%= notice %></p>
-  <h3><%= pluralize(@salary_history.errors.count, "error") %> prohibited this salary_hostory from being saved:</h3>
+            <p><%= notice %></p>
 
-  <ul>
-    <% @salary_history.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+            <h3><%= pluralize(@salary_history.errors.count, "error") %> prohibited this salary_hostory from being
+              saved:</h3>
+
+            <ul>
+              <% @salary_history.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
     <% end %>
-  </ul>
-  </div>
-</div>
-<% end %>
 
-<div class="form-group" style="width: 50%">
-  <label>Tanggal:</label>
-  <div class="input-group">
-    <div class="input-group-addon">
-      <i class="fa fa-calendar"></i>
+    <div class="form-group" style="width: 50%">
+      <label>Tanggal:</label>
+
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+
+        <%= f.text_field :applicable_date, :placeholder => "Tanggal", class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
+      </div>
     </div>
 
-    <%= f.text_field :applicable_date, :placeholder=> "Tanggal" , class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd" %>
-  </div>
-</div>
 
+    <div class="form-group" style="width: 50%">
+      <label>Karyawan:</label>
+      &nbsp; &nbsp;
+      <% u = User.find(user_id) %>
+      <%= "#{u.first_name} #{u.last_name}" %>
 
-<div class="form-group" style="width: 50%">
-  <label>Karyawan:</label>
-  &nbsp; &nbsp;
-  <% u = User.find(user_id) %>
-  <%= "#{u.first_name} #{u.last_name}" %>
-  
-</div>
-<%= f.hidden_field :user_id, class: "form-control", required: true, value: user_id %>
+    </div>
+    <%= f.hidden_field :user_id, class: "form-control", required: true, value: user_id %>
 
-<div class="form-group" style="width: 50%">
-  <label>Besar Dana:</label>
-  <%= f.number_field :payment, class: "form-control pull-right", required: true%>
-  <%= f.hidden_field :activate, class: "form-control pull-right ", value: false %>
-</div>
+    <div class="form-group" style="width: 50%">
+      <label>Besar Dana:</label>
+      <%= f.number_field :payment, class: "form-control pull-right", required: true %>
+      <%= f.hidden_field :activate, class: "form-control pull-right ", value: false %>
+    </div>
 
-<div class="form-group" style="width: 50%">
-  <label>Biaya Lembur Siang:</label>
-  <%= f.number_field :day_payment_overtime, class: "form-control pull-right", required: true%>
-</div>
+    <div class="form-group" style="width: 50%">
+      <label>Biaya Lembur Siang:</label>
+      <%= f.number_field :day_payment_overtime, class: "form-control pull-right", required: true %>
+    </div>
 
-<div class="form-group" style="width: 50%">
-  <label>Biaya Lembur Malam:</label>
-  <%= f.number_field :night_payment_overtime, class: "form-control pull-right", required: true%>
-</div>
+    <div class="form-group" style="width: 50%">
+      <label>Biaya Lembur Malam:</label>
+      <%= f.number_field :night_payment_overtime, class: "form-control pull-right", required: true %>
+    </div>
     <div class="form-group" style="width: 50%; text-align: left;">
-      <label>Jamsostek:</label>
-      <%= f.check_box :allowed_jamsostek%>
-
+      <label>Tunjangan Jamsostek:</label>
+      <%= f.check_box :allowed_jamsostek %>
     </div>
-<div class="actions">
-  <%= f.submit btn_title, :class=>'btn btn-default' %>
-</div>
+
+    <div class="form-group" style="width: 50%; text-align: left;">
+      <label>Mengikuti Jamsostek:</label>
+      <%= f.check_box :participate_jamsostek%>
+    </div>
+    <div class="actions">
+      <%= f.submit btn_title, :class => 'btn btn-default' %>
+    </div>
 <% end %>
 
 
 <% content_for :bottom_js do %>
-<script type="text/javascript">
+    <script type="text/javascript">
 
- $('#salary_history_payment').keyup(function(){
-  $day_overtime = Math.round(parseInt($(this).val())/140);
-  $night_overtime = $day_overtime * 2;
-  $('#salary_history_day_payment_overtime').val($day_overtime);
-  $('#salary_history_night_payment_overtime').val($night_overtime);
-});
+        $('#salary_history_payment').keyup(function () {
+            $day_overtime = Math.round(parseInt($(this).val()) / 140);
+            $night_overtime = $day_overtime * 2;
+            $('#salary_history_day_payment_overtime').val($day_overtime);
+            $('#salary_history_night_payment_overtime').val($night_overtime);
+        });
 
- $('#salary_history_day_payment_overtime').keyup(function(){
-  $night_overtime = parseInt($(this).val()) * 2;
-  $('#salary_history_night_payment_overtime').val($night_overtime);
-});
+        $('#salary_history_day_payment_overtime').keyup(function () {
+            $night_overtime = parseInt($(this).val()) * 2;
+            $('#salary_history_night_payment_overtime').val($night_overtime);
+        });
 
- // $('#salary_history_payment').keyup();
- // $('#salary_history_day_payment_overtime').keyup();
+        // $('#salary_history_payment').keyup();
+        // $('#salary_history_day_payment_overtime').keyup();
 
 
-  // $("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
-  //   $hasil = parseInt($(this).val()) * 2;
-  //   $("#user_overtime_payment_histories_attributes_0_night_payment").val($hasil);
-  // });
-</script>
+        // $("#user_overtime_payment_histories_attributes_0_day_payment").keyup(function(){
+        //   $hasil = parseInt($(this).val()) * 2;
+        //   $("#user_overtime_payment_histories_attributes_0_night_payment").val($hasil);
+        // });
+    </script>
 
-<% end%>
+<% end %>
