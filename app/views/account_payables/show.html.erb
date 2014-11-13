@@ -46,19 +46,30 @@
    <%if account_payable.parent_id %>
     <td><%= account_payable.parent.title %></td>
     <% else %>
-     <td><%= account_payable.title %></td>
+     <td> <%= account_payable.title %></td>
     <% end %>
-    <td><%= account_payable.credit %></td>
+    <td> <%= number_to_currency(account_payable.credit, unit: "Rp. ") %></td>
   </tr>
 <% end %>
+  <th></th>
+  <th></th>
+  <th>Total pembayaran hutang : </th>
+  <tr>
+  <td></td>
+  <td></td>
+  <td> <%= number_to_currency(@account_payables.sum(&:credit), unit: "Rp. ") %></td>
+
+  </tr>
 </table>
 
+
+<% sisa = @account_payable.debit - @account_payables.sum(&:credit) %>
 <p> keterangan
-<p> Sisa pembayaran: 
-<%if (@account_payable.debit - @account_payables.sum(&:credit)) ==0 %>
+<p> Sisa pembayaran hutang: 
+<%if sisa == 0 %>
 lunas
 <%else%>
- <%= @account_payable.debit - @account_payables.sum(&:credit) %>
+ <%= number_to_currency(sisa, unit: "Rp. ")  %>
 <%end%>
 
 <br />

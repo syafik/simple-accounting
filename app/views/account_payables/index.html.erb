@@ -30,8 +30,8 @@ Rekap Hutang
     <% else %>
      <td><%= link_to account_payable.title, account_payable %></td>
     <% end %>
-    <td><%= account_payable.debit %></td>
-    <td><%= account_payable.credit %></td>
+    <td><%= number_to_currency(account_payable.debit, unit: "Rp. ") %></td>
+    <td><%= number_to_currency(account_payable.credit, unit: "Rp. ") %></td>
     <td><%= account_payable.description %></td>
     <td><%= link_to '<small class="badge bg-green">Edit</small>'.html_safe, edit_account_payable_path(account_payable) %></td>
     <td><%= link_to '<small class="badge bg-red">Delete</small>'.html_safe, account_payable, confirm: 'Are you sure?', method: :delete %></td>
