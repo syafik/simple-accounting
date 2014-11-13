@@ -44,7 +44,7 @@
 	  border-top: 2px solid #ddd;
 	}
 	.width50{width: 50%; border: none !important; padding: 4px !important;}
-	.pr50 {padding-right: 50px !important;}
+	.pr50 {padding-right: 50px !important; text-align: right;}
 	span.title{width: 100px; display: inline-flex;}
     table {font-size: 14px !important;}
   </style>
@@ -60,13 +60,17 @@
 		  <%= wicked_pdf_image_tag 'pushjaw.png' %>
 		</th>
 		<th rowspan="2" class="tleft">
-		  <strong>PUSHJAW MEDIA INFORMATIKA</strong>
+		  <strong>CV. PUSHJAW MEDIA INFORMATIKA</strong>
 		  <br />
 		  <span style="font-weight: normal;" >Kompleks Melong green garden, jl mig 3 no 1</span>
 		  <br />
 		  <span style="font-weight: normal;" >0226001425</span>
 		</th>
-		<th rowspan="2" colspan="2" class="text-right"><strong>SLIP GAJI</strong></th>
+		<th rowspan="2" colspan="2" class="text-right">
+		  SLIP GAJI
+		  <br />
+		  <span style="font-weight: normal;" ><%= @salary.date.strftime("%d %B %Y") %></span>
+		</th>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -146,13 +150,17 @@
 	  <tr>
 		<td colspan="2" class="text-left width50"></td>
 		<td colspan="2" class="text-center width50">
-		  Bandung, <%= @salary.date.strftime("%d-%B-%Y") %>
+		  Bandung, <%= Date.today.strftime("%d %B %Y") %>
 		</td>
 	  </tr>
 
+	  <tr><td colspan="4" class="text-center width50">&nbsp;</td></tr>
+	  <tr><td colspan="4" class="text-center width50">&nbsp;</td></tr>
+	  <tr><td colspan="4" class="text-center width50">&nbsp;</td></tr>
+
 	  <tr>
-		<td colspan="2" class="text-center width50">Dibuat Oleh:</td>
-		<td colspan="2" class="text-center width50">Diterima Oleh:</td>
+		<td colspan="2" class="text-center width50">&nbsp;</td>
+		<td colspan="2" class="text-center width50">CV. PUSHJAW MEDIA INFORMATIKA</td>
 	  </tr>
 
 	  </tbody>
