@@ -1,60 +1,76 @@
 <% content_for :content_title do %>
-Gaji
-<% end%>
+    Gaji
+<% end %>
 
 <% content_for :content_sub_title do %>
-Detail Gaji
-<% end%>
+    Detail Gaji
+<% end %>
 
 <% content_for :content_body do %>
-<div align="left">
-  <table>
-    <tr>
-      <td> <b> Tanggal </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.date.strftime("%d-%B-%Y") %> </td>
-    </tr>
-    <tr>
-      <td> <b> Nama </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= "#{@salary.salary_history.user.first_name} #{@salary.salary_history.user.last_name}" %> </td>
-    </tr>
-    <tr>
-      <td> <b> Kehadiran </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.total_attendance %> </td>
-    </tr>
-    <tr>
-      <td> <b> Absent </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.total_absence %> </td>
-    </tr>
-    <tr>
-      <td> <b> Total Jam Lembur </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.total_overtime_hours %> </td>
-    </tr>
-    <tr>
-      <td> <b> Gaji </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.salary_history.payment %> </td>
-    </tr>
-    <tr>
-      <td> <b> Biaya Lembur </b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.total_overtime_payment %> </td>
-    </tr>
-    <tr>
-      <td> <b> Total Gaji</b> </td>
-      <td> &nbsp; <b> :</b> &nbsp;  </td>
-      <td> <%= @salary.total_overtime_payment + @salary.salary_history.payment %> </td>
-    </tr>
-
-  </table>
-</div>
-<% end%>
+    <table width="100%">
+      <tr>
+        <td width="45%" rowspan="2"><%= image_tag "pushjaw.png" %></td>
+        <td> SLIP GAJI</td>
+        <td width="45%">TANGGAL : <%= @salary.date.strftime("%d-%B-%Y") %></td>
+      </tr>
+      <tr>
+        <td>CV. PUSHJAW MESIA INFORMATIKA</td>
+        <td>CV. PUSHJAW MESIA INFORMATIKA</td>
+      </tr>
+    </table>
+    <table width="100%" class="table" style="padding: 5px 0;">
+      <tr>
+        <td style="text-align: left;">Nama</td>
+        <td style="text-align: right;">: <%= "#{@salary.salary_history.user.first_name} #{@salary.salary_history.user.last_name}" %></td>
+        <td></td>
+        <td style="text-align: left;">Alamat</td>
+        <td style="text-align: right;">: <%= @salary.salary_history.user.address%></td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">Jabatan</td>
+        <td style="text-align: right;">: <%= @salary.salary_history.user.address%></td>
+        <td></td>
+        <td style="text-align: left;">Telepon</td>
+        <td style="text-align: right;">: <%= @salary.salary_history.user.telephone%></td>
+      </tr>
+      <tr>
+        <td width="45%" colspan="2">PENERIMAAN</td>
+        <td width="10%"></td>
+        <td width="45%" colspan="2">POTONGAN</td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">Gaji Pokok</td>
+        <td style="text-align: right;"><%= @salary.salary_history.payment %></td>
+        <td style="text-align: right;"></td>
+        <td style="text-align: left;">Jamsostek</td>
+        <td style="text-align: right;"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">Lembur</td>
+        <td style="text-align: right;"><%= @salary.total_overtime_payment %> </td>
+        <td style="text-align: right;"></td>
+        <td style="text-align: left;"></td>
+        <td style="text-align: right;"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">Tunjangan Jamsostek</td>
+        <td style="text-align: right;"><%= @salary.jamsostek if @salary.salary_history.allowed_jamsostek %> </td>
+        <td style="text-align: right;"></td>
+        <td style="text-align: left;"></td>
+        <td style="text-align: right;"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">Total Pendapatan</td>
+        <td style="text-align: right;"></td>
+        <td style="text-align: right;"></td>
+        <td style="text-align: left;">Total Potongan</td>
+        <td style="text-align: right;"></td>
+      </tr>
+    </table>
+    </div>
+<% end %>
 
 <% content_for :content_nav do %>
-<%= link_to 'Kembali', salaries_path, :class=>'btn btn-primary' %>
-<% end%>
+    <%= link_to 'Kembali', salaries_path, :class => 'btn btn-primary' %>
+<% end %>
 
