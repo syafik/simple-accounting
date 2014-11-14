@@ -27,7 +27,7 @@ class SalariesController < ApplicationController
       format.html
       format.json { render json: @salary }
       format.pdf do
-        render :pdf => "file_name", :orientation => 'Landscape'
+        render :pdf => "file_name"
       end
     end
   end
