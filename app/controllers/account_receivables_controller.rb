@@ -28,7 +28,7 @@ class AccountReceivablesController < ApplicationController
   # GET /account_receivables/new.json
   def new
     @account_receivable = AccountReceivable.new
-    @debit = params[:debit] ? true : false
+    @debit = params[:debit].eql?("true") ? true : false
     
     respond_to do |format|
       format.html # new.html.erb
@@ -45,17 +45,17 @@ class AccountReceivablesController < ApplicationController
   # POST /account_receivables.json
   def create
     parent = AccountReceivable.find(params[:account_receivable][:parent_id]) if params[:account_receivable][:parent_id] 
-    @debit = params[:debit] ? true : false
-    @account_receivable = AccountReceivable.new(params[:account_receivable])
     @account_receivables = AccountReceivable.where(parent_id: parent.id) if params[:account_receivable][:parent_id] 
-
+    @debit = params[:debit].eql?("true") ? true : false
+    @account_receivable = AccountReceivable.new(params[:account_receivable])
+    
     @sisa = parent.credit.to_i - @account_receivables.sum(&:debit).to_i if params[:account_receivable][:parent_id]
     if params[:account_receivable][:parent_id] and params[:account_receivable][:debit].to_i > @sisa.to_i 
       render action: "new", :credit => true
     else
     respond_to do |format|
       if @account_receivable.save
-        format.html { redirect_to @account_receivable, notice: 'Account receivable was successfully created.' }
+        format.html { redirect_to account_receivable_path(@account_receivable.parent ? @account_receivable.parent : @account_receivable), notice: 'Account receivable was successfully created.' }
         format.json { render json: @account_receivable, status: :created, location: @account_receivable }
       else
         format.html { render action: "new" }
