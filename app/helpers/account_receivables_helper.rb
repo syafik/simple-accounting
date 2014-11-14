@@ -4,10 +4,10 @@ module AccountReceivablesHelper
 		AccountReceivable.where(parent_id: nil).collect do |p|
 			 debit = p.children.sum(&:debit)
 			if p.credit - p.debit != 0
-			credits << ["#{p.title} sisa cicilan Rp.#{p.credit - debit}, p.id"]
+			credits << ["Sisa cicilan #{p.title} #{number_to_currency(p.credit - debit, unit: "Rp.  ") }", p.id]
 			end
 
-	end
+		end
 	credits
 	end
 	

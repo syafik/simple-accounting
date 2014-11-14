@@ -1,38 +1,41 @@
+<% content_for :content_body do %>
 <p id="notice"><%= notice %></p>
 
-<p>
+<p style = "text-align: left; !important">
   <b>Date:</b>
   <%= @account_payable.date %>
 </p>
 
-<p>
+<p style = "text-align: left; !important">
   <b>Title:</b>
   <%= @account_payable.title %>
 </p>
 
-<p>
+<p style = "text-align: left; !important">
   <b>Debit:</b>
-  <%= @account_payable.debit %>
+  <%= number_to_currency(@account_payable.debit, unit: "Rp. ")  %>
 </p>
 
-<p>
+<p style = "text-align: left; !important">
   <b>Credit:</b>
-  <%= @account_payable.credit %>
+  <%= number_to_currency(@account_payable.credit, unit: "Rp. ") %>
 </p>
 
-<p>
+<p style = "text-align: left; !important">
   <b>Description:</b>
   <%= @account_payable.description %>
 </p>
+<% end %>
+
 
 
 <style>
   table tr th, table tr td{text-align: center;}
 </style>
 
-
+<% content_for :content_body do %>
 <h1>Listing Hutang</h1>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-bordered table-hover">
     </tr>
     <tr>
     <th>Date</th>
@@ -53,7 +56,7 @@
 <% end %>
   <th></th>
   <th></th>
-  <th>Total pembayaran hutang : </th>
+  <th style = "text-align: left; !important"> Total pembayaran hutang : </th>
   <tr>
   <td></td>
   <td></td>
@@ -61,11 +64,13 @@
 
   </tr>
 </table>
+<% end %>
 
 
 <% sisa = @account_payable.debit - @account_payables.sum(&:credit) %>
-<p> keterangan
-<p> Sisa pembayaran hutang: 
+<b> keterangan </b>
+<br/>
+<b> Sisa pembayaran hutang: </b> 
 <%if sisa == 0 %>
 lunas
 <%else%>
@@ -77,5 +82,6 @@ lunas
 
 
 
-<%= link_to 'Edit', edit_account_payable_path(@account_payable) %> |
-<%= link_to 'Back', account_payables_path %>
+<%= link_to 'Edit', edit_account_payable_path(@account_payable), :class=>'btn btn-primary' %> |
+<%= link_to 'Back', account_payables_path, :class=>'btn btn-primary' %>
+
