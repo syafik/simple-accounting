@@ -56,7 +56,7 @@ class AccountPayablesController < ApplicationController
    else
     respond_to do |format|
       if @account_payable.save
-        format.html { redirect_to @account_payable, notice: 'Account payable was successfully created.' }
+        format.html { redirect_to account_payable_path(@account_payable.parent ? @account_payable.parent : @account_payable), notice: 'Account payable was successfully created.' }
         format.json { render json: @account_payable, status: :created, location: @account_payable }
       else
         format.html { render action: "new", :debit => true }
@@ -73,7 +73,7 @@ end
 
     respond_to do |format|
       if @account_payable.update_attributes(params[:account_payable])
-        format.html { redirect_to @account_payable, notice: 'Account payable was successfully updated.' }
+        format.html { redirect_to account_payable_path(@account_payable.parent ? @account_payable.parent : @account_payable), notice: 'Account payable was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
