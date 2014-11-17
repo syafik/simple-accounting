@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="form-group" style="width: 20%">
+  <div class="form-group" style="width: 20%; text-align: left;">
   <label>Date:</label>
   <div class="input-group">
     <div class="input-group-addon">
@@ -21,37 +21,36 @@
   </div>
 </div>
 
-
-  <div class="form-group" style="width: 50%">
-    <%= f.label :title %><br />
+<div class="form-group" style="width: 50%; text-align: left;" >
+    <%= f.label :title %> :<br />
     <%= f.text_field :title %> <br />
   </div>
  <%= hidden_field_tag :credit, @credit %>
  <% if @credit %>
-  <div class="form-group" style="width: 50%">
+  <div class="form-group" style="width: 50%; text-align: left;" >
     <%= f.label :debit %><br />
     <%= f.select "parent_id", debit_account %>
     <%= f.hidden_field :credit, :value => 0 %>
   </div>
-  <div class="form-group" style="width: 50%">
-    <%= f.label :credit %><br />
+<div class="form-group" style="width: 50%; text-align: left;" >
+    <%= f.label :credit %> :<br />
     <%= f.number_field :credit %>
     <%= f.hidden_field :debit, :value => 0 %>
   </div>
   <% else %>
-    <div class="form-group" style="width: 50%">
-    <%= f.label :debit %><br />
+    <div class="form-group" style="width: 50%; text-align: left;" >
+    <%= f.label :debit %> :<br />
     <%= f.number_field :debit %>
     <%= f.hidden_field :credit, :value => 0 %>
   </div>
   <% end %>
 
-  <div class="form-group" style="width: 50%">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="form-group" style="width: 50%; text-align: left;" >
+    <%= f.label :description %> :<br />
+    <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
   </div>
 
-  <div class="actions">
+   <div class="form-group" style="width: 50%; text-align: left;" >
     <%= f.submit %>
   </div>  
 <% end %>

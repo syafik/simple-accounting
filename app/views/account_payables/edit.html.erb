@@ -1,6 +1,16 @@
-<h1>Editing account_payable</h1>
+ <% content_for :content_title do %>
+ <% if @credit %>
+<h1> Edit Bayar Hutang</h1>
+<% else %>
+<h1> Edit Hutang Baru </h1>
+<% end %>
+<% end %>
 
+<% content_for :content_body do %>
 <%= render 'form' %>
+<% end %>
 
-<%= link_to 'Show', @account_payable %> |
-<%= link_to 'Back', account_payables_path %>
+<% content_for :content_nav do %>
+<%= link_to 'Show', @account_payable, :class=>'btn btn-primary' %> |
+<%= link_to 'Back', account_payables_path, :class=>'btn btn-primary' %>
+<% end %>
