@@ -9,6 +9,7 @@ Rekap Hutang
 <style>
   table tr th, table tr td{text-align: center;}
 </style>
+
 <% content_for :content_body do %>
 <table class="table table-bordered table-bordered table-hover">
     </tr>
@@ -20,7 +21,6 @@ Rekap Hutang
     <th>Description</th>
     <th colspan ="2">Action</th>
   </tr>
-
 
 <% @account_payables.each do |account_payable| %>
   <tr>
@@ -38,8 +38,8 @@ Rekap Hutang
   </tr>
 <% end %>
 </table>
-
 <br />
+
 <% content_for :content_nav do %>
 <%= link_to 'Debit', new_account_payable_path(credit: false), :class=>'btn btn-primary' %>
 <%= link_to 'Credit', new_account_payable_path(credit: true), :class=>'btn btn-primary' %>
