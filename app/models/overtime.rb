@@ -38,37 +38,51 @@ class Overtime < ActiveRecord::Base
   end
 
   def calculate_time
-    start_time = self.start_time
-    end_time = self.end_time
-    siang = Time.parse("#{self.date.strftime("%d %b %Y ")}"+ Setting[:startlimitdaytime])
-    malam = Time.parse("#{self.date.strftime("%d %b %Y ")}"+ Setting[:startlimitnighttime]) #limit finish
+    s_time = self.start_time
+    e_time = self.end_time
+    c_date = self.date
 
-    s_siang = siang
-    e_siang = malam
-    s_malam = malam
-    e_malam = siang + 1.days
+    start_time = Time.parse("#{c_date.strftime("%Y/%m/%d")} #{s_time.strftime("%H:%M")}")
+      if( e_time.strftime("%H:%M") == "00:00")
+      c_date = c_date + 1.days
+    end
+    end_time = Time.parse("#{c_date.strftime("%Y/%m/%d")} #{e_time.strftime("%H:%M")}")  
 
-    total_jam = ((end_time - start_time) / 1.hour).round
-    if end_time <= e_siang && start_time >= s_siang
-      jam_siang = ((end_time - start_time) / 1.hour).round
+    siang = Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} #{Setting[:startlimitdaytime]}")
+    malam = Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} #{Setting[:startlimitnighttime]}") #limit finish
+    
+    p s_siang = siang
+    p e_siang = malam
+    p s_malam = malam
+    p e_malam = Time.parse("#{(Time.zone.now + 1.days).strftime("%Y/%m/%d")} 00:00")
+    p s_malam_1 = Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 00:00")
+    p e_malam_1 = s_siang
+
+    total_jam = ((end_time -  start_time) / 1.hour).round
+    if end_time <= e_siang &&  start_time >= s_siang
+      
+      jam_siang = ((end_time -  start_time) / 1.hour).round
       jam_malam = 0
-    elsif end_time <= e_malam && start_time >= s_malam
+    elsif (end_time <= e_malam &&  start_time >= s_malam) || (start_time >= s_malam_1 && end_time <= e_malam_1)
+      
       jam_siang = 0
-      jam_malam = ((end_time - start_time) / 1.hour).round
+      jam_malam = ((end_time -  start_time) / 1.hour).round
 
-    elsif start_time <= e_malam && end_time < e_siang
+    elsif  start_time <= e_malam && end_time < e_siang
       #"awal malam akhir siang
-      jam_malam = ((siang - start_time) / 1.hour).round
+      jam_malam = ((siang -  start_time) / 1.hour).round
       jam_siang = total_jam - jam_malam
     elsif start_time < e_siang && end_time < e_malam
       #awal siang akhisr malam
-      jam_siang = ((malam - start_time) / 1.hour).round
+
+      jam_siang = ((malam -  start_time) / 1.hour).round
       jam_malam = total_jam - jam_siang
     end
 
     self.long_day = jam_siang
     self.long_night = jam_malam
-        self.long_overtime = total_jam
+    self.long_overtime = total_jam
+    
     if self.long_overtime > Setting[:maxovertimeperday].to_f
       self.errors.add(:long_overtime, "Jam Lembur kelebihan.")
     end
