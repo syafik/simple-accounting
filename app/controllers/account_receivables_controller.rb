@@ -44,12 +44,19 @@ class AccountReceivablesController < ApplicationController
   # POST /account_receivables
   # POST /account_receivables.json
   def create
+    
+    params[:account_receivable][:credit] = params[:account_receivable][:credit].gsub(",","")
+    params[:account_receivable][:debit] = params[:account_receivable][:debit].gsub(",","")
+    p params[:account_receivable][:credit]
     parent = AccountReceivable.find(params[:account_receivable][:parent_id]) if params[:account_receivable][:parent_id] 
     @account_receivables = AccountReceivable.where(parent_id: parent.id) if params[:account_receivable][:parent_id] 
     @debit = params[:debit].eql?("true") ? true : false
     @account_receivable = AccountReceivable.new(params[:account_receivable])
     
     @sisa = parent.credit.to_i - @account_receivables.sum(&:debit).to_i if params[:account_receivable][:parent_id]
+
+
+
     if params[:account_receivable][:parent_id] and params[:account_receivable][:debit].to_i > @sisa.to_i 
       render action: "new", :credit => true
     else
@@ -69,7 +76,9 @@ class AccountReceivablesController < ApplicationController
   # PUT /account_receivables/1.json
   def update
     @account_receivable = AccountReceivable.find(params[:id])
-
+    params[:account_receivable][:credit] = params[:account_receivable][:credit].gsub(",","")
+    params[:account_receivable][:debit] = params[:account_receivable][:debit].gsub(",","")
+    
     respond_to do |format|
       if @account_receivable.update_attributes(params[:account_receivable])
         format.html { redirect_to @account_receivable, notice: 'Account receivable was successfully updated.' }

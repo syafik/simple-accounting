@@ -1,3 +1,6 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="jquery.maskMoney.js" type="text/javascript"></script>
+
 <%= form_for(@account_receivable, :html => { style: "text-align: left;"} ) do |f| %>
   <% if @account_receivable.errors.any? %>
     <div id="error_explanation">
@@ -16,30 +19,29 @@
       </div>
     </div>
   <% end %>
-    <div class="field">
+    <div class="field" style="width: 30%; text-align: left;" >
     <%= f.label :title %><br />
-    <%= f.text_field :title %><br />
+    <%= f.text_field :title, class: "form-control"%>
   </div>
   <%= hidden_field_tag :debit, @debit %>
   <% if (@account_receivable.new_record? && @debit )|| (!@account_receivable.new_record? && @account_receivable.debit > 0) %>
-    <div class="field" style="width: 30%; text-align: left;">
+    <div class="field" style="width: 30%; text-align: left;" >
       <%= f.label :credit %><br />
       <%= f.select "parent_id", credit_account %> 
-      <%= f.hidden_field :debit, :value=>0 %>
+      <%= f.hidden_field :debit, :value => 0 %>
     </div>
-    <div class="field">
+    <div class="field" style="width: 30%; text-align: left;" >
       <%= f.label :debit %><br />
-      <%= f.text_field :debit %>
-      <%= f.hidden_field :credit, :value=>0%>
+      <%= f.text_field :debit, "id" => "debit", class: "form-control" %>
+      <%= f.hidden_field :credit, :value => 0 %>
     </div>
   <% else %>
     <div class="form-group" style="width: 30%;">
       <%= f.label :credit %><br />
-      <%= f.text_field :credit %>
-      <%= f.hidden_field :debit, :value=>0%>
+      <%= f.text_field :credit, "id" => "credit", class: "form-control" %>
+      <%= f.hidden_field :debit, :value => 0 %>
     </div>
   <% end %>
-
   <div class="form-group" style="width: 30%;">
   <%= f.label :date %>
   <div>
@@ -47,12 +49,18 @@
   </div>
   </div>
 
-  <div class="field">
+  <div class="form-group" style="width: 30%;">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :colspan => "20", :rows => "10", class: "form-control" %>
   </div>
   
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $(function() {
+      $("#credit, #debit").maskMoney({precision: 0});
+  })
+</script>

@@ -11,6 +11,12 @@
   Piutang
 <% end %>
 
+<% content_for :content_sub_title do %>
+  <b>
+    <h3>Daftar Piutang</h3>
+  </b>
+<% end %>
+
 <% content_for :content_body do %>
 
 <table id="example2" class="table table-bordered table-hover">
@@ -32,7 +38,6 @@
 <% @account_receivables.each do |account_receivable| %>
   <tr>
     <td><%= link_to account_receivable.title, account_receivable %></td>
-    
     <td><%= number_to_currency(account_receivable.debit, unit: "Rp. ") %></td>
     <td><%= number_to_currency(account_receivable.credit, unit: "Rp. ") %></td>
     <td><%= account_receivable.description %></td>
