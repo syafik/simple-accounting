@@ -48,6 +48,8 @@ class OvertimesController < ApplicationController
 
   def edit
   	@overtime = Overtime.find(params[:id])
+    @overtime.start_time = @overtime.start_time.strftime("%H:%M")
+    @overtime.end_time = @overtime.end_time.strftime("%H:%M")
   end
 
   def create
