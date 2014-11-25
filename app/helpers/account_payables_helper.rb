@@ -4,7 +4,7 @@ module AccountPayablesHelper
 		AccountPayable.where(parent_id: nil).collect do |p| 
 			credit = p.children.sum(&:credit)
 		   if p.debit - credit  != 0
-		   	debits << ["#{p.title} sisa cicilan Rp.#{p.debit - credit}", p.id]
+		   	debits << ["#{p.title} sisa cicilan #{number_to_currency(p.debit - credit, unit: "Rp.  ") }", p.id]
 		   end
 
 	end

@@ -52,16 +52,18 @@ class AccountReceivablesController < ApplicationController
     @account_receivables = AccountReceivable.where(parent_id: parent.id) if params[:account_receivable][:parent_id] 
     @debit = params[:debit].eql?("true") ? true : false
     @account_receivable = AccountReceivable.new(params[:account_receivable])
-    
+
     @sisa = parent.credit.to_i - @account_receivables.sum(&:debit).to_i if params[:account_receivable][:parent_id]
 
+    
 
-
-    if params[:account_receivable][:parent_id] and params[:account_receivable][:debit].to_i > @sisa.to_i 
+    if params[:account_receivable][:parent_id] and params[:account_receivable][:debit].to_i > @sisa.to_i
+      flash.now[:error] = "Debit lebih besar dari credit.!" 
       render action: "new", :credit => true
     else
     respond_to do |format|
       if @account_receivable.save
+
         format.html { redirect_to account_receivable_path(@account_receivable.parent ? @account_receivable.parent : @account_receivable), notice: 'Account receivable was successfully created.' }
         format.json { render json: @account_receivable, status: :created, location: @account_receivable }
       else

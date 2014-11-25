@@ -17,11 +17,11 @@ class AccountReceivable < ActiveRecord::Base
   has_one :transaction
 
   validates :title, presence: true
-  validates :debit, presence: true
+  validates :debit, presence: true, :numericality => { :greater_than_or_equal_to => @sisa.to_i }
   validates :credit, presence: true
   validates :description, presence: true
   validates :date, presence: true, allow_blank: false
+  
   acts_as_tree
-
 
 end

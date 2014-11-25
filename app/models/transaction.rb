@@ -1,6 +1,7 @@
 class Transaction < ActiveRecord::Base
   
   belongs_to :account_receivable
+  belongs_to :account_payable
 
   attr_accessible :date, :description, :is_debit, :value, :is_close
   validates :date, :description, presence: true

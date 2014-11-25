@@ -45,6 +45,10 @@ class AccountPayablesController < ApplicationController
   # POST /account_payables
   # POST /account_payables.json
   def create
+
+    params[:account_payable][:debit] = params[:account_payable][:debit].gsub(",","")
+    params[:account_payable][:credit] = params[:account_payable][:credit].gsub(",","")
+    p params[:account_payable][:debit]
     parent = AccountPayable.find(params[:account_payable][:parent_id]) if params[:account_payable][:parent_id]
     @account_payables = AccountPayable.where(parent_id: parent.id) if params[:account_payable][:parent_id]
     @credit = params[:credit].eql?("true") ? true : false
@@ -52,7 +56,8 @@ class AccountPayablesController < ApplicationController
 
     @sisa_hutang = parent.debit.to_i - @account_payables.sum(&:credit).to_i if params[:account_payable][:parent_id]
     if params[:account_payable][:parent_id] and params[:account_payable][:credit].to_i > @sisa_hutang.to_i
-    render action: "new", :debit => true 
+      flash.now[:error] = "Credit lebih besar dari debit.!"
+      render action: "new", :debit => true 
    else
     respond_to do |format|
       if @account_payable.save
@@ -70,6 +75,9 @@ end
   # PUT /account_payables/1.json
   def update
     @account_payable = AccountPayable.find(params[:id])
+    params[:account_payable][:debit] = params[:account_payable][:debit].gsub(",","")
+    params[:account_payable][:credit] = params[:account_payable][:credit].gsub(",","")
+    p params[:account_payable][:debit]
 
     respond_to do |format|
       if @account_payable.update_attributes(params[:account_payable])

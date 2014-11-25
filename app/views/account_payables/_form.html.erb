@@ -1,6 +1,13 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="jquery.maskMoney.js" type="text/javascript"></script>
+
 <%= form_for(@account_payable) do |f| %>
   <% if @account_payable.errors.any? %>
     <div id="error_explanation">
+      <div id="notice" class="alert alert-warning alert-dismissable">
+            <i class="fa fa-exclamation"></i>
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <p ><%= notice %></p>
       <h2><%= pluralize(@account_payable.errors.count, "error") %> prohibited this account_payable from being saved:</h2>
 
       <ul>
@@ -8,11 +15,12 @@
         <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="form-group" style="width: 20%; text-align: left;">
-  <label>Date:</label>
+  <div class="form-group" style="width: 35%; text-align: left;">
+  <label>Date</label>
   <div class="input-group">
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
@@ -20,33 +28,33 @@
     <%= f.text_field :date, :placeholder=> "Date" , class: "form-control pull-right date_custom", :"data-date-format" => "dd-mm-yyyy" %>
   </div>
 </div>
-
-<div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :title %> :<br />
-    <%= f.text_field :title %> <br />
+  
+<div class="form-group" style="width: 35%; text-align: left;" >
+    <%= f.label :title %><br />
+    <%= f.text_field :title, class: "form-control" %>
   </div>
  <%= hidden_field_tag :credit, @credit %>
  <% if @credit %>
-  <div class="form-group" style="width: 50%; text-align: left;" >
+  <div class="form-group" style="width: 35%; text-align: left;" >
     <%= f.label :debit %><br />
     <%= f.select "parent_id", debit_account %>
     <%= f.hidden_field :credit, :value => 0 %>
   </div>
-<div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :credit %> :<br />
-    <%= f.number_field :credit %>
+<div class="form-group" style="width: 35%; text-align: left;" >
+    <%= f.label :credit %><br />
+    <%= f.text_field :credit, "id" => "credit", class: "form-control" %>
     <%= f.hidden_field :debit, :value => 0 %>
   </div>
   <% else %>
-    <div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :debit %> :<br />
-    <%= f.number_field :debit %>
+    <div class="form-group" style="width: 35%; text-align: left;" >
+    <%= f.label :debit %><br />
+    <%= f.text_field :debit, "id" => "debit", class: "form-control" %>
     <%= f.hidden_field :credit, :value => 0 %>
   </div>
   <% end %>
 
-  <div class="form-group" style="width: 50%; text-align: left;" >
-    <%= f.label :description %> :<br />
+  <div class="form-group" style="width: 35%; text-align: left;" >
+    <%= f.label :description %><br />
     <%= f.text_area :description, :cols => "30", :rows => "10", class: "form-control" %>
   </div>
 
@@ -55,6 +63,8 @@
   </div>  
 <% end %>
 
-
-
-
+<script>
+  $(function() {
+      $("#debit, #credit").maskMoney({precision: 0});
+  })
+</script>

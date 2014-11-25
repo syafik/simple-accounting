@@ -2,7 +2,7 @@
  <% if @credit %>
 <h1> Edit Bayar Hutang</h1>
 <% else %>
-<h1> Edit Hutang Baru </h1>
+<h1> Edit Hutang </h1>
 <% end %>
 <% end %>
 
@@ -11,6 +11,6 @@
 <% end %>
 
 <% content_for :content_nav do %>
-<%= link_to 'Show', @account_payable, :class=>'btn btn-primary' %> |
+<%= link_to 'Show', @account_payable, :class=>'btn btn-primary' %>
 <%= link_to 'Back', account_payables_path, :class=>'btn btn-primary' %>
 <% end %>

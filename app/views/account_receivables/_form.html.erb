@@ -19,37 +19,37 @@
       </div>
     </div>
   <% end %>
-    <div class="field" style="width: 30%; text-align: left;" >
+    <div class="field" style="width: 35%; text-align: left;" >
     <%= f.label :title %><br />
     <%= f.text_field :title, class: "form-control"%>
   </div>
   <%= hidden_field_tag :debit, @debit %>
   <% if (@account_receivable.new_record? && @debit )|| (!@account_receivable.new_record? && @account_receivable.debit > 0) %>
-    <div class="field" style="width: 30%; text-align: left;" >
+    <div class="field" style="width: 35%; text-align: left;" >
       <%= f.label :credit %><br />
       <%= f.select "parent_id", credit_account %> 
       <%= f.hidden_field :debit, :value => 0 %>
     </div>
-    <div class="field" style="width: 30%; text-align: left;" >
+    <div class="field" style="width: 35%; text-align: left;" >
       <%= f.label :debit %><br />
       <%= f.text_field :debit, "id" => "debit", class: "form-control" %>
       <%= f.hidden_field :credit, :value => 0 %>
     </div>
   <% else %>
-    <div class="form-group" style="width: 30%;">
+    <div class="form-group" style="width: 35%;">
       <%= f.label :credit %><br />
       <%= f.text_field :credit, "id" => "credit", class: "form-control" %>
       <%= f.hidden_field :debit, :value => 0 %>
     </div>
   <% end %>
-  <div class="form-group" style="width: 30%;">
+  <div class="form-group" style="width: 35%;">
   <%= f.label :date %>
   <div>
     <%= f.text_field :date, class: "form-control pull-right date_custom", :"data-date-format" => "yyyy-mm-dd"%></i><br>
   </div>
   </div>
 
-  <div class="form-group" style="width: 30%;">
+  <div class="form-group" style="width: 35%;">
     <%= f.label :description %><br />
     <%= f.text_area :description, :colspan => "20", :rows => "10", class: "form-control" %>
   </div>

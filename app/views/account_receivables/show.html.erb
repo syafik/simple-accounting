@@ -18,27 +18,27 @@
 <thead>
   <tr>
     <td><b>Title</b></td>
-    <td>:&nbsp;<%= @account_receivable.title %></td>
+    <td>: <%= @account_receivable.title %></td>
   </tr>
 
   <tr>
     <td><b>Date</b></td>
-    <td>:&nbsp;<%= @account_receivable.date %></td>
+    <td>: <%= @account_receivable.date %></td>
   </tr> 
 
   <tr>
     <td><b>Debit</b></td>
-    <td>:&nbsp;<%= number_to_currency(@account_receivable.debit, unit: "Rp. ") %></td>
+    <td>: <%= number_to_currency(@account_receivable.debit, unit: "Rp. ") %></td>
   </tr>
 
   <tr>
     <td><b>Credit</b></td>
-    <td>:&nbsp;<%= number_to_currency(@account_receivable.credit, unit: "Rp. ") %></td>
+    <td>: <%= number_to_currency(@account_receivable.credit, unit: "Rp. ") %></td>
   </tr>
 
   <tr>
     <td><b>Description</b></td>
-    <td>:&nbsp;<%= @account_receivable.description %></td>
+    <td>: <%= @account_receivable.description %></td>
   </tr>
 </thead>
 </table>
@@ -61,10 +61,13 @@
     <td style="text-align: center;"><%= child.date.strftime("%d %B %Y")%></td> 
     <td style="text-align: center;"><%= number_to_currency(child.debit, unit: "Rp. ") %></td> 
   </tr>
-  <% end %>
+<% end %>
+  <tr>
+  <th colspan="2"><b>Total Pembayaran :</b></th>
+  <th> <%= number_to_currency(@account_receivables.sum(&:debit), unit: "Rp. ") %> </th>
+  </tr>
 </table>
 <br>
-
 <p>
   <b>Sisa Piutang</b> : <%= number_to_currency(@account_receivable.credit - @account_receivables.sum(&:debit), unit: "Rp. ") %><br>
 <% if @account_receivable.credit - @account_receivables.sum(&:debit) == 0 %>
