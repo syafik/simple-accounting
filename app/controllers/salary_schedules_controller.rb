@@ -33,16 +33,6 @@ class SalarySchedulesController < ApplicationController
 
   def create
     @salary_schedule = SalarySchedule.new(params[:salary_schedule])
-    last_salary = SalarySchedule.this_year
-    last_schedule_date = if last_salary.this_month.present?
-      last_salary.this_month.last.date
-    elsif last_salary.prev_month.present?
-      last_salary.prev_month.last.date
-    else
-      Date.today.beginning_of_month
-    end
-    @salary_schedule.first_date = last_schedule_date
-    @salary_schedule.end_date = params[:salary_schedule][:date]
     respond_to do |format|
       if @salary_schedule.save
         format.html { redirect_to @salary_schedule, notice: 'Salary schedule was successfully created.' }

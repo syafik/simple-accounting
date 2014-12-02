@@ -23,6 +23,20 @@
     </div>
     <%= f.text_field :date, class: "form-control date_custom", :"data-date-format" => "yyyy-mm-dd"  %>
   </div>
+    <label>Tanggal Awal perhitungan:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :first_date, class: "form-control date_custom", :"data-date-format" => "yyyy-mm-dd"  %>
+  </div>
+    <label>Tanggal Akhir Perhitungan:</label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <%= f.text_field :end_date, class: "form-control date_custom", :"data-date-format" => "yyyy-mm-dd"  %>
+  </div>
 </div>
 
   <div class="actions">
