@@ -71,6 +71,8 @@
 
 <% end %>
 
-
+<% content_for :content_nav do %>
+<%= link_to 'Excel Download', salaries_path(:format => :xls, salary_schedule: params[:salary_schedule] ), :class=>'btn btn-primary' %>
+<% end %>
 
 

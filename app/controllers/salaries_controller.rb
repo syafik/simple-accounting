@@ -11,9 +11,10 @@ class SalariesController < ApplicationController
       @date = nil
     end
 
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @salaries }
+      format.xls 
     end
   end
 
@@ -102,4 +103,18 @@ class SalariesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def salary
+     @salaries = Salary.this_month
+
+    respond_to do |format|
+      format.html
+      format.xls do
+        render :xls => "file_name"
+      end
+      format.pdf
+    end
+  end
+
 end

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+		  xmlns:o="urn:schemas-microsoft-com:office:office"
+		  xmlns:x="urn:schemas-microsoft-com:office:excel"
+		  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+		  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+	<Table>
+	  <Row>
+		<Cell><Data ss:Type="String">No</Data></Cell>
+		<Cell><Data ss:Type="String">Tanggal</Data></Cell>
+		<Cell><Data ss:Type="String">Nama Karyawan</Data></Cell>
+		<Cell><Data ss:Type="String">Gaji pokok</Data></Cell>
+		<Cell><Data ss:Type="String">Biaya lembur</Data></Cell>
+		<Cell><Data ss:Type="String">Jamsostek</Data></Cell>
+		<Cell><Data ss:Type="String">Biaya lain</Data></Cell>
+		<Cell><Data ss:Type="String">Jamsostek</Data></Cell>
+		<Cell><Data ss:Type="String">THP</Data></Cell>
+	  </Row>
+	 <% @salaries.each_with_index do |salary, index| %>
+		<Row>
+		  <Cell><Data ss:Type="Number"><%= index + 1 %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= salary.date.strftime("%d-%B-%Y") %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= link_to  "#{salary.try(:salary_history).try(:user).try(:first_name)} #{ salary.try(:salary_history).try(:user).try(:last_name)}", salary %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(salary.salary_history.payment,unit: "Rp. ") %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(salary.total_overtime_payment,unit: "Rp. ")  %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(salary.jamsostek,unit: "Rp. ")  %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(salary.etc,unit: "Rp. ")  rescue "-" %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= salary.salary_history.allowed_jamsostek && salary.salary_history.participate_jamsostek ? number_to_currency(salary.jamsostek , unit: "Rp. ") : "-" %></Data></Cell>
+		  <Cell><Data ss:Type="String"><%= number_to_currency(salary.thp, unit: "Rp. ") %></Data></Cell>
+		</Row>
+	  <% end %>
+	</Table>
+  </Worksheet>
+</Workbook>
