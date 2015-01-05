@@ -93,7 +93,7 @@ class OvertimesController < ApplicationController
   	@overtime = Overtime.find(params[:id])
   	@overtime.update_attribute("status", 1)
   	respond_to do |format|
-      UserMailer.send_lembur_approved_user(@overtime.user).deliver
+      #UserMailer.send_lembur_approved_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
   	end
@@ -103,7 +103,7 @@ class OvertimesController < ApplicationController
   	@overtime = Overtime.find(params[:id])
   	@overtime.update_attribute("status", 2)
   	respond_to do |format|
-      UserMailer.send_lembur_rejected_user(@overtime.user).deliver
+      #UserMailer.send_lembur_rejected_user(@overtime.user).deliver
   		format.html { redirect_to overtimes_url }
   		format.json { head :no_content }
   	end
