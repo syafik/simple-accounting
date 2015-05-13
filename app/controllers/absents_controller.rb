@@ -13,6 +13,15 @@ class AbsentsController < ApplicationController
     end
   end
 
+  def summary
+    @date = Date.today
+    @date = params[:search].to_date if params[:search]
+    year = @date.year
+    month = @date.month
+    @absents = User.joins("left join absents on absents.user_id = users.id AND MONTH(absents.date) = #{month} AND YEAR(absents.date) =  #{year}").
+        select("users.first_name, users.last_name, count(absents.user_id) as jumlah ").group("absents.user_id")
+  end
+
   def show
     @absent = Absent.find(params[:id])
 
@@ -118,3 +127,8 @@ class AbsentsController < ApplicationController
     end
   end
 end
+
+#
+#SELECT users.id as id, count(absents.user_id) as jumlah, absents.date FROM `users` left outer join absents on absents.user_id = users.id AND (date is null OR  YEAR(date) = 2014)
+#
+#GROUP BY absents.user_id

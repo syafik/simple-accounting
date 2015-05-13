@@ -1,0 +1,44 @@
+<% content_for :content_title do %>
+  Kehadiran
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Daftar Hadir Karyawan
+<% end%>
+
+<% content_for :content_body do %>
+
+  <table style="text-align: center; width: 100%; ">
+	<tr>
+	  <td align="right"><%= link_to "<< sebelumnya", summary_absents_path(:search => (@date - 1.month)), class: "custom-link" %></td>
+	  <td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%B-%Y") %></h4></td>
+	  <td align="left"><%= link_to "selanjutnya >>", summary_absents_path(:search => @date + 1.month), class: "custom-link"%></td>
+	</tr>
+  </table>
+
+  <style type="text/css">
+	th {
+	  text-align: center;
+	}
+  </style>
+
+  <table id="example2" class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	  <th>No</th>
+	  <th>Nama Karyawan</th>
+	  <th>Jumlah Masuk Kerja</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @absents.each_with_index do |absent, index| %>
+	  <tr>
+		<td><%= index + 1 %></td>
+		<td><%= "#{absent.first_name} #{absent.last_name}".downcase.titleize %></td>
+		<td><%= absent.jumlah %></td>
+	  </tr>
+	<% end %>
+	</tbody>
+  </table>
+
+<% end %>

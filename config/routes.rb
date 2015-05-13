@@ -8,7 +8,11 @@ SimpleAccounting::Application.routes.draw do
 
   resources :roles
   
-  resources :absents
+  resources :absents do
+    collection do
+      get :summary
+    end
+  end
   
   resources :manage_users
 

@@ -1,18 +1,22 @@
 <li class="treeview">
-	<a href="#">
-		<i class="fa fa-book"></i>
-		<span>Kehadiran</span>
-		<i class="fa fa-angle-left pull-right"></i>
-	</a>
-	<ul class="treeview-menu">
-		
-		<li> 
-			<%= link_to absents_path do %>
-			<i class="fa fa-angle-double-right"></i> Data Kehadiran
-			<% end %>
-		</li>
-		
-		
-	</ul>
+  <a href="#">
+	<i class="fa fa-book"></i>
+	<span>Kehadiran</span>
+	<i class="fa fa-angle-left pull-right"></i>
+  </a>
+  <ul class="treeview-menu">
+	<li>
+	  <%= link_to absents_path do %>
+	  <i class="fa fa-angle-double-right"></i> Data Kehadiran
+	  <% end %>
+	</li>
+	<% if current_user.is_admin? %>
+	  <li>
+		<%= link_to summary_absents_path do %>
+		  <i class="fa fa-angle-double-right"></i> Jumlah Kehadiran Perbulan
+		<% end %>
+	  </li>
+	<% end %>
+  </ul>
 </li>
 
