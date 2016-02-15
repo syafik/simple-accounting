@@ -28,11 +28,11 @@ class Reimbursement < ActiveRecord::Base
   end
   def show_status
     string = if status == "process"
-      "<label class=\"btn btn-default btn-xs\">Process</label>"
+      "<label class=\"btn btn-default btn-xs\">processed</label>"
     elsif status == "approve"
-      "<label class=\"btn btn-success btn-xs\">Approve</label>"
+      "<label class=\"btn btn-success btn-xs\">approved</label>"
     else
-      "<label class=\"btn btn-danger btn-xs\">Reject</label>"
+      "<label class=\"btn btn-danger btn-xs\">rejected</label>"
     end
     string.html_safe
   end

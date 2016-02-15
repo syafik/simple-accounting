@@ -2,6 +2,10 @@
 <b>Nama :  <%= @plafon.family.name.camelize%> </b>
 <table id="example2" class="table table-bordered table-hover">
   <tr>
+    <th>Grade</th>
+    <td><%= @plafon.grade.name%></td>
+  </tr>
+  <tr>
     <th>RJ (<%= number_to_currency(@plafon.grade.rj, unit: "Rp. ", precision: 0)%>)</th>
     <td>Saldo <b><%= number_to_currency(@plafon.saldo_rj, unit: "Rp. ", precision: 0)%> </b>/ Tahun</td>
   </tr>
