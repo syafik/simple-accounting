@@ -13,6 +13,7 @@
     <th>Operasi</th>
     <td><%= number_to_currency(@plafon.grade.operasi, unit: "Rp. ", precision: 0) %> / Kejadian</td>
   </tr>
+    <% if @plafon.family.status == "istri" || (@plafon.family.familyable && @plafon.family.familyable.gender == false)%>
   <tr>
     <th>RB Normal</th>
     <td><%= number_to_currency(@plafon.grade.rb_normal, unit: "Rp. ", precision: 0) %> / Kehamilan</td>
@@ -21,4 +22,5 @@
     <th>RB Caesar</th>
     <td><%= number_to_currency(@plafon.grade.rb_caesar, unit: "Rp. ", precision: 0) %> / Kehamilan</td>
   </tr>
+  <% end %>
 </table>
