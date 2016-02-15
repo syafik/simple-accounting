@@ -1,0 +1,58 @@
+<% content_for :content_title do %>
+Asuransi
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Penerima
+<% end%>
+
+<% content_for :content_body do %>
+
+<%= link_to 'Tambah Karyawan', add_employee_families_path, class: "btn btn-primary left" %>
+<%= link_to 'Tambah Penerima', new_family_path, class: "btn btn-primary" %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Birth date</th>
+    <th>Status</th>
+    <th>Active</th>
+    <th>Tahun</th>
+    <th>Saldo RJ</th>
+    <th colspan="4"></th>
+</tr>
+
+<% @families.each do |family| %>
+<tr>
+    <th><%= family.name %></th>
+    <th><%= family.birth_date %></th>
+    <th><%= family.status %></th>
+    <th><%= family.is_active %></th>
+    <th><%= family.year_insurances.active.first.year %></th>
+    <th><%= family.year_insurances.active.first.saldo_rj %></th>
+    <th><%= link_to 'Show', family %></th>
+    <th><%= link_to 'Edit', edit_family_path(family) %></th>
+    <th><%= link_to 'Add Penerima', new_family_path(parent_id: family.id) %></th>
+    <th><%= link_to 'Generate', generate_year_family_path(family), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
+    </th>
+</tr>
+<% family.children.each do |child| %>
+<tr>
+    <td><%= child.name %></td>
+    <td><%= child.birth_date %></td>
+    <td><%= child.status %></td>
+    <td><%= child.is_active %></td>
+    <td><%= family.year_insurances.active.first.year %></td>
+    <td><%= family.year_insurances.active.first.saldo_rj %></td>
+    <td><%= link_to 'Show', family_path(child) %></td>
+    <td><%= link_to 'Edit', edit_family_path(child) %></td>
+    <td><%= link_to 'Generate', generate_year_family_path(family), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
+    </td>
+</tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
+<% end %>

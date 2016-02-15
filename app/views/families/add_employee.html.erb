@@ -1,0 +1,8 @@
+<h2>Cari Karyawan</h2>
+<%= form_tag save_employee_families_path do %>
+  <div class="field">
+    <%= label_tag :nama_karyawan %><br />
+    <%= select_tag :employee_id, options_for_select(@users.collect{|s| [s.first_name, s.id]}) %>
+  </div>
+  <%= submit_tag "Add" %>
+<% end %>

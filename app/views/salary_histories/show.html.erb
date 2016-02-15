@@ -25,6 +25,12 @@ Detail Data Riwayat Penggajian
 			<td> <%= number_to_currency( @salary_history.payment, :unit => "Rp ") %></td>
 		</tr>
 		<tr>
+			<td> <b> Grade </b> </td>
+			<td> &nbsp;<b> :</b>&nbsp; </td>
+			<td> <%= @salary_history.grade.name rescue nil  %></td>
+		</tr>
+		<tr>
+		<tr>
 			<td> <b> Biaya Lembur Siang </b> </td>
 			<td> &nbsp;<b> :</b>&nbsp; </td>
 			<td> <%= number_to_currency( @salary_history.day_payment_overtime, :unit => "Rp ") %></td>

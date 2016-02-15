@@ -1,0 +1,39 @@
+<h1>Listing grades</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Ri</th>
+    <th>Rj</th>
+    <th>Rb normal</th>
+    <th>Rb caesar</th>
+    <th>Operasi</th>
+    <th>Is active</th>
+    <th>Start salary</th>
+    <th>End salary</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @grades.each do |grade| %>
+  <tr>
+    <td><%= grade.name %></td>
+    <td><%= grade.ri %></td>
+    <td><%= grade.rj %></td>
+    <td><%= grade.rb_normal %></td>
+    <td><%= grade.rb_caesar %></td>
+    <td><%= grade.operasi %></td>
+    <td><%= grade.is_active %></td>
+    <td><%= grade.start_salary %></td>
+    <td><%= grade.end_salary %></td>
+    <td><%= link_to 'Show', grade %></td>
+    <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
+    <td><%= link_to 'Destroy', grade, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Grade', new_grade_path %>

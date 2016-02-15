@@ -1,0 +1,77 @@
+
+<% content_for :content_title do %>
+Reimbursement
+<% end%>
+
+<% content_for :content_sub_title do %>
+Form Approve
+<% end%>
+
+<% content_for :content_body do %>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <%= form_for(@reimbursement, :url => process_approve_reimbursement_path(@reimbursement), :html => { style: "text-align: left;"} ) do |f| %>
+    <% if @reimbursement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reimbursement.errors.count, "error") %> prohibited this reimbursement from being saved:</h2>
+
+      <ul>
+        <% @reimbursement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :nama %><br />
+      <%= @reimbursement.year_insurance.family.name%>
+    </div>
+    <div class="field">
+      <%= f.label :no_kwitasi %><br />
+      <%= @reimbursement.no_kwitasi %>
+    </div>
+    <div class="field">
+      <%= f.label :rumah_sakit %><br />
+      <%= @reimbursement.rumah_sakit %>
+    </div>
+    <div class="field">
+      <%= f.label :total_claim %><br />
+      <%= number_to_currency(@reimbursement.total_claim, unit: "Rp: ", precision: 0) %>
+    </div>
+    <div class="field">
+      <div class="field">
+        <%= f.label :total_day %><br />
+        <%= @reimbursement.total_day %>
+      </div>
+      <div class="field">
+        <%= f.label :total_approve %><br />
+        <%= f.number_field :total_approve %>
+      </div>
+      <% unless @reimbursement.new_record? %>
+      <div class="field">
+        <%= f.label :status %><br />
+        <%= @reimbursement.status %>
+      </div>
+      <% end%>
+      <div class="field">
+        <%= f.label :reimbursement_type %><br />
+        <%= @reimbursement.reimbursement_type%>
+      </div>
+      <div class="field">
+        <%= f.label :notes %><br />
+        <%= f.text_area :notes, rows: 4 %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Approve" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-xs-6">
+  <%@plafon =  @reimbursement.year_insurance%>
+
+<%= render 'plafon'%>
+    </div>
+  </div>
+  <% end %>

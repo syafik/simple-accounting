@@ -1,0 +1,24 @@
+<h4>Daftar plafon Tahun <%= @plafon.year%></h4>
+Nama :  <%= @plafon.family.name.camelize%>
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th>RJ (<%= number_to_currency(@plafon.grade.ri, unit: "Rp. ", precision: 0)%>)</th>
+    <td>Saldo <%= number_to_currency(@plafon.saldo_rj, unit: "Rp. ", precision: 0)%> / Tahun</td>
+  </tr>
+  <tr>
+    <th>RI</th>
+    <td><%= number_to_currency(@plafon.grade.ri, unit: "Rp. ", precision: 0) %> / Hari</td>
+  </tr>
+  <tr>
+    <th>Operasi</th>
+    <td><%= number_to_currency(@plafon.grade.ri, unit: "Rp. ", precision: 0) %> / Kejadian</td>
+  </tr>
+  <tr>
+    <th>RB Normal</th>
+    <td><%= number_to_currency(@plafon.grade.ri, unit: "Rp. ", precision: 0) %> / Kehamilan</td>
+  </tr>
+  <tr>
+    <th>RB Caesar</th>
+    <td><%= number_to_currency(@plafon.grade.ri, unit: "Rp. ", precision: 0) %> / Kehamilan</td>
+  </tr>
+</table>

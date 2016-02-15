@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @grade.name %>
+</p>
+
+<p>
+  <b>Ri:</b>
+  <%= @grade.ri %>
+</p>
+
+<p>
+  <b>Rj:</b>
+  <%= @grade.rj %>
+</p>
+
+<p>
+  <b>Rb normal:</b>
+  <%= @grade.rb_normal %>
+</p>
+
+<p>
+  <b>Rb caesar:</b>
+  <%= @grade.rb_caesar %>
+</p>
+
+<p>
+  <b>Operasi:</b>
+  <%= @grade.operasi %>
+</p>
+
+<p>
+  <b>Is active:</b>
+  <%= @grade.is_active %>
+</p>
+
+<p>
+  <b>Start salary:</b>
+  <%= @grade.start_salary %>
+</p>
+
+<p>
+  <b>End salary:</b>
+  <%= @grade.end_salary %>
+</p>
+
+
+<%= link_to 'Edit', edit_grade_path(@grade) %> |
+<%= link_to 'Back', grades_path %>

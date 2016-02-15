@@ -1,0 +1,14 @@
+
+<% content_for :content_title do %>
+Asurasi
+<% end%>
+
+<% content_for :content_sub_title do %>
+Tambah Reimbursement
+<% end%>
+<% content_for :content_body do %>
+<%= render 'form' %>
+<% end %>
+<% content_for :content_nav do %>
+<%= link_to 'Back', reimbursements_path %>
+<% end %>

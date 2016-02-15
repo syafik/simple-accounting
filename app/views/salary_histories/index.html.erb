@@ -23,13 +23,14 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <th > Biaya Lembur Malam </th>
       <th > Tunj. Jamsostek </th>
       <th > Jamsostek </th>
+      <th > Grade </th>
       <th>Status</th>
       <% if current_user.role.name == "admin"%>
       <th > Aksi </th>
       <% end %>
     </tr>
   </thead>
-  
+
   <tbody>
     <% @salary_histories.each do |salary_history| %>
     <tr>
@@ -39,6 +40,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <td><%= number_to_currency( salary_history.night_payment_overtime, :unit => "Rp ") %></td>
       <td><%= salary_history.allowed_jamsostek%></td>
       <td><%= salary_history.participate_jamsostek%></td>
+      <td><%= salary_history.grade.name %></td>
 
       <% stat = nil %>
       <% if salary_history.activate == true  %>
@@ -50,7 +52,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <td><%= stat  %></td>
       <% if current_user.role.name == "admin"%>
       <td>
-        <%= link_to 'Lihat', salary_history_path(salary_history), :class=>'btn btn-info' %> 
+        <%= link_to 'Lihat', salary_history_path(salary_history), :class=>'btn btn-info' %>
         <%= link_to "Ubah".html_safe, edit_salary_history_path(salary_history, id: params[:id]), :class => "btn btn-warning" %>
         <%= link_to "Hapus".html_safe, salary_history, :class =>"icon-trash", :class => "btn btn-danger", confirm: 'Apa Anda Yakin?', method: :delete %>
         <% if salary_history.activate == false  %>

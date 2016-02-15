@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<% content_for :content_title do %>
+Reimbursement
+<% end%>
+
+<% content_for :content_sub_title do %>
+Detail Klaim
+<% end%>
+
+<% content_for :content_body do %>
+<div class="" style="text-align: left;">
+<p>
+  <b>Tanggal</b>
+  <%= @reimbursement.created_at.strftime("%d-%m-%Y") %>
+</p>
+<p>
+  <b>Nama</b>
+  <%= @reimbursement.year_insurance.family.name %>
+</p>
+
+<p>
+  <b>No kwitasi:</b>
+  <%= @reimbursement.no_kwitasi %>
+</p>
+
+<p>
+  <b>Rumah sakit:</b>
+  <%= @reimbursement.rumah_sakit %>
+</p>
+
+<p>
+  <b>Total claim:</b>
+  <%= number_to_currency(@reimbursement.total_claim, unit: "Rp. ", precision: 0)  %>
+</p>
+
+<p>
+  <b>Total Approve:</b>
+  <%= number_to_currency(@reimbursement.total_approve, unit: "Rp. ", precision: 0) %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @reimbursement.status %>
+</p>
+
+<p>
+  <b>Reimbursement type:</b>
+  <%= @reimbursement.reimbursement_type %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @reimbursement.notes %>
+</p>
+</div>
+<%end%>

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar
   has_attached_file :avatar,
-                    :default_url =>  ActionController::Base.helpers.asset_path('avatar3.png'), 
+                    :default_url =>  ActionController::Base.helpers.asset_path('avatar3.png'),
                     :styles => {
                       :thumb => "50x50>",
                       :small => "120x120"
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :absent_permissions
   has_many :loan_permissions
   belongs_to :role
-  
+  has_one :family, as: :familyable
   has_many :salary_histories
   has_many :overtimes
   has_many :overtime_payment_histories

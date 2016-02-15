@@ -1,0 +1,56 @@
+<%= form_for(@reimbursement, :html => { style: "text-align: left;"} ) do |f| %>
+  <% if @reimbursement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reimbursement.errors.count, "error") %> prohibited this reimbursement from being saved:</h2>
+
+      <ul>
+      <% @reimbursement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :year_insurance_id %><br />
+    <%= f.select :year_insurance_id, @year_insurances.collect{|d| [d.family.name, d.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :no_kwitasi %><br />
+    <%= f.text_field :no_kwitasi %>
+  </div>
+  <div class="field">
+    <%= f.label :rumah_sakit %><br />
+    <%= f.text_field :rumah_sakit %>
+  </div>
+  <div class="field">
+    <%= f.label :total_claim %><br />
+    <%= f.number_field :total_claim %>
+  </div>
+  <div class="field">
+  <div class="field">
+    <%= f.label :total_day %><br />
+    <%= f.number_field :total_day %>
+  </div>
+  <div class="field">
+    <%= f.label :total_approve %><br />
+    <%= f.number_field :total_approve %>
+  </div>
+  <% unless @reimbursement.new_record? %>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, Reimbursement.statuses  %>
+  </div>
+  <% end%>
+  <div class="field">
+    <%= f.label :reimbursement_type %><br />
+    <%= f.select :reimbursement_type, Reimbursement.statuses_type %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, rows: 4 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @family.name %>
+</p>
+
+<p>
+  <b>Birth date:</b>
+  <%= @family.birth_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @family.status %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @family.parent_id %>
+</p>
+
+<p>
+  <b>Familyable:</b>
+  <%= @family.familyable_id %>
+</p>
+
+<p>
+  <b>Familyable type:</b>
+  <%= @family.familyable_type %>
+</p>
+
+<p>
+  <b>Is active:</b>
+  <%= @family.is_active %>
+</p>
+
+
+<%= link_to 'Edit', edit_family_path(@family) %> |
+<%= link_to 'Back', families_path %>

@@ -1,0 +1,53 @@
+<%= form_for(@grade) do |f| %>
+  <% if @grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+
+      <ul>
+      <% @grade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :ri %><br />
+    <%= f.number_field :ri %>
+  </div>
+  <div class="field">
+    <%= f.label :rj %><br />
+    <%= f.number_field :rj %>
+  </div>
+  <div class="field">
+    <%= f.label :rb_normal %><br />
+    <%= f.number_field :rb_normal %>
+  </div>
+  <div class="field">
+    <%= f.label :rb_caesar %><br />
+    <%= f.number_field :rb_caesar %>
+  </div>
+  <div class="field">
+    <%= f.label :operasi %><br />
+    <%= f.number_field :operasi %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br />
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="field">
+    <%= f.label :start_salary %><br />
+    <%= f.number_field :start_salary %>
+  </div>
+  <div class="field">
+    <%= f.label :end_salary %><br />
+    <%= f.number_field :end_salary %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

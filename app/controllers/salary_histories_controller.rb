@@ -85,5 +85,13 @@ class SalaryHistoriesController < ApplicationController
    redirect_to salary_histories_user_path(@salary_history.user_id)
   end
 
+  def search_grade
+    grade = Grade.where("? BETWEEN start_salary AND  end_salary ",  params[:salary].to_i).first
+    if grade
+      render json: { result: { name: grade.name, id: grade.id}}
+    else
+      render json: { result: ""}
+    end
+  end
 
 end

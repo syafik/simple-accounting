@@ -1,0 +1,32 @@
+<li class="treeview">
+  <a href="#">
+    <i class="fa fa-book"></i>
+    <span>Reimbursement</span>
+    <i class="fa fa-angle-left pull-right"></i>
+  </a>
+  <ul class="treeview-menu">
+    <li>
+      <%= link_to reimbursement_list_claim_path(reimbursement_id: current_user.id) do %>
+      <i class="fa fa-angle-double-right"></i> Klaim saya
+      <% end %>
+    </li>
+    <% if current_user.is_admin? %>
+
+    <li>
+      <%= link_to reimbursements_path do %>
+      <i class="fa fa-angle-double-right"></i> Data Klaim
+      <% end %>
+    </li>
+        <li>
+      <%= link_to users_reimbursements_path do %>
+      <i class="fa fa-angle-double-right"></i> User Data Claim
+      <% end %>
+    </li>
+    <li>
+      <%= link_to families_path do %>
+      <i class="fa fa-angle-double-right"></i> Data Penerima
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+</li>

@@ -1,0 +1,49 @@
+<% content_for :content_title do %>
+Reimbursement
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Klaim
+<% end%>
+
+<% content_for :content_body do %>
+
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th>Tanggal</th>
+    <th>Nama</th>
+    <th>No kwitasi</th>
+    <th>Rumah sakit</th>
+    <th>Total claim</th>
+    <th>Status</th>
+    <th>Reimbursement type</th>
+    <th>Notes</th>
+    <th>Action</th>
+  </tr>
+
+<% @reimbursements.each do |reimbursement| %>
+  <tr>
+    <td><%= reimbursement.created_at.strftime("%d-%m-%Y") %></td>
+    <td><%= reimbursement.year_insurance.family.name %></td>
+    <td><%= link_to reimbursement.no_kwitasi, reimbursement_path(reimbursement) %></td>
+    <td><%= reimbursement.rumah_sakit %></td>
+    <td><%= reimbursement.total_claim %></td>
+    <td><%= reimbursement.status %></td>
+    <td><%= reimbursement.reimbursement_type %></td>
+    <td><%= reimbursement.notes %></td>
+    <td>
+<% if reimbursement.status == "process"%>
+<%= link_to 'Edit', edit_reimbursement_path(reimbursement), class: "btn btn-warning" %>
+
+    <%= link_to 'Approve', approve_reimbursement_path(reimbursement), confirm: 'Are you sure?', class: "btn btn-primary"%>
+    <%= link_to 'Reject', reject_reimbursement_path(reimbursement), confirm: 'Are you sure?', method: :delete, class: "btn btn-danger" %>
+<% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<% end %>
+<% content_for :content_nav do %>
+<%= link_to 'New Reimbursement', new_reimbursement_path, :class=>'btn btn-primary' %>
+<% end %>

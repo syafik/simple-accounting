@@ -1,0 +1,54 @@
+
+<% content_for :content_title do %>
+Reimbursement
+<% end%>
+
+<% content_for :content_sub_title do %>
+Klaim saya
+<% end%>
+
+<% content_for :content_body do %>
+<div class="row">
+<% @year_insurances.each do |yi|%>
+  <div class="col-xs-4">
+<% @plafon = yi%>
+<%= render "plafon"%>
+</div>
+<% end %>
+</div>
+<% @year_insurances.each do |yi|%>
+<div class="row">
+<h4 class="box-title">
+<%= yi.family.name.upcase%> (<%= yi.family.status%>)
+</h4>
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th>Tanggal</th>
+    <th>No kwitasi</th>
+    <th>Rumah sakit</th>
+    <th>Total claim</th>
+    <th>Approve</th>
+    <th>Status</th>
+    <th>Reimbursement type</th>
+    <th>Notes</th>
+    <th></th>
+  </tr>
+
+<% yi.reimbursements.each do |reimbursement| %>
+  <tr>
+    <td><%= reimbursement.created_at.strftime("%d-%m-%Y") %></td>
+    <td><%= reimbursement.no_kwitasi %></td>
+    <td><%= reimbursement.rumah_sakit %></td>
+    <td><%= number_to_currency(reimbursement.total_claim, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(reimbursement.total_approve, unit: "Rp. ", precision: 0) %></td>
+    <td><%= reimbursement.status %></td>
+    <td><%= reimbursement.reimbursement_type %></td>
+    <td><%= reimbursement.notes %></td>
+    <td><%= link_to 'Show', reimbursement %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+</div>
+<% end %>
+<% end %>

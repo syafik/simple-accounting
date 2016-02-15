@@ -1,5 +1,29 @@
 SimpleAccounting::Application.routes.draw do
 
+  resources :reimbursements do
+    collection do
+      get 'users'
+    end
+    get 'list_claim' => "reimbursements#list_claim"
+    member do
+      get 'approve'
+      put 'process_approve'
+      delete 'reject'
+    end
+  end
+
+  resources :families do
+    collection do
+      get "add_employee"
+      post "save_employee"
+    end
+    member do
+      delete 'generate_year'
+    end
+  end
+
+  resources :grades
+
   resources :salary_schedules do
     collection do
       get :list_salary
@@ -7,13 +31,13 @@ SimpleAccounting::Application.routes.draw do
   end
 
   resources :roles
-  
+
   resources :absents do
     collection do
       get :summary
     end
   end
-  
+
   resources :manage_users
 
   resources :account_receivables
@@ -56,13 +80,16 @@ SimpleAccounting::Application.routes.draw do
     end
   end
 
-  resources :allowances do 
+  resources :allowances do
     collection do
       get :find_available_category
     end
   end
 
   resources :salary_histories do
+    collection do
+      post :search_grade
+    end
     member do
       get :set_activation
     end

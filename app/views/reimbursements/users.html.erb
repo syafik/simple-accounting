@@ -1,0 +1,42 @@
+<% content_for :content_title do %>
+Asuransi
+<% end%>
+
+<% content_for :content_sub_title do %>
+Data Penerima
+<% end%>
+
+<% content_for :content_body do %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Birth date</th>
+    <th>Status</th>
+    <th>Active</th>
+    <th></th>
+    <th></th>
+    <th></th>
+</tr>
+
+<% @families.each do |family| %>
+<tr>
+    <th><%= link_to family.name, reimbursement_list_claim_path(reimbursement_id: family.familyable_id) %></th>
+    <th><%= family.birth_date %></th>
+    <th><%= family.status %></th>
+    <th><%= family.is_active %></th>
+</tr>
+<% family.children.each do |child| %>
+<tr>
+    <td><%= child.name %></td>
+    <td><%= child.birth_date %></td>
+    <td><%= child.status %></td>
+    <td><%= child.is_active %></td>
+</tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
+<% end %>
