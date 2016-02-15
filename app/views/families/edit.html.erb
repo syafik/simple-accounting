@@ -1,6 +1,16 @@
-<h1>Editing family</h1>
+<% content_for :content_title do %>
+Reimbursement
+<% end%>
 
+<% content_for :content_sub_title do %>
+Edit Data Penerima
+<% end%>
+
+<% content_for :content_body do %>
 <%= render 'form' %>
+<% end %>
+<% content_for :content_nav do %>
 
 <%= link_to 'Show', @family %> |
 <%= link_to 'Back', families_path %>
+<% end %>

@@ -29,7 +29,7 @@ Data Penerima
     <th><%= family.status %></th>
     <th><%= family.is_active %></th>
     <th><%= family.year_insurances.active.first.year rescue nil %></th>
-    <th><%= family.year_insurances.active.first.saldo_rj  rescue nil  %></th>
+    <th><%= number_to_currency(family.year_insurances.active.first.saldo_rj, unit: "Rp. ", precision: 0)  rescue nil  %></th>
     <th><%= link_to 'Show', family %></th>
     <th><%= link_to 'Edit', edit_family_path(family) %></th>
     <th><%= link_to 'Add Penerima', new_family_path(parent_id: family.id) %></th>
@@ -43,7 +43,7 @@ Data Penerima
     <td><%= child.status %></td>
     <td><%= child.is_active %></td>
     <td><%= family.year_insurances.active.first.year  rescue nil %></td>
-    <td><%= family.year_insurances.active.first.saldo_rj  rescue nil %></td>
+    <td><%= number_to_currency(family.year_insurances.active.first.saldo_rj, unit: "Rp. ", precision: 0)  rescue nil %></td>
     <td><%= link_to 'Show', family_path(child) %></td>
     <td><%= link_to 'Edit', edit_family_path(child) %></td>
     <td><%= link_to 'Generate', generate_year_family_path(family), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>

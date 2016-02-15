@@ -1,4 +1,4 @@
-<%= form_for(@family) do |f| %>
+<%= form_for(@family,:html => { style: "text-align: left;"}) do |f| %>
   <% if @family.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@family.errors.count, "error") %> prohibited this family from being saved:</h2>
@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= f.label :birth_date %><br />
-    <%= f.date_select :birth_date %>
+    <%= f.date_select :birth_date, start_year: 1945 %>
   </div>
   <div class="field">
     <%= f.label :status %><br />

@@ -1,6 +1,16 @@
-<h1>Editing grade</h1>
+<% content_for :content_title do %>
+Grade Reimbursement
+<% end%>
 
+<% content_for :content_sub_title do %>
+Add Grade
+<% end%>
+
+<% content_for :content_body do %>
 <%= render 'form' %>
+<% end %>
 
+<% content_for :content_nav do %>
 <%= link_to 'Show', @grade %> |
 <%= link_to 'Back', grades_path %>
+<% end %>

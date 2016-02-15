@@ -1,6 +1,14 @@
-<h1>Listing grades</h1>
+<% content_for :content_title do %>
+Grade
+<% end%>
 
-<table>
+<% content_for :content_sub_title do %>
+List
+<% end%>
+
+<% content_for :content_body do %>
+
+<table class="table table-striped">
   <tr>
     <th>Name</th>
     <th>Ri</th>
@@ -19,21 +27,23 @@
 <% @grades.each do |grade| %>
   <tr>
     <td><%= grade.name %></td>
-    <td><%= grade.ri %></td>
-    <td><%= grade.rj %></td>
-    <td><%= grade.rb_normal %></td>
-    <td><%= grade.rb_caesar %></td>
-    <td><%= grade.operasi %></td>
+    <td><%= number_to_currency(grade.ri, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(grade.rj, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(grade.rb_normal, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(grade.rb_caesar, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(grade.operasi, unit: "Rp. ", precision: 0) %></td>
     <td><%= grade.is_active %></td>
-    <td><%= grade.start_salary %></td>
-    <td><%= grade.end_salary %></td>
+    <td><%= number_to_currency(grade.start_salary, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(grade.end_salary, unit: "Rp. ", precision: 0) %></td>
     <td><%= link_to 'Show', grade %></td>
     <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
     <td><%= link_to 'Destroy', grade, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
+<% end %>
 
-<br />
+<% content_for :content_nav do %>
 
 <%= link_to 'New Grade', new_grade_path %>
+<% end %>

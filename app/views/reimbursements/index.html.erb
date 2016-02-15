@@ -15,6 +15,7 @@ Data Klaim
     <th>No kwitasi</th>
     <th>Rumah sakit</th>
     <th>Total claim</th>
+    <th>Total Approve</th>
     <th>Status</th>
     <th>Reimbursement type</th>
     <th>Notes</th>
@@ -27,7 +28,8 @@ Data Klaim
     <td><%= reimbursement.year_insurance.family.name %></td>
     <td><%= link_to reimbursement.no_kwitasi, reimbursement_path(reimbursement) %></td>
     <td><%= reimbursement.rumah_sakit %></td>
-    <td><%= reimbursement.total_claim %></td>
+    <td align="right"><%= number_to_currency(reimbursement.total_claim, unit: "Rp. ", precision: 0) %></td>
+    <td  align="right"><%= number_to_currency(reimbursement.total_approve, unit: "Rp. ", precision: 0) %></td>
     <td><%= reimbursement.status %></td>
     <td><%= reimbursement.reimbursement_type %></td>
     <td><%= reimbursement.notes %></td>
