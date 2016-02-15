@@ -40,7 +40,7 @@ Data Riwayat Penggajian <%= "#{u.first_name} #{u.last_name}".capitalize %>
       <td><%= number_to_currency( salary_history.night_payment_overtime, :unit => "Rp ") %></td>
       <td><%= salary_history.allowed_jamsostek%></td>
       <td><%= salary_history.participate_jamsostek%></td>
-      <td><%= salary_history.grade.name %></td>
+      <td><%= salary_history.grade.name rescue nil%></td>
 
       <% stat = nil %>
       <% if salary_history.activate == true  %>
