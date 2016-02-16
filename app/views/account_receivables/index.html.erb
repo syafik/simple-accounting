@@ -31,7 +31,7 @@
 
 <% @account_receivables.each do |account_receivable| %>
   <tr>
-    <td><%= link_to account_receivable.borrower.first_name, account_receivable_users_path(account_receivable_id: account_receivable.borrower_id) rescue nil %></td>
+    <td><%= link_to "#{account_receivable.borrower.first_name} #{account_receivable.borrower.last_name}", account_receivable_users_path(account_receivable_id: account_receivable.borrower_id) rescue nil %></td>
     <td><%= number_to_currency(account_receivable.total, unit: "Rp. ") %></td>
     <td>
     <%= number_to_currency(account_receivable.xbayar, unit: "Rp. ") %></td>

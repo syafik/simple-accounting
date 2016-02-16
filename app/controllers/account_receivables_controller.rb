@@ -9,7 +9,7 @@ class AccountReceivablesController < ApplicationController
     group("borrower_id").
     select("account_receivables.*, sum(credit) as total, coalesce(rel.xbayar, 0) as xbayar, coalesce(sum(credit), 0) - coalesce(rel.xbayar, 0) as sisa").
     joins("LEFT JOIN (select rel.borrower_id, coalesce(SUM(rel.debit), 0) as xbayar from account_receivables rel WHERE rel.parent_id IS NOT NULL
-      GROUP BY rel.borrower_id) rel ON account_receivables.borrower_id=rel.borrower_id").where("account_receivables.parent_id IS NULL").group("borrower_id")
+      GROUP BY rel.borrower_id) rel ON account_receivables.borrower_id=rel.borrower_id").where("account_receivables.parent_id IS NULL").group("borrower_id").order('sisa DESC')
 
     respond_to do |format|
       format.html # index.html.erb
