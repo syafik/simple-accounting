@@ -24,7 +24,7 @@
   <tr>
     <td><b>Date</b></td>
     <td>: <%= @account_receivable.date %></td>
-  </tr> 
+  </tr>
 
   <tr>
     <td><b>Debit</b></td>
@@ -58,8 +58,8 @@
 <% @account_receivable.children.each do |child|  %>
   <tr>
     <td style="text-align: center;"><%= child.title %></td>
-    <td style="text-align: center;"><%= child.date.strftime("%d %B %Y")%></td> 
-    <td style="text-align: center;"><%= number_to_currency(child.debit, unit: "Rp. ") %></td> 
+    <td style="text-align: center;"><%= child.date.strftime("%d %B %Y")%></td>
+    <td style="text-align: center;"><%= number_to_currency(child.debit, unit: "Rp. ") %></td>
   </tr>
 <% end %>
   <tr>
@@ -71,7 +71,7 @@
 <p>
   <b>Sisa Piutang</b> : <%= number_to_currency(@account_receivable.credit - @account_receivables.sum(&:debit), unit: "Rp. ") %><br>
 <% if @account_receivable.credit - @account_receivables.sum(&:debit) == 0 %>
-  <b>Keterangan</b>&nbsp;&nbsp;: Lunas 
+  <b>Keterangan</b>&nbsp;&nbsp;: Lunas
 <% else %>
   <b>Keterangan</b>&nbsp;&nbsp;: -
 <% end %>

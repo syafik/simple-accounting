@@ -3,9 +3,13 @@ class AccountReceivablesController < ApplicationController
   # GET /account_receivables
   # GET /account_receivables.json
   load_and_authorize_resource
-  
+
   def index
-    @account_receivables = AccountReceivable.where(parent_id: nil)
+    @account_receivables = AccountReceivable.where(parent_id: nil).
+    group("borrower_id").
+    select("account_receivables.*, sum(credit) as total, rel.xbayar as xbayar, sum(credit) - rel.xbayar as sisa").
+    joins("LEFT JOIN (select rel.parent_id, SUM(rel.debit) as xbayar from account_receivables rel WHERE rel.parent_id IS NOT NULL
+      GROUP BY rel.parent_id) rel ON account_receivables.id=rel.parent_id").where("account_receivables.parent_id IS NULL").group("borrower_id")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +33,7 @@ class AccountReceivablesController < ApplicationController
   def new
     @account_receivable = AccountReceivable.new
     @debit = params[:debit].eql?("true") ? true : false
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @account_receivable }
@@ -44,33 +48,33 @@ class AccountReceivablesController < ApplicationController
   # POST /account_receivables
   # POST /account_receivables.json
   def create
-    
+
     params[:account_receivable][:credit] = params[:account_receivable][:credit].gsub(",","")
     params[:account_receivable][:debit] = params[:account_receivable][:debit].gsub(",","")
     p params[:account_receivable][:credit]
-    parent = AccountReceivable.find(params[:account_receivable][:parent_id]) if params[:account_receivable][:parent_id] 
-    @account_receivables = AccountReceivable.where(parent_id: parent.id) if params[:account_receivable][:parent_id] 
+    parent = AccountReceivable.find(params[:account_receivable][:parent_id]) if params[:account_receivable][:parent_id]
+    @account_receivables = AccountReceivable.where(parent_id: parent.id) if params[:account_receivable][:parent_id]
     @debit = params[:debit].eql?("true") ? true : false
     @account_receivable = AccountReceivable.new(params[:account_receivable])
 
     @sisa = parent.credit.to_i - @account_receivables.sum(&:debit).to_i if params[:account_receivable][:parent_id]
 
-    
+
 
     if params[:account_receivable][:parent_id] and params[:account_receivable][:debit].to_i > @sisa.to_i
-      flash.now[:error] = "Debit lebih besar dari credit.!" 
+      flash.now[:error] = "Debit lebih besar dari credit.!"
       render action: "new", :credit => true
     else
-    respond_to do |format|
-      if @account_receivable.save
+      respond_to do |format|
+        if @account_receivable.save
 
-        format.html { redirect_to account_receivable_path(@account_receivable.parent ? @account_receivable.parent : @account_receivable), notice: 'Account receivable was successfully created.' }
-        format.json { render json: @account_receivable, status: :created, location: @account_receivable }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @account_receivable.errors, status: :unprocessable_entity }
+          format.html { redirect_to account_receivable_path(@account_receivable.parent ? @account_receivable.parent : @account_receivable), notice: 'Account receivable was successfully created.' }
+          format.json { render json: @account_receivable, status: :created, location: @account_receivable }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @account_receivable.errors, status: :unprocessable_entity }
+        end
       end
-    end
     end
   end
 
@@ -80,7 +84,7 @@ class AccountReceivablesController < ApplicationController
     @account_receivable = AccountReceivable.find(params[:id])
     params[:account_receivable][:credit] = params[:account_receivable][:credit].gsub(",","")
     params[:account_receivable][:debit] = params[:account_receivable][:debit].gsub(",","")
-    
+
     respond_to do |format|
       if @account_receivable.update_attributes(params[:account_receivable])
         format.html { redirect_to @account_receivable, notice: 'Account receivable was successfully updated.' }
@@ -101,6 +105,21 @@ class AccountReceivablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to account_receivables_url }
       format.json { head :no_content }
+    end
+  end
+
+  def users
+    @account_receivables = AccountReceivable.where(borrower_id: params[:id]).
+    select("account_receivables.*, credit as total, coalesce(rel.bayar,0) as xbayar, credit - coalesce(rel.bayar, 0) as sisa").
+    joins("left JOIN
+  (select rel.parent_id, SUM(rel.debit) as bayar
+    from account_receivables rel
+      WHERE rel.parent_id IS NOT NULL AND borrower_id = #{params[:id]}
+        GROUP BY rel.parent_id) rel ON  account_receivables.id = rel.parent_id").where("account_receivables.parent_id IS NULL")
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @account_receivables }
     end
   end
 end

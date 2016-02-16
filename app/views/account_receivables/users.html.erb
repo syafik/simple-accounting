@@ -22,21 +22,32 @@
 <table id="example2" class="table table-bordered table-hover">
   <thead>
     <tr>
-      <th>Peminjam</th>
+      <th>Title</th>
       <th>Total</th>
       <th>Bayar</th>
       <th>Sisa</th>
+      <th>Description</th>
+      <th>Date</th>
+      <% if current_user.role.name == "admin" %>
+        <th colspan="2">
+          Action
+        </th>
+      <% end %>
     </tr>
   </thead>
 
 <% @account_receivables.each do |account_receivable| %>
   <tr>
-    <td><%= link_to account_receivable.borrower.first_name, users_account_receivable_path(account_receivable.borrower_id) rescue nil %></td>
+    <td><%= link_to account_receivable.title, account_receivable %></td>
     <td><%= number_to_currency(account_receivable.total, unit: "Rp. ") %></td>
     <td>
     <%= number_to_currency(account_receivable.xbayar, unit: "Rp. ") %></td>
     <td><%= number_to_currency(account_receivable.sisa, unit: "Rp. ") %></td>
-
+    <td><%= account_receivable.description %></td>
+    <td><%= account_receivable.date %></td>
+    <td colspan="2">
+      <%= link_to '<small class="badge bg-green">Edit</small>'.html_safe,edit_account_receivable_path(account_receivable) %>&nbsp;&nbsp;&nbsp;
+      <%= link_to '<small class="badge bg-red">Delete</small>'.html_safe, account_receivable, confirm: 'Are you sure?', method: :delete %>
     </td>
   </tr>
 <% end %>

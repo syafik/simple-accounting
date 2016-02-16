@@ -21,10 +21,10 @@
 	  <td>
 	  		<%= link_to manage_user_path(manage_user) do %>
 		    <% if manage_user.avatar.exists? == false %>
-                
+
                 <img src="/assets/avatar3.png" class="img-circle" alt="User Image" height="115px" width="115px"/>
             <% else %>
-                <%= image_tag manage_user.avatar.url(:small), :class => "img-circle",  
+                <%= image_tag manage_user.avatar.url(:small), :class => "img-circle",
                 :height => "115px", :width => "115px"%>
             <% end %>
                 <% end %>
@@ -32,7 +32,7 @@
 	  </td>
 	  <td style="padding-left:	10px !important;" align="left">
 	  <strong>Nama : </strong><br>
-      <%= "#{manage_user.first_name} #{manage_user.last_name} ".titleize %><br>   
+      <%= "#{manage_user.first_name} #{manage_user.last_name} ".titleize %><br>
       <strong>No. Telepon :</strong><br>
 	  <%= manage_user.telephone %><br>
 

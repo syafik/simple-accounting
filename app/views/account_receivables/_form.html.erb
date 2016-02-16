@@ -19,6 +19,12 @@
       </div>
     </div>
   <% end %>
+
+    <div class="field" style="width: 35%; text-align: left;" >
+    <%= f.label :peminjam %><br />
+    <%= f.select :borrower_id, User.all.collect{|s| [s.first_name, s.id]}, class: "form-control"%>
+        <%= f.hidden_field :borrower_type, value: "User", class: "form-control"%>
+  </div>
     <div class="field" style="width: 35%; text-align: left;" >
     <%= f.label :title %><br />
     <%= f.text_field :title, class: "form-control"%>
@@ -27,7 +33,7 @@
   <% if (@account_receivable.new_record? && @debit )|| (!@account_receivable.new_record? && @account_receivable.debit > 0) %>
     <div class="field" style="width: 35%; text-align: left;" >
       <%= f.label :credit %><br />
-      <%= f.select "parent_id", credit_account %> 
+      <%= f.select "parent_id", credit_account %>
       <%= f.hidden_field :debit, :value => 0 %>
     </div>
     <div class="field" style="width: 35%; text-align: left;" >
@@ -53,7 +59,7 @@
     <%= f.label :description %><br />
     <%= f.text_area :description, :colspan => "20", :rows => "10", class: "form-control" %>
   </div>
-  
+
   <div class="actions">
     <%= f.submit %>
   </div>
