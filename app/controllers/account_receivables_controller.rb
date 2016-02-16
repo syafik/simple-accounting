@@ -109,12 +109,12 @@ class AccountReceivablesController < ApplicationController
   end
 
   def users
-    @account_receivables = AccountReceivable.where(borrower_id: params[:id]).
+    @account_receivables = AccountReceivable.where(borrower_id: params[:account_receivable_id]).
     select("account_receivables.*, credit as total, coalesce(rel.bayar,0) as xbayar, credit - coalesce(rel.bayar, 0) as sisa").
     joins("left JOIN
   (select rel.parent_id, SUM(rel.debit) as bayar
     from account_receivables rel
-      WHERE rel.parent_id IS NOT NULL AND borrower_id = #{params[:id]}
+      WHERE rel.parent_id IS NOT NULL AND borrower_id = #{params[:account_receivable_id]}
         GROUP BY rel.parent_id) rel ON  account_receivables.id = rel.parent_id").where("account_receivables.parent_id IS NULL")
 
     respond_to do |format|

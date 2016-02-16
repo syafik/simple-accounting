@@ -41,9 +41,7 @@ SimpleAccounting::Application.routes.draw do
   resources :manage_users
 
   resources :account_receivables do
-    member do
-      get 'users'
-    end
+    get 'users' => "account_receivables#users"
   end
 
   resources :account_payables
