@@ -7,8 +7,8 @@ class AccountReceivablesController < ApplicationController
   def index
     @account_receivables = AccountReceivable.where(parent_id: nil).
     group("borrower_id").
-    select("account_receivables.*, sum(credit) as total, rel.xbayar as xbayar, sum(credit) - rel.xbayar as sisa").
-    joins("LEFT JOIN (select rel.parent_id, SUM(rel.debit) as xbayar from account_receivables rel WHERE rel.parent_id IS NOT NULL
+    select("account_receivables.*, sum(credit) as total, coalesce(rel.xbayar, 0) as xbayar, coalesce(sum(credit), 0) - coalesce(rel.xbayar, 0) as sisa").
+    joins("LEFT JOIN (select rel.parent_id, coalesce(SUM(rel.debit), 0) as xbayar from account_receivables rel WHERE rel.parent_id IS NOT NULL
       GROUP BY rel.parent_id) rel ON account_receivables.id=rel.parent_id").where("account_receivables.parent_id IS NULL").group("borrower_id")
 
     respond_to do |format|
