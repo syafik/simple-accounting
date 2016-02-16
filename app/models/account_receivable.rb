@@ -1,9 +1,10 @@
 class AccountReceivable < ActiveRecord::Base
-  attr_accessible :credit, :date, :debit, :description, :title, :parent_id
+  attr_accessible :credit, :date, :debit, :description, :title, :parent_id, :borrower_id, :borrower_type
 
   # callback setelah account receivable dibuat
 # =====
   after_create :create_transaction
+  belongs_to :borrower, polymorphic: true
 
   def create_transaction
     puts 'transaction was successfully updated'
@@ -21,7 +22,7 @@ class AccountReceivable < ActiveRecord::Base
   validates :credit, presence: true
   validates :description, presence: true
   validates :date, presence: true, allow_blank: false
-  
+
   acts_as_tree
 
 end
