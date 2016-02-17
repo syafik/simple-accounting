@@ -1,5 +1,7 @@
 SimpleAccounting::Application.routes.draw do
 
+  get "home/index"
+
   resources :reimbursements do
     collection do
       get 'users'
@@ -151,7 +153,7 @@ SimpleAccounting::Application.routes.draw do
     # end
   end
   #resources :claim_transactions
-  root :to => 'absents#index'
+  root :to => 'home#index'
 
  #resources :users do
  # resources :claim_transactions

@@ -8,6 +8,7 @@ class Ability
     elsif user.is_user?
       can [:new, :create, :index], Absent, :user_id => user.id
       can [:list_claim], Reimbursement, :reimbursement_id => user.id
+      can [:detail], AccountReceivable, :account_receivable_id => user.id
       can [:show, :new, :create, :edit, :update], User, :id => user.id
       can [:new, :create, :show, :index], AbsentPermission, :user_id => user.id
       can [:new, :create, :show, :index], LoanPermission, :user_id => user.id

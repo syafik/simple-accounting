@@ -1,0 +1,80 @@
+<% content_for :content_title do %>
+Dashboard
+<% end%>
+
+<% content_for :content_body do %>
+</div>
+
+    <div class="col-xs-8">
+      <h4>Absen</h4>
+      <% if @check_absent.blank? %>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#myModal">Absen Masuk</button>
+      <% else %>
+      <p>Masuk : <%= @check_absent.date.strftime("%d %B %Y") %> <b><%= @check_absent.time_in.strftime("%H:%M ") %></b></p>
+      <% long_work = Time.now.hour - @check_absent.time_in.hour %>
+      <% if @check_absent.time_out.blank? %>
+      <p>Selamat Bekerja</p>
+      <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Absen Keluar</button>
+      <% else %>
+      <p>Anda Keluar Pukul</p>
+      <p><%= @check_absent.time_out.strftime("%H:%M ") %></p>
+      <p>Terimakasih Untuk Hari Ini</p>
+      <% end %>
+      <% end %>
+
+       <!--modal-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <% if @check_absent.blank? %>
+      <h3>Absen Masuk</h3>
+      <% else %>
+      <h3>Absen Keluar</h3>
+      <% end %>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      <div class="tab-content">
+        <% if @check_absent.blank? %>
+        <p><%= Time.current.to_date.strftime("%d-%B-%Y") %></p>
+        <p>Jam</p>
+        <p><%= Time.current.strftime("%H:%M:%S") %></p>
+        <% end %>
+        <% if @check_absent.blank? || long_work.to_i >= 8 %>
+        <%= link_to 'Buat Data', set_absent_attend_path(current_user), :class=>'btn btn-primary', :onclick => "myFunction();" %>
+        <% else %>
+        <p>Anda Belum Bekerja Selama 8 Jam</p>
+        <% end %>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+    </div>
+
+    <div class="col-xs-4">
+  <h4>Pinjaman</h4>
+  <table id="example2" class="table table-bordered table-hover">
+    <tr>
+      <th>Nama</th>
+      <td>
+        <%= @user.first_name %> <%= @user.last_name %></td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <td><%= number_to_currency(@total_utang, unit: "Rp. ") %></td>
+      </tr>
+      <tr>
+        <th>Bayar </th>
+        <td> <%= number_to_currency(@total_bayar, unit: "Rp. ") %></td>
+      </tr>
+      <tr>
+        <th>Sisa</th>
+        <th><%= number_to_currency(@sisa, unit: "Rp. ") %></th></tr>
+      </table>
+    </div>
+    <br/>
+    <% end %>
