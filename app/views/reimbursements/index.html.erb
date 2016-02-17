@@ -34,7 +34,7 @@ Data Klaim
     <td><%= reimbursement.reimbursement_type %></td>
     <td><%= reimbursement.notes %></td>
     <td>
-<% if reimbursement.status == "process"%>
+<% if reimbursement.status == "prosess"%>
 <%= link_to 'Edit', edit_reimbursement_path(reimbursement), class: "btn btn-warning" %>
 
     <%= link_to 'Approve', approve_reimbursement_path(reimbursement), confirm: 'Are you sure?', class: "btn btn-primary"%>
