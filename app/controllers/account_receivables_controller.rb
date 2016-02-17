@@ -127,6 +127,6 @@ class AccountReceivablesController < ApplicationController
     @total_utang =  @user.borrowers.sum(&:credit)
     @total_bayar =  @user.borrowers.sum(&:debit)
     @sisa =  @total_utang - @total_bayar
-    @account_receivables = @user.borrowers.where("parent_id IS NOT NULL")
+    @account_receivables = @user.borrowers
   end
 end
