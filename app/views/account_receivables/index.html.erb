@@ -38,6 +38,7 @@
     <td><%= number_to_currency(account_receivable.sisa, unit: "Rp. ") %></td>
 
     </td>
+    <td><%= link_to "detail", account_receivable_detail_path(account_receivable_id: account_receivable.borrower_id)%></td>
   </tr>
 <% end %>
 </table>

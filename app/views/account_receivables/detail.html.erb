@@ -1,0 +1,63 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+  }
+</style>
+<% content_for :content_title do %>
+Piutang
+<% end %>
+
+<% content_for :content_sub_title do %>
+<b>
+  <h3>Detail Utang</h3>
+</b>
+<% end %>
+
+<% content_for :content_body do %>
+<table id="example2" class="table table-bordered table-hover">
+  <tr>
+    <th>Nama</th>
+    <td>
+      <%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td><%= number_to_currency(@total_utang, unit: "Rp. ") %></td>
+    </tr>
+    <tr>
+      <th>Bayar </th>
+      <td> <%= number_to_currency(@total_bayar, unit: "Rp. ") %></td>
+    </tr>
+    <tr>
+      <th>Sisa</th>
+      <th><%= number_to_currency(@sisa, unit: "Rp. ") %></th></tr>
+    </table>
+    <br />
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Tanggal</th>
+          <th>Bayar</th>
+        </tr>
+      </thead>
+
+      <% @sisa=0 %>
+      <% @account_receivables.each do |child|  %>
+      <tr>
+        <td style="text-align: center;"><%= child.title %></td>
+        <td style="text-align: center;"><%= child.date.strftime("%d %B %Y")%></td>
+        <td style="text-align: center;"><%= number_to_currency(child.debit, unit: "Rp. ") %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <th colspan="2"><b>Total Pembayaran :</b></th>
+        <th> <%= number_to_currency(@total_bayar, unit: "Rp. ") %> </th>
+      </tr>
+    </table>
+    <br />
+    <% end %>

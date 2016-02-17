@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :salary_histories
   has_many :overtimes
   has_many :overtime_payment_histories
-  has_many :borrowers, as: :borrower
+  has_many :borrowers, as: :borrower, class_name: 'AccountReceivable'
   accepts_nested_attributes_for :salary_histories
   accepts_nested_attributes_for :overtime_payment_histories
 

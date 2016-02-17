@@ -37,6 +37,7 @@ class ReimbursementsController < ApplicationController
 
   # GET /reimbursements/1/edit
   def edit
+        @year_insurances = YearInsurance.active.joins(:family)
     @reimbursement = Reimbursement.find(params[:id])
   end
 
