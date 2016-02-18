@@ -17,7 +17,6 @@ Data Klaim
     <th>Total claim</th>
     <th>Total Approve</th>
     <th>Status</th>
-    <th>Reimbursement type</th>
     <th>Notes</th>
     <th>Action</th>
   </tr>
@@ -25,13 +24,12 @@ Data Klaim
 <% @reimbursements.each do |reimbursement| %>
   <tr>
     <td><%= reimbursement.created_at.strftime("%d-%m-%Y") %></td>
-    <td><%= reimbursement.year_insurance.family.name %></td>
-    <td><%= link_to reimbursement.no_kwitasi, reimbursement_path(reimbursement) %></td>
+    <td align="left"><%= reimbursement.year_insurance.family.name %></td>
+    <td align="left" ><%= link_to "#{reimbursement.reimbursement_type}-#{reimbursement.no_kwitasi}", reimbursement_path(reimbursement), style:"padding-left: 2px;" %></td>
     <td><%= reimbursement.rumah_sakit %></td>
     <td align="right"><%= number_to_currency(reimbursement.total_claim, unit: "Rp. ", precision: 0) %></td>
     <td  align="right"><%= number_to_currency(reimbursement.total_approve, unit: "Rp. ", precision: 0) %></td>
     <td><%= reimbursement.show_status %></td>
-    <td><%= reimbursement.reimbursement_type %></td>
     <td><%= reimbursement.notes %></td>
     <td>
 <% if reimbursement.status == "prosess"%>

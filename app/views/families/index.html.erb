@@ -23,7 +23,7 @@ Data Penerima
 
 <% @families.each do |family| %>
 <tr>
-    <td><%= link_to family.name, reimbursement_list_claim_path(reimbursement_id: family.familyable_id) %>
+    <td align="left"><%= link_to family.name, reimbursement_list_claim_path(reimbursement_id: family.familyable_id) %>
     <td><%= family.status %></td>
     <td><%= family.is_active %></td>
     <td><%= family.year_insurances.active.first.year rescue nil %></td>
@@ -36,7 +36,7 @@ Data Penerima
 </tr>
 <% family.children.each do |child| %>
 <tr>
-    <td><%= child.name %></td>
+    <td  align="left"<li>><%= child.name %></li></td>
     <td><%= child.status %></td>
     <td><%= child.is_active %></td>
     <td><%= child.year_insurances.active.first.year  rescue nil %></td>
