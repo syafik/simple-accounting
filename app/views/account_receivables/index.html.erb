@@ -32,15 +32,23 @@
 <% @account_receivables.each do |account_receivable| %>
   <tr>
     <td><%= link_to "#{account_receivable.borrower.first_name} #{account_receivable.borrower.last_name}", account_receivable_users_path(account_receivable_id: account_receivable.borrower_id) rescue nil %></td>
-    <td><%= number_to_currency(account_receivable.total, unit: "Rp. ") %></td>
+    <td><%= number_to_currency(account_receivable.total, unit: "Rp. ", precision: 0) %></td>
     <td>
-    <%= number_to_currency(account_receivable.xbayar, unit: "Rp. ") %></td>
-    <td><%= number_to_currency(account_receivable.sisa, unit: "Rp. ") %></td>
+    <%= number_to_currency(account_receivable.xbayar, unit: "Rp. ", precision: 0) %></td>
+    <td><%= number_to_currency(account_receivable.sisa, unit: "Rp. ", precision: 0) %></td>
 
     </td>
     <td><%= link_to "detail", account_receivable_detail_path(account_receivable_id: account_receivable.borrower_id)%></td>
   </tr>
+
 <% end %>
+<tr>
+  <th>TOTAL</th>
+  <th><%= number_to_currency(@account_receivables.map(&:total).inject(0, &:+), unit: "Rp. ", precision: 0)%></th>
+  <th><%= number_to_currency(@account_receivables.map(&:xbayar).inject(0, &:+), unit: "Rp. ", precision: 0)%></th>
+  <th><%= number_to_currency(@account_receivables.map(&:sisa).inject(0, &:+), unit: "Rp. ", precision: 0)%></th>
+
+  </tr>
 </table>
 <br />
 <% content_for :content_nav do %>
