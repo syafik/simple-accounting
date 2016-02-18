@@ -18,7 +18,7 @@ class Reimbursement < ActiveRecord::Base
   end
 
   def set_status
-    self.status = "process"
+    self.status = "prosess"
   end
   def self.statuses
     ["prosess", "approve", "reject"]
