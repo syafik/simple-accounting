@@ -6,14 +6,27 @@ class Reimbursement < ActiveRecord::Base
   before_create :set_status
   before_save :set_user
 
+  after_create :send_email_notification
+
+  def send_email_notification
+    NotificationMailer.submit_reimbursement(self).deliver rescue nil
+  end
+
   def set_user
     if self.year_insurance
       family = self.year_insurance.family
       if family.parent_id.nil?
-        self.user_id = family.id
+        self.user_id = family.familyable_id
       else
-        self.user_id = family.parent_id
+        self.user_id = family.parent.familyable_id
       end
+    end
+  end
+
+  def self.update_data_user
+    self.all.each do |d|
+      d.set_user
+      d.save
     end
   end
 

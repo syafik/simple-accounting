@@ -37,7 +37,7 @@ class ReimbursementsController < ApplicationController
 
   # GET /reimbursements/1/edit
   def edit
-        @year_insurances = YearInsurance.active.joins(:family)
+    @year_insurances = YearInsurance.active.joins(:family)
     @reimbursement = Reimbursement.find(params[:id])
   end
 
@@ -99,6 +99,7 @@ class ReimbursementsController < ApplicationController
   def reject
     reimbursement = Reimbursement.find(params[:id])
     reimbursement.update_attributes(status: Reimbursement.statuses[2])
+    NotificationMailer.reject_reimbursement(reimbursement).deliver rescue nil
     redirect_to reimbursements_path
   end
 
@@ -132,6 +133,7 @@ class ReimbursementsController < ApplicationController
         year_insurance = @reimbursement.year_insurance
         year_insurance.update_attributes(saldo_rj: sisa)
       end
+      NotificationMailer.approve_reimbursement(@reimbursement).deliver rescue nil
       redirect_to reimbursements_path, notice: 'Reimbursement was successfully updated.'
     else
       render "approve", notice: 'Total Klaim melebihi plafond '

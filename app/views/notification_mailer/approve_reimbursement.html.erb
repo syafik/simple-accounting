@@ -1,0 +1,53 @@
+<html>
+<body>
+  Kepada <b><%= @reimbursement.user.first_name %></b>
+  <br />
+  <br />
+  Klaim reimbursement sudah di <b>APPROVE</b>, berikut rinciannya:
+  <br />  <br />
+  <table cellpadding=0 cellspacing=0>
+    <tr>
+      <td>Nama</td>
+      <td><%= @reimbursement.year_insurance.family.name%></td>
+    </tr>
+    <tr>
+      <td>Tanggal Klaim</td>
+      <td><%= @reimbursement.created_at.strftime("%d-%m-%Y")%></td>
+    </tr>
+    <tr>
+      <td>No Kwitansi</td>
+      <td><%= @reimbursement.no_kwitasi%></td>
+    </tr>
+    <tr>
+      <td>Rumah Sakit </td>
+      <td><%= @reimbursement.rumah_sakit%></td>
+    </tr>
+    <tr>
+      <td>Tipe Klaim</td>
+      <td><%= @reimbursement.reimbursement_type%></td>
+    </tr>
+    <tr>
+      <td>Jumlah</td>
+      <td><%= number_to_currency(@reimbursement.total_claim, unit: "Rp. ", precision: 0) %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><b><%= @reimbursement.show_status %></b></td>
+    </tr>
+    <tr>
+      <td>Keterangan</td>
+      <td><%= @reimbursement.notes %></td>
+    </tr>
+
+    <tr>
+      <td>Total yang disetujui</td>
+      <td><b><%= number_to_currency(@reimbursement.total_approve, unit: "Rp. ", precision: 0) %></b></td>
+    </tr>
+
+  </table>
+  <br />
+  <br />
+  Terima Kasih, <br />
+  pushjaw.com
+</body>
+</html>
