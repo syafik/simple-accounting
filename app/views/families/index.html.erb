@@ -39,11 +39,11 @@ Data Penerima
     <td><%= child.name %></td>
     <td><%= child.status %></td>
     <td><%= child.is_active %></td>
-    <td><%= family.year_insurances.active.first.year  rescue nil %></td>
-    <td><%= number_to_currency(family.year_insurances.active.first.saldo_rj, unit: "Rp. ", precision: 0)  rescue nil %></td>
+    <td><%= child.year_insurances.active.first.year  rescue nil %></td>
+    <td><%= number_to_currency(child.year_insurances.active.first.saldo_rj, unit: "Rp. ", precision: 0)  rescue nil %></td>
     <td><%= link_to 'Show', family_path(child) %></td>
     <td><%= link_to 'Edit', edit_family_path(child) %></td>
-    <td><%= link_to 'Generate', generate_year_family_path(family), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
+    <td><%= link_to 'Generate', generate_year_family_path(child), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
     </td>
 </tr>
 <% end %>
