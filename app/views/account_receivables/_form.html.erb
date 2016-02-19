@@ -30,6 +30,7 @@
     <%= f.text_field :title, class: "form-control"%>
   </div>
   <%= hidden_field_tag :debit, @debit %>
+
   <% if (@account_receivable.new_record? && @debit )|| (!@account_receivable.new_record? && @account_receivable.debit > 0) %>
     <div class="field" style="width: 35%; text-align: left;" >
       <%= f.label :credit %><br />
@@ -48,6 +49,8 @@
       <%= f.hidden_field :debit, :value => 0 %>
     </div>
   <% end %>
+
+
   <div class="form-group" style="width: 35%;">
   <%= f.label :date %>
   <div>
