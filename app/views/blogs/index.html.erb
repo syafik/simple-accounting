@@ -30,7 +30,7 @@
         <td><%= blog.published ? "<div class='alert-success'>Yes</div>".html_safe : "<div class='alert-danger'>No</div>".html_safe %></td>
         <td><%= blog.created_at.to_date %></td>
         <td><%= blog.blog_categories.map{|bc| [bc.name]}.join(",") %></td>
-        <td><%= blog.user.first_name %></td>
+        <td><%= blog.user.full_name %></td>
         <td><%= link_to 'Show', blog %></td>
         <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
         <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
