@@ -2,10 +2,7 @@
 
   resources :points
 
-  namespace :ckeditor, :only => [:index, :create, :destroy] do
-      resources :pictures
-      resources :attachment_files
-  end
+  mount Ckeditor::Engine => '/ckeditor'
 
   resources :blog_categories
 
