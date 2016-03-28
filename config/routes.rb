@@ -1,8 +1,11 @@
-SimpleAccounting::Application.routes.draw do
+  SimpleAccounting::Application.routes.draw do
 
   resources :points
 
-  mount Ckeditor::Engine => '/ckeditor'
+  namespace :ckeditor, :only => [:index, :create, :destroy] do
+      resources :pictures
+      resources :attachment_files
+  end
 
   resources :blog_categories
 
