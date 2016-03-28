@@ -29,6 +29,7 @@
 //= require AdminLTE/app
 //= require highcharts
 //= require exporting
+//= require ckeditor/init
 
 function remove_fields(link) {
  $(link).parent().remove()

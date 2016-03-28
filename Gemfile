@@ -22,7 +22,11 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'closure_tree'
 gem 'acts_as_tree', '~> 2.1.0'
-gem 'puma'
+gem 'friendly_id'
+gem 'puma', '~> 2.15.3'
+gem 'ckeditor'
+gem 'rufus-scheduler'
+
 group :development do
 #	gem 'debugger'
 end

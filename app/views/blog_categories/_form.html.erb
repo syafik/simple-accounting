@@ -1,0 +1,23 @@
+<%= form_for(@blog_category,:html => { style: "text-align: left;"}) do |f| %>
+  <% if @blog_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog_category.errors.count, "error") %> prohibited this blog_category from being saved:</h2>
+
+      <ul>
+      <% @blog_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="width: 50%">
+    <label>Category Name:</label>
+    <%= f.text_field :name, :class =>  "form-control"%>
+  </div>
+  <% if action_name == "new" %>
+    <%= f.submit "Buat Post Category", :class=>'btn btn-default'%>
+  <% else %>
+    <%= f.submit "Edit Post Category", :class=>'btn btn-default'%>
+  <% end %>
+<% end %>

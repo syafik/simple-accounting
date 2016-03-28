@@ -1,8 +1,13 @@
 class Absent < ActiveRecord::Base
-	belongs_to :user
-	attr_accessible :categories, :date, :description, :user_id, :time_in, :time_out, :total_work_time
-	validates :date, presence: true
-	validates :categories, presence: true
+  belongs_to :user
+
+  after_create :add_point
+
+  has_one :point_history, :as => :point_historyable
+
+  attr_accessible :categories, :date, :description, :user_id, :time_in, :time_out, :total_work_time
+  validates :date, presence: true
+  validates :categories, presence: true
 
   validates :date, uniqueness: { scope: :user_id, message: "Nama Dengan Tanggal Tersebut Telah Terekap sebelumnya" }
 
@@ -20,4 +25,24 @@ class Absent < ActiveRecord::Base
     tot = "#{difh}.#{difm}".to_f
     return tot
   end
+
+  def create_history(point_id,point)
+    self.build_point_history(:user_id => self.user_id, :point_id => point_id, :points => point).save
+  end
+
+  def add_point
+    pp = Point.where("name like '%absent%'").first
+    point = pp.point
+    user = User.find(self.user_id)
+    if  Time.current.strftime("%H:%M:%S") <= "09:30:00"
+        user.point += point
+        user.save
+        create_history(pp.id,point)
+    elsif Time.current.strftime("%H:%M:%S") <= "10:00:00"
+        user.point += point - 1
+        user.save
+        create_history(pp.id , point-1)
+    end
+  end
+
 end

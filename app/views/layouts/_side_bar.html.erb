@@ -69,4 +69,45 @@
 
       <%= render partial: "layouts/setting_menus" %>
   <% end %>
+      <li class="treeview">
+      <a href="#">
+      <i class="fa fa-book"></i>
+      <span>Blog</span>
+      <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+      <li>
+        <%= link_to blogs_path do %>
+        <i class="fa fa-angle-double-right"></i>Buat Post
+        <% end %>
+      </li>
+        <li>
+        <%= link_to blog_categories_path do %>
+          <i class="fa fa-angle-double-right"></i> Kategori Post
+        <% end %>
+        </li>
+      </ul>
+    </li>
+
+      <li class="treeview">
+      <a href="#">
+      <i class="fa fa-book"></i>
+      <span>Point</span>
+      <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+      <% if current_user.is_admin? %>
+      <li>
+        <%= link_to points_path do %>
+        <i class="fa fa-angle-double-right"></i>Set Point
+        <% end %>
+      </li>
+      <% end %>
+        <li>
+        <%= link_to point_histories_path do %>
+          <i class="fa fa-angle-double-right"></i> Lihat Riwayat Poin
+        <% end %>
+        </li>
+      </ul>
+    </li>
 </ul>

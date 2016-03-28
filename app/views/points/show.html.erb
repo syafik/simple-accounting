@@ -1,0 +1,25 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Detail Point
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+<p>
+  <b>Name:</b>
+  <%= @point.name %>
+</p>
+
+<p>
+  <b>Point:</b>
+  <%= @point.point %>
+</p>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Edit', edit_point_path(@point), :class => "btn btn-default" %>
+  <%= link_to 'Back', points_path, :class => "btn btn-primary" %>
+<% end %>

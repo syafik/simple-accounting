@@ -1,0 +1,41 @@
+<% content_for :content_title do %>
+  Post
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Detail Post
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+  <p>
+    <b>Title:</b>
+    <%= @blog.title %>
+  </p>
+
+  <p>
+    <b>Published:</b>
+    <%= @blog.published ? "Yes" : "No" %>
+  </p>
+
+  <p>
+    <b>Content:</b>
+    <%= @blog.content.html_safe %>
+  </p>
+
+  <p>
+    <b>Publisher:</b>
+    <%= @blog.user.first_name + " " + @blog.user.last_name %>
+  </p>
+
+  <p>
+    <b>category:</b>
+    <%= @blog.blog_categories.map{|bc| [bc.name]}.join(",") %>
+  </p>
+</div>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Edit', edit_blog_path(@blog), :class => "btn btn-default" %>
+  <%= link_to 'Back', blogs_path, :class => "btn btn-primary" %>
+<% end %>

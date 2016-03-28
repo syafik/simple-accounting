@@ -1,0 +1,17 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Edit Point
+<% end%>
+
+
+<% content_for :content_body do %>
+  <%= render 'form' %>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Show', @point , :class => "btn btn-primary" %>
+  <%= link_to 'Kembali', points_path, :class => "btn btn-primary" %>
+<% end %>

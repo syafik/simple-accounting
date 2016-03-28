@@ -1,0 +1,29 @@
+<%= form_for(@point,:html => { style: "text-align: left;"}) do |f| %>
+  <% if @point.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@point.errors.count, "error") %> prohibited this point from being saved:</h2>
+
+      <ul>
+      <% @point.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="width: 50%">
+    <label>Name:</label>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group" style="width: 50%">
+    <label>Point:</label>
+    <%= f.number_field :point %>
+  </div>
+
+  <% if action_name == "new" %>
+    <%= f.submit "Buat Post Category", :class=>'btn btn-default'%>
+  <% else %>
+    <%= f.submit "Edit Post Category", :class=>'btn btn-default'%>
+  <% end %>
+
+<% end %>
