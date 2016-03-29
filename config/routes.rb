@@ -1,7 +1,7 @@
 SimpleAccounting::Application.routes.draw do
 
   get "home/index"
-
+  resources :barcodes, only: [:index]
   resources :reimbursements do
     collection do
       get 'users'
