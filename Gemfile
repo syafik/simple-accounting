@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '1.9.3', :patchlevel => '551' 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
