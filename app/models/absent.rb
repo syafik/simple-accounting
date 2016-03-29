@@ -31,7 +31,7 @@ class Absent < ActiveRecord::Base
   end
 
   def add_point
-    pp = Point.where("name like '%absent%'").first
+    pp = Point.where(:name.downcase => 'absent').first
     point = pp.point
     user = User.find(self.user_id)
     if  Time.current.strftime("%H:%M:%S") <= "09:30:00"
