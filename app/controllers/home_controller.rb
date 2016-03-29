@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     year = date.year
     month = date.month
     @absent = User.joins("left join absents on absents.user_id = users.id AND MONTH(absents.date) = #{month} AND YEAR(absents.date) =  #{year}").
-    select("users.first_name, users.last_name, count(absents.user_id) as jumlah ").where(id: current_user.id).group("absents.user_id").first
+    select("users.first_name, users.last_name, count(absents.user_id) as jumlah ").where(id: current_user.id).group("absents.user_id").first rescue nil
 
   end
 end

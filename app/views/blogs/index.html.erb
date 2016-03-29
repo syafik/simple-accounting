@@ -1,0 +1,51 @@
+<% content_for :content_title do %>
+  Post
+<% end%>
+
+<% content_for :content_sub_title do %>
+  List Post
+<% end%>
+
+<% content_for :content_body do %>
+    <style>
+      table tr th, table tr td{text-align: center;}
+    </style>
+    <table class="table bordered">
+      <tr>
+        <th>Title</th>
+        <th>Published</th>
+        <th>Created at</th>
+        <th>Post category</th>
+        <th>User</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <% if current_user.is_admin? %>
+          <th></th>
+        <% end %>
+      </tr>
+    <% @blogs.each do |blog| %>
+      <tr>
+        <td><%= blog.title %></td>
+        <td><%= blog.published ? "<div class='alert-success'>Yes</div>".html_safe : "<div class='alert-danger'>No</div>".html_safe %></td>
+        <td><%= blog.created_at.to_date %></td>
+        <td><%= blog.blog_categories.map{|bc| [bc.name]}.join(",") %></td>
+        <td><%= blog.user.full_name %></td>
+        <td><%= link_to 'Show', blog %></td>
+        <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
+        <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
+        <% if current_user.is_admin? %>
+          <% if blog.published %>
+            <td>Post ini sudah di publish</td>
+          <% else %>
+            <td><%= link_to 'Publish', publish_blog_path(blog), confirm: 'Publish this post?', method: :post,:class => "btn btn-success" %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </table>
+<% end %>
+
+<% content_for :content_nav do %>
+    <%= link_to 'Buat Post Baru', new_blog_path, :class => "btn btn-primary", :data => { :no_turbolink => true } %>
+<% end %>

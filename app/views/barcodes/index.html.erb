@@ -1,0 +1,25 @@
+<h1>Barcodes#index</h1>
+<p>Find me in app/views/barcodes/index.html.erb</p>
+<style type="text/css">
+  table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+
+td {
+  border-left: solid 10px #000;
+  padding: 0;
+  margin: 0;
+  width: 0px;
+  height: 5px;
+}
+table tbody tr td {
+    padding: 5px 0 !important;
+}
+td.black { border-color: #000; }
+td.white { border-color: #fff; }
+
+</style>
+<%= raw @qr.as_html %>

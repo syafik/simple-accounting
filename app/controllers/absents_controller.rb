@@ -4,12 +4,12 @@ class AbsentsController < ApplicationController
   before_filter :check_date, :only => [:create]
 
   def index
-    @date = Date.today
+    @date = Date.current
     if params[:search]
       @date = params[:search].to_date
       @absents= Absent.where(date: params[:search]).order("date desc")
     else
-      @absents= Absent.where(date: Date.today).order("date desc")
+      @absents= Absent.where(date: Date.current).order("date desc")
     end
   end
 
@@ -33,7 +33,7 @@ class AbsentsController < ApplicationController
 
   def new
     @absent = Absent.new
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @absent }

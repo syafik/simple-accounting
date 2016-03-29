@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   acts_as_paranoid
   has_many :allowances, dependent: :destroy
   has_many :absents
+  has_many :blogs
   has_many :absent_permissions
   has_many :loan_permissions
   belongs_to :role

@@ -1,4 +1,20 @@
-SimpleAccounting::Application.routes.draw do
+  SimpleAccounting::Application.routes.draw do
+
+  resources :points
+
+  mount Ckeditor::Engine => '/ckeditor'
+
+  resources :blog_categories
+
+  resources :blogs do
+    member do
+      post :publish
+    end
+  end
+
+  post '/tinymce_assets' => 'tinymce_assets#create'
+
+  resources :point_histories, only: [:index ]
 
   get "home/index"
   resources :barcodes, only: [:index]

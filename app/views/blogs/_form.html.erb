@@ -1,0 +1,39 @@
+<%= form_for(@blog,:html => { style: "text-align: left;", multipart: true}) do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="width: 50%">
+    <label>Title:</label>
+    <%= f.text_field :title, :class => "form-control" %>
+    <%= f.hidden_field :published %>
+  </div>
+  <div class="form-group" style="width: 50%">
+    <label>Categories:</label>
+    <ul>
+  <% BlogCategory.all.each do |c| %>
+    <li style="list-style:none;"><%= check_box_tag :blog_category_ids, c.id, @blog.blog_categories.include?(c), :name => 'blog[blog_category_ids][]' %>&nbsp;<%= c.name %></li>
+  <% end %>
+  </ul>
+  </div>
+  <div class="form-group">
+    <label>Content:</label>
+    <%= f.cktext_area :content, :class => "form-control tinymce", :cols => "30", :rows => "10" %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+
+  <% if action_name == "new" %>
+    <%= f.submit "Buat Post Category", :class=>'btn btn-default'%>
+  <% else %>
+    <%= f.submit "Edit Post Category", :class=>'btn btn-default'%>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,15 @@
+<% content_for :content_title do %>
+  Post
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Create new post
+<% end%>
+
+<% content_for :content_body do %>
+  <%= render 'form' %>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Kembali', blogs_path, :class => "btn btn-primary" %>
+<% end %>

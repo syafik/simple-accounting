@@ -1,0 +1,16 @@
+<% content_for :content_title do %>
+  Post
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Edit Post Category
+<% end%>
+
+<% content_for :content_body do %>
+  <%= render 'form' %>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Show', blog_category_path(@blog_category), :class => "btn btn-primary" %>
+  <%= link_to 'Kembali', blog_categories_path, :class => "btn btn-primary" %>
+<% end %>

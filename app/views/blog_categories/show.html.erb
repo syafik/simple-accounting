@@ -1,0 +1,21 @@
+<% content_for :content_title do %>
+  Post Category
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Detail Post Category
+<% end%>
+
+<% content_for :content_body do %>
+<div align="left">
+  <p>
+    <b>Name:</b>
+    <%= @blog_category.name %>
+  </p>
+</div>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Edit', edit_blog_category_path(@blog_category), :class => "btn btn-default" %>
+  <%= link_to 'Back', blog_categories_path, :class => "btn btn-primary" %>
+<% end %>
