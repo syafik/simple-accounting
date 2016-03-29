@@ -9,7 +9,6 @@ group :assets do
 end
 
 gem 'rails', '3.2.5'
-gem 'pg'
 gem 'mysql2'
 gem 'devise'
 gem 'jquery-rails'
@@ -23,6 +22,7 @@ gem 'wkhtmltopdf-binary'
 gem 'closure_tree'
 gem 'acts_as_tree', '~> 2.1.0'
 gem 'puma'
+gem 'rqrcode'
 group :development do
 #	gem 'debugger'
 end
