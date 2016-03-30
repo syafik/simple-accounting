@@ -28,7 +28,7 @@
 	  <p><%= @check_absent.date.strftime("%d-%B-%Y") %></p>
 	  <p>Anda Masuk Pukul</p>
 	  <p><%= @check_absent.time_in.strftime("%H:%M ") %></p>
-	  <% long_work = Time.now.hour - @check_absent.time_in.hour %>
+	  <% long_work = Time.current.hour - @check_absent.time_in.hour %>
 	  <% if @check_absent.time_out.blank? %>
 		<p>Selamat Bekerja</p>
 		<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Absen Keluar</button>
