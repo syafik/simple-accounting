@@ -1,0 +1,34 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Ranking
+<% end%>
+
+<% content_for :content_body do %>
+ <table style="text-align: center; width: 100%; ">
+    <tr>
+    <td align="right"><%= link_to "<< sebelumnya", ranking_point_histories_path(:search => @date - 1.month), class: "custom-link" %></td>
+    <td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%B-%Y") %></h4></td>
+    <td align="left"><%= link_to "selanjutnya >>", ranking_point_histories_path(:search => @date + 1.month), class: "custom-link"%></td>
+    </tr>
+  </table>
+  <style>
+      table tr th, table tr td{text-align: center;}
+    </style>
+    <table class="table table-bordered">
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Point</th>
+      </tr>
+    <% @rankings.each_with_index do |history, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= "#{history.first_name} #{history.last_name}".downcase.titleize %></td>
+        <td><%= history.jumlah rescue 0 %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

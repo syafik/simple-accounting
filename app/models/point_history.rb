@@ -8,4 +8,6 @@ class PointHistory < ActiveRecord::Base
   default_scope { order('created_at DESC') }
 
   scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
+  scope :this_year, -> { where(created_at: Time.now.beginning_of_year..Time.now.end_of_year) }
+
 end
