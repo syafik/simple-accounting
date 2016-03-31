@@ -13,6 +13,7 @@ class Ability
       can [:new, :create, :show, :index], AbsentPermission, :user_id => user.id
       can [:new, :create, :show, :index], LoanPermission, :user_id => user.id
       can [:new, :create, :show, :index], Overtime, :user_id => user.id
+      can [:my_point], PointHistory, :point_history_id => user.id
       can :manage, LoanPayment, :user_id => user.id
       can :manage, AllowanceClaimTransaction
     else

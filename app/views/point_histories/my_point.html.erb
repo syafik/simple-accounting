@@ -3,36 +3,39 @@
 <% end%>
 
 <% content_for :content_sub_title do %>
-  Ranking
+  Point History
 <% end%>
 
 <% content_for :content_body do %>
- <table style="text-align: center; width: 100%; ">
+  <table style="text-align: center; width: 100%; ">
     <tr>
     <td align="right"><%= link_to "<< sebelumnya", point_histories_path(:search => @date - 1.month), class: "custom-link" %></td>
     <td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%B-%Y") %></h4></td>
     <td align="left"><%= link_to "selanjutnya >>", point_histories_path(:search => @date + 1.month), class: "custom-link"%></td>
     </tr>
   </table>
-  <style>
+    <style>
       table tr th, table tr td{text-align: center;}
     </style>
-    <table class="table table-bordered">
+    <table class="table bordered">
       <tr>
-        <th>No</th>
-        <th>Name</th>
+        <th>Tanggal</th>
+        <th>Tipe Poin</th>
         <th>Point</th>
+        <th>User</th>
       </tr>
-    <% @rankings.each_with_index do |history, index| %>
+    <% @histories.each do |history| %>
       <tr>
-        <td><%= index + 1 %></td>
-        <td><%= link_to "#{history.first_name} #{history.last_name}".downcase.titleize, point_history_my_point_path(:point_history_id => history.id, :search => @date) %></td>
-        <td><%= history.jumlah rescue 0 %></td>
+        <td><%= history.created_at.to_date %></td>
+        <td><%= history.point_historyable_type %></td>
+        <td><%= history.points %></td>
+        <td><%= history.user.full_name %></td>
       </tr>
     <% end %>
     </table>
 <% end %>
 
 <% content_for :content_nav do %>
-    <%= link_to "Ranking Tahun Ini", year_ranking_point_histories_path, :class => "btn btn-primary" %>
+    <div class="btn btn-primary">Total Poin Anda : <%= @histories.sum(:points) %> Poin</div>
+    <div class="btn btn-primary">Total Poin Tahun Ini : <%= @yearpoints.sum(:points) %> Poin</div>
 <% end %>

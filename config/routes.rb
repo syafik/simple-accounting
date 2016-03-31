@@ -14,10 +14,11 @@
 
   post '/tinymce_assets' => 'tinymce_assets#create'
 
-  resources :point_histories, only: [:index ] do
+  resources :point_histories, only: [:index] do
     collection do
-      get :ranking
+      get :year_ranking
     end
+    get 'my_point' => "point_histories#my_point"
   end
   get "home/index"
   resources :barcodes, only: [:index]

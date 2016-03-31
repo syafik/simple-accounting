@@ -101,11 +101,14 @@
         <%= link_to points_path do %>
         <i class="fa fa-angle-double-right"></i>Set Point
         <% end %>
+        <%= link_to point_histories_path do %>
+          <i class="fa fa-angle-double-right"></i> Lihat Ranking
+        <% end %>
       </li>
       <% end %>
         <li>
-        <%= link_to point_histories_path do %>
-          <i class="fa fa-angle-double-right"></i> Lihat Riwayat Poin
+        <%= link_to point_history_my_point_path(:point_history_id => current_user.id) do %>
+          <i class="fa fa-angle-double-right"></i> Point Saya
         <% end %>
         </li>
       </ul>
