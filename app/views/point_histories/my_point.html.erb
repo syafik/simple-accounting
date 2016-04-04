@@ -9,9 +9,9 @@
 <% content_for :content_body do %>
   <table style="text-align: center; width: 100%; ">
     <tr>
-    <td align="right"><%= link_to "<< sebelumnya", point_histories_path(:search => @date - 1.month), class: "custom-link" %></td>
+    <td align="right"><%= link_to "<< sebelumnya", point_history_my_point_path(:search => @date - 1.month), class: "custom-link" %></td>
     <td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%B-%Y") %></h4></td>
-    <td align="left"><%= link_to "selanjutnya >>", point_histories_path(:search => @date + 1.month), class: "custom-link"%></td>
+    <td align="left"><%= link_to "selanjutnya >>", point_history_my_point_path(:search => @date + 1.month), class: "custom-link"%></td>
     </tr>
   </table>
     <style>

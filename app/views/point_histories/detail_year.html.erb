@@ -1,0 +1,32 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Detail Year Point
+<% end%>
+
+<% content_for :content_body do %>
+ <table style="text-align: center; width: 100%; ">
+    <tr>
+    <td align="right"><%= link_to "<< sebelumnya", point_history_detail_year_path(:search => @date - 1.year), class: "custom-link" %></td>
+    <td style="text-align: center; width: 20%; "><h4><%= @date.strftime("%Y") %></h4></td>
+    <td align="left"><%= link_to "selanjutnya >>", point_history_detail_year_path(:search => @date + 1.year), class: "custom-link"%></td>
+    </tr>
+  </table>
+  <style>
+      table tr th, table tr td{text-align: center;}
+    </style>
+    <table class="table table-bordered">
+      <tr>
+        <th>Bulan</th>
+        <th>Point</th>
+      </tr>
+    <% @rankings.each do |history| %>
+      <tr>
+        <td><%= link_to history.created_at.to_date.strftime('%B'), point_history_my_point_path(:point_history_id => history.id, :search => history.created_at.to_date) if !history.created_at.blank? %></td>
+        <td><%= history.jumlah %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

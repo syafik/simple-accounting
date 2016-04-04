@@ -19,6 +19,7 @@
       get :year_ranking
     end
     get 'my_point' => "point_histories#my_point"
+    get 'detail_year' => "point_histories#detail_year"
   end
   get "home/index"
   resources :barcodes, only: [:index]
