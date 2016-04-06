@@ -8,7 +8,7 @@ class Api::AbsentsController < ApplicationController
   def create
     time_in = Time.zone.now
     time_out = Time.zone.now
-    if @check_absent.blank?
+    if @check_absent.blank? && $redis.get("barcodes") == params[:barcodes]
       absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
       if absent.save!
         render :status=>200, :json=>{:message=>"Success"}

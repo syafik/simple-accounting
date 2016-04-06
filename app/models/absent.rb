@@ -1,7 +1,7 @@
 class Absent < ActiveRecord::Base
   belongs_to :user
 
-  after_create :add_point
+  after_create :add_point, :set_barcode
 
   has_one :point_history, :as => :point_historyable
 
@@ -45,6 +45,10 @@ class Absent < ActiveRecord::Base
           create_history(pp.id , point-1)
       end
     end
+  end
+
+  def set_barcode
+    $redis.set("barcodes", Random.rand(999999))
   end
 
 end

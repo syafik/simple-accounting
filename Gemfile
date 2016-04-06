@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '1.9.3', :patchlevel => '551' 
+ruby '1.9.3', :patchlevel => '551'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -26,6 +26,7 @@ gem 'friendly_id'
 gem 'puma', '~> 2.15.3'
 gem 'ckeditor'
 gem 'rufus-scheduler'
+gem 'redis', '~>3.2'
 
 group :development do
 #	gem 'debugger'
