@@ -98,8 +98,11 @@
       <ul class="treeview-menu">
       <% if current_user.is_admin? %>
       <li>
+        <%= link_to ranking_status_point_histories_path do %>
+          <i class="fa fa-angle-double-right"></i>Status Ranking User
+        <% end %>
         <%= link_to points_path do %>
-        <i class="fa fa-angle-double-right"></i>Set Point
+          <i class="fa fa-angle-double-right"></i>Set Point
         <% end %>
         <%= link_to point_histories_path do %>
           <i class="fa fa-angle-double-right"></i> Lihat Ranking

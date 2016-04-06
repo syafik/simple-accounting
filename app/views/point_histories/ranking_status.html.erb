@@ -1,0 +1,27 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Point History
+<% end%>
+
+<% content_for :content_body do %>
+    <style>
+      table tr th, table tr td{text-align: center;}
+    </style>
+    <table class="table bordered">
+      <tr>
+        <th>Name</th>
+        <th>Rank Status</th>
+        <th>Action</th>
+      </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.full_name %></td>
+        <td><%= user.ranked ? "<div class='alert-success'>True</div>".html_safe : "<div class='alert-danger'>False</div>".html_safe %></td>
+        <td><%= link_to 'Change', change_ranking_status_point_history_path(user), confirm: 'Ubah status ranking user ini?', method: :post,:class => "btn btn-success" %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

@@ -24,6 +24,10 @@
   resources :point_histories, only: [:index] do
     collection do
       get :year_ranking
+      get :ranking_status
+    end
+    member do
+      post :change_ranking_status
     end
     get 'my_point' => "point_histories#my_point"
     get 'detail_year' => "point_histories#detail_year"
