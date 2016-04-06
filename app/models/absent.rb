@@ -34,14 +34,16 @@ class Absent < ActiveRecord::Base
     pp = Point.where(:name.downcase => 'absent').first
     point = pp.point
     user = User.find(self.user_id)
-    if  Time.current.strftime("%H:%M:%S") <= "09:30:00"
-        user.point += point
-        user.save
-        create_history(pp.id,point)
-    elsif Time.current.strftime("%H:%M:%S") <= "10:00:00"
-        user.point += point - 1
-        user.save
-        create_history(pp.id , point-1)
+    if self.categories == 1
+      if  self.time_in.strftime("%H:%M:%S") <= "09:30:00"
+          user.point += point
+          user.save
+          create_history(pp.id,point)
+      elsif self.time_in.strftime("%H:%M:%S") <= "10:00:00"
+          user.point += point - 1
+          user.save
+          create_history(pp.id , point-1)
+      end
     end
   end
 

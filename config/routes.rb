@@ -1,5 +1,12 @@
   SimpleAccounting::Application.routes.draw do
 
+  devise_scope :user do
+    namespace :api , constraints: { format: 'json' }do
+      resources :sessions, :only => [:create, :destroy]
+      resources :absents, :only => [:create]
+    end
+  end
+
   resources :points
 
   mount Ckeditor::Engine => '/ckeditor'
