@@ -26,7 +26,7 @@
     <% @rankings.each_with_index do |history, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= link_to "#{history.first_name} #{history.last_name}".downcase.titleize, point_history_detail_year_path(history.id) %></td>
+        <td><%= link_to "#{history.first_name} #{history.last_name}".downcase.titleize, point_history_detail_year_path(history.id, :search => @date) %></td>
         <td><%= history.jumlah rescue 0 %></td>
       </tr>
     <% end %>

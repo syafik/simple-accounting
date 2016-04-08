@@ -6,8 +6,8 @@ class HomeController < ApplicationController
     @total_bayar =  @user.borrowers.sum(&:debit)
     @sisa =  @total_utang - @total_bayar
 
-    @check_absent = current_user.absents.where({categories: 1, date: Date.today}).first
-    date = Date.today
+    @check_absent = current_user.absents.where({categories: 1, date: Date.current}).first
+    date = Date.current
     year = date.year
     month = date.month
     @absent = User.joins("left join absents on absents.user_id = users.id AND MONTH(absents.date) = #{month} AND YEAR(absents.date) =  #{year}").

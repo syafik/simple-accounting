@@ -22,7 +22,7 @@ class Api::AbsentsController < ApplicationController
 
   private
   def get_absent
-    @check_absent = current_user_api.absents.where({categories: 1, date: Date.today}).first
+    @check_absent = current_user_api.absents.where({categories: 1, date: Date.current}).first
   end
 
 end
