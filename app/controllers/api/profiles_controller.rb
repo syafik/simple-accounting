@@ -5,15 +5,8 @@ class Api::ProfilesController < ApplicationController
   respond_to :json
 
   ## Profile
-  def show
-    @user =User.find(params[:id])
-    render :status => 200, :json =>{:name => @user.full_name,
-     :posisi => @user.position,
-     :no_tlp => @user.telephone,
-     :bank => @user.bank_name,
-     :no_rekening => @user.account_number,
-     :cabang => @user.account_branch_name,
-     :nama_akun => @user.account_name
-   }
+  def index
+    @user = current_user_api
   end
+
 end
