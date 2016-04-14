@@ -1,4 +1,4 @@
-class PointHistory < ActiveRecord::Base
+class PointHistory < ActiveRecord::Base # :nodoc:
   attr_accessible :points, :point_historyable_id, :point_historyable_type, :point_id, :user_id,:point_historyable
 
   belongs_to :user

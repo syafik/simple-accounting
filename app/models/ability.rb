@@ -1,4 +1,4 @@
-class Ability
+class Ability # :nodoc:
   include CanCan::Ability
 
   def initialize(user)
@@ -14,7 +14,7 @@ class Ability
       can [:new, :create, :show, :index], LoanPermission, :user_id => user.id
       can [:new, :create, :show, :index], Overtime, :user_id => user.id
       can [:my_point], PointHistory, :point_history_id => user.id
-      can :manage, LoanPayment, :user_id => user.id
+      can :manage, LoanPayment
       can :manage, AllowanceClaimTransaction
     else
 

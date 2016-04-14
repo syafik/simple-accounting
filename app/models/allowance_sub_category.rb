@@ -1,4 +1,4 @@
-class AllowanceSubCategory < ActiveRecord::Base
+class AllowanceSubCategory < ActiveRecord::Base # :nodoc:
   #Relation
   has_many :allowances, dependent: :destroy
   belongs_to :allowance_category
@@ -11,6 +11,6 @@ class AllowanceSubCategory < ActiveRecord::Base
     validates :max_day, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => 365 }
 
   validates :name, presence: true
-  
+
   validates :max_day, presence: true
 end

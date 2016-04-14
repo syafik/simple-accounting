@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base # :nodoc:
   protect_from_forgery
   before_filter :authenticate_user!
 

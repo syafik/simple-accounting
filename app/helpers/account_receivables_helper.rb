@@ -1,4 +1,4 @@
-module AccountReceivablesHelper
+module AccountReceivablesHelper # :nodoc:
 	def credit_account
 		credits = []
 		AccountReceivable.where(parent_id: nil).collect do |p|
@@ -10,5 +10,5 @@ module AccountReceivablesHelper
 		end
 		credits
 	end
-	
+
 end

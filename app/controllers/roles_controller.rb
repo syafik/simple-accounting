@@ -1,4 +1,4 @@
-class RolesController < ApplicationController
+class RolesController < ApplicationController # :nodoc:
   # GET /roles
   # GET /roles.json
   def index

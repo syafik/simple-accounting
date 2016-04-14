@@ -1,7 +1,7 @@
-class AllowancesController < ApplicationController
+class AllowancesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
-  before_filter :get_allowance_sub_categories_user,  :except => [:show, :destroy, :find_sub_categories] 
+  before_filter :get_allowance_sub_categories_user,  :except => [:show, :destroy, :find_sub_categories]
 
   def new
   	@allowance = Allowance.new
@@ -28,8 +28,8 @@ class AllowancesController < ApplicationController
   end
 
   def edit
-  	@allowance = Allowance.find(params[:id]) 
-    
+  	@allowance = Allowance.find(params[:id])
+
   end
 
   def index
@@ -52,7 +52,7 @@ class AllowancesController < ApplicationController
     @allowance_category = AllowanceCategory.find(params[:id])
     @allowance_sub_category = @allowance_category.allowance_sub_categories.map { |allowance_sub_category| [allowance_sub_category.name, allowance_sub_category.id] }
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 

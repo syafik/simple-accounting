@@ -1,5 +1,5 @@
 
-class ReimbursementsController < ApplicationController
+class ReimbursementsController < ApplicationController # :nodoc:
   load_and_authorize_resource
   # GET /reimbursements
   # GET /reimbursements.json

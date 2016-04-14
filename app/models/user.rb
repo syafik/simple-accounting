@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base # :nodoc:
   attr_accessible :avatar
   has_attached_file :avatar,
                     :default_url =>  ActionController::Base.helpers.asset_path('avatar3.png'),

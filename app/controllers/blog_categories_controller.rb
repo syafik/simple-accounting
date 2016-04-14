@@ -1,5 +1,5 @@
 
-class BlogCategoriesController < ApplicationController
+class BlogCategoriesController < ApplicationController # :nodoc:
   # GET /blog_categories
   # GET /blog_categories.json
   def index

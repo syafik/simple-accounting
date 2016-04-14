@@ -1,4 +1,4 @@
-class Blog < ActiveRecord::Base
+class Blog < ActiveRecord::Base # :nodoc:
   attr_accessible :blog_category_ids, :content, :published, :title, :user_id
 
   after_update :add_point

@@ -1,4 +1,4 @@
-class OvertimesController < ApplicationController
+class OvertimesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 	before_filter :get_user, :only => [:index, :new, :create, :edit, :update]
 

@@ -1,4 +1,4 @@
-class BarcodesController < ApplicationController
+class BarcodesController < ApplicationController # :nodoc:
   layout 'clean'
   skip_before_filter :authenticate_user!
   def index

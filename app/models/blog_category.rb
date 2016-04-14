@@ -1,4 +1,4 @@
-class BlogCategory < ActiveRecord::Base
+class BlogCategory < ActiveRecord::Base # :nodoc:
   attr_accessible :name
 
   has_many :categoriesblogs

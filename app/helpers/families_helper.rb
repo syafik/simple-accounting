@@ -1,2 +1,2 @@
-module FamiliesHelper
+module FamiliesHelper # :nodoc:
 end

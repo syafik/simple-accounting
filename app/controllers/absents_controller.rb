@@ -1,4 +1,4 @@
-class AbsentsController < ApplicationController
+class AbsentsController < ApplicationController # :nodoc:
   before_filter :get_user, :only => [:new, :create, :edit, :update]
   before_filter :get_absent, :only => [:index, :set_attend]
   before_filter :check_date, :only => [:create]

@@ -1,10 +1,10 @@
-class AllowanceClaimTransaction < ActiveRecord::Base
+class AllowanceClaimTransaction < ActiveRecord::Base  # :nodoc:
   belongs_to :allowance
-  
+
   attr_accessible :approval_date, :submission_date, :description, :status, :upload,  :allowance_id, :nominal
 
   #validates :approval_date, presence: true
-  
+
   validates :submission_date, presence: true
   #validates :description, presence: true
   #validates :status, presence: true
@@ -20,7 +20,7 @@ class AllowanceClaimTransaction < ActiveRecord::Base
       revisions: where(:status => 3 ).order("updated_at desc")
     }
 
-    
+
 
     if user.role == "Admin"
       if search
@@ -59,7 +59,7 @@ class AllowanceClaimTransaction < ActiveRecord::Base
         p allowance_list
       end
     end
-    
+
     return allowance_list
   end
 
@@ -116,14 +116,14 @@ def self.approval
   @allowance_claim_transaction = AllowanceClaimTransaction.find(params[:format])
     #cek status
     decision = params[:decision]
-    
+
     if decision == "rejected"
       @allowance_claim_transaction.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
       redirect_to allowance_claim_transactions_path
-      
+
     elsif decision == "revision"
       @allowance_claim_transaction.update_attributes(:status=>3, :description=> params[:description], :approval_date => Date.today)
-      redirect_to allowance_claim_transactions_path  
+      redirect_to allowance_claim_transactions_path
     else
       #looking for total nominal by allowance_id
       #AllowanceClaimTransaction.where(:allowance_id => params[:allowance_id], :status => true, :approval_date => "#{Time.now.year}-01-01".."#{Time.now.year}-12-31")
@@ -137,24 +137,24 @@ def self.approval
       #get nominal
       nominal = params[:nominal]
       p totalnominal
-      
+
 
       #totalnominal + nominal;
       finalnominal = totalnominal.to_f + nominal.to_f
       #------------------------
-      
+
       #finding user value
       val = Allowance.find(params[:allowance_id]).value
 
-      
-      
+
+
       if finalnominal < val
         @allowance_claim_transaction.update_attributes(:status=>1, :description=> params[:description], :approval_date => Date.today)
         redirect_to allowance_claim_transactions_path
       else
         redirect_to allowance_claim_transactions_path
       end
-    end   
+    end
 
   end
 

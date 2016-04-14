@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class SettingsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
 	def overtime

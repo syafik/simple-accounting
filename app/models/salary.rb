@@ -1,4 +1,4 @@
-class Salary < ActiveRecord::Base
+class Salary < ActiveRecord::Base # :nodoc:
 
 	belongs_to :salary_history
 
@@ -50,7 +50,7 @@ class Salary < ActiveRecord::Base
 
     salary = Salary.create(salaries)
     salary_schedule.update_attribute("status", true) if salary
-  
+
   end
 
 end

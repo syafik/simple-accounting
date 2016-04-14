@@ -1,4 +1,4 @@
-class RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController # :nodoc:
 	def new
 		if !user_signed_in?
 		resource = build_resource({})
@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 		else
 		 @user = User.new
 		end
-		
+
 	end
 
 	def create

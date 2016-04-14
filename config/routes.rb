@@ -3,7 +3,13 @@
   devise_scope :user do
     namespace :api , constraints: { format: 'json' }do
       resources :sessions, :only => [:create, :destroy]
-      resources :absents, :only => [:create]
+      resources :absents, :only => [:create, :index]
+      resources :profiles, :only => [:show]
+      resources :salaries, :only => [:index]
+      resources :salary_histories, :only => [:index]
+      resources :reimbursements, :only => [:index,:show]
+      resources :points, :only => [:index]
+      resources :loans, :only => [:index]
     end
   end
 

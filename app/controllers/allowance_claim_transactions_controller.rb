@@ -1,8 +1,8 @@
-class AllowanceClaimTransactionsController < ApplicationController
+class AllowanceClaimTransactionsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
 	before_filter :get_allowance_detil
-  before_filter :get_history,  :only => [:new, :create] 
+  before_filter :get_history,  :only => [:new, :create]
   before_filter :get_sub_category, :only => [:index, :new]
 
   def index
@@ -27,16 +27,16 @@ class AllowanceClaimTransactionsController < ApplicationController
    end
 
    def create
-    val = current_user.allowances.find(params[:allowance_category_id]).value 
+    val = current_user.allowances.find(params[:allowance_category_id]).value
     totalnominal = params[:totalnominal][:nominal]
     nominal = params[:allowance_claim_transaction][:nominal]
     my_nominal = totalnominal.to_f + nominal.to_f
-    
+
     @allowance_claim_transaction = AllowanceClaimTransaction.new(params[:allowance_claim_transaction])
 
     if my_nominal < val && @allowance_claim_transaction.save
       redirect_to allowance_claim_transactions_path
-    else    
+    else
       render 'new'
     end
   end

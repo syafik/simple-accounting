@@ -1,2 +1,2 @@
-module ReimbursementsHelper
+module ReimbursementsHelper # :nodoc:
 end

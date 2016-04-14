@@ -1,5 +1,5 @@
 
-class GradesController < ApplicationController
+class GradesController < ApplicationController # :nodoc:
   # GET /grades
   # GET /grades.json
   def index

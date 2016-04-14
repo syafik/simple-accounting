@@ -1,5 +1,5 @@
 
-class AccountPayablesController < ApplicationController
+class AccountPayablesController < ApplicationController # :nodoc:
   # GET /account_payables
   # GET /account_payables.json
    load_and_authorize_resource
@@ -29,7 +29,7 @@ class AccountPayablesController < ApplicationController
   def new
     @account_payable = AccountPayable.new
     @credit = params[:credit].eql?("true") ? true : false
-    
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -57,7 +57,7 @@ class AccountPayablesController < ApplicationController
     @sisa_hutang = parent.debit.to_i - @account_payables.sum(&:credit).to_i if params[:account_payable][:parent_id]
     if params[:account_payable][:parent_id] and params[:account_payable][:credit].to_i > @sisa_hutang.to_i
       flash.now[:error] = "Credit lebih besar dari debit.!"
-      render action: "new", :debit => true 
+      render action: "new", :debit => true
    else
     respond_to do |format|
       if @account_payable.save

@@ -1,5 +1,5 @@
 
-class HomeController < ApplicationController
+class HomeController < ApplicationController # :nodoc:
   def index
     @user = User.find(current_user.id)
     @total_utang =  @user.borrowers.sum(&:credit)

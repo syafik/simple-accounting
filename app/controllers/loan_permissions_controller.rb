@@ -1,7 +1,7 @@
-class LoanPermissionsController < ApplicationController
+class LoanPermissionsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
-  before_filter :get_history,  :only => [:new, :create] 
+  before_filter :get_history,  :only => [:new, :create]
 
   # GET /loan_permissions
   # GET /loan_permissions.json
@@ -89,8 +89,8 @@ class LoanPermissionsController < ApplicationController
     @loan_permission = LoanPermission.find(params[:id])
     #cek status
     p decision = params[:decision]
-    
-    
+
+
 
     if decision == "rejected"
       @loan_permission.update_attributes(:status=>2, :description=> params[:description], :approval_date => Date.today)
@@ -102,7 +102,7 @@ class LoanPermissionsController < ApplicationController
     redirect_to loan_permissions_path
 
 
-    
+
   end
 
   def set_taken

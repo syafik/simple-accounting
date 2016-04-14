@@ -1,4 +1,4 @@
-class Reimbursement < ActiveRecord::Base
+class Reimbursement < ActiveRecord::Base # :nodoc:
   attr_accessible :no_kwitasi, :notes, :reimbursement_type, :rumah_sakit, :status, :total_claim, :user_id, :year_insurance_id, :total_day, :total_approve
   belongs_to :user
   belongs_to :year_insurance

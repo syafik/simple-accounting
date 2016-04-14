@@ -1,4 +1,4 @@
-class SalaryHistoriesController < ApplicationController
+class SalaryHistoriesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   def index

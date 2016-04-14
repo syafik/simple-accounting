@@ -1,4 +1,4 @@
-class YearInsurance < ActiveRecord::Base
+class YearInsurance < ActiveRecord::Base # :nodoc:
   attr_accessible :family_id, :grade_id, :saldo_rj, :year
   belongs_to :grade
   belongs_to :family

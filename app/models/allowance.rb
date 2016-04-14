@@ -1,8 +1,8 @@
-class Allowance < ActiveRecord::Base
+class Allowance < ActiveRecord::Base # :nodoc:
   belongs_to :allowance_sub_category
   belongs_to :user
   has_many :allowance_claim_transactions
-  
+
   attr_accessible :value, :user_id, :allowance_sub_category_id
 
   validates :user_id, uniqueness: { scope: :allowance_sub_category_id,
@@ -24,17 +24,17 @@ class Allowance < ActiveRecord::Base
       allowance_sub_category = allowance_category.allowance_sub_categories
       where(:allowance_sub_category_id => allowance_sub_category)
     elsif search_by == "0"
-      find(:all)  
+      find(:all)
     else
       find(:all)
     end
 
   end
 
-  
 
 
-  
-  
+
+
+
 
 end

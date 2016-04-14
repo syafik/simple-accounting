@@ -1,5 +1,5 @@
 
-class AccountReceivablesController < ApplicationController
+class AccountReceivablesController < ApplicationController # :nodoc:
   # GET /account_receivables
   # GET /account_receivables.json
   load_and_authorize_resource

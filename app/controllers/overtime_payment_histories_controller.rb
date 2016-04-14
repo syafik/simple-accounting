@@ -1,4 +1,4 @@
-class OvertimePaymentHistoriesController < ApplicationController
+class OvertimePaymentHistoriesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
 	before_filter :get_user, :only => [:new, :create, :edit, :update]

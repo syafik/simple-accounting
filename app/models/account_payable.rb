@@ -1,4 +1,4 @@
-class AccountPayable < ActiveRecord::Base
+class AccountPayable < ActiveRecord::Base # :nodoc:
   attr_accessible :credit, :date, :debit, :description, :time, :title, :parent_id
 
   # callback setelah account payable dibuat

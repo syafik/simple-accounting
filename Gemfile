@@ -27,6 +27,8 @@ gem 'puma', '~> 2.15.3'
 gem 'ckeditor'
 gem 'rufus-scheduler'
 gem 'redis', '~>3.2'
+gem 'jbuilder'
+gem 'sdoc'
 
 group :development do
 #	gem 'debugger'

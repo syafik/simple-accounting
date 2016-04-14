@@ -1,4 +1,4 @@
-class SessionsController < Devise::SessionsController
+class SessionsController < Devise::SessionsController # :nodoc:
 	layout "login_page"
 
 # 	def create
@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
 # 			current_user.absents.create({categories: 1, date: Date.today, time_in: Time.now.strftime("%I:%M:%S") })
 # 		end
 # 		respond_with resource, :location => after_sign_in_path_for(resource)
-		
+
 # 	end
 
 # 	def destroy

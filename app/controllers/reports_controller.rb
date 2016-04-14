@@ -1,4 +1,4 @@
-class ReportsController < ApplicationController
+class ReportsController < ApplicationController # :nodoc:
   load_and_authorize_resource :class => "Transaction"
 
   def index

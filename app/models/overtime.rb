@@ -1,4 +1,4 @@
-class Overtime < ActiveRecord::Base
+class Overtime < ActiveRecord::Base # :nodoc:
   belongs_to :user
 
   attr_accessible :date, :description, :long_overtime, :user_id, :start_time, :end_time, :payment, :status, :day_payment, :night_payment

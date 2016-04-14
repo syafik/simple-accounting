@@ -1,4 +1,4 @@
-class Family < ActiveRecord::Base
+class Family < ActiveRecord::Base  # :nodoc:
   acts_as_tree
   belongs_to :familyable,  polymorphic: true
   has_many :year_insurances

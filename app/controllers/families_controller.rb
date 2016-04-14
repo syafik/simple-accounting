@@ -1,5 +1,5 @@
 
-class FamiliesController < ApplicationController
+class FamiliesController < ApplicationController # :nodoc:
   load_and_authorize_resource
   before_filter :set_parent_family
   # GET /families

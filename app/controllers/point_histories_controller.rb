@@ -1,5 +1,5 @@
 
-class PointHistoriesController < ApplicationController
+class PointHistoriesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   def index

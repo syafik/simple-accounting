@@ -1,4 +1,4 @@
-class AccountReceivable < ActiveRecord::Base
+class AccountReceivable < ActiveRecord::Base # :nodoc:
   attr_accessible :credit, :date, :debit, :description, :title, :parent_id, :borrower_id, :borrower_type
 
   # callback setelah account receivable dibuat

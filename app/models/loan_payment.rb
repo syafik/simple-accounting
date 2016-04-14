@@ -1,4 +1,4 @@
-class LoanPayment < ActiveRecord::Base
+class LoanPayment < ActiveRecord::Base  # :nodoc:
 	belongs_to :loan_permission
 	attr_accessible :approval_date, :description, :message, :submission_date, :total_payment, :loan_permission_id, :status, :payment_date
 
@@ -6,7 +6,6 @@ class LoanPayment < ActiveRecord::Base
 		paid = LoanPayment.where(:loan_permission_id => loan_permission_id, :status => 3).sum(:total_payment)
 		total = paid + total_payment
 		return total
-
 	end
 
 	def self.get_residue(loan_permission_id)

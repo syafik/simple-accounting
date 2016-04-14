@@ -1,4 +1,4 @@
-class LoanPermission < ActiveRecord::Base
+class LoanPermission < ActiveRecord::Base # :nodoc:
   belongs_to :user
   has_many :loan_payments
   attr_accessible :approval_date, :description, :message, :submission_date, :total_loan, :user_id, :status
@@ -31,13 +31,13 @@ class LoanPermission < ActiveRecord::Base
 
         search[category] = search[category].strip rescue nil
         if search["by_"+category] == "0"
-        	
+
         elsif search["by_"+category] == "1"
-        	
+
         elsif search["by_"+category] == "2" && search["to_"+category] == "" && search["from_"+category] != ""
-        	
+
         elsif search["by_"+category] == "3" && search["to_"+category] == "" && search["from_"+category] != ""
-        	
+
         end
       else
       	lp_list
@@ -77,15 +77,15 @@ class LoanPermission < ActiveRecord::Base
 
         search[category] = search[category].strip rescue nil
         if search["by_"+category] == "0"
-          
+
         elsif search["by_"+category] == "1"
-         
+
         elsif search["by_"+category] == "2"
-          
+
         elsif search["by_"+category] == "3" && search["to_"+category] == "" && search["from_"+category] != ""
-          
+
         elsif search["by_"+category] == "4" && search["to_"+category] == "" && search["from_"+category] != ""
-          
+
         end
       else
         lp_list
@@ -93,7 +93,7 @@ class LoanPermission < ActiveRecord::Base
         p lp_list
       end
     end
-    
+
     return lp_list
   end
 end

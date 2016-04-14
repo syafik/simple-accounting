@@ -1,4 +1,4 @@
-class PointsController < ApplicationController
+class PointsController < ApplicationController # :nodoc:
   # GET /points
   # GET /points.json
   def index

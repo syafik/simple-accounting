@@ -1,4 +1,4 @@
-class OvertimePaymentHistory < ActiveRecord::Base
+class OvertimePaymentHistory < ActiveRecord::Base # :nodoc:
 	acts_as_paranoid
 	belongs_to :user
 	attr_accessible :activate, :day_payment, :night_payment, :applicable_date, :user_id

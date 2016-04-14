@@ -1,5 +1,5 @@
-class Transaction < ActiveRecord::Base
-  
+class Transaction < ActiveRecord::Base # :nodoc:
+
   belongs_to :account_receivable
   belongs_to :account_payable
 

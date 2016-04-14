@@ -1,4 +1,4 @@
-class AvatarController < ApplicationController
+class AvatarController < ApplicationController # :nodoc:
   def destroy
   	user = User.find(params[:id])
     user.avatar = nil

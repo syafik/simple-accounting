@@ -4,13 +4,11 @@ class Api::SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token
   respond_to :json
 
+## Login
+# Used two params. params email and password then generate an auth_token
   def create
     email = params[:email]
       password = params[:password]
-      # if request.format != :json
-      #   render :status=>406, :json=>{:message=>"The request must be json"}
-      #   return
-      # end
 
     if email.nil? or password.nil?
        render :status=>400,
@@ -37,6 +35,8 @@ class Api::SessionsController < Devise::SessionsController
     end
   end
 
+## Logout
+# find user by auth token then reset an auth_token
   def destroy
   @user=User.find_by_authentication_token(params[:id])
     if @user.nil?

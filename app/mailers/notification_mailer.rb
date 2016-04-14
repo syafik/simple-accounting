@@ -1,4 +1,4 @@
-class NotificationMailer < ActionMailer::Base
+class NotificationMailer < ActionMailer::Base  # :nodoc:
   default from: "Admin Pushjaw<test.pushjaw@gmail.com>"
 
   def submit_reimbursement(reimbursement)

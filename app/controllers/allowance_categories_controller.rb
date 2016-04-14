@@ -1,11 +1,11 @@
-class AllowanceCategoriesController < ApplicationController
+class AllowanceCategoriesController < ApplicationController # :nodoc:
   load_and_authorize_resource
   # GET /allowance_categories
   # GET /allowance_categories.json
   def index
 
     @allowance_categories = AllowanceCategory.search(params[:search])
-    
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class AllowanceCategoriesController < ApplicationController
   def new
     @allowance_category = AllowanceCategory.new
     @allowance_category.allowance_sub_categories.build
-   
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,9 +45,9 @@ class AllowanceCategoriesController < ApplicationController
   # POST /allowance_categories
   # POST /allowance_categories.json
   def create
- 
+
     @allowance_category = AllowanceCategory.new(params[:allowance_category])
-   
+
       respond_to do |format|
         if @allowance_category.save
 
@@ -91,7 +91,7 @@ class AllowanceCategoriesController < ApplicationController
     @allowance_category = AllowanceCategory.find(params[:id])
     @allowance_sub_category = @allowance_category.allowance_sub_category
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 end

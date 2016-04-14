@@ -1,4 +1,4 @@
-class Ckeditor::Picture < Ckeditor::Asset
+class Ckeditor::Picture < Ckeditor::Asset # :nodoc:
   has_attached_file :data,
                     :url  => "/blog_assets/pictures/:year/:month/:day/:id/:style_:basename.:extension",
                     :path => ":rails_root/public/blog_assets/pictures/:year/:month/:day/:id/:style_:basename.:extension",

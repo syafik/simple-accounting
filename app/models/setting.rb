@@ -1,2 +1,2 @@
-class Setting < Setler::Settings
+class Setting < Setler::Settings # :nodoc:
 end

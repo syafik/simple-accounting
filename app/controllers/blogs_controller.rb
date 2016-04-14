@@ -1,4 +1,4 @@
-class BlogsController < ApplicationController
+class BlogsController < ApplicationController # :nodoc:
 
   # GET /blogs
   # GET /blogs.json

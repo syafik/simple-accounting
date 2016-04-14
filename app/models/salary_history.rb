@@ -1,4 +1,4 @@
-class SalaryHistory < ActiveRecord::Base
+class SalaryHistory < ActiveRecord::Base # :nodoc:
 	acts_as_paranoid
 	belongs_to :user
 	belongs_to :grade

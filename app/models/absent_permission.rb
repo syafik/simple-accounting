@@ -1,4 +1,4 @@
-class AbsentPermission < ActiveRecord::Base
+class AbsentPermission < ActiveRecord::Base # :nodoc:
 	belongs_to :user
 	attr_accessible :approval_date, :category, :date_submission, :description, :long, :status, :user_id, :submission_date, :start_date, :message, :end_date
 
@@ -30,13 +30,13 @@ class AbsentPermission < ActiveRecord::Base
 
         search[category] = search[category].strip rescue nil
         if search["by_"+category] == "0"
-        	
+
         elsif search["by_"+category] == "1"
-        	
+
         elsif search["by_"+category] == "2" && search["to_"+category] == "" && search["from_"+category] != ""
-        	
+
         elsif search["by_"+category] == "3" && search["to_"+category] == "" && search["from_"+category] != ""
-        	
+
         end
       else
       	ap_list
@@ -91,7 +91,7 @@ class AbsentPermission < ActiveRecord::Base
         p ap_list
       end
     end
-    
+
     return ap_list
   end
 
@@ -118,7 +118,7 @@ class AbsentPermission < ActiveRecord::Base
     end
 
     absent = []
-    
+
     0.upto(tamp_long) do |i|
       puts tamp_start_date.class
       absent << {user_id:  user_id, categories:  tamp_category, date:  tamp_start_date.to_s}

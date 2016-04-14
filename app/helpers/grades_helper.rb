@@ -1,2 +1,2 @@
-module GradesHelper
+module GradesHelper # :nodoc:
 end

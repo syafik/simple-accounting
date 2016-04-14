@@ -1,4 +1,4 @@
-class LoanPaymentsController < ApplicationController
+class LoanPaymentsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   before_filter :get_loan_detil, only: [:new, :edit]
@@ -80,11 +80,11 @@ class LoanPaymentsController < ApplicationController
     @loan_payment = LoanPayment.new(params[:loan_payment])
     loan_permission_id = params[:loan_payment][:loan_permission_id]
     @loan_permission = LoanPermission.find(loan_permission_id)
-    
+
     paid = LoanPayment.get_paid(loan_permission_id,  params[:loan_payment][:total_payment].to_f)
     p "======"
     p paid
-    
+
 
     respond_to do |format|
       if paid <= @loan_permission.total_loan &&  @loan_payment.save

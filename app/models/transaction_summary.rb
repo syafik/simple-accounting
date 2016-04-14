@@ -1,4 +1,4 @@
-class TransactionSummary < ActiveRecord::Base
+class TransactionSummary < ActiveRecord::Base # :nodoc:
   attr_accessible :credit, :debit, :description, :name, :total, :summary_month, :summary_year
 
 

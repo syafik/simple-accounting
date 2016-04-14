@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class UserMailer < ActionMailer::Base # :nodoc:
   default from: "test.pushjaw@gmail.com"
 
   def send_accsess_new_user(user)

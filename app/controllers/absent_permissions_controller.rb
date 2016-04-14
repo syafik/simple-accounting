@@ -1,7 +1,7 @@
-class AbsentPermissionsController < ApplicationController
+class AbsentPermissionsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
-  before_filter :get_history,  :only => [:new, :create] 
+  before_filter :get_history,  :only => [:new, :create]
   # GET /absent_permissions
   # GET /absent_permissions.json
   def index
@@ -83,9 +83,9 @@ class AbsentPermissionsController < ApplicationController
     else
       params[:absent_permission][:status] = 0
     end
-    
+
     @absent_permission = AbsentPermission.find(params[:id])
-    
+
     respond_to do |format|
       if @absent_permission.update_attributes(params[:absent_permission])
         format.html { redirect_to @absent_permission, notice: 'Absent permission was successfully updated.' }

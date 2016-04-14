@@ -1,4 +1,4 @@
-class SalarySchedule < ActiveRecord::Base
+class SalarySchedule < ActiveRecord::Base # :nodoc:
   attr_accessible :date, :first_date, :end_date
 
   scope :this_year, where("YEAR(date) = #{Date.today.year}")

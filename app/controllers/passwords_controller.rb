@@ -1,3 +1,3 @@
-class PasswordsController < Devise::PasswordsController
+class PasswordsController < Devise::PasswordsController # :nodoc:
  layout "login_page"
 end

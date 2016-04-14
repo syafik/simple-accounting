@@ -1,4 +1,4 @@
-class SalariesController < ApplicationController
+class SalariesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   def index
@@ -14,7 +14,7 @@ class SalariesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xls 
+      format.xls
     end
   end
 

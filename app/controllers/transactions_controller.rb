@@ -1,4 +1,4 @@
-class TransactionsController < ApplicationController
+class TransactionsController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   def index

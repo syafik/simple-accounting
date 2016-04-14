@@ -1,4 +1,4 @@
-class ManageUsersController < ApplicationController
+class ManageUsersController < ApplicationController # :nodoc:
   load_and_authorize_resource :class => "User"
 
   before_filter :get_roles,  :only => [:new, :update, :edit, :create]

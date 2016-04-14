@@ -1,4 +1,4 @@
-class Absent < ActiveRecord::Base
+class Absent < ActiveRecord::Base # :nodoc:
   belongs_to :user
 
   after_create :add_point, :set_barcode
