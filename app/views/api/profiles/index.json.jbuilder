@@ -1,4 +1,4 @@
-json.avatar @user.avatar.url(:small)
+json.avatar (URI.parse(root_url) + @user.avatar.url(:small)).to_s
 json.name @user.full_name
 json.email @user.email
 json.posisi @user.position
