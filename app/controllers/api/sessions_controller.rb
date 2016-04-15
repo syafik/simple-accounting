@@ -4,8 +4,27 @@ class Api::SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token
   respond_to :json
 
-## Login
-# Used two params. params email and password then generate an auth_token
+  ##
+  # ::Login
+  # === Login
+  # method:
+  #   POST
+  # url:
+  #   /api/sessions
+  # header :
+  #   content-type : application/json
+  # parameter body:
+  #   {
+  #      "email" : "user@pushjaw.com",
+  #      "password" : "password"
+  #   }
+  # response:
+  # * success
+  #       {
+  #          "token":"qpGn1CNyuR5vt9sz9RxE"
+  #       }
+  # * Failed:
+  #     { "message": "Invalid email or password." }
   def create
     email = params[:email]
       password = params[:password]
@@ -35,8 +54,25 @@ class Api::SessionsController < Devise::SessionsController
     end
   end
 
-## Logout
-# find user by auth token then reset an auth_token
+##
+# ::Logout
+# ===Logout
+# method:
+#   DELETE
+# url:
+#   /api/sessions/:authentication_token
+# header:
+#   content-type: application/json
+#   authorization:Token token=qpGn1CNyuR5vt9sz9RxE
+# response:
+# * success
+#   {
+#     "token":"qpGn1CNyuR5vt9sz9RxE"
+#   }
+# * Failed
+#   {
+#     "message":"Invalid token."
+#   }
   def destroy
   @user=User.find_by_authentication_token(params[:id])
     if @user.nil?

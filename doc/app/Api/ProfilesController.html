@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">ApplicationController
+  <p class="link"><a href="ApiController.html">Api::ApiController</a>
   
 </nav>
 
@@ -70,7 +70,7 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-show">#show</a>
+    <li><a href="#method-i-index">#index</a>
     
   </ul>
 </nav>
@@ -96,6 +96,8 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
+  
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -144,10 +146,10 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-show" class="method-detail ">
+      <div id="method-i-index" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">show</span><span
+          <span class="method-name">index</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -155,31 +157,54 @@
 
         <div class="method-description">
           
-          <p>Profile</p>
+          <p>::Profile</p>
+
+<h3 id="method-i-index-label-Profile">Profile</h3>
+
+<p>method:</p>
+
+<pre>GET</pre>
+
+<p>url:</p>
+
+<pre>/api/profiles</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success {</p>
+
+<pre> &quot;avatar&quot;:&quot;http://localhost:3000/assets/avatar3.png&quot;,
+ &quot;name&quot;:&quot;Admin pushjaw&quot;,
+ &quot;email&quot;:&quot;admin@pushjaw.com&quot;,
+ &quot;posisi&quot;:&quot;Admin&quot;,
+ &quot;notlp&quot;:&quot;0987654321&quot;,
+ &quot;bank&quot;:&quot;BCA&quot;,
+ &quot;norek&quot;:&quot;12345&quot;,
+ &quot;cabang&quot;:&quot;Cianjur&quot;,
+ &quot;namaakun&quot;:&quot;nama akun&quot;
+}</pre>
+</li></ul>
           
 
           
-          <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/profiles_controller.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-ivar">@user</span> =<span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-identifier">render</span> <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>, <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span>{<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">full_name</span>,
-   <span class="ruby-value">:posisi</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">position</span>,
-   <span class="ruby-value">:no_tlp</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">telephone</span>,
-   <span class="ruby-value">:bank</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">bank_name</span>,
-   <span class="ruby-value">:no_rekening</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account_number</span>,
-   <span class="ruby-value">:cabang</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account_branch_name</span>,
-   <span class="ruby-value">:nama_akun</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account_name</span>
- }
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/api/profiles_controller.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">current_user_api</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- show-source -->
+          </div><!-- index-source -->
           
         </div>
 
         
 
         
-      </div><!-- show-method -->
+      </div><!-- index-method -->
 
     
     </section><!-- public-instance-method-details -->

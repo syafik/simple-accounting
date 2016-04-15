@@ -99,6 +99,8 @@
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
   
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
+  
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
     <li><a href="../Api/PointsController.html">Api::PointsController</a>
@@ -157,14 +159,46 @@
 
         <div class="method-description">
           
-          <pre>Login</pre>
+          <p>::Login</p>
 
-<p>Used two params. params email and password then generate an auth_token</p>
+<h3 id="method-i-create-label-Login">Login</h3>
+
+<p>method:</p>
+
+<pre>POST</pre>
+
+<p>url:</p>
+
+<pre>/api/sessions</pre>
+
+<p>header :</p>
+
+<pre>content-type : application/json</pre>
+
+<p>parameter body:</p>
+
+<pre>{
+   &quot;email&quot; : &quot;user@pushjaw.com&quot;,
+   &quot;password&quot; : &quot;password&quot;
+}</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success</p>
+
+<pre>{
+   &quot;token&quot;:&quot;qpGn1CNyuR5vt9sz9RxE&quot;
+}</pre>
+</li><li>
+<p>Failed:</p>
+
+<pre>{ &quot;message&quot;: &quot;Invalid email or password.&quot; }</pre>
+</li></ul>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-identifier">email</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>]
     <span class="ruby-identifier">password</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:password</span>]
@@ -214,14 +248,42 @@
 
         <div class="method-description">
           
-          <pre>Logout</pre>
+          <p>::Logout</p>
 
-<p>find user by auth token then reset an auth_token</p>
+<h3 id="method-i-destroy-label-Logout">Logout</h3>
+
+<p>method:</p>
+
+<pre>DELETE</pre>
+
+<p>url:</p>
+
+<pre>/api/sessions/:authentication_token</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token=qpGn1CNyuR5vt9sz9RxE</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success {</p>
+
+<pre>&quot;token&quot;:&quot;qpGn1CNyuR5vt9sz9RxE&quot;</pre>
+
+<p>}</p>
+</li><li>
+<p>Failed {</p>
+
+<pre>&quot;message&quot;:&quot;Invalid token.&quot;</pre>
+
+<p>}</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 40</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
 <span class="ruby-ivar">@user</span>=<span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_authentication_token</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">nil?</span>

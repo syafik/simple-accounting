@@ -1,1 +1,1 @@
-json.array! @salary_histories, :applicable_date, :payment
+json.salay_histories @salary_histories, :applicable_date, :payment

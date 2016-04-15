@@ -1,4 +1,4 @@
-Wed, 13 Apr 2016 15:46:13 +0700
+Fri, 15 Apr 2016 15:42:49 +0700
 doc/README_FOR_APP	Wed, 13 Apr 2016 14:28:30 +0700
 app/controllers/absent_permissions_controller.rb	Wed, 13 Apr 2016 15:08:36 +0700
 app/controllers/absents_controller.rb	Wed, 13 Apr 2016 15:39:32 +0700
@@ -8,14 +8,15 @@ app/controllers/allowance_categories_controller.rb	Wed, 13 Apr 2016 15:39:46 +07
 app/controllers/allowance_claim_transactions_controller.rb	Wed, 13 Apr 2016 15:39:50 +0700
 app/controllers/allowance_sub_categories_controller.rb	Wed, 13 Apr 2016 15:39:53 +0700
 app/controllers/allowances_controller.rb	Wed, 13 Apr 2016 15:39:56 +0700
-app/controllers/api/absents_controller.rb	Wed, 13 Apr 2016 14:53:23 +0700
-app/controllers/api/loans_controller.rb	Wed, 13 Apr 2016 15:45:20 +0700
-app/controllers/api/points_controller.rb	Wed, 13 Apr 2016 15:45:33 +0700
-app/controllers/api/profiles_controller.rb	Wed, 13 Apr 2016 15:45:43 +0700
-app/controllers/api/reimbursements_controller.rb	Wed, 13 Apr 2016 14:56:16 +0700
-app/controllers/api/salaries_controller.rb	Wed, 13 Apr 2016 15:45:54 +0700
-app/controllers/api/salary_histories_controller.rb	Wed, 13 Apr 2016 15:46:02 +0700
-app/controllers/api/sessions_controller.rb	Wed, 13 Apr 2016 14:38:10 +0700
+app/controllers/api/absents_controller.rb	Fri, 15 Apr 2016 15:41:16 +0700
+app/controllers/api/api_controller.rb	Fri, 15 Apr 2016 15:18:31 +0700
+app/controllers/api/loans_controller.rb	Fri, 15 Apr 2016 15:24:33 +0700
+app/controllers/api/points_controller.rb	Fri, 15 Apr 2016 15:29:22 +0700
+app/controllers/api/profiles_controller.rb	Fri, 15 Apr 2016 15:31:13 +0700
+app/controllers/api/reimbursements_controller.rb	Fri, 15 Apr 2016 15:33:57 +0700
+app/controllers/api/salaries_controller.rb	Fri, 15 Apr 2016 15:35:36 +0700
+app/controllers/api/salary_histories_controller.rb	Fri, 15 Apr 2016 15:37:17 +0700
+app/controllers/api/sessions_controller.rb	Fri, 15 Apr 2016 15:38:43 +0700
 app/controllers/application_controller.rb	Wed, 13 Apr 2016 15:40:00 +0700
 app/controllers/avatar_controller.rb	Wed, 13 Apr 2016 15:40:04 +0700
 app/controllers/barcodes_controller.rb	Wed, 13 Apr 2016 15:40:07 +0700
@@ -83,5 +84,5 @@ app/models/salary_schedule.rb	Wed, 13 Apr 2016 15:36:04 +0700
 app/models/setting.rb	Wed, 13 Apr 2016 15:36:08 +0700
 app/models/transaction.rb	Wed, 13 Apr 2016 15:36:17 +0700
 app/models/transaction_summary.rb	Wed, 13 Apr 2016 15:36:22 +0700
-app/models/user.rb	Wed, 13 Apr 2016 15:36:27 +0700
+app/models/user.rb	Fri, 15 Apr 2016 09:36:41 +0700
 app/models/year_insurance.rb	Wed, 13 Apr 2016 15:36:32 +0700

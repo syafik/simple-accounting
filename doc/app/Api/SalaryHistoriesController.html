@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">ApplicationController
+  <p class="link"><a href="ApiController.html">Api::ApiController</a>
   
 </nav>
 
@@ -96,6 +96,8 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
+  
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -155,14 +157,45 @@
 
         <div class="method-description">
           
-          <p>Salary History</p>
+          <p>::Salary_histories</p>
+
+<h3 id="method-i-index-label-salarie_histories">salarie_histories</h3>
+
+<p>method:</p>
+
+<pre>GET</pre>
+
+<p>url:</p>
+
+<pre>/api/salary_histories</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success</p>
+</li></ul>
+
+<p>{</p>
+
+<pre>&quot;salay_histories&quot;: [
+  {
+    &quot;applicable_date&quot;: &quot;2016-03-02&quot;,
+    &quot;payment&quot;: 1900000
+  }
+]</pre>
+
+<p>}</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/salary_histories_controller.rb, line 8</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/salary_histories_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@salary_histories</span> = <span class="ruby-constant">SalaryHistory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-ivar">@salary_histories</span> = <span class="ruby-constant">SalaryHistory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;created_at DESC&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           

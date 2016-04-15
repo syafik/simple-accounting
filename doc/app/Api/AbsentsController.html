@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">ApplicationController
+  <p class="link"><a href="ApiController.html">Api::ApiController</a>
   
 </nav>
 
@@ -70,9 +70,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-create">#create</a>
+    <li><a href="#method-i-check_absent">#check_absent</a>
     
-    <li><a href="#method-i-index">#index</a>
+    <li><a href="#method-i-create">#create</a>
     
   </ul>
 </nav>
@@ -98,6 +98,8 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
+  
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -146,6 +148,74 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-check_absent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_absent</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>::Check Absent</p>
+
+<h2 id="method-i-check_absent-label-Check+Absent">Check Absent</h2>
+
+<p>method:</p>
+
+<pre>POST</pre>
+
+<p>url:</p>
+
+<pre>/api/absents/check_absent</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success {</p>
+
+<pre>&quot;absent&quot;: {
+  &quot;categories&quot;: 1,
+  &quot;created_at&quot;: &quot;2016-04-15T14:41:09+07:00&quot;,
+  &quot;date&quot;: &quot;2016-04-15&quot;,
+  &quot;description&quot;: null,
+  &quot;id&quot;: 19,
+  &quot;time_in&quot;: &quot;2000-01-01T14:41:09Z&quot;,
+  &quot;time_out&quot;: null,
+  &quot;total_work_time&quot;: null,
+  &quot;updated_at&quot;: &quot;2016-04-15T14:41:09+07:00&quot;,
+  &quot;user_id&quot;: 2
+}</pre>
+
+<p>}</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="check_absent-source">
+            <pre><span class="ruby-comment"># File app/controllers/api/absents_controller.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_absent</span>
+  <span class="ruby-identifier">check_absent</span> = <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">absents</span>.<span class="ruby-identifier">where</span>({<span class="ruby-identifier">categories</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">date</span><span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>}).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">check_absent</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>, <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:absent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">check_absent</span>}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- check_absent-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- check_absent-method -->
+
+    
       <div id="method-i-create" class="method-detail ">
         
         <div class="method-heading">
@@ -157,25 +227,70 @@
 
         <div class="method-description">
           
-          <pre>Create Absent</pre>
+          <p>::Absent</p>
 
-<p>create absent</p>
+<h2 id="method-i-create-label-Absent">Absent</h2>
+
+<p>method:</p>
+
+<pre>POST</pre>
+
+<p>url:</p>
+
+<pre>/api/absents</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>parameter body:</p>
+
+<pre>{
+  &quot;barcodes&quot; : &quot;11111&quot;
+}</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success {</p>
+
+<pre>&quot;absent&quot;: {
+  &quot;categories&quot;: 1,
+  &quot;created_at&quot;: &quot;2016-04-15T14:41:09+07:00&quot;,
+  &quot;date&quot;: &quot;2016-04-15&quot;,
+  &quot;description&quot;: null,
+  &quot;id&quot;: 19,
+  &quot;time_in&quot;: &quot;2000-01-01T14:41:09Z&quot;,
+  &quot;time_out&quot;: null,
+  &quot;total_work_time&quot;: null,
+  &quot;updated_at&quot;: &quot;2016-04-15T14:41:09+07:00&quot;,
+  &quot;user_id&quot;: 2
+}</pre>
+
+<p>}</p>
+</li><li>
+<p>Failed {</p>
+
+<pre>&quot;message&quot;: &quot;Terjadi Kesalahan, Coba lagi&quot;</pre>
+
+<p>}</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/absents_controller.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/absents_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-identifier">time_in</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span>.<span class="ruby-identifier">now</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">$redis</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;barcodes&quot;</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:barcodes</span>]
       <span class="ruby-identifier">absent</span> = <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">absents</span>.<span class="ruby-identifier">build</span>(<span class="ruby-value">:date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">time_in</span>.<span class="ruby-identifier">to_date</span>, <span class="ruby-value">:categories</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:time_in</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%H:%M:%S&quot;</span>))
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">absent</span>.<span class="ruby-identifier">save!</span>
-        <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">200</span>, <span class="ruby-value">:json=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-value">:message=</span><span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;Success&quot;</span>}
+        <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">200</span>, <span class="ruby-value">:json=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@check_absent</span>
       <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">401</span>, <span class="ruby-value">:json=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-value">:message=</span><span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;Terjadi Kesalahan, Coba lagi&quot;</span>}
+        <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">404</span>, <span class="ruby-value">:json=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-value">:message=</span><span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;Terjadi Kesalahan, Coba lagi&quot;</span>}
       <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">401</span>, <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Terjadi Kesalahan, Coba lagi&quot;</span>}
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">404</span>, <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Terjadi Kesalahan, Coba lagi&quot;</span>}
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
@@ -186,37 +301,6 @@
 
         
       </div><!-- create-method -->
-
-    
-      <div id="method-i-index" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">index</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <pre>Absents Detail</pre>
-
-<p>redirect here after create</p>
-          
-
-          
-          <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/absents_controller.rb, line 27</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- index-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- index-method -->
 
     
     </section><!-- public-instance-method-details -->

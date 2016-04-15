@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">ApplicationController
+  <p class="link"><a href="ApiController.html">Api::ApiController</a>
   
 </nav>
 
@@ -98,6 +98,8 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
+  
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -157,14 +159,42 @@
 
         <div class="method-description">
           
-          <pre>Family List</pre>
+          <p>::Reimbursement</p>
 
-<p>Show Family List</p>
+<h3 id="method-i-index-label-Reimbursement">Reimbursement</h3>
+
+<p>method:</p>
+
+<pre>GET</pre>
+
+<p>url:</p>
+
+<pre>/api/reimbursements</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success</p>
+</li></ul>
+
+<p>{</p>
+
+<pre> &quot;reimburs&quot;:[
+   {
+     &quot;name&quot;:&quot;User&quot;,
+      &quot;status&quot;:null,
+      &quot;grade&quot;:&quot;A&quot;
+    }]
+}</pre>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 8</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@family</span> =<span class="ruby-constant">Family</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">familyable_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user_api</span> , <span class="ruby-identifier">familyable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;User&quot;</span>).<span class="ruby-identifier">first</span>
   <span class="ruby-identifier">family_ids</span> = <span class="ruby-ivar">@family</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>)
@@ -199,7 +229,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@year_insurances</span> = <span class="ruby-constant">YearInsurance</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">family_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] ).<span class="ruby-identifier">by_year</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>])
 <span class="ruby-keyword">end</span></pre>

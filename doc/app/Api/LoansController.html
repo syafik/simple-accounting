@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">ApplicationController
+  <p class="link"><a href="ApiController.html">Api::ApiController</a>
   
 </nav>
 
@@ -96,6 +96,8 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
+  
+    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -155,12 +157,37 @@
 
         <div class="method-description">
           
-          <p>Loan List</p>
+          <p>::Loan</p>
+
+<h3 id="method-i-index-label-Loans">Loans</h3>
+
+<p>method:</p>
+
+<pre>GET</pre>
+
+<p>url:</p>
+
+<pre>/api/loans</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success {</p>
+
+<pre>&quot;sisa&quot;: 0,
+&quot;histories&quot;: []</pre>
+
+<p>}</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/loans_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/loans_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@histories</span> =  <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">borrowers</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;date DESC&quot;</span>)
   <span class="ruby-ivar">@sisa</span> =  <span class="ruby-ivar">@histories</span>.<span class="ruby-identifier">sum</span>(&amp;<span class="ruby-value">:credit</span>) <span class="ruby-operator">-</span> <span class="ruby-ivar">@histories</span>.<span class="ruby-identifier">sum</span>(&amp;<span class="ruby-value">:debit</span>)
