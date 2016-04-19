@@ -22,15 +22,23 @@ class Api::SalariesController < Api::ApiController
   #   "jamsostek":"Rp. 100.000,00",
   #   "potongan":"Rp. 100.000,00",
   #   "thp":"Rp. 200.000,00",
-  #   "total":2100000.0,
+  #   "total":"Rp. 2.100.000,00",
   #   "dikirim":"11-April-2016"
+  # }
+  # * failed
+  # {
+  #   "message":"Salary data not found"
   # }
   def index
     salaries = current_user_api.salary_histories.activate.first
-    @salary = salaries.salaries.this_month.first
-    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
-    @total_potongan   = 0
-    @total_penerimaan = @total_pendapatan - @total_potongan
+    if salaries.present?
+      @salary = salaries.salaries.this_month.first
+      @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
+      @total_potongan   = 0
+      @total_penerimaan = @total_pendapatan - @total_potongan
+    else
+      render :status => 404, :json => {:message => "Salary data not found"}
+    end
   end
 
 end

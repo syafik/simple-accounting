@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="ApiController.html">Api::ApiController</a>
+  <p class="link">Api::ApiController
   
 </nav>
 
@@ -96,8 +96,6 @@
     <li><a href="../Api.html">Api</a>
   
     <li><a href="../Api/AbsentsController.html">Api::AbsentsController</a>
-  
-    <li><a href="../Api/ApiController.html">Api::ApiController</a>
   
     <li><a href="../Api/LoansController.html">Api::LoansController</a>
   
@@ -187,21 +185,34 @@ authorization:Token token= authtentication_token</pre>
 &quot;jamsostek&quot;:&quot;Rp. 100.000,00&quot;,
 &quot;potongan&quot;:&quot;Rp. 100.000,00&quot;,
 &quot;thp&quot;:&quot;Rp. 200.000,00&quot;,
-&quot;total&quot;:2100000.0,
+&quot;total&quot;:&quot;Rp. 2.100.000,00&quot;,
 &quot;dikirim&quot;:&quot;11-April-2016&quot;</pre>
+
+<p>}</p>
+<ul><li>
+<p>failed</p>
+</li></ul>
+
+<p>{</p>
+
+<pre>&quot;message&quot;:&quot;Salary data not found&quot;</pre>
 
 <p>}</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/salaries_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/salaries_controller.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-identifier">salaries</span> = <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">salary_histories</span>.<span class="ruby-identifier">activate</span>.<span class="ruby-identifier">first</span>
-  <span class="ruby-ivar">@salary</span> = <span class="ruby-identifier">salaries</span>.<span class="ruby-identifier">salaries</span>.<span class="ruby-identifier">this_month</span>.<span class="ruby-identifier">first</span>
-  <span class="ruby-ivar">@total_pendapatan</span> = <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">salary_history</span>.<span class="ruby-identifier">payment</span> <span class="ruby-operator">+</span>  <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">total_overtime_payment</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">jamsostek</span>
-  <span class="ruby-ivar">@total_potongan</span>   = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@total_penerimaan</span> = <span class="ruby-ivar">@total_pendapatan</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@total_potongan</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">salaries</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-ivar">@salary</span> = <span class="ruby-identifier">salaries</span>.<span class="ruby-identifier">salaries</span>.<span class="ruby-identifier">this_month</span>.<span class="ruby-identifier">first</span>
+    <span class="ruby-ivar">@total_pendapatan</span> = <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">salary_history</span>.<span class="ruby-identifier">payment</span> <span class="ruby-operator">+</span>  <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">total_overtime_payment</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@salary</span>.<span class="ruby-identifier">jamsostek</span>
+    <span class="ruby-ivar">@total_potongan</span>   = <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@total_penerimaan</span> = <span class="ruby-ivar">@total_pendapatan</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@total_potongan</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">404</span>, <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Salary data not found&quot;</span>}
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           

@@ -1,4 +1,4 @@
-Tue, 19 Apr 2016 09:53:18 +0700
+Tue, 19 Apr 2016 10:12:10 +0700
 doc/README_FOR_APP	Wed, 13 Apr 2016 14:28:30 +0700
 app/controllers/absent_permissions_controller.rb	Wed, 13 Apr 2016 15:08:36 +0700
 app/controllers/absents_controller.rb	Wed, 13 Apr 2016 15:39:32 +0700
@@ -9,12 +9,12 @@ app/controllers/allowance_claim_transactions_controller.rb	Wed, 13 Apr 2016 15:3
 app/controllers/allowance_sub_categories_controller.rb	Wed, 13 Apr 2016 15:39:53 +0700
 app/controllers/allowances_controller.rb	Wed, 13 Apr 2016 15:39:56 +0700
 app/controllers/api/absents_controller.rb	Fri, 15 Apr 2016 16:18:10 +0700
-app/controllers/api/api_controller.rb	Fri, 15 Apr 2016 15:18:31 +0700
+app/controllers/api/api_controller.rb	Tue, 19 Apr 2016 10:12:00 +0700
 app/controllers/api/loans_controller.rb	Fri, 15 Apr 2016 15:24:33 +0700
 app/controllers/api/points_controller.rb	Fri, 15 Apr 2016 15:29:22 +0700
 app/controllers/api/profiles_controller.rb	Fri, 15 Apr 2016 15:31:13 +0700
 app/controllers/api/reimbursements_controller.rb	Fri, 15 Apr 2016 15:33:57 +0700
-app/controllers/api/salaries_controller.rb	Tue, 19 Apr 2016 09:53:10 +0700
+app/controllers/api/salaries_controller.rb	Tue, 19 Apr 2016 10:08:02 +0700
 app/controllers/api/salary_histories_controller.rb	Tue, 19 Apr 2016 09:51:04 +0700
 app/controllers/api/sessions_controller.rb	Tue, 19 Apr 2016 09:43:46 +0700
 app/controllers/application_controller.rb	Wed, 13 Apr 2016 15:40:00 +0700

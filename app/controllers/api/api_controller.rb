@@ -1,2 +1,2 @@
-class Api::ApiController < ApplicationController
+class Api::ApiController < ApplicationController # :nodoc:
 end
