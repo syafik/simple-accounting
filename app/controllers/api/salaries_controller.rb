@@ -16,14 +16,14 @@ class Api::SalariesController < Api::ApiController
   # response:
   # * success
   # {
-  #   "gaji_pokok":"Rp. 2.000.000,00",
-  #   "gaji_lembur":"Rp. 0,00",
-  #   "etc":"Rp. 200.000,00",
-  #   "jamsostek":"Rp. 100.000,00",
-  #   "potongan":"Rp. 100.000,00",
-  #   "thp":"Rp. 200.000,00",
-  #   "total":"Rp. 2.100.000,00",
-  #   "dikirim":"11-April-2016"
+  #   "gaji_pokok": "Rp. 2.000.000,00",
+  #   "gaji_lembur": "Rp. 0,00",
+  #   "etc": null,
+  #   "jamsostek": "Rp. 0,00",
+  #   "potongan": "-",
+  #   "thp": "Rp. 2.000.000,00",
+  #   "total": "Rp. 2.000.000,00",
+  #   "dikirim": "21-April-2016"
   # }
   # * failed
   # {

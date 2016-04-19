@@ -183,16 +183,17 @@ authorization:Token token= authtentication_token</pre>
 
 <pre> &quot;reimburs&quot;:[
    {
-     &quot;name&quot;:&quot;User&quot;,
-      &quot;status&quot;:null,
-      &quot;grade&quot;:&quot;A&quot;
-    }]
+     &quot;name&quot;:&quot;admin&quot;,
+     &quot;status&quot;:null,
+     &quot;grade&quot;:&quot;A&quot;
+    }
+   ]
 }</pre>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@family</span> =<span class="ruby-constant">Family</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">familyable_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user_api</span> , <span class="ruby-identifier">familyable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;User&quot;</span>).<span class="ruby-identifier">first</span>
   <span class="ruby-identifier">family_ids</span> = <span class="ruby-ivar">@family</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>)
@@ -220,16 +221,45 @@ authorization:Token token= authtentication_token</pre>
 
         <div class="method-description">
           
-          <pre>List Claim</pre>
+          <p>::Reimbursement List Claim</p>
 
-<p>showing list claim of family member</p>
+<h3 id="method-i-show-label-Reimbursement+List+Claim">Reimbursement List Claim</h3>
+
+<p>method:</p>
+
+<pre>GET</pre>
+
+<p>url:</p>
+
+<pre>/api/reimbursements/:family_id</pre>
+
+<p>header:</p>
+
+<pre>content-type: application/json
+authorization:Token token= authtentication_token</pre>
+
+<p>response:</p>
+<ul><li>
+<p>success</p>
+</li></ul>
+
+<p>{</p>
+
+<pre>&quot;name&quot;: &quot;admin&quot;,
+&quot;status&quot;: null,
+&quot;grade&quot;: &quot;A&quot;,
+&quot;rj&quot;: &quot;Rp. 250.000&quot;,
+&quot;ri&quot;: &quot;Rp. 250.000&quot;,
+&quot;operasi&quot;: &quot;Rp. 25.000.000&quot;</pre>
+
+<p>}</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 35</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/reimbursements_controller.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-ivar">@year_insurances</span> = <span class="ruby-constant">YearInsurance</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">family_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] ).<span class="ruby-identifier">by_year</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>])
+  <span class="ruby-ivar">@year_insurances</span> = <span class="ruby-constant">YearInsurance</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">family_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] ).<span class="ruby-identifier">by_year</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>]).<span class="ruby-identifier">first</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           

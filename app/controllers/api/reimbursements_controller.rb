@@ -18,10 +18,11 @@ class Api::ReimbursementsController < Api::ApiController
   # {
   #   "reimburs":[
   #     {
-  #       "name":"User",
-  #        "status":null,
-  #        "grade":"A"
-  #      }]
+  #       "name":"admin",
+  #       "status":null,
+  #       "grade":"A"
+  #      }
+  #     ]
   #  }
   def index
     @family =Family.where(familyable_id: current_user_api , familyable_type: "User").first
@@ -30,10 +31,28 @@ class Api::ReimbursementsController < Api::ApiController
     @year_insurances = YearInsurance.where(family_id: family_ids).by_year(params[:year])
   end
 
-  ## List Claim
-  # showing list claim of family member
+  ##
+  # ::Reimbursement List Claim
+  # ===Reimbursement List Claim
+  # method:
+  #   GET
+  # url:
+  #   /api/reimbursements/:family_id
+  # header:
+  #   content-type: application/json
+  #   authorization:Token token= authtentication_token
+  # response:
+  # * success
+  # {
+  #   "name": "admin",
+  #   "status": null,
+  #   "grade": "A",
+  #   "rj": "Rp. 250.000",
+  #   "ri": "Rp. 250.000",
+  #   "operasi": "Rp. 25.000.000"
+  # }
   def show
-    @year_insurances = YearInsurance.where(family_id: params[:id] ).by_year(params[:year])
+    @year_insurances = YearInsurance.where(family_id: params[:id] ).by_year(params[:year]).first
   end
 
 end

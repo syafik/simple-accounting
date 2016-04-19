@@ -177,16 +177,29 @@ authorization:Token token= authtentication_token</pre>
 <p>success</p>
 </li></ul>
 
-<pre>{
- &quot;month_point&quot;:11,
- &quot;year_point&quot;:11,
- &quot;point_histories&quot;:[]
- }</pre>
+<p>{</p>
+
+<pre>&quot;month_point&quot;: 2,
+&quot;year_point&quot;: 9,
+&quot;point_histories&quot;: [
+  {
+    &quot;created_at&quot;: &quot;2016-04-08T09:45:30+07:00&quot;,
+    &quot;id&quot;: 4,
+    &quot;point_historyable_id&quot;: 9,
+    &quot;point_historyable_type&quot;: &quot;Absent&quot;,
+    &quot;point_id&quot;: 1,
+    &quot;points&quot;: 2,
+    &quot;updated_at&quot;: &quot;2016-04-08T09:45:30+07:00&quot;,
+    &quot;user_id&quot;: 1
+  }
+]</pre>
+
+<p>}</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/points_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/points_controller.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@histories</span>= <span class="ruby-constant">PointHistory</span>.<span class="ruby-identifier">this_month</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user_api</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;created_at DESC&quot;</span>)
   <span class="ruby-ivar">@yearpoints</span>= <span class="ruby-constant">PointHistory</span>.<span class="ruby-identifier">this_year</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user_api</span>)

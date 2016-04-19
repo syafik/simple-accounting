@@ -174,18 +174,51 @@ authorization:Token token= authtentication_token</pre>
 
 <p>response:</p>
 <ul><li>
-<p>success {</p>
+<p>success</p>
+</li></ul>
 
-<pre>&quot;sisa&quot;: 0,
-&quot;histories&quot;: []</pre>
+<p>{</p>
+
+<pre>&quot;sisa&quot;: 13000000,
+&quot;histories&quot;: [
+  {
+    &quot;bayar&quot;: null,
+    &quot;borrower_id&quot;: 1,
+    &quot;borrower_type&quot;: &quot;User&quot;,
+    &quot;created_at&quot;: &quot;2016-04-19T13:12:14+07:00&quot;,
+    &quot;credit&quot;: 15000000,
+    &quot;date&quot;: &quot;2016-04-19&quot;,
+    &quot;debit&quot;: 0,
+    &quot;description&quot;: &quot;Pinjam Uang&quot;,
+    &quot;id&quot;: 1,
+    &quot;parent_id&quot;: null,
+    &quot;time&quot;: null,
+    &quot;title&quot;: &quot;Pinjam&quot;,
+    &quot;updated_at&quot;: &quot;2016-04-19T13:12:14+07:00&quot;
+  },
+  {
+    &quot;bayar&quot;: null,
+    &quot;borrower_id&quot;: 1,
+    &quot;borrower_type&quot;: &quot;User&quot;,
+    &quot;created_at&quot;: &quot;2016-04-19T13:12:37+07:00&quot;,
+    &quot;credit&quot;: 0,
+    &quot;date&quot;: &quot;2016-04-19&quot;,
+    &quot;debit&quot;: 2000000,
+    &quot;description&quot;: &quot;Bayar&quot;,
+    &quot;id&quot;: 2,
+    &quot;parent_id&quot;: 1,
+    &quot;time&quot;: null,
+    &quot;title&quot;: &quot;Bayar&quot;,
+    &quot;updated_at&quot;: &quot;2016-04-19T13:12:37+07:00&quot;
+  }
+]</pre>
 
 <p>}</p>
-</li></ul>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/loans_controller.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/loans_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@histories</span> =  <span class="ruby-identifier">current_user_api</span>.<span class="ruby-identifier">borrowers</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;date DESC&quot;</span>)
   <span class="ruby-ivar">@sisa</span> =  <span class="ruby-ivar">@histories</span>.<span class="ruby-identifier">sum</span>(&amp;<span class="ruby-value">:credit</span>) <span class="ruby-operator">-</span> <span class="ruby-ivar">@histories</span>.<span class="ruby-identifier">sum</span>(&amp;<span class="ruby-value">:debit</span>)

@@ -80,10 +80,16 @@ class Api::AbsentsController < Api::ApiController
   #       "user_id": 2
   #     }
   #   }
+  # * failed
+  #   {
+  #     "message": "Absent Not Found"
+  #   }
   def check_absent
     check_absent = current_user_api.absents.where({categories: 1, date: Date.current}).first
     if !check_absent.blank?
       render :status => 200, :json => {:absent => check_absent}
+    else
+      render :status => 401, :json => {:message => "Absent Not Found"}
     end
   end
 

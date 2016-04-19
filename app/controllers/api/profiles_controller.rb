@@ -16,15 +16,15 @@ class Api::ProfilesController < Api::ApiController
   # response:
   # * success
   #   {
-  #     "avatar":"http://localhost:3000/assets/avatar3.png",
-  #     "name":"Admin pushjaw",
+  #     "avatar":"http://apps.staging.pushjaw.com/assets/avatar3.png",
+  #     "name":"admin ",
   #     "email":"admin@pushjaw.com",
-  #     "posisi":"Admin",
-  #     "notlp":"0987654321",
-  #     "bank":"BCA",
-  #     "norek":"12345",
-  #     "cabang":"Cianjur",
-  #     "namaakun":"nama akun"
+  #     "posisi":"admin",
+  #     "notlp":"1234432",
+  #     "bank":"test",
+  #     "norek":"1234566",
+  #     "cabang":"admin",
+  #     "namaakun":"bank"
   #    }
   def index
     @user = current_user_api

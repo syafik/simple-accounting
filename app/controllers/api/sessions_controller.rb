@@ -15,8 +15,8 @@ class Api::SessionsController < Devise::SessionsController
   #   content-type : application/json
   # parameter body:
   #   {
-  #      "email" : "user@pushjaw.com",
-  #      "password" : "password"
+  #      "email" : "admin@pushjaw.com",
+  #      "password" : "12345678"
   #   }
   # response:
   # * success

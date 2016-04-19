@@ -19,8 +19,8 @@ class Api::SalaryHistoriesController < Api::ApiController
   # {
   #   "salay_histories": [
   #     {
-  #       "tanggal": "2016-03-02",
-  #       "gaji": "Rp. 1.900.000,00"
+  #       "tanggal":"2016-04-11",
+  #       "gaji":"Rp. 2.000.000,00"
   #     }
   #   ]
   # }
