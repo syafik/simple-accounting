@@ -24,7 +24,7 @@ class Api::SalariesController < Api::ApiController
   #   "thp":"Rp. 200.000,00",
   #   "total":2100000.0,
   #   "dikirim":"11-April-2016"
-  #  }
+  # }
   def index
     salaries = current_user_api.salary_histories.activate.first
     @salary = salaries.salaries.this_month.first

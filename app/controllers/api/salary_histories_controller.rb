@@ -19,8 +19,8 @@ class Api::SalaryHistoriesController < Api::ApiController
   # {
   #   "salay_histories": [
   #     {
-  #       "applicable_date": "2016-03-02",
-  #       "payment": 1900000
+  #       "tanggal": "2016-03-02",
+  #       "gaji": "Rp. 1.900.000,00"
   #     }
   #   ]
   # }
