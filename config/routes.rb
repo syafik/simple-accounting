@@ -5,7 +5,7 @@
       resources :sessions, :only => [:create, :destroy]
       resources :absents, :only => [:create] do
         collection do
-          post :check_absent
+          get :check_absent
         end
       end
       resources :profiles, :only => [:index]
