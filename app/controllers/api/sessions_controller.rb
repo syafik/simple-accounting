@@ -43,8 +43,6 @@ class Api::SessionsController < Devise::SessionsController
       return
     end
 
-    # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
-
     if @user.valid_password?(password)
       @user.reset_authentication_token!
       @user.ensure_authentication_token!

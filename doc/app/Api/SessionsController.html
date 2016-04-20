@@ -215,8 +215,6 @@
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-comment"># http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable</span>
-
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">valid_password?</span>(<span class="ruby-identifier">password</span>)
     <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">reset_authentication_token!</span>
     <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">ensure_authentication_token!</span>
@@ -282,7 +280,7 @@ authorization:Token token=qpGn1CNyuR5vt9sz9RxE</pre>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 77</span>
+            <pre><span class="ruby-comment"># File app/controllers/api/sessions_controller.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
 <span class="ruby-ivar">@user</span>=<span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_authentication_token</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">nil?</span>
