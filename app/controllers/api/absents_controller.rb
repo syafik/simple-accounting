@@ -1,8 +1,7 @@
 
 class Api::AbsentsController < Api::ApiController
   skip_before_filter :verify_authenticity_token
-  before_filter :get_absent, :only => [:create,:index]
-  before_filter :check_absent, :only => [:create]
+  before_filter :get_absent, :only => [:create]
   respond_to :json
 
   ##
@@ -41,18 +40,21 @@ class Api::AbsentsController < Api::ApiController
   #   }
   def create
     time_in = Time.zone.now
-    if $redis.get("barcodes") == params[:barcodes]
-        absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
-        if absent.save!
-          render :status=>200, :json=>@check_absent
+    if $redis.get("barcodes").to_i == params[:barcodes].to_i
+        if @check_absent
+                render :status=>200, :json=>@check_absent
         else
-          render :status=>404, :json=>{:message=>"Terjadi Kesalahan, Coba lagi"}
+          absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
+        if absent.save!
+          render :status=>200, :json=>absent
+        else
+          render :status=>404, :json=>{:message=>"Parameter Terjadi Kesalahan, Coba lagi"}
+        end
         end
     else
-      render :status=>404, :json => {:message => "Terjadi Kesalahan, Coba lagi"}
+      render :status=>404, :json => {:message => "Barcode Terjadi Kesalahan, Coba lagi"}
     end
   end
-
   ##
   # ::Check Absent
   # == Check Absent
@@ -85,10 +87,10 @@ class Api::AbsentsController < Api::ApiController
   #   }
   def check_absent
     check_absent = current_user_api.absents.where({categories: 1, date: Date.current}).first
-    if !check_absent.blank?
-      render :status => 200, :json => {:absent => check_absent}
-    else
+    if check_absent.blank?
       render :status => 404, :json => {:message => "Absent Not Found"}
+    else
+      render :status => 200, :json => {:absent => check_absent}
     end
   end
 
