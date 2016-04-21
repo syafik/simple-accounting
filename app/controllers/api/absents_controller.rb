@@ -89,7 +89,7 @@ class Api::AbsentsController < Api::ApiController
     if !check_absent.blank?
       render :status => 200, :json => {:absent => check_absent}
     else
-      render :status => 401, :json => {:message => "Absent Not Found"}
+      render :status => 404, :json => {:message => "Absent Not Found"}
     end
   end
 
