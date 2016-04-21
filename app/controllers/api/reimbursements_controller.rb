@@ -19,7 +19,7 @@ class Api::ReimbursementsController < Api::ApiController
   #   "reimburs": [
   #     {
   #       "name": "User",
-  #       "status": null,
+  #       "status": "",
   #       "grade": "A",
   #       "family_id": 1
   #     }
@@ -46,7 +46,7 @@ class Api::ReimbursementsController < Api::ApiController
   # * success
   # {
   #   "name": "User",
-  #   "status": null,
+  #   "status": "",
   #   "grade": "A",
   #   "rj": "Rp. 350.000",
   #   "ri": "Rp. 350.000",

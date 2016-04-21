@@ -1,5 +1,5 @@
   json.name @year_insurances.family.name
-  json.status @year_insurances.family.status
+  json.status @year_insurances.family.status.to_s
   json.grade @year_insurances.grade.name
   json.rj number_to_currency(@year_insurances.grade.rj, unit: "Rp. ", precision: 0)
   json.ri number_to_currency(@year_insurances.grade.ri, unit: "Rp. ", precision: 0)

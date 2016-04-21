@@ -18,7 +18,7 @@ class Api::SalariesController < Api::ApiController
   # {
   #   "gaji_pokok": "Rp. 2.000.000,00",
   #   "gaji_lembur": "Rp. 0,00",
-  #   "etc": null,
+  #   "etc": "",
   #   "jamsostek": "Rp. 0,00",
   #   "potongan": "-",
   #   "thp": "Rp. 2.000.000,00",
