@@ -1,8 +1,9 @@
   SimpleAccounting::Application.routes.draw do
 
-  devise_scope :user do
     namespace :api , constraints: { format: 'json' }do
-      resources :sessions, :only => [:create, :destroy]
+      devise_scope :user do
+        resources :sessions, :only => [:create, :destroy]
+      end
       resources :absents, :only => [:create] do
         collection do
           get :check_absent
@@ -15,7 +16,6 @@
       resources :points, :only => [:index]
       resources :loans, :only => [:index]
     end
-  end
 
   resources :points
 
