@@ -10,7 +10,7 @@
     json.rumah_sakit reimburs.rumah_sakit
     json.total_claim number_to_currency(reimburs.total_claim, unit: "Rp. ", precision: 0)
     json.total_approve  number_to_currency(reimburs.total_approve, unit: "Rp. ", precision: 0)
-    json.status reimburs.show_status
+    json.status reimburs.status
     json.reimburs_type reimburs.reimbursement_type
     json.note reimburs.notes
   end
