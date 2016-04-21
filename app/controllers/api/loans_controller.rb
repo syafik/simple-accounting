@@ -1,6 +1,4 @@
 class Api::LoansController < Api::ApiController
-  skip_before_filter :authenticate_user!, :verify_authenticity_token
-  before_filter :authenticate_api
   respond_to :json
 
   ##

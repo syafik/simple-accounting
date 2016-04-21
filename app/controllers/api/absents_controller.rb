@@ -1,7 +1,6 @@
 
 class Api::AbsentsController < Api::ApiController
-  skip_before_filter :authenticate_user!, :verify_authenticity_token
-  before_filter :authenticate_api
+  skip_before_filter :verify_authenticity_token
   before_filter :get_absent, :only => [:create,:index]
   before_filter :check_absent, :only => [:create]
   respond_to :json
