@@ -17,6 +17,16 @@
 <% end %>
 
 <div class="form-group" style="width: 25%">
+  <label>Lembur:</label>
+  <%= f.number_field :total_overtime_payment, class: "form-control", value: @salary.total_overtime_payment %>
+</div>
+
+<div class="form-group" style="width: 25%">
+  <label>Potongan:</label>
+  <%= f.number_field :potongan, class: "form-control", value: @salary.potongan %>
+</div>
+
+<div class="form-group" style="width: 25%">
   <label>Biaya Lain Lain:</label>
   <%= f.number_field :etc, class: "form-control", value: @salary.etc %>
 </div>

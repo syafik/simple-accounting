@@ -62,9 +62,9 @@
 		<th rowspan="2" class="tleft">
 		  <strong>CV. PUSHJAW MEDIA INFORMATIKA</strong>
 		  <br />
-		  <span style="font-weight: normal;" >Kompleks Melong Green Garden, Jl Migg 3 No 1</span>
+		  <span style="font-weight: normal;" >Kompleks Melong Green Garden, Jl. Jumbo Jet I No. 3</span>
 		  <br />
-		  <span style="font-weight: normal;" >0226001425</span>
+		  <span style="font-weight: normal;" >(022)8600197</span>
 		</th>
 		<th rowspan="2" colspan="2" class="text-right">
 		  SLIP GAJI
@@ -112,8 +112,23 @@
 		<td class="text-right pr50">
 		  <%= number_to_currency(@salary.salary_history.payment, :unit => "Rp: ", precision: 0) %>
 		</td>
-		<td class="text-left">Jamsostek</td>
-		<td class="text-right pr50"></td>
+		<td class="text-left">Potongan Lain</td>
+				<td class="text-right pr50">
+				<%= number_to_currency(@salary.potongan, :unit => "Rp: ", precision: 0) %></td>
+				</tr>
+		<tr>
+				<td class="text-left">Transport</td>
+				<td class="text-right pr50">
+		  	<%= number_to_currency(@salary.transport, :unit => "Rp: ", precision: 0) %>
+				</td>
+				<td class="text-left">Jamsostek</td>
+				<td class="text-right pr50">
+					<% if @salary.salary_history.allowed_jamsostek %>
+				<% if @salary.salary_history.participate_jamsostek  %>
+<%= number_to_currency(@salary.jamsostek, :unit => "Rp: ", precision: 0) %>
+				<% end%>
+<% end %>
+				</td>
 	  </tr>
 	  <tr>
 		<td class="text-left">Lembur</td>
@@ -126,6 +141,14 @@
 		<td class="text-left">Tunjangan Jamsostek</td>
 		<td class="text-right pr50">
 		  <%= number_to_currency(@salary.salary_history.allowed_jamsostek ? @salary.jamsostek : 0, :unit => "Rp: ", precision: 0) %>
+		  <%=  %>
+		</td>
+		<td colspan="2"></td>
+	  </tr>
+	  <tr>
+		<td class="text-left">Pendapatan Lain</td>
+		<td class="text-right pr50">
+		  <%= number_to_currency(@salary.etc, :unit => "Rp: ", precision: 0) %>
 		  <%=  %>
 		</td>
 		<td colspan="2"></td>

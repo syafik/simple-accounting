@@ -14,6 +14,13 @@ class Absent < ActiveRecord::Base # :nodoc:
   scope :this_year, where("YEAR(date) = #{Date.today.year}")
   scope :this_month, where("MONTH(date) = #{Date.today.month}")
 
+   scope :total_attendance_by_date, (lambda do |first_date, end_date|
+    where("categories = 1 AND date >= ? and date <= ?", first_date, end_date)
+  end)
+  scope :total_absence_by_date, (lambda do |first_date, end_date|
+    where("categories <> 1 AND date >= ? and date <= ?", first_date, end_date)
+  end)
+
   def self.get_total_work_time(time_in, time_out)
     difh = time_out.hour - time_in.hour
     if (time_out.min < time_in.min)
@@ -31,6 +38,7 @@ class Absent < ActiveRecord::Base # :nodoc:
   end
 
   def add_point
+    begin
     pp = Point.where(:name.downcase => 'absent').first
     point = pp.point
     user = User.find(self.user_id)
@@ -45,6 +53,8 @@ class Absent < ActiveRecord::Base # :nodoc:
           create_history(pp.id , point-1)
       end
     end
+  rescue
+  end
   end
 
   def set_barcode

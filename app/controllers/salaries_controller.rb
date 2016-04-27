@@ -4,10 +4,10 @@ class SalariesController < ApplicationController # :nodoc:
   def index
     if params[:salary_schedule].present?
       @salary_schedule = SalarySchedule.find(params[:salary_schedule])
-      @salaries = Salary.where(date: @salary_schedule.date)
+      @salaries = @salary_schedule.salaries
       @date = @salary_schedule.try(:date)
     else
-      @salaries = Salary.this_month
+      @salaries = SalarySchedule.last.salaries rescue []
       @date = nil
     end
 
@@ -20,8 +20,8 @@ class SalariesController < ApplicationController # :nodoc:
 
   def show
     @salary = Salary.find(params[:id])
-    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
-    @total_potongan   = 0
+    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek + @salary.transport + @salary.etc
+    @total_potongan   = @total_pendapatan - @salary.thp
     @total_penerimaan = @total_pendapatan - @total_potongan
 
     respond_to do |format|
@@ -63,11 +63,13 @@ class SalariesController < ApplicationController # :nodoc:
   def update
     @salary = Salary.find(params[:id])
 
-    params[:salary][:thp] = params[:salary][:etc].to_f + @salary.salary_history.payment + @salary.total_overtime_payment + @salary.jamsostek
+    params[:salary][:thp] = params[:salary][:etc].to_f + params[:salary][:total_overtime_payment].to_f + @salary.salary_history.payment +  @salary.jamsostek
+
+
     if @salary.salary_history.participate_jamsostek && @salary.salary_history.allowed_jamsostek
       params[:salary][:thp] = params[:salary][:thp] -  @salary.jamsostek
     end
-
+    params[:salary][:thp] = params[:salary][:thp] - params[:potongan].to_f
     respond_to do |format|
       if @salary.update_attributes(params[:salary])
         format.html { redirect_to @salary, notice: 'Salary was successfully updated.' }

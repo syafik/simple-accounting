@@ -1,8 +1,8 @@
 class Salary < ActiveRecord::Base # :nodoc:
 
 	belongs_to :salary_history
-
-  attr_accessible :total_attendance, :total_absence, :total_overtime_hours, :total_overtime_payment, :salary_history_id, :date, :jamsostek, :thp, :transfered, :etc
+  belongs_to :salary_history
+  attr_accessible :total_attendance, :total_absence, :total_overtime_hours, :total_overtime_payment, :salary_history_id, :date, :jamsostek, :thp, :transfered, :etc, :salary_schedule_id, :potongan, :transport
   validates  :date, presence: true
 
   scope :this_month, where("MONTH(date) = #{Date.today.month}")
@@ -15,21 +15,23 @@ class Salary < ActiveRecord::Base # :nodoc:
 
     users.each do |user|
       if user.salary_histories.present?
-        total_attendance = user.absents.this_year.this_month.where(:categories => 1).count
-        total_absence = user.absents.this_year.this_month.where("categories <> ?", 1).count
+        total_attendance = user.absents.total_attendance_by_date(first_date, end_date).count
+        total_absence = user.absents.total_absence_by_date(first_date, end_date).count
 
         total_overtime_hours = user.overtimes.total_overtime_by_date(first_date, end_date).sum(:long_overtime)
         total_overtime_payment  = user.overtimes.total_overtime_by_date(first_date, end_date).sum(:payment)
         salary_history_id = user.salary_histories.activate.first.id
         jamsostek = 0
-        main_salary = user.salary_histories.activate.first.payment
+        salary_history = user.salary_histories.activate.first
+        main_salary = salary_history.payment
 
-        if user.salary_histories.activate.first.allowed_jamsostek
+        if salary_history.allowed_jamsostek
           jamsostek = main_salary * (Setting[:jamsostek].to_f/100)
         end
-        total_payment = main_salary + total_overtime_payment + jamsostek
+        transport = total_attendance*10000
+        total_payment = main_salary + total_overtime_payment + jamsostek + transport
 
-        if user.salary_histories.activate.first.participate_jamsostek
+        if salary_history.participate_jamsostek
           total_payment = total_payment - jamsostek
         end
 
@@ -42,7 +44,9 @@ class Salary < ActiveRecord::Base # :nodoc:
           salary_history_id: salary_history_id,
           jamsostek: jamsostek,
           thp: total_payment,
-          transfered: false
+          transfered: false,
+          salary_schedule_id: salary_schedule.id,
+          transport: transport
         }
 
       end
