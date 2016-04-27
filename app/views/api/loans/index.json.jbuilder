@@ -5,7 +5,7 @@ json.histories @histories.each do |history|
   json.borrower_type history.borrower_type
   json.created_at history.created_at
   json.credit history.credit
-  json.date history.date
+  json.date history.date.strftime("%b %d, %Y")
   json.debit history.debit
   json.description history.description
   json.id history.id
