@@ -31,8 +31,11 @@ class Api::SalariesController < Api::ApiController
     salaries = current_user_api.salary_histories.activate.first
     if salaries.present?
       @salary = salaries.salaries.last
-      @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
-      @total_potongan   = 0
+      @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek +@salary.transport + @salary.etc.to_f rescue 0
+      @total_potongan   = @salary.potongan
+      if salaries.allowed_jamsostek && salaries.participate_jamsostek
+        @total_potongan += @salary.jamsostek
+      end
       @total_penerimaan = @total_pendapatan - @total_potongan
     else
       render :status => 404, :json => {:message => "Salary data not found"}
