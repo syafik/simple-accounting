@@ -51,6 +51,7 @@ class Api::LoansController < Api::ApiController
   def index
     @histories =  current_user_api.borrowers.order("date DESC")
     @sisa =  @histories.sum(&:credit) - @histories.sum(&:debit)
+    @histories =  current_user_api.borrowers.order("date DESC").limit(10)
   end
 
 end
