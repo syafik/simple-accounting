@@ -30,7 +30,7 @@ class Api::SalariesController < Api::ApiController
   def index
     salaries = current_user_api.salary_histories.activate.first
     if salaries.present?
-      @salary = salaries.salaries.this_month.first
+      @salary = salaries.salaries.last
       @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek
       @total_potongan   = 0
       @total_penerimaan = @total_pendapatan - @total_potongan

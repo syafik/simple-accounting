@@ -20,7 +20,7 @@ class SalariesController < ApplicationController # :nodoc:
 
   def show
     @salary = Salary.find(params[:id])
-    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek + @salary.transport + @salary.etc
+    @total_pendapatan = @salary.salary_history.payment +  @salary.total_overtime_payment + @salary.jamsostek + @salary.transport + @salary.etc.to_f rescue 0
     @total_potongan   = @total_pendapatan - @salary.thp
     @total_penerimaan = @total_pendapatan - @total_potongan
 
