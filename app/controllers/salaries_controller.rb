@@ -48,10 +48,9 @@ class SalariesController < ApplicationController # :nodoc:
 
   def create
     @salary_schedule = SalarySchedule.find(params[:salary_schedule])
-    @date = @salary_schedule.date if @salary_schedule.present?
     respond_to do |format|
-      if @salary_schedule.present? && (@date - 2.days) == Date.today || (@date - 1.days) == Date.today
-          Salary.generate_salary(@salary_schedule)
+      if @salary_schedule.present?
+        Salary.generate_salary(@salary_schedule)
         format.html { redirect_to salaries_path(salary_schedule: @salary_schedule.id), notice: 'Gaji Untuk Bulan Ini Sudah Terkalkulasi.' }
       else
         @date
