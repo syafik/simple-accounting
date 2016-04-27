@@ -62,13 +62,15 @@ class SalariesController < ApplicationController # :nodoc:
   def update
     @salary = Salary.find(params[:id])
 
-    params[:salary][:thp] = params[:salary][:etc].to_f + params[:salary][:total_overtime_payment].to_f + @salary.salary_history.payment +  @salary.jamsostek
+    params[:salary][:thp] = params[:salary][:etc].to_f + params[:salary][:total_overtime_payment].to_f + @salary.salary_history.payment +  @salary.jamsostek + @salary.transport
 
 
     if @salary.salary_history.participate_jamsostek && @salary.salary_history.allowed_jamsostek
       params[:salary][:thp] = params[:salary][:thp] -  @salary.jamsostek
     end
+
     params[:salary][:thp] = params[:salary][:thp] - params[:salary][:potongan].to_f
+
     respond_to do |format|
       if @salary.update_attributes(params[:salary])
         format.html { redirect_to salaries_path, notice: 'Salary was successfully updated.' }
