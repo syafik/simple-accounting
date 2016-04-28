@@ -46,7 +46,8 @@ class Api::AbsentsController < Api::ApiController
         else
           absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
         if absent.save!
-          render :status=>200, :json=> {:absent => {date: absent.date, time_in: absent.time_in.strftime("%H:%M")}}
+          get_summary
+          render :status=>200, :json=> {:absent => {date: absent.date, time_in: absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%m %Y")}}
         else
           render :status=>404, :json=>{:message=>"Parameter Terjadi Kesalahan, Coba lagi"}
         end
@@ -90,13 +91,23 @@ class Api::AbsentsController < Api::ApiController
     if check_absent.blank?
       render :status => 404, :json => {:message => "Absent Not Found"}
     else
-      render :status => 200, :json => {:absent => {date: check_absent.date, time_in: check_absent.time_in.strftime("%H:%M")}}
+      get_summary
+      render :status => 200, :json => {:absent => {date: check_absent.date, time_in: check_absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%m %Y")}}
     end
   end
 
   private
   def get_absent
     @check_absent = current_user_api.absents.where({categories: 1, date: Date.current}).first
+  end
+
+  def get_summary
+    date = Time.zone.now
+    year = date.year
+    month = date.month
+    @absent = User.joins("left join absents on absents.user_id = users.id AND MONTH(absents.date) = #{month} AND YEAR(absents.date) =  #{year}").
+    select("users.first_name, users.last_name, count(absents.user_id) as jumlah ").where(id: current_user_api.id).group("absents.user_id").first rescue nil
+
   end
 
 end
