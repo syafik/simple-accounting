@@ -46,7 +46,7 @@ class Api::AbsentsController < Api::ApiController
         else
           absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
         if absent.save!
-          render :status=>200, :json=>absent
+          render :status=>200, :json=> {:absent => {date: absent.date, time_in: absent.time_in.strftime("%H:%M")}}
         else
           render :status=>404, :json=>{:message=>"Parameter Terjadi Kesalahan, Coba lagi"}
         end
@@ -90,7 +90,7 @@ class Api::AbsentsController < Api::ApiController
     if check_absent.blank?
       render :status => 404, :json => {:message => "Absent Not Found"}
     else
-      render :status => 200, :json => {:absent => check_absent}
+      render :status => 200, :json => {:absent => {date: check_absent.date, time_in: check_absent.time_in.strftime("%H:%M")}}
     end
   end
 
