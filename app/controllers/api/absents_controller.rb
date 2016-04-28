@@ -47,7 +47,7 @@ class Api::AbsentsController < Api::ApiController
           absent = current_user_api.absents.build(:date => time_in.to_date, :categories => 1, :time_in => Time.zone.now.strftime("%H:%M:%S"))
         if absent.save!
           get_summary
-          render :status=>200, :json=> {:absent => {date: absent.date, time_in: absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%m %Y")}}
+          render :status=>200, :json=> {:absent => {date: absent.date.strftime("%d %B %Y"), time_in: absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%B %Y")}}
         else
           render :status=>404, :json=>{:message=>"Parameter Terjadi Kesalahan, Coba lagi"}
         end
@@ -92,7 +92,7 @@ class Api::AbsentsController < Api::ApiController
       render :status => 404, :json => {:message => "Absent Not Found"}
     else
       get_summary
-      render :status => 200, :json => {:absent => {date: check_absent.date, time_in: check_absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%m %Y")}}
+      render :status => 200, :json => {:absent => {date: check_absent.date.strftime("%d %B %Y"), time_in: check_absent.time_in.strftime("%H:%M"), jumlah: @absent.jumlah, bulan: Time.zone.now.strftime("%B %Y")}}
     end
   end
 
