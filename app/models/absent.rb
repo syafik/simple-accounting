@@ -58,7 +58,10 @@ class Absent < ActiveRecord::Base # :nodoc:
   end
 
   def set_barcode
+    begin
     $redis.set("barcodes", Random.rand(999999))
-  end
+    rescue 
+end
+ end
 
 end

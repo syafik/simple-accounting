@@ -1,7 +1,7 @@
 class Blog < ActiveRecord::Base # :nodoc:
   attr_accessible :blog_category_ids, :content, :published, :title, :user_id
 
-  after_update :add_point
+ # after_update :add_point
   before_save :image
 
   has_one :point_history, :as => :point_historyable

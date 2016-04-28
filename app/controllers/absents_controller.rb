@@ -118,7 +118,7 @@ class AbsentsController < ApplicationController # :nodoc:
   end
 
   def get_absent
-    @check_absent = current_user.absents.where({categories: 1, date: Date.today}).first
+    @check_absent = current_user.absents.where({categories: 1, date: Time.zone.now.to_date}).first
   end
 
   def check_date
