@@ -25,7 +25,7 @@ Dashboard
 
 
           <% if @check_absent.blank? %>
-          <button class="btn btn-warning" data-toggle="modal" data-target="#myModal">Absen Masuk</button>
+          <!-- <button class="btn btn-warning" data-toggle="modal" data-target="#myModal">Absen Masuk</button> -->
           <% else %>
           <p><%= @check_absent.date.strftime("%d %B %Y") %> <b><%= @check_absent.time_in.strftime("%H:%M ") %></b></p>
           <% long_work = Time.now.hour - @check_absent.time_in.hour %>
