@@ -7,7 +7,19 @@ Data Klaim
 <% end%>
 
 <% content_for :content_body do %>
+<section class="content">
 
+<div class="row">
+    <div class="col-md-8">
+      <div class="box box-solid box-danger">
+        <div class="box-body">
+          <%= link_to 'Prev Month', reimbursements_path(:year => @prev.year, :month => @prev.month), :class => "btn btn-info btn-small" %>
+          <%= @start_date.strftime("%d %B ") %> - <%= @end_date.strftime("%d %B") %>
+          <%= link_to 'Next Month', reimbursements_path(:year => @next.year, :month => @next.month), :class => "btn btn-info btn-small" %>
+        </div>
+      </div>
+    </div>
+</div>
 <table id="example2" class="table table-bordered table-hover">
   <tr>
     <th>Tanggal</th>
@@ -41,8 +53,14 @@ Data Klaim
     </td>
   </tr>
 <% end %>
+<tr>
+<td colspan="4">Jumlah</td>
+<td><strong><%=number_to_currency(@total_claim, unit: "Rp. ", precision: 0)%></strong></td>
+<td><strong<%=number_to_currency(@total_approve, unit: "Rp. ", precision: 0)%></strong></td>
+<td colspan="3"></td>
+</tr>
 </table>
-
+</section>
 <% end %>
 <% content_for :content_nav do %>
 <%= link_to 'New Reimbursement', new_reimbursement_path, :class=>'btn btn-primary' %>

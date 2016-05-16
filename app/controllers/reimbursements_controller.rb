@@ -4,8 +4,18 @@ class ReimbursementsController < ApplicationController # :nodoc:
   # GET /reimbursements
   # GET /reimbursements.json
   def index
-    @reimbursements = Reimbursement.order("created_at DESC").paginate(per_page: 100, page: params[:page])
-
+    @current_time = Time.zone.now.to_date
+    @year = params[:year] || @current_time.year
+    @month = params[:month] || @current_time.month
+    day = params[:day] || @current_time.day
+    @date = DateTime.new(@year.to_i, @month.to_i, 1)
+    @next = @date + 1.month
+    @prev = @date - 1.month
+    @start_date = @date.beginning_of_month
+    @end_date = @date.end_of_month
+    @reimbursements = Reimbursement.where(:created_at => @start_date..@end_date).order("created_at DESC").paginate(per_page: 100, page: params[:page])
+    @total_approve = @reimbursements.where(status: Reimbursement.statuses[1]).sum("total_approve")
+    @total_claim = @reimbursements.sum("total_claim")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reimbursements }
