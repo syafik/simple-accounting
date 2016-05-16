@@ -31,13 +31,12 @@
       </li>
       <%= render partial: "layouts/manage_user_menus" %>
       <%= render partial: "layouts/allowance_menus" %>
+      <%= render partial: "layouts/absent_menus" %>
   <% else %>
       <li>
         <%= link_to '<i class="glyphicon glyphicon-user"></i> Profile'.html_safe, manage_user_path(current_user.id) %>
       </li>
   <% end %>
-
-  <%= render partial: "layouts/absent_menus" %>
   <%= render partial: "layouts/submission_menus" %>
   <%= render partial: "layouts/reimbursement" %>
   <%= render partial: "layouts/loan" %>
