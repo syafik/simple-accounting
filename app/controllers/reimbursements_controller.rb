@@ -14,7 +14,7 @@ class ReimbursementsController < ApplicationController # :nodoc:
     @start_date = @date.beginning_of_month
     @end_date = @date.end_of_month
     @reimbursements = Reimbursement.where(:created_at => @start_date..@end_date).order("created_at DESC").paginate(per_page: 100, page: params[:page])
-    @total_approve = @reimbursements.where(status: Reimbursement.statuses[1]).sum("total_approve")
+    @total_approve = @reimbursements.map!(&:total_approve).grep(Integer).sum
     @total_claim = @reimbursements.sum("total_claim")
     respond_to do |format|
       format.html # index.html.erb
