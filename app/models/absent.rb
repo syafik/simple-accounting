@@ -48,9 +48,9 @@ class Absent < ActiveRecord::Base # :nodoc:
           user.save
           create_history(pp.id,point)
       elsif self.time_in.strftime("%H:%M:%S") <= "10:00:00"
-          user.point += point - 1
+          user.point += point/2
           user.save
-          create_history(pp.id , point-1)
+          create_history(pp.id , point/2)
       end
     end
   rescue
@@ -60,7 +60,7 @@ class Absent < ActiveRecord::Base # :nodoc:
   def set_barcode
     begin
     $redis.set("barcodes", Random.rand(999999))
-    rescue 
+    rescue
 end
  end
 
