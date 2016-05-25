@@ -27,7 +27,9 @@
   <div class="form-group">
     <label>Content:</label>
     <%= f.cktext_area :content, :class => "form-control tinymce", :cols => "30", :rows => "10" %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <% if action_name == "new" %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+    <% end %>
   </div>
 
   <% if action_name == "new" %>
