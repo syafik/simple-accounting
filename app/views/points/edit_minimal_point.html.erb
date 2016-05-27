@@ -1,0 +1,33 @@
+<% content_for :content_title do %>
+  Point
+<% end%>
+
+<% content_for :content_sub_title do %>
+  Edit Minimal Point
+<% end%>
+
+
+<% content_for :content_body do %>
+  <%= form_for(@point, url: update_minimal_point_points_path ,:html => { style: "text-align: left;"}) do |f| %>
+    <% if @point.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@point.errors.count, "error") %> prohibited this point from being saved:</h2>
+
+        <ul>
+        <% @point.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group" style="width: 50%">
+      <label>Minimal Point:</label>
+      <%= f.number_field :point %>
+    </div>
+      <%= f.submit "Edit Minimal Point", :class=>'btn btn-default'%>
+  <% end %>
+<% end %>
+
+<% content_for :content_nav do %>
+  <%= link_to 'Kembali', minimal_point_points_path, :class => "btn btn-primary" %>
+<% end %>

@@ -7,6 +7,13 @@
 <% end%>
 
 <% content_for :content_body do %>
+  <% if Date.today == Date.today.end_of_month && @best_employee.present? %>
+    Karyawan terbaik bulan <%= @best_employee.date.strftime('%B') %> adalah <b><%= @best_employee.user.full_name %></b>
+  <% else %>
+    <% if @last_best_employee.present? %>
+      Karyawan terbaik bulan <%= @last_best_employee.date.strftime('%B') %> adalah <b><%= @last_best_employee.user.full_name %></b>
+    <% end %>
+  <% end %>
  <table style="text-align: center; width: 100%; ">
     <tr>
     <td align="right"><%= link_to "<< sebelumnya", point_histories_path(:search => @date - 1.month), class: "custom-link" %></td>
@@ -34,5 +41,8 @@
 <% end %>
 
 <% content_for :content_nav do %>
+    <% if Date.today == Date.today.end_of_month && !@best_employee.present? %>
+      <%= link_to 'Generate Best Employee', generate_best_employee_point_histories_path, confirm: 'Generate Karyawan terbaik?', method: :post,:class => "btn btn-success" %>
+    <% end %>
     <%= link_to "Ranking Tahun Ini", year_ranking_point_histories_path, :class => "btn btn-primary" %>
 <% end %>

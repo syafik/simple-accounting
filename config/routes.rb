@@ -17,7 +17,14 @@
       resources :loans, :only => [:index]
     end
 
-  resources :points
+  resources :points do
+   collection do
+    get :minimal_point
+    get :edit_minimal_point
+    put :update_minimal_point
+    # patch :update_minimal_point
+   end
+  end
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -35,6 +42,7 @@
     collection do
       get :year_ranking
       get :ranking_status
+      post :generate_best_employee
     end
     member do
       post :change_ranking_status

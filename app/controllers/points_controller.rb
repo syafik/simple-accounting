@@ -2,7 +2,7 @@ class PointsController < ApplicationController # :nodoc:
   # GET /points
   # GET /points.json
   def index
-    @points = Point.all
+    @points = Point.where("name != 'minimal'")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,4 +80,22 @@ class PointsController < ApplicationController # :nodoc:
       format.json { head :no_content }
     end
   end
+
+  def minimal_point
+    @point = Point.where(:name => "minimal").first
+  end
+
+  def edit_minimal_point
+    @point = Point.where(:name => "minimal").first
+  end
+
+  def update_minimal_point
+    @point = Point.where(:name => "minimal").first
+    if @point.update_attributes(params[:point])
+      redirect_to minimal_point_points_path
+    else
+      redirect_to edit_minimal_point_points_path
+    end
+  end
+
 end

@@ -3,11 +3,13 @@ class PointHistoriesController < ApplicationController # :nodoc:
   load_and_authorize_resource
 
   def index
-    @date = Time.now
+    @date = Time.now.to_date
     @date = params[:search].to_date if params[:search]
     date1 = @date.beginning_of_month
     date2 = @date.end_of_month
     @rankings = User.joins("left join point_histories on point_histories.user_id = users.id AND point_histories.created_at BETWEEN '#{date1}' AND '#{date2}'").select("users.id,users.first_name, users.last_name, sum(point_histories.points) as jumlah").group("users.id").order("jumlah DESC").where("users.ranked = true")
+    @best_employee = BestEmployee.where(date: (@date.end_of_month)).first
+    @last_best_employee = BestEmployee.where(date: ((@date - 1.month).end_of_month)).first
   end
 
   def my_point
@@ -57,4 +59,14 @@ class PointHistoriesController < ApplicationController # :nodoc:
     redirect_to ranking_status_point_histories_path
   end
 
+  def generate_best_employee
+    date1 = Time.now.beginning_of_month
+    date2 = Time.now.end_of_month
+    minimal_point = Point.where(:name => "minimal").first.point
+    ranking = User.joins("left join point_histories on point_histories.user_id = users.id AND point_histories.created_at BETWEEN '#{date1}' AND '#{date2}'").select("users.id,users.first_name, users.last_name, sum(point_histories.points) as jumlah").group("users.id").order("jumlah DESC").where("users.ranked = true").having("sum(point_histories.points) >= ?", minimal_point).first
+    if ranking.present?
+      best_employee = BestEmployee.create(:user_id => ranking.id, :date => Date.today, :total_point => ranking.jumlah, :min_point => minimal_point)
+    end
+    redirect_to point_histories_path
+  end
 end

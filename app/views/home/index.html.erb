@@ -5,7 +5,7 @@ Dashboard
 <% content_for :content_body do %>
 </div>
 
-<div class="col-xs-8">
+<div class="col-xs-7">
 
   <h4>Kehadiran</h4>
   <table id="example2" class="table table-bordered table-hover">
@@ -79,28 +79,51 @@ Dashboard
       </div>
     </div>
   </div>
-<% if @sisa != 0%>
-  <div class="col-xs-4">
-    <h4><%= link_to "Pinjaman", account_receivable_detail_path(account_receivable_id: current_user.id) %></h4>
-    <table id="example2" class="table table-bordered table-hover">
-      <tr>
-        <th>Nama</th>
-        <td>
-          <%= @user.first_name %> <%= @user.last_name %></td>
-        </tr>
+  <div class ="col-xs-5">
+      <% if @sisa != 0%>
+      <h4><%= link_to "Pinjaman", account_receivable_detail_path(account_receivable_id: current_user.id) %></h4>
+      <table id="example2" class="table table-bordered table-hover">
         <tr>
-          <th>Total</th>
-          <td><%= number_to_currency(@total_utang, unit: "Rp. ") %></td>
-        </tr>
-        <tr>
-          <th>Bayar </th>
-          <td> <%= number_to_currency(@total_bayar, unit: "Rp. ") %></td>
-        </tr>
-        <tr>
-          <th>Sisa</th>
-          <th><%= number_to_currency(@sisa, unit: "Rp. ") %></th></tr>
+          <th>Nama</th>
+          <td>
+            <%= @user.first_name %> <%= @user.last_name %></td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <td><%= number_to_currency(@total_utang, unit: "Rp. ") %></td>
+          </tr>
+          <tr>
+            <th>Bayar </th>
+            <td> <%= number_to_currency(@total_bayar, unit: "Rp. ") %></td>
+          </tr>
+          <tr>
+            <th>Sisa</th>
+            <th><%= number_to_currency(@sisa, unit: "Rp. ") %></th></tr>
         </table>
-      </div>
-      <br/>
-            <% end %>
-      <% end %>
+        <% end %>
+        <% if @best_employee.present? %>
+        <h4>Karyawan Terbaik</h4>
+        <table id="example2" class="table table-bordered table-hover">
+          <tr>
+            <td>
+                <% if @best_employee.user.avatar.exists? == false %>
+                        <img src="/assets/avatar3.png" class="img-circle" alt="User Image" height="115px" width="115px"/>
+                    <% else %>
+                        <%= image_tag @best_employee.user.avatar.url(:small), :class => "img-circle",
+                        :height => "115px", :width => "115px"%>
+                    <% end %>
+              </td>
+              <td style="padding-left:  10px !important;" align="left">
+              <strong>Nama : </strong><br>
+                <%= @best_employee.user.full_name.titleize %><br>
+                <strong>No. Telepon :</strong><br>
+              <%= @best_employee.user.telephone %><br>
+
+              <strong>E-Mail :</strong><br>
+              <%= @best_employee.user.email %>
+              </td>
+            </tr>
+          </table>
+          <% end %>
+  </div>
+<% end %>
