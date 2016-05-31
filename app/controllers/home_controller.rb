@@ -5,7 +5,11 @@ class HomeController < ApplicationController # :nodoc:
     @total_utang =  @user.borrowers.sum(&:credit)
     @total_bayar =  @user.borrowers.sum(&:debit)
     @sisa =  @total_utang - @total_bayar
-    @best_employee = BestEmployee.where(date: ((Date.today-1.month).end_of_month)..(Date.today.end_of_month)).first
+    if Date.today == Date.today.end_of_month
+        @best_employee = BestEmployee.this_month.first
+    else
+        @best_employee = BestEmployee.last_month.first
+    end
     @check_absent = current_user.absents.where({categories: 1, date: Date.current}).first
     date = Date.current
     year = date.year

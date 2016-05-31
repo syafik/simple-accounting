@@ -24,7 +24,7 @@
       </tr>
     <% @rankings.each do |history| %>
       <tr>
-        <td><%= link_to history.created_at.to_date.strftime('%B'), point_history_my_point_path(:point_history_id => history.id, :search => history.created_at.to_date) if !history.created_at.blank? %></td>
+        <td><%= link_to history.created_at.to_date.strftime('%B'), point_history_my_point_path(:point_history_id => history.user_id, :search => history.created_at.to_date) if !history.created_at.blank? %></td>
         <td><%= history.jumlah %></td>
       </tr>
     <% end %>

@@ -5,9 +5,7 @@ class PointHistory < ActiveRecord::Base # :nodoc:
   belongs_to :point
   belongs_to :point_historyable, :polymorphic => true
 
-  default_scope { order('created_at DESC') }
-
-  scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
+  scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).order('created_at DESC') }
   scope :this_year, -> { where(created_at: Time.now.beginning_of_year..Time.now.end_of_year) }
 
 end
