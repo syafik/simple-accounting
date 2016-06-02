@@ -43,6 +43,8 @@
 <% content_for :content_nav do %>
     <% if Date.today == Date.today.end_of_month && !@best_employee.present? %>
       <%= link_to 'Generate Best Employee', generate_best_employee_point_histories_path, confirm: 'Generate Karyawan terbaik?', method: :post,:class => "btn btn-success" %>
+    <% elsif @date.to_date.end_of_month < Date.today && !@best_employee.present? %>
+      <%= link_to 'Generate Best Employee', generate_best_employee_point_histories_path(:date => @date), confirm: 'Generate Karyawan terbaik?', method: :post,:class => "btn btn-success" %>
     <% end %>
     <%= link_to "Ranking Tahun Ini", year_ranking_point_histories_path, :class => "btn btn-primary" %>
 <% end %>
